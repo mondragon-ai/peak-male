@@ -3,10 +3,29 @@ import Image from "next/image";
 import { BsCheckLg } from "react-icons/bs";
 import { IoIosLock } from "react-icons/io";
 
-const Pricing = () => {
+const Pricing = ({
+  state, 
+  setState
+}: {
+  state: any,
+  setState: any
+}) => {
   return (
     <div className={styles.container}>
-      <div className={styles.priceContain}>
+      <div 
+        onClick={() => setState({
+          ...state,
+          product: {
+            title: "Gold Entries ($150 Value) (BEST DEAL!!)",
+            price_str: "$5.00 / pc",
+            price_num: 5000,
+            piece: "$150 value in products",
+            options1: "Gold Entries ($150 Value)",
+            options2: "M",
+            product_id: "42235974189228"
+          }
+        })}
+        className={styles.priceContain}>
         <div className={styles.pricing}>
           <h4 className={styles.promo}>GET 1 SAMPLE</h4>
           <Image
@@ -29,7 +48,20 @@ const Pricing = () => {
         </div>
       </div>
 
-      <div className={styles.pricingBestValue}>
+      <div 
+        onClick={() => setState({
+          ...state,
+          product: {
+            title: "Gold Entries ($150 Value) (BEST DEAL!!)",
+            price_str: "$5.00 / pc",
+            price_num: 5000,
+            piece: "$150 value in products",
+            options1: "Gold Entries ($150 Value)",
+            options2: "M",
+            product_id: "42235974189228"
+          }
+        })}
+        className={styles.pricingBestValue}>
         <div className={styles.header}>
           <h3>Best Value</h3>
         </div>
@@ -65,7 +97,20 @@ const Pricing = () => {
         </div>
       </div>
 
-      <div className={styles.priceContain}>
+      <div 
+        onClick={() => setState({
+          ...state,
+          product: {
+            title: "Gold Entries ($150 Value) (BEST DEAL!!)",
+            price_str: "$5.00 / pc",
+            price_num: 5000,
+            piece: "$150 value in products",
+            options1: "Gold Entries ($150 Value)",
+            options2: "M",
+            product_id: "42235974189228"
+          }
+        })}
+        className={styles.priceContain}>
         <div className={styles.pricing}>
           <div className={styles.header} style={{ background: "#000" }}>
             <h3 style={{ color: "#fff" }}>Best Value</h3>

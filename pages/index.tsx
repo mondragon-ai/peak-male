@@ -3,18 +3,48 @@ import styles from "@/styles/Home.module.css";
 import Header from "@/components/Header";
 import HeroBanner from "@/components/HeroBanner";
 import Brand from "@/components/Brand";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import Pricing from "@/components/Pricing";
 import Testimonial from "@/components/TestimonialItem";
-import { FaGreaterThan, FaLessThan } from "react-icons/fa";
+// import { FaGreaterThan, FaLessThan } from "react-icons/fa";
 import { ImPlus } from "react-icons/im";
 import Button from "@/components/Button";
 import Footer from "@/components/Footer";
 import { Rate } from "antd";
 import Testimonials from "@/components/Testimonials";
+import OrderFormContainer  from "@/components/Form/FormSection";
+import { Context } from "../context/context";
+
 
 export default function Home() {
   const [viewItem, setViewItem] = useState(0);
+  // const globalState: any | { clientSecret: string} = useContext(Context);
+  // const { clientSecret } = globalState;
+  const [windowWidth, setWindowWidth] = useState(0);
+
+  const [state, setState] = useState({
+    product: {
+      title: "Gold Entries ($150 Value) (BEST DEAL!!)",
+      price_str: "$5.00 / pc",
+      price_num: 5000,
+      piece: "$150 value in products",
+      options1: "Gold Entries ($150 Value)",
+      options2: "M",
+      product_id: "42235974189228"
+    },
+    shipping: {
+      line1: "",
+      state: "",
+      city: "",
+      zip: "",
+    },
+    bump: true,
+    external: "SHOPIFY",
+    high_risk: true
+  });
+
+  console.log(state)
+
   return (
     <>
       <main className={styles.main}>
@@ -43,7 +73,10 @@ export default function Home() {
         <div className={styles.emotions}></div>
         <div className={styles.line}></div>
         <div>
-          <Pricing />
+          <Pricing state={state} setState={setState} />
+        </div>
+        <div>
+          <OrderFormContainer state={state} setState={setState} />
         </div>
         {/* <div className={styles.testimonials}>
           <h3>What Our Customers Say</h3>
