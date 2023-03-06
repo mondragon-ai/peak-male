@@ -25,6 +25,8 @@ import { TokenResult, VerifyBuyerResponseDetails } from "@square/web-payments-sd
 
 const locationID = process.env.NEXT_PUBLIC_SQR_LOCATION as string
 import { useRouter } from 'next/router';
+import AddressInput from "./AddressInput";
+import Head from "next/head";
 
 export type LineItem = {
     high_risk: boolean,
@@ -80,52 +82,6 @@ function OrderForm({
 
   const [billing, setBilling] = useState<any>({} as any)
   const [stripeToken, setStripeToken] = useState<string>("");
-  const [isStripe, setPaymentType] = useState<"STRIPE" | "SQUARE" | "">("STRIPE")
-
-
-  const [list, setImages] = useState<any[]>();
-
-  const [prompt, setPrompt] = useState<string>("");
-
-  const updateSearch = async (e: any) => {
-
-      let result;
-      let url = "https://api.openai.com/v1/images/generations";
-
-      const key = e.key;
-
-      if (key == "Enter") {
-        //   setLoading(true);
-
-          console.log(" => " + prompt);
-  
-          const response = await fetch(url, {
-              method: "POST",
-              headers: {
-                  "Content-Type": "application/json",
-                  "Authorization": `Bearer ${process.env.NEXT_PUBLIC_OPEN_API_KEY}`,
-              },
-              body: JSON.stringify({
-                  "prompt": prompt, //"design a logo for new e-Commerce store that represents the personality of Bryce Mitchell, a UFC fighter from Arkansas, USA.",
-                  "n": 10,
-                  "size": "256x256"
-              })
-          });
-
-          console.log(" => response");
-          console.log(response);
-
-          if (response.ok) {
-              result = await response.json();
-            //   setLoading(false)
-          } else {
-              alert(" ERROR: " + response.status);
-              throw new Error(" - Fetch Error");
-          }
-          setImages(result?.data ? result?.data : []);
-
-      }
-  };
 
   const handleChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
 
@@ -152,26 +108,64 @@ function OrderForm({
   const createPayment = async (
       token: string,
   ) => {
-      const body = {
-          cus_uuid: "cus_88a57f97db",
-          sourceId: token,
-          billing: billing,
-          name: {
-              first_name: "Amelia",
-              last_name: "Earhart",
-          }
-      };
-      console.log(" TOKEN ==> " + token);
-      console.log(" BODY ==> " + body);
-      const paymentResponse = await imPoweredRequest(
-          "https://us-central1-impowered-funnel.cloudfunctions.net/funnel/payments/square",
-          "POST",
-          body
-      );
+        const body = {
+            cus_uuid: "",
+            source_id: token,
+            name: {
+                first_name: "Amelia",
+                last_name: "Earhart",
+            },
+            customer: {
+                email: "diana@gmail.com",
+                first_name: "TEST",
+                last_name: "ORDER"
+            },
+            shipping: {
+                type: "BOTH",
+                line1: "420 Bigly Ln",
+                line2: "",
+                city: "South Park",
+                state: "Colorado",
+                zip: "10003",
+                country: "US",
+                name: "TEST_ORDER",
+                title: "Home"
+            },
+            product: {
+                variant_id: 41397647507628,
+                product_id: "",
+                url: "",
+                high_risk: true,
+                title: "Bronze Entries ($60 Value) / M",
+                sku: "SO-8938022",
+                price: 4500,
+                compare_at_price: 0,
+                handle: "",
+                options1: "Bronze Entries ($60 Value)",
+                options2: "M",
+                options3: "",
+                weight: 0.0125,
+                quantity: 1,
+                external_id: 41397647507628,
+                external_type: "SHOPIFY"
+            },
+            external: "SHOPIFY",
+            bump: true,
+            high_risk: true,
+            funnel_uuid: "fun_7626c00357"
+        }
+        console.log(body);
+        console.log(" TOKEN ==> " + token);
+        console.log(" BODY ==> " + body);
+        const paymentResponse = await imPoweredRequest(
+            "http://localhost:5001/impowered-funnel/us-central1/funnel/checkout/quick",
+            "POST",
+            body
+        );
       console.log(" RESPONSE => ");
       console.log(paymentResponse)
-      if (paymentResponse.ok) {
-          return paymentResponse.json();
+      if (paymentResponse) {
+          return paymentResponse;
       }
   }
 
@@ -194,16 +188,32 @@ function OrderForm({
       tags: []
   };
 
-  // Remove the user state and use the users prop directly
-  // const [user, setUser] = useState(merchants);
-
-
   const router = useRouter();
-  const {handle} = router.query;
-
-
+  const description = `.`;
+  const canonicalUrl = "https://populipress.com/trending";
+  const ogImgUrl = "https://media.discordapp.net/attachments/1008571220385599488/1074900516934524958/angmon_default_placeholder_image_for_article_in_a_new_media_sit_9b4d3887-e8f5-4566-a8a9-f09f74b27409.png";
+  // {posts1 && posts1[0] && posts1[0].title ? " | " + posts1[0].title : ""}
+  const t = "Blazed Hemp"; 
   return (
     <div className="formcard" id="FORM_TWO">
+    <Head>
+      <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+      <title>{t}</title>
+      <meta name="description" content={description} />
+      <link rel="canonical" href={canonicalUrl} />
+
+      <link rel="shortcut icon" href="/favicon.ico" />
+      <link rel="icon" href="/favicon.ico" />
+
+      <meta property="og:locale" content="en_US" />
+      <meta property="og:type" content={"artcle"} />
+      <meta property="og:description" content={description} />
+      <meta property="og:image" content={ogImgUrl} />
+      <meta property="og:url" content={canonicalUrl} />
+      <meta property="og:title" content={t} />
+    </Head>
+      
       <div className="imgblock">
         {/* <MyImage src={"/images/entry.png"} /> */}
       </div>
@@ -219,6 +229,7 @@ function OrderForm({
                 <div className="listheadertext">Item</div>
                 <div className="listheadertext">Price</div>
               </div>
+              
               {/* <ProductRow
                 title="Bronze Box (45 GIVEAWAY ENTRIES)"
                 price_str="$45.00"
@@ -272,14 +283,14 @@ function OrderForm({
               <div className="div-block-94" />
             </div>
             <div className="div-block-37">
-              {/* <AddressInput
+              <AddressInput
                 label="Address Name"
                 name="shipping.line1"
                 required
               />
               <AddressInput label="City" name="shipping.city" required />
               <AddressInput label="State" name="shipping.state" required />
-              <AddressInput label="Zip Code" name="shipping.zip" required /> */}
+              <AddressInput label="Zip Code" name="shipping.zip" required />
             </div>
             <div className="div-block-93">
               <div className="div-block-95">
@@ -338,7 +349,7 @@ function OrderForm({
                                 familyName: '',
                                 givenName: '',
                                 email: '',
-                                country: billing.country ? billing.country : "",
+                                country: billing.country ? billing.country : "US",
                                 phone: '',
                                 region: '',
                                 city: billing.city ? billing.city : "",
@@ -361,7 +372,7 @@ function OrderForm({
                 <div>
                   <div
                     style={{
-                      displex: "flex",
+                      display: "flex",
                       justifyContent: "space-between",
                       padding: "10px 10px 10px 17px",
                       height: "auto"
@@ -379,7 +390,7 @@ function OrderForm({
                   {bump && (
                     <div
                       style={{
-                        displex: "flex",
+                        display: "flex",
                         justifyContent: "space-between",
                         padding: "10px 10px 10px 17px",
                         height: "auto"

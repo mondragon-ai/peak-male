@@ -1,6 +1,6 @@
 import axios, { AxiosRequestConfig } from "axios";
 
-export const imPoweredRequest = async (method: string, resource: string, data: any) => {
+export const imPoweredRequest = async (resource: string, method: string, data: any) => {
   try {
     let options = {
       method: method == "" ? "GET" : method,
@@ -17,7 +17,9 @@ export const imPoweredRequest = async (method: string, resource: string, data: a
             data: data
         };
     }
+    console.warn(options);
     const response = await axios(options);
+    console.warn(response);
     if (response.status < 300) {
         return response.data;
     } else {

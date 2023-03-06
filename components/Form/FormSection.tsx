@@ -22,19 +22,19 @@ const OrderFormContainer = ({state, setState }: {
 
     const initialValues = {
         product: {
-        title: "Gold Entries ($150 Value) (BEST DEAL!!)",
-        price_str: "$5.00 / pc",
-        price_num: 5000,
-        piece: "$150 value in products",
-        options1: "Gold Entries ($150 Value)",
-        options2: "M",
-        product_id: "42235974189228"
+            title: "Gold Entries ($150 Value) (BEST DEAL!!)",
+            price_str: "$5.00 / pc",
+            price_num: 5000,
+            piece: "$150 value in products",
+            options1: "Gold Entries ($150 Value)",
+            options2: "M",
+            product_id: "42235974189228"
         },
         shipping: {
-        line1: "",
-        state: "",
-        city: "",
-        zip: "",
+            line1: "",
+            state: "",
+            city: "",
+            zip: "",
         },
         bump: true,
         external: "SHOPIFY"
@@ -194,16 +194,16 @@ const OrderFormContainer = ({state, setState }: {
         const payload = createPayloadFromOrder(order);
         console.log(payload)
         // Make the request to the server to store the card after a successful submission
-        const response = await imPoweredRequest(
-            "POST",
-            "https://us-central1-impowered-funnel.cloudfunctions.net/funnel/checkout/quick",
-            payload
-        );
-        if (!response) {
-            setMessage(
-            `We're sorry, but there was an issue processing your payment. Please try resubmitting the form or refreshing the page and trying again.`
-            );
-        }
+        // const response = await imPoweredRequest(
+        //     "POST",
+        //     "https://us-central1-impowered-funnel.cloudfunctions.net/funnel/checkout/quick",
+        //     payload
+        // );
+        // if (!response) {
+        //     setMessage(
+        //     `We're sorry, but there was an issue processing your payment. Please try resubmitting the form or refreshing the page and trying again.`
+        //     );
+        // }
     };
 
     const createPayloadFromOrder = (order: any) => {
