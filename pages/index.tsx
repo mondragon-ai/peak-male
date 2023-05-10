@@ -43,7 +43,8 @@ export default function Home() {
     high_risk: true
   });
 
-  console.log(state)
+  console.log(state);
+  console.log(state);
 
   return (
     <>
