@@ -40,6 +40,6 @@
   .bgImage {
     background: url("/images/hero-banner-mobile.png");
     background-position: center;
-    background-size: cover;
+    background-size: contain;
   }
 }

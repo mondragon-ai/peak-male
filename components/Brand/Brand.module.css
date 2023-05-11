@@ -9,6 +9,15 @@
   align-items: center;
 }
 
+.imgContainer {
+  width: 100%;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
 .content {
   font-family: "Ubuntu";
   font-style: normal;
@@ -17,22 +26,10 @@
   line-height: 23px;
   text-align: center;
   letter-spacing: 0.09em;
-  color: #000000;
+  color: #f6f6f6;
 }
 
 /* Mobile */
-/* @media (max-width: 780px) {
-  .container {
-    height: 691px;
-    width: 100%;
-  }
-
-  .btnContainer {
-    bottom: 20px;
-  }
-}
-*/
-
 @media (max-width: 700px) {
   .container {
     width: 50%;

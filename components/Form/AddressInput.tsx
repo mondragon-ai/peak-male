@@ -5,8 +5,7 @@ const AddressInput = ({ label, name, required }: {[key: string]: any}) => {
   // You can access the form values using the "values" object
   return (
     <div className="input-group">
-      <Field
-        defaultValue=""
+      <Field 
         className="form-control"
         type="text"
         name={name}

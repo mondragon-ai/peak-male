@@ -1,195 +1,33 @@
-.main {
-  /* display: flex;
+
+.col {
+  display: flex;
   flex-direction: column;
-  justify-content: space-between;
-  align-items: center;
-  padding: 6rem;
-  min-height: 100vh; */
-}
-
-.brands {
-  background: #e1e1e1;
-  display: flex;
-  justify-content: space-around;
-}
-
-.emotions {
-  height: 638px;
-  background-repeat: no-repeat;
-  background-image: url("/images/emotions.png");
-  background-size: cover;
-  margin: 10px 0 100px 0;
-  background-position: center;
-}
-
-.line {
-  width: 100%;
-  max-width: 1370px;
-  border: 1px solid #9a9a9a;
-  margin: auto;
-}
-.testimonials {
-  padding-top: 40px;
-  padding-bottom: 40px;
-  width: 100%;
-  background: #ececec;
-  margin: auto;
-  text-align: center;
-  position: relative;
-}
-
-.testimonialsCounts {
-  width: 90%;
-  max-width: 1370px;
-  border-bottom: 1px solid #9a9a9a;
-  margin: 10px auto 44px auto;
-  display: flex;
-  justify-content: space-between;
-  padding: 10px 0;
-}
-.testimonialList {
-  width: 1200px;
-  display: flex;
-  justify-content: space-between;
-  margin: auto;
-}
-
-.lessThan {
-  position: absolute;
-  font-size: 60px;
-  top: 200px;
-  left: 20px;
-}
-
-.greaterThan {
-  position: absolute;
-  font-size: 60px;
-  right: 20px;
-  top: 200px;
-}
-
-.faqSection {
-  text-align: center;
-  background: #ffe7ca;
-  padding: 20px 0 50px 0;
-}
-
-.faqSection h3 {
-  font-family: Audiowide;
-  font-size: 30px;
-  font-weight: 400;
-  line-height: 38px;
-  letter-spacing: 0.09em;
-  text-align: center;
-}
-
-.faqList {
-  width: 90%;
-  max-width: 1121px;
-  background: #000000;
-  font-family: "Audiowide";
-  font-style: normal;
-  font-weight: 400;
-  font-size: 30px;
-  line-height: 38px;
-  letter-spacing: 0.09em;
-  margin: 11px auto;
-  padding: 10px;
-}
-
-.faqHeader {
-  display: flex;
-  color: #ffffff;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.faqLeft {
-  display: flex;
-}
-.faqLeft img {
-  margin-right: 17px;
-}
-
-.btnContainer {
-  display: flex;
   justify-content: center;
-  margin-top: 50px;
+  align-items: center;
+}
+
+.row {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: flex-start;
+}
+
+.formCard {
+  background-color: #9a9a9a !important;
+  border-radius: 6px;
+  padding: 1rem;
+  width: 60%;
 }
 
 /* Mobile */
 @media (max-width: 900px) {
-  .emotions {
-    height: 400px;
-    background-repeat: no-repeat;
-    background-image: url("/images/emotions.png");
-    background-size: contain;
-    background-position: center;
-    margin: 10px 0;
-  }
-
-  .line {
-    border: 0;
-  }
 }
 
 /* Mobile */
 @media (max-width: 700px) {
-  .brands {
-    width: 100%;
-    flex-wrap: wrap;
-  }
 }
 
+/* Mobile */
 @media (max-width: 479px) {
-  .emotions {
-    height: 759px;
-    background-image: url("/images/emotions-mobile.png");
-  }
-
-  .faqSection h3 {
-    text-align: left;
-    font-family: Audiowide;
-    font-size: 25px;
-    font-weight: 400;
-    line-height: 26px;
-    letter-spacing: 0.09em;
-    text-align: center;
-  }
-
-  .faqList {
-    font-size: 18px;
-    line-height: 23px;
-    letter-spacing: unset;
-  }
-
-  .faqLeft {
-    display: flex;
-    align-items: center;
-  }
-  .faqLeft h3 {
-    text-align: left;
-  }
-  .faqLeft img {
-    margin-right: 10px;
-    height: 35px;
-    width: 31px;
-  }
-
-  .testimonialsCounts {
-    flex-direction: column;
-    font-family: "Poppins";
-    font-style: normal;
-    font-weight: 500;
-    font-size: 17px;
-    line-height: 26px;
-    letter-spacing: 0.09em;
-    color: #000000;
-    align-items: center;
-  }
-
-  .testimonialsCounts div {
-    display: flex;
-    align-items: center;
-  }
 }
