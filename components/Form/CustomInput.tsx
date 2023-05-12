@@ -1,29 +1,29 @@
 import styles from "../../styles/Home.module.css";
 
-export const CustomInput = ({ title, value, name, onChange, user, disabled=false }: {[key: string]: any}) => {
+export const CustomInput = ({ title, value, name, onChange, state, disabled=false }: {[key: string]: any}) => {
     const handleInputChange = (event: any) => onChange({
-    ...user,
+    ...state,
     [name]: event.target.value
     });
 
     return (
-        <div className={`${styles.formItem} ${styles.row}`}
+        <div className={`${styles.CustomInput} ${styles.col}`}
             style={{
                 width:"100%",
-                padding: "0rem 0px",
-                margin: "1rem 0"
+                borderRadius: "6px"
             }}>
-            <input
-                style={{
-                    color: "white",
-                    width: "100%"
-                }}
-                onChange={handleInputChange}
-                value={value}
-                name={name}
-                disabled={disabled}
-                type="text"/>
-            <label htmlFor="title" style={{top:"-5px", fontSize:"10px"}}> {title}</label>
+            <label htmlFor={name}>{title}</label>
+            <input style={{
+                color: "black",
+                width: "100%",
+                padding: "0 0.5rem",
+                fontSize: "20px"
+            }}
+            // onChange={handleInputChange}
+            // value={value}
+            name={name}
+            disabled={disabled}
+            type="text"/>
         </div>
     );
 };

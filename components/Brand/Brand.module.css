@@ -1,7 +1,7 @@
 .container {
   width: 100%;
-  max-width: 331px;
-  height: 383px;
+  max-width: 500px;
+  height: auto;
   text-align: center;
   display: flex;
   flex-direction: column;
@@ -22,8 +22,8 @@
   font-family: "Ubuntu";
   font-style: normal;
   font-weight: 400;
-  font-size: 20px;
-  line-height: 23px;
+  font-size: 26px;
+  line-height: 30px;
   text-align: center;
   letter-spacing: 0.09em;
   color: #f6f6f6;
@@ -42,9 +42,10 @@
     height: unset;
     padding: 15px 10px;
   }
+  .imgContainer img,
   .container img {
-    height: 118px;
+    height: auto;
     width: 100%;
-    max-width: 111px;
+    padding: 15px 10px;
   }
 }

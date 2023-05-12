@@ -13,12 +13,344 @@
   align-items: flex-start;
 }
 
+/* ============================================================================================================================================================
+  Form
+================================================================================================================================================================ */
 .formCard {
-  background-color: #9a9a9a !important;
+  background-color: #ffffff !important;
   border-radius: 6px;
   padding: 1rem;
   width: 60%;
 }
+
+/* ============================================================================================================================================================
+  Product Input
+================================================================================================================================================================ */
+.productRow {
+  cursor: pointer;
+  position: relative;
+  display: flex;
+  height: auto;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 0.5rem;
+  width: 100%;
+  color: rgb(34, 34, 34)
+}
+
+.productRow:hover {
+  background-color: rgb(236, 236, 236);
+  border-radius: 5px;
+}
+
+.checkBoxProduct {
+  position: "relative";
+  display: "flex";
+  height: "auto";
+  flex-direction: "column";
+  justify-content: "center";
+  align-content: "center";
+  padding-right: "10px";
+  width: "10%";
+}
+
+.productTitleBox {
+  position: "relative";
+  display: "flex";
+  height: "auto";
+  flex-direction: "column";
+  justify-content: "flex-end";
+  width: 70%;
+}
+
+.productPrice {
+  width: 20%;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+}
+
+.checkBoxProduct > div {
+  background-color: rgb(255, 255, 255);
+  width: 15px;
+  height: 15px;
+  border-radius: 10px;
+  border: 1px solid black;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.checkBoxProduct > div > div {
+  background-color: rgb(123, 123, 245);
+  width: 10px;
+  height: 10px;
+  border-radius: 10px;
+}
+/* ============================================================================================================================================================
+  Address Input
+================================================================================================================================================================ */
+.addressRow {
+  cursor: pointer;
+  position: relative;
+  display: flex;
+  height: auto;
+  width: 100%;
+  flex-direction: column;
+  justify-content: flex-start;
+  position: relative;
+  margin-bottom: 1rem;
+  padding: 0 0.5rem;
+}
+
+.checkBoxProduct {
+  position: "relative";
+  display: "flex";
+  height: "auto";
+  flex-direction: "column";
+  justify-content: "center";
+  align-content: "center";
+  padding-right: "10px";
+  width: "10%";
+}
+
+.bestProduct {
+  background: yellow !important;
+  border-radius: 6px;
+}
+/* ============================================================================================================================================================
+  Custom Input
+================================================================================================================================================================ */
+.CustomInput {
+  font-size: 16px;
+  height: auto;
+  transition: border-color 0.3s;
+  color: black;
+  padding: "0rem 0rem";
+  width: 100%;
+  align-items: flex-start;
+}
+
+.CustomInput input {
+  border-radius: 6px;
+  height: 50px;
+  background: white;
+  background-color: rgb(245, 245, 245);
+  border: 1px solid aliceblue;
+}
+
+.CustomInput:hover + label,
+.CustomInput:active + label,
+.CustomInput:not(:placeholder-shown) + label {
+  font-size: 12px;
+  top: -5px;
+  left: 0;
+  transform: translate(0, 0);
+  transition: font-size 0.3s, top 0.3s, left 0.3s;
+}
+
+.reqMark {
+  position: absolute;
+  top: 2rem;
+  right: 1rem;
+  font-weight: bold;
+  color: red;
+}
+.selected {
+  padding: 0;
+}
+.selected h5 {
+  color: black;
+  margin: 1rem 0;
+}
+
+.formTitle {
+  color: black;
+  padding: 1rem 0;
+}
+
+.rushBox {
+  border: 4px dashed black;
+  padding: 1rem 0;
+  margin: 1rem 0;
+}
+
+.rushHeader {
+  background: #FEFF99;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: rgb(0, 153, 0);
+}
+
+.rushHeader h4 {
+  line-height: 30px;
+  font-size: 20px;
+}
+
+.bumpText {
+  color: black;
+  padding: 1rem 2rem;
+}
+
+.bumpText strong {
+  color: red;
+  text-decoration: underline;
+  padding-right: 0rem 5px;
+}
+
+.payBtn {
+  width: 100%;
+  height: 80px;
+  color: rgb(255, 255, 255);
+  background-color: rgb(83, 182, 54);
+  font-size: 30px;
+  border: 0 solid black;
+  border-radius: 5px;
+}
+
+.additonalFormInfo {
+  border: 1px solid black;
+  padding: 1rem;
+  margin: 1rem 0;
+  display: flex;
+  justify-content: flex-start;
+}
+
+.additonalFormInfo > div {
+  align-items: flex-start;
+}
+.additonalFormInfo p {
+  color: black;
+}
+
+.thankYouMsg {
+  background-color: black;
+  border-radius: 5px;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.thankYouMsg h2 {
+  margin-bottom: 1rem;
+}
+
+.textSection {
+  max-width: 750px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 0 2rem 1rem 2rem;
+  font-size: 20px;
+  font-weight: 100;
+}
+
+.influencers {
+  padding: 3rem 0;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.influencerItem {
+  padding: 0 3rem;
+  max-width: 400px;
+}
+
+.textContainer{
+  max-width: 750px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  text-align: left;
+  padding-bottom: 3rem;
+  font-size: 20px;
+  font-weight: 100;
+}
+
+.accordionContainer {
+  width: 100%;
+  display: flex;
+  margin-bottom: 1%;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: left;
+  cursor: pointer;
+}
+
+.accordionBtn {
+  width: 50%;
+  padding: 1rem;
+  border-radius: 5px;
+  background: #ffffff;
+  color: black;
+  font-size: 20px;
+  font-weight: 100;
+  display: flex;
+  border: 0 solid black;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.accordionChild {
+  width: 50%;
+  padding: 1rem;
+  border-radius: 5px;
+  background: #ffffff;
+  color: black;
+  font-size: 20px;
+  font-weight: 100;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.wobbleButton {
+  padding: 12px 24px;
+  font-size: 30px;
+  background-color: #52B635;
+  border: none;
+  border-radius: 4px;
+  color: #070707;
+  cursor: pointer;
+  animation: wobble 1s infinite;
+}
+
+@keyframes wobble {
+  0% {
+    transform: translateX(0);
+  }
+  15% {
+    transform: translateX(-20px) rotate(-5deg);
+  }
+  30% {
+    transform: translateX(15px) rotate(3deg);
+  }
+  45% {
+    transform: translateX(-10px) rotate(-3deg);
+  }
+  60% {
+    transform: translateX(5px) rotate(2deg);
+  }
+  75% {
+    transform: translateX(-3px) rotate(-1deg);
+  }
+  100% {
+    transform: translateX(0);
+  }
+} 
 
 /* Mobile */
 @media (max-width: 900px) {
@@ -30,4 +362,75 @@
 
 /* Mobile */
 @media (max-width: 479px) {
+  .mobileCol {
+    display: flex;
+    flex-direction: column;
+  }
+  .mobileFull {
+    width: 100% !important;
+    padding: 0 !important;
+    justify-content: center !important;
+    align-items: center !important;
+  }
+
+  .formCard {
+    width: 90% !important;
+  }
+
+  .wobbleButton {
+    width: 90%;
+  }
+
+  .accordionBtn {
+    width: 90%;
+  }
+
+  .mobileIcon {
+    margin-bottom: 25%;
+  }
+
+
+  .mobileIcon p {
+    max-width: 250px;
+  }
+
+  .textContainer p {
+    max-width: 100%;
+    padding-right: 0rem !important;
+  }
+
+  .textContainerTwo h5 {
+    justify-content: flex-start;
+    text-align: left;
+  }
+
+  .textContainerTwo {
+    padding: 1rem 0rem !important;
+  }
+
+  .textContainerTwo p {
+    max-width: 100%;
+    padding: 0rem 1rem !important;
+  }
+
+  .accordionChild {
+    width: 90%;
+  }
+  .textContainer h1 {
+    text-align: center;
+  }
+
+  .textContainer img {
+    max-width: 100%;
+    padding: 0rem 2rem 4rem 2rem !important;
+  }
+
+  .accordionBtn {
+    width: 90%;
+  }
+  .influencerItem img {
+    max-width: 100%;
+    padding: 0rem 2rem 4rem 2rem !important;
+  }
+
 }

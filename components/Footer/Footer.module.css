@@ -1,127 +1,47 @@
 @import url("https://fonts.googleapis.com/css2?family=Squada+One&display=swap");
 
 .container {
-  background: #000000;
-}
-.footerContent {
-  max-width: 1337px;
-  width: 100%;
-  height: 300px;
+  background: #1E252E;
   display: flex;
-  margin: auto;
-  padding: 40px 0 0 0;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+  padding: 2rem 0;
 }
 
-.footerContent div {
-  width: 23.333%;
-}
-.footerContent div:nth-child(1) {
-  width: 30%;
-}
-
-.footerContent div ul {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-.footerContent div ul li {
-  font-family: "Poppins";
-  font-style: normal;
-  font-weight: 400;
-  font-size: 18px;
-  line-height: 27px;
-  /* identical to box height */
-  letter-spacing: 0.09em;
-  margin: 10px 0;
-  color: #fff;
-}
-
-.footerContent h2 {
-  /* font-family: "Squada One";
-  font-style: normal;
-  font-weight: 400;
-  font-size: 70px;
-  line-height: 74px;
-  color: #454b1b;
-  background-image: url("/images/footer-logo.png");
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: contain;
-  width: 340px;
-  height: 60px;
-  margin: auto; */
-
-  font-family: "Audiowide";
-  font-style: normal;
-  font-weight: 400;
-  font-size: 46px;
-  line-height: 59px;
-  letter-spacing: 0.09em;
-
-  color: #ffffff;
-}
-
-.footerContent h3 {
-  font-family: "Poppins";
-  font-style: normal;
-  font-weight: 800;
-  font-size: 22px;
-  line-height: 33px;
-  letter-spacing: 0.09em;
-  color: #fff;
-}
-
-.copy {
-  font-family: "Poppins";
-  font-style: normal;
-  font-weight: 400;
-  font-size: 18px;
-  line-height: 27px;
-  letter-spacing: 0.09em;
+.textCol {
   text-align: center;
-  color: #fff;
-  padding-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem 0;
 }
 
+.legalRow {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+.legalRow a {
+  padding: 0rem 0.5rem;
+  color: red;
+  text-decoration: none;
+  cursor: pointer;
+}
 @media only screen and (max-width: 980px) {
-  .footerContent {
-    padding: 40px;
-  }
-  .footerContent h2 {
-    font-family: "Squada One";
-    font-size: 40px;
-    color: #fff;
-    line-height: unset;
-  }
-
-  .footerContent h3 {
-    font-size: 18px;
-  }
-
-  .footerContent div ul li {
-    font-size: 16px;
-  }
 }
 
 @media only screen and (max-width: 768px) {
-  .footerContent {
-    width: 100%;
-    height: unset;
-    display: unset;
-    text-align: center;
-  }
-  .footerContent h2 {
-    padding-top: 20px;
-  }
-  .footerContent h3 {
-    font-size: 20px;
-  }
-  .footerContent div:nth-child(1) {
-    width: 100%;
-  }
+}
 
-  .footerContent div {
-    width: 100%;
-    margin: 0 0 40px 0;
+
+/* Mobile */
+@media (max-width: 479px) {
+  .mobileCol {
+    display: flex;
+    flex-direction: column;
   }
 }

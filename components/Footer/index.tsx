@@ -1,49 +1,27 @@
 import React from "react";
 import Link from "next/link";
 import styles from "./Footer.module.css";
+import Image from "next/image";
 
 const Footer = () => {
   return (
-    <div className={styles.container}>
-      <div className={styles.footerContent}>
-        <div>
-          <Link href="/">
-            <h2>Blazedhemps</h2>
-          </Link>
+    <div className={`${styles.container} ${styles.mobileCol}`}>
+      <div style={{display: "flex", flexDirection: "row", justifyContent: "center", }}>
+        <Image src={"/images/htl-logo-3-crop.png"} alt={""} width={200} height={150} style={{width: "60%", height: "auto"}}  />
+      </div>
 
-          <ul>
-            <li>Twitter</li>
-            <li>Tiktok</li>
-            <li>Instagram</li>
-            <li>Youtube</li>
-          </ul>
-        </div>
-        <div>
-          <h3>Costumer Service</h3>
-          <ul>
-            <li>Contact Us</li>
-            <li>Live Chat</li>
-          </ul>
-        </div>
-        <div>
-          <h3>Terms of Use</h3>
-          <ul>
-            <li>Privacy Policy</li>
-            <li>Terms of Use</li>
-            <li>Cookie Policy</li>
-          </ul>
-        </div>
-        <div>
-          <h3>Company</h3>
-          <ul>
-            <li>About Us</li>
-            <li>Ethical Journalism Policy</li>
-            <li>Cookie Policy</li>
-          </ul>
+      <div className={`${styles.textCol}`}>
+        <p>All Coints Designed & Shipped in the USA</p>
+        <p>HOLD THE LINE © 2023 - ALL RIGHTS RESERVED</p>
+        <div className={`${styles.legalRow}`}>
+          <a>Privacy Policy</a>
+          <a>Terms of Services</a>
+          <a>Contact Us</a>
         </div>
       </div>
-      <div className={styles.copy}>
-        © 2023 BLAZEDHEMPS, LLC. ALL RIGHTS RESERVED
+
+      <div className={`${styles.textCol}`}>
+        <Image src={"/images/png-google-trust.png"} alt={""} width={200} height={150} style={{width: "60%", height: "auto"}}  />
       </div>
     </div>
   );
