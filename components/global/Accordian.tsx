@@ -3,10 +3,10 @@ import styles from "../../styles/Home.module.css";
 
 type AccordionProps = {
   title: string;
-  children: string;
+  detail: string;
 };
 
-export const Accordion: React.FC<AccordionProps> = ({ title, children }) => {
+export const Accordion: React.FC<AccordionProps> = ({ title, detail }) => {
   const [isOpen, setIsOpen] = useState(false);
 
   const toggleAccordion = () => {
@@ -25,7 +25,7 @@ export const Accordion: React.FC<AccordionProps> = ({ title, children }) => {
       {isOpen && <div className={`${styles.accordionChild}`}  style={{
         borderTopLeftRadius: isOpen ? "0px" : "",
         borderTopRightRadius: isOpen ? "0px" : "",
-      }}>{children}</div>}
+      }}><p>{detail}</p></div>}
     </div>
   );
 };
