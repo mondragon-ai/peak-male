@@ -3,7 +3,7 @@ import styles from "../../styles/Home.module.css";
 
 type AccordionProps = {
   title: string;
-  children: React.ReactNode;
+  children: string;
 };
 
 export const Accordion: React.FC<AccordionProps> = ({ title, children }) => {

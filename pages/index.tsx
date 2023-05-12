@@ -3,7 +3,7 @@ import styles from "../styles/Home.module.css";
 import Header from "@/components/Header";
 import { useContext, useState } from "react";
 import Footer from "@/components/Footer";
-import Testimonials from "@/components/Testimonials";
+// import Testimonials from "@/components/Testimonials";
 import OrderFormContainer  from "@/components/Form/FormSection";
 import { Context } from "../context/context";
 import { Elements } from "@stripe/react-stripe-js";
@@ -270,7 +270,7 @@ export default function Home() {
               {false ? "Loading . . ." : "ORDER NOW & SAVE 30"}
             </button>
         </div>
-        
+
       </main>
       <Footer />
     </>

@@ -1,6 +1,6 @@
 import Button from "../Button";
 import styles from "./HeroBanner.module.css";
-import Image from "next/image";
+// import Image from "next/image";
 
 const HeroBanner = () => {
   return (
