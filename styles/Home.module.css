@@ -266,9 +266,8 @@
 }
 
 .textContainer{
-  max-width: 750px;
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   justify-content: center;
   align-items: flex-start;
   text-align: left;
@@ -326,6 +325,22 @@
   color: #070707;
   cursor: pointer;
   animation: wobble 1s infinite;
+}
+
+.textContainerTwo h5 {
+  justify-content: flex-start;
+  text-align: left;
+}
+
+.textContainerTwo {
+  padding: 1rem 3rem 1rem 0 !important;
+  text-align: left !important;
+  align-items: flex-start;
+}
+
+.textContainerTwo p {
+  max-width: 100%;
+  padding: 0rem !important;
 }
 
 @keyframes wobble {

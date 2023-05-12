@@ -101,7 +101,7 @@ export default function Home() {
 
         {/* FIRST TEXT SECTION */}
         <div className={`${styles.col}`} style={{paddingTop: "2%"}}>
-          <div className={`${styles.col} ${styles.textContainer}`} style={{justifyContent: "center"}}>
+          <div className={`${styles.col}`} style={{justifyContent: "center"}}>
               <h1>JOIN THE MOVEMENT</h1>
               <div className={`${styles.row}`} style={{width: "100%", padding: "1rem", justifyContent: "center"}} ><hr style={{width: "80%"}} /></div>
           </div>
