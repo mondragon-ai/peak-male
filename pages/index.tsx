@@ -1,7 +1,7 @@
 import Image from "next/image";
 import styles from "../styles/Home.module.css";
 import Header from "@/components/Header";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import Footer from "@/components/Footer";
 // import Testimonials from "@/components/Testimonials";
 import OrderFormContainer  from "@/components/Form/FormSection";
@@ -11,19 +11,62 @@ import { loadStripe } from "@stripe/stripe-js";
 import Brand from "@/components/Brand";
 import CustomImage from "@/components/global/Image";
 import Accordion from "@/components/global/Accordian";
+import { sendPageViewEvent } from "@/lib/analytics";
+import { getSecret } from "@/lib/getSecret";
+import { saveItem } from "@/context/storage";
+import { imPoweredRequest } from "@/components/lib/request";
 
 
 const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY ?? "");
 
 export default function Home() {
   const [viewItem, setViewItem] = useState(0);
-  const globalState: any | { clientSecret: string} = useContext(Context);
-  const { clientSecret } = globalState;
+  // const globalState: any | { clientSecret: string} = useContext(Context);
+  // const { clientSecret } = globalState;
+  const [clientSecret, setSecret] = useState("");
+  // const clientSecret = getSecret();
+  // const [clientSecret, setClient] = useState("");
   const [windowWidth, setWindowWidth] = useState(0);
 
   const options = {
     clientSecret,
-    appearance: { theme: "night" },
+    appearance: { theme: "stripe" },
+    style: {
+      base: {
+        color: "#32325d",
+        fontSmoothing: "antialiased",
+        fontSize: windowWidth > 720 ? "35px" : "18px",
+        lineHeight: windowWidth > 720 ? "85px" : "25px",
+        fontFamily: 'Roboto, Open Sans, Segoe UI, sans-serif',
+        "::placeholder": {
+          color: "#ff5858",
+        },
+      },
+      invalid: {
+        color: "#fa755a",
+        iconColor: "#fa755a",
+      },
+    },
+  };
+
+  // fetch product data and cache it
+  const fetchData = async () => {
+    try {
+      const response = await imPoweredRequest(
+        "https://us-central1-impowered-production.cloudfunctions.net/funnels/payments/secret",
+        "POST",
+        {}
+      );
+
+      if (response.data) {
+        setState({...state, stripe_uuid: response.data.data.stripe_uuuid})
+        setSecret(response.data.data.secret);
+        saveItem("secret", response.data.data.secret);
+        saveItem("stripe_uuid", response.data.data.stripe_uuid );
+      };
+    } catch (error) {
+      console.error(error);
+    };
   };
 
   const [state, setState] = useState({
@@ -37,15 +80,28 @@ export default function Home() {
       product_id: "42235974189228"
     },
     shipping: {
-      line1: "",
+      line1: "", 
       state: "",
       city: "",
       zip: "",
     },
     bump: true,
-    external: "SHOPIFY",
-    high_risk: true
+    external_type: "SHOPIFY",
+    high_risk: true,
+    stripe_uuid: ""
   });
+  // Page Effect
+  useEffect(() => {
+    if (!window) {};
+    setWindowWidth(window.innerWidth);
+    fetchData();
+    //Send Analytics to imPowered
+    sendPageViewEvent("OPT_IN");
+    
+  }, []);
+
+
+  console.log(clientSecret);
 
   return (
     <>
@@ -88,7 +144,7 @@ export default function Home() {
           </div>
 
           <div className={`${styles.col} ${styles.mobileFull}`} style={{width: "50%", alignItems: "flex-start"}}>
-            {!clientSecret ? (
+            {clientSecret !== "" ? (
               <Elements stripe={stripePromise} options={options as any}>
                 <OrderFormContainer state={state} setState={setState} />
               </Elements>
@@ -157,7 +213,7 @@ export default function Home() {
 
         {/* SECOND TEXT SECTION */}
         <div className={`${styles.col}`} style={{paddingTop: "2%"}}>
-          <div className={`${styles.col} ${styles.textContainer}`} style={{justifyContent: "center"}}>
+          <div className={`${styles.col}`} style={{justifyContent: "center"}}>
               <h1>JOIN THE MOVEMENT</h1>
               <div className={`${styles.row}`} style={{width: "100%", padding: "1rem", justifyContent: "center"}} ><hr style={{width: "80%"}} /></div>
           </div>

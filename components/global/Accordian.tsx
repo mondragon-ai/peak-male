@@ -16,15 +16,15 @@ export const Accordion: React.FC<AccordionProps> = ({ title, detail }) => {
   return (
     <div className={`${styles.accordionContainer}`}>
       <div onClick={toggleAccordion} className={`${styles.accordionBtn}`} style={{
-            borderBottomLeftRadius: isOpen ? "0px" : "",
-            borderBottomRightRadius: isOpen ? "0px" : "",
+            borderBottomLeftRadius: isOpen ? "0px" : "5px",
+            borderBottomRightRadius: isOpen ? "0px" : "5px",
         }}>
         <h4>{title}</h4>
         <h4>{!isOpen ? "+" : "-"}</h4>
       </div>
       {isOpen && <div className={`${styles.accordionChild}`}  style={{
-        borderTopLeftRadius: isOpen ? "0px" : "",
-        borderTopRightRadius: isOpen ? "0px" : "",
+        borderTopLeftRadius: isOpen ? "0px" : "5px",
+        borderTopRightRadius: isOpen ? "0px" : "5px",
       }}><p>{detail}</p></div>}
     </div>
   );

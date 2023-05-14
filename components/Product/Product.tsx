@@ -27,8 +27,8 @@ export const ProductRow = ({ title, price, piece, product_id, variant_id, option
 
     return (
         <div className={`${styles.productRow} ${best_styles}`} style={{
-            border: best ? "1px solid black" : "",
-            boxShadow: best ? "black 3px 5px 10px 0px" : "",
+            border: best ? "1px solid black" : "0px solid black",
+            boxShadow: best ? "black 3px 5px 10px 0px" : "black 1px 0px 0px 0px",
         }}>
             <div className={`${styles.checkBoxProduct}`} >
                 <div><div></div></div>
@@ -36,9 +36,9 @@ export const ProductRow = ({ title, price, piece, product_id, variant_id, option
 
             <div className={`${styles.productTitleBox}`}>
                 <p style={{
-                    color: best ? "red" : "",
-                    fontSize:  best ? "22px"  : "",
-                    fontWeight:  best ? 700 : ""
+                    color: best ? "red" : "black",
+                    fontSize:  best ? "22px"  : "20px",
+                    fontWeight:  best ? 700 : "100"
                 }}>{title}</p>
                {best ? <p  style={{
                     fontSize: "18px"

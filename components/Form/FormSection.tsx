@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import OrderForm from "./OrderForm";
 import { InitialValues } from "../lib/types/general";
+import { useElements, useStripe } from "@stripe/react-stripe-js";
 
 const OrderFormContainer = ({state, setState }: {
     state: any
@@ -8,6 +9,8 @@ const OrderFormContainer = ({state, setState }: {
 }) => {
     const [isLoading, setIsLoading] = useState(false);
     const [status, setStatus] = useState("");
+    const stripe = useStripe();
+    const elements = useElements();
 
     const [message, setMessage] = useState("");
     const [paymentType, setPaymentType] = useState("stripe");
@@ -51,35 +54,91 @@ const OrderFormContainer = ({state, setState }: {
         high_risk: false,
     };
 
+    // const handleSubmit = async (values: any, { setSubmitting }: any) => {
+    //     try {
+    //         setIsLoading(true);
+    //         const updatedState = createNewState(values);
+
+    //         let payload = {
+    //             ...updatedState
+    //         } as InitialValues;
+
+    //         const queryString = objectToQueryString({
+    //             bump: payload.bump,
+    //             customer: payload.customer,
+    //             stripe_uuid: payload.stripe_uuid,
+    //             external_type: payload.external_type,
+    //             fun_uuid: payload.fun_uuid,
+    //             shipping: payload.shipping,
+    //             high_risk: payload.high_risk,
+    //             line_items: payload.line_items
+    //         }); // get the query string from new state
+
+    //         setTimeout(() => {
+    //             fetchCustomerData(values); // simulate a delay
+    //         }, 0);
+
+    //         } catch (error) {
+    //         } finally {
+    //             setIsLoading(false);
+    //             setSubmitting(false);
+    //         };
+    // };
+
+
     const handleSubmit = async (values: any, { setSubmitting }: any) => {
         try {
-            setIsLoading(true);
-            const updatedState = createNewState(values);
+        if (!stripe || !elements) return;
 
-            let payload = {
-                ...updatedState
-            } as InitialValues;
+        setIsLoading(true);
 
-            const queryString = objectToQueryString({
-                bump: payload.bump,
-                customer: payload.customer,
-                stripe_uuid: payload.stripe_uuid,
-                external_type: payload.external_type,
-                fun_uuid: payload.fun_uuid,
-                shipping: payload.shipping,
-                high_risk: payload.high_risk,
-                line_items: payload.line_items
-            }); // get the query string from new state
+        const updatedState = createNewState(values); // update global state with the order data
+        console.log("ONSUBIMT")
+        console.log(updatedState);
 
-            setTimeout(() => {
-                fetchCustomerData(values); // simulate a delay
-            }, 0);
+        let payload = {
+            bump: false,
+            clientSecret: "",
+            cus_uuid:"",
+            email: "",
+            external: "",
+            first_name: "",
+            funnel_uuid: "",
+            high_risk: false,
+            products: [],
+            ...updatedState
+        };
 
-            } catch (error) {
-            } finally {
-                setIsLoading(false);
-                setSubmitting(false);
-            };
+        const queryString = objectToQueryString({
+            bump: payload.bump,
+            clientSecret: payload.clientSecret,
+            cus_uuid: payload.cus_uuid,
+            email: payload.email,
+            external: payload.external,
+            first_name: payload.first_name,
+            funnel_uuid: payload.funnel_uuid,
+            high_risk: payload.high_risk,
+            products: payload.products
+        }); // get the query string from new state
+
+        setTimeout(() => {
+            fetchCustomerData(values); // simulate a delay
+        }, 0);
+
+        const { error } = await stripe.confirmSetup({
+            elements,
+            confirmParams: {
+            return_url: `${clientOrigin}/upsell?${queryString}`,
+            },
+        });
+
+        if (error) throw new Error(error.message);
+        } catch (error: any) {
+            setMessage(error.message);
+        } finally {
+        setIsLoading(false);
+        setSubmitting(false);
+        }
     };
 
     const createNewState = (values: any) => {

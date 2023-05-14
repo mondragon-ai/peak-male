@@ -340,7 +340,7 @@
 
 .textContainerTwo p {
   max-width: 100%;
-  padding: 0rem !important;
+  padding: 0rem 3rem 0 0 !important;
 }
 
 @keyframes wobble {

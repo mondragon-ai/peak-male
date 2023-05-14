@@ -1,5 +1,5 @@
 import { createContext, useEffect, useState } from "react";
-import { imPoweredRequest } from "../components/lib/request";
+import { imPoweredRequest } from "../components/lib/request"
 import { getItem, saveItem } from "./storage";
 
 export const Context = createContext({});
@@ -32,11 +32,13 @@ export const ContextProvider = ({ children }: any) => {
     external_type: "",
     customer: {
         email: "",
-        first_name: ""
+        first_name: "",
+        cus_uuid: ""
     },
     stripe_uuid: "",
     fun_uuid: "",
     high_risk: false,
+    secret: ""
   });
   useEffect(() => {
     const {
@@ -48,6 +50,7 @@ export const ContextProvider = ({ children }: any) => {
       stripe_uuid,
       fun_uuid,
       high_risk,
+      secret,
     } = getItem("funnel_data") || state;
 
     setState({
@@ -58,31 +61,15 @@ export const ContextProvider = ({ children }: any) => {
       customer,
       stripe_uuid,
       fun_uuid,
-      high_risk
+      high_risk,
+      secret
     });
+    
     // check if the product data is cached
     // const cachedProductData = getItem("product_data");
     // if (cachedProductData) {
-    //   setState({ ...state, variants: cachedProductData });
+    //   // setState({ ...state, variants: cachedProductData });
     // } else {
-    //     // fetch product data and cache it
-    //     const fetchData = async () => {
-    //     try {
-    //       const response = await imPoweredRequest(
-    //         "POST",
-    //         "https://us-central1-impowered-funnel.cloudfunctions.net/funnel/products",
-    //         { product_uuid: "pro_60d547e7d9" }
-    //       );
-    //       const products = response.data.result;
-    //       if (products) {
-    //         setState({ ...state, variants: products[0].variants });
-    //         saveItem("product_data", products[0].variants);
-    //       }
-    //     } catch (error) {
-    //       console.error(error);
-    //     }
-    //   }
-    //   fetchData();
     // }
   }, []);
 

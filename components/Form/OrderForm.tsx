@@ -1,8 +1,4 @@
 import React, { useEffect, useState } from "react";
-import * as Yup from "yup";
-// import ProductRow from "./ProductRow";
-// import CustomSelect from "./CustomSelect"
-// import { PaymentElement } from "@stripe/react-stripe-js";
 import { imPoweredRequest } from "../lib/request";
 import styles from "../../styles/Home.module.css";
 import { useRouter } from 'next/router';
@@ -11,6 +7,7 @@ import Head from "next/head";
 import CustomImage from "../global/Image";
 import Image from "next/image";
 import ProductRow from "../Product/Product";
+import { PaymentElement } from "@stripe/react-stripe-js";
 
 export type LineItem = {
     high_risk: boolean,
@@ -60,10 +57,6 @@ function OrderForm({
   useEffect(() => {
     setWindowWidth(window.innerWidth);
   }, [])
-
-
-  const [billing, setBilling] = useState<any>({} as any)
-  const [stripeToken, setStripeToken] = useState<string>("");
 
   const createPayment = async (
       token: string,
@@ -190,22 +183,22 @@ function OrderForm({
             {/* Step #4 Billing - Card */}
             <div className="">
                 <div id="payment-element">
-                  {/*Stripe.js injects the Payment Element*/}
-                  {/* <PaymentElement
-                    id="payment-element"
-                    options={{
-                      wallets: {
-                        googlePay: "never"
-                      },
-                      layout: {
-                        type: "accordion",
-                        defaultCollapsed: true
-                      },
-                      terms: {
-                        card: "never"
-                      }
-                    }}
-                    /> */}
+                  {/* Stripe.js injects the Payment Element*/}
+                  <PaymentElement
+                      id="payment-element"
+                      options={{
+                        wallets: {
+                          googlePay: "never"
+                        },
+                        layout: {
+                          type: "accordion",
+                          defaultCollapsed: true
+                        },
+                        terms: {
+                          card: "never"
+                        }, 
+                      }}
+                      />
                 </div>
                 <div className={`${styles.col}`}>
                   <Image src={"/images/credit-only.png"} alt={""} height={45}  width={350} style={{
@@ -253,38 +246,11 @@ function OrderForm({
             {/* Express Btn */}
             <div className={`${styles.col} ${styles.rushBox}`}>
               <div className={`${styles.rushHeader} ${styles.row}`} style={{padding: "1rem"}}>
-                  <div className={`${styles.rushHeader} ${styles.row}`}><Image src={"/images/arrow-flash-small.webp"} alt={""} width={30} height={15} /></div>
-                  <div className={`${styles.checkBoxProduct}`}  style={{padding: "0 1rem"}}>
-                      <div><div></div></div>
-                  </div>
-                  <h4>Yes! Rush & Insure my Order for $3.99</h4>
-                {/* <div onClick={(e) => setBump(!bump)}
-                    className="" 
-                    style={{
-                      cursor: "pointer"
-                    }}>
-                  <div style={{
-                      minWidth: "25px",
-                      padding: "4px 0",
-                      cursor: 'pointer'}}>
-                    <div className={`${styles.checkBoxProduct}`} >
-                        <div><div></div></div>
-                    </div>
-                  </div>
-                  <div className={``}></div>
+                <div className={`${styles.rushHeader} ${styles.row}`}><Image src={"/images/arrow-flash-small.webp"} alt={""} width={30} height={15} /></div>
+                <div className={`${styles.checkBoxProduct}`}  style={{padding: "0 1rem"}}>
+                  <div><div></div></div>
                 </div>
-                <div>
-                  <div className="">
-                    <strong>
-                      Put me in the front of the shipping line & insure my
-                      order: 
-                    </strong>
-                    {` This will give your order priority in the fulfillment center
-                    (There is a huge demand for these) as well as shipping
-                    insurance that will cover 100% of your shipment in case of
-                    loss or damaged packages, no questions asked!`}
-                  </div>
-                </div> */}
+                <h4>Yes! Rush & Insure my Order for $3.99</h4>
               </div>
 
               <div className={`${styles.col}`}>
