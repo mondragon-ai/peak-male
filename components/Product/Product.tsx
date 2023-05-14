@@ -56,7 +56,7 @@ export const ProductRow = ({ title, price, piece, product_id, variant_id, option
         <div onClick={() => handleClick()}
          className={`${styles.productRow} ${best_styles}`} style={{
             border: best ? "1px solid black" : "0px solid black",
-            boxShadow: best ? "black 3px 5px 10px 0px" : "black 1px 0px 0px 0px",
+            boxShadow: best ? "black 3px 5px 10px 0px" : "none",
         }}>
             <div className={`${styles.checkBoxProduct}`} >
                 <div><div style={{

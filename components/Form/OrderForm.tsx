@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { Dispatch, SetStateAction, useEffect, useState } from "react";
 import { imPoweredRequest } from "../lib/request";
 import styles from "../../styles/Home.module.css";
 import { useRouter } from 'next/router';
@@ -8,6 +8,7 @@ import CustomImage from "../global/Image";
 import Image from "next/image";
 import ProductRow from "../Product/Product";
 import { PaymentElement } from "@stripe/react-stripe-js";
+import { InitialValuesType } from "./FormSection";
 
 export type LineItem = {
     high_risk: boolean,
@@ -33,7 +34,9 @@ export type OrderProps = {
     handleSubmit: any
     status: any
     isLoading: any
-    message: any
+    message: any,
+    state: InitialValuesType,
+    setState: Dispatch<SetStateAction<any>>,
 }
 
 function OrderForm({
@@ -173,10 +176,12 @@ function OrderForm({
 
             {/* Express Btn */}
             <div className={`${styles.col} ${styles.rushBox}`}>
-              <div className={`${styles.rushHeader} ${styles.row}`} style={{padding: "1rem"}}>
+              <div onClick={() => setState({...state, bump: !state.bump})} className={`${styles.rushHeader} ${styles.row}`} style={{padding: "1rem"}}>
                 <div className={`${styles.rushHeader} ${styles.row}`}><Image src={"/images/arrow-flash-small.webp"} alt={""} width={30} height={15} /></div>
                 <div className={`${styles.checkBoxProduct}`}  style={{padding: "0 1rem"}}>
-                  <div><div></div></div>
+                  <div><div style={{
+                    backgroundColor: state.bump ? "rgb(123, 123, 245)" : "white"
+                }}></div></div>
                 </div>
                 <h4>Yes! Rush & Insure my Order for $3.99</h4>
               </div>
