@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import styles from "./Testimonials.module.css";
 import TestimonialItem from "@/components/TestimonialItem";
 import { FaGreaterThan, FaLessThan } from "react-icons/fa";
-import { Rate } from "antd";
+// import { Rate } from "antd";
 
 interface Testimonial {
   id: number;
@@ -85,12 +85,12 @@ const Testimonials = () => {
       <div className={styles.testimonialsCounts}>
         <div>Real Reviews from Real Costumers</div>
         <div>
-          <Rate
+          {/* <Rate
             allowHalf
             disabled
             defaultValue={5}
             style={{ color: "#FFA41C" }}
-          />{" "}
+          />{" "} */}
           {"1246 Reviews "} <FaLessThan />
           <FaGreaterThan />
         </div>
