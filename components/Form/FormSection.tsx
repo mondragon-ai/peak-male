@@ -1,7 +1,33 @@
 import React, { useState, useEffect } from "react";
-import OrderForm from "./OrderForm";
+import OrderForm, { LineItem } from "./OrderForm";
 import { InitialValues } from "../lib/types/general";
 import { useElements, useStripe } from "@stripe/react-stripe-js";
+import { imPoweredRequest } from "../lib/request";
+
+export interface InitialValuesType {
+    line_items: LineItem[];
+    shipping: {
+      line1: string;
+      state: string;
+      city: string;
+      zip: string;
+      type: string;
+      country: string;
+      name: string;
+      title: string;
+    };
+    bump: boolean;
+    external_type: string;
+    customer: {
+      email: string;
+      first_name: string;
+      cus_uuid: string;
+    };
+    stripe_uuid: string;
+    fun_uuid: string;
+    high_risk: boolean;
+    clientSecret: string;
+  }
 
 const OrderFormContainer = ({state, setState }: {
     state: any
@@ -21,114 +47,46 @@ const OrderFormContainer = ({state, setState }: {
         setClientOrigin(window.location.origin);
     }, []);
 
-    const initialValues = {
-        line_items: [{
-            title: "Gold Entries ($150 Value) (BEST DEAL!!)",
-            price_str: "$5.00 / pc",
-            price: 5000,
-            piece: "$150 value in products",
-            options1: "Gold Entries ($150 Value)",
-            options2: "M",
-            options3: "",
-            product_id: "42235974189228",
-            high_risk: false,
-        }],
-        shipping: {
-            line1: "",
-            state: "",
-            city: "",
-            zip: "",
-            type: "",
-            country: "",
-            name: "",
-            title: ""
-        },
-        bump: true,
-        external_type: "",
-        customer: {
-            email: "",
-            first_name: ""
-        },
-        stripe_uuid: "",
-        fun_uuid: "",
-        high_risk: false,
-    };
 
-    // const handleSubmit = async (values: any, { setSubmitting }: any) => {
-    //     try {
-    //         setIsLoading(true);
-    //         const updatedState = createNewState(values);
-
-    //         let payload = {
-    //             ...updatedState
-    //         } as InitialValues;
-
-    //         const queryString = objectToQueryString({
-    //             bump: payload.bump,
-    //             customer: payload.customer,
-    //             stripe_uuid: payload.stripe_uuid,
-    //             external_type: payload.external_type,
-    //             fun_uuid: payload.fun_uuid,
-    //             shipping: payload.shipping,
-    //             high_risk: payload.high_risk,
-    //             line_items: payload.line_items
-    //         }); // get the query string from new state
-
-    //         setTimeout(() => {
-    //             fetchCustomerData(values); // simulate a delay
-    //         }, 0);
-
-    //         } catch (error) {
-    //         } finally {
-    //             setIsLoading(false);
-    //             setSubmitting(false);
-    //         };
-    // };
-
-
-    const handleSubmit = async (values: any, { setSubmitting }: any) => {
+    const handleSubmit = async ({ setSubmitting }: any) => {
         try {
         if (!stripe || !elements) return;
 
-        setIsLoading(true);
-
-        const updatedState = createNewState(values); // update global state with the order data
-        console.log("ONSUBIMT")
-        console.log(updatedState);
+        setIsLoading(true);// update global state with the order data
 
         let payload = {
             bump: false,
             clientSecret: "",
             cus_uuid:"",
+            stripe_uuuid:"",
             email: "",
-            external: "",
+            external_type: "",
             first_name: "",
             funnel_uuid: "",
             high_risk: false,
-            products: [],
-            ...updatedState
-        };
+            line_items: [],
+            ...state
+        } as InitialValuesType;
 
         const queryString = objectToQueryString({
             bump: payload.bump,
-            clientSecret: payload.clientSecret,
-            cus_uuid: payload.cus_uuid,
-            email: payload.email,
-            external: payload.external,
-            first_name: payload.first_name,
-            funnel_uuid: payload.funnel_uuid,
+            cus_uuid: payload.customer.cus_uuid,
+            email: payload.customer.email,
+            external_type: payload.external_type,
+            first_name: payload.customer.first_name,
+            fun_uuid: payload.fun_uuid,
             high_risk: payload.high_risk,
-            products: payload.products
+            line_items: payload.line_items
         }); // get the query string from new state
 
         setTimeout(() => {
-            fetchCustomerData(values); // simulate a delay
+            fetchCustomerData(state); // simulate a delay
         }, 0);
 
         const { error } = await stripe.confirmSetup({
             elements,
             confirmParams: {
-            return_url: `${clientOrigin}/upsell?${queryString}`,
+                return_url: `${clientOrigin}/upsell?${queryString}`,
             },
         });
 
@@ -141,98 +99,46 @@ const OrderFormContainer = ({state, setState }: {
         }
     };
 
-    const createNewState = (values: any) => {
-        const { title, price, price_str, piece } = values.line_items;
+    const fetchCustomerData = async (order_payload: InitialValuesType) => {
+        const payload = createPayloadFromOrder(order_payload);
 
-        console.log("CREATE NEW STATE")
-        console.log(state)
-
-        const newState = {
-            ...state,
-            bump: values.bump,
-            line_items: [{ title, price, price_str, piece }],
-        };
-
-        // setGlobalState(newState);
-        return newState;
-    };
-
-    const fetchCustomerData = async (order: any) => {
-        const payload = createPayloadFromOrder(order);
-        console.log(payload)
         // Make the request to the server to store the card after a successful submission
-        // const response = await imPoweredRequest(
-        //     "POST",
-        //     "https://us-central1-impowered-funnel.cloudfunctions.net/funnel/checkout/quick",
-        //     payload
-        // );
-        // if (!response) {
-        //     setMessage(
-        //     `We're sorry, but there was an issue processing your payment. Please try resubmitting the form or refreshing the page and trying again.`
-        //     );
-        // }
+        const response = await imPoweredRequest(
+            "POST",
+            "https://us-central1-impowered-funnel.cloudfunctions.net/funnel/checkout/quick",
+            payload
+        );
+        if (!response.data) {
+            setMessage(`We're sorry, but there was an issue processing your payment. Please try resubmitting the form or refreshing the page and trying again.`);
+        }
     };
 
-    const createPayloadFromOrder = (order: any) => {
-        const { line_items, shipping, bump } = order;
+    const createPayloadFromOrder = (order_payload: InitialValuesType) => {
+        const { line_items, shipping, bump, customer, fun_uuid } = order_payload;
         const { line1, state, city, zip } = shipping;
-        const { title, price, product_id, product_sku, options1, options2, options3 } = line_items;
-        // const { cus_uuid, first_name, high_risk, funnel_uuid, variants } = globalState;
-        // let variant_list = [...variants];
 
-        let variant_id = "";
-        let variant = {
-            sku: "",
-            options1: "",
-            options2: "",
-            options3: "",
-            external_id: "",
-            price: "",
-            product_id: "",
-            weight: "",
-            high_risk: false,
-            external_type: "",
-        };
-
-        // variant_list.filter((v)=> {
-        //   if (v.options1 == product.options1 && v.options2 == product.options2) {
-        //       console.log(v)
-        //       variant_id = v.variant_id;
-        //       variant = v
-        //       return false
-        //   } else {return true}
-        // });
         const payload = {
-            line_items: [{
-                title: "Gold Entries ($150 Value) (BEST DEAL!!)",
-                price_str: "$5.00 / pc",
-                price: 5000,
-                piece: "$150 value in products",
-                options1: "Gold Entries ($150 Value)",
-                options2: "M",
-                options3: "",
-                product_id: "42235974189228",
-                high_risk: false,
-            }],
+            line_items: line_items ?? [],
             shipping: {
-                line1: "",
-                state: "",
-                city: "",
-                zip: "",
+                line1: line1 ?? "",
+                line2: "",
+                state: state ?? "",
+                city: city ?? "",
+                zip: zip ?? "",
                 type: "",
-                country: "",
+                country: "US",
                 name: "",
                 title: ""
             },
-            bump: true,
+            bump: bump ?? "",
             external_type: "",
             customer: {
-                email: "",
-                first_name: ""
+                email: customer.email ?? "",
+                first_name: customer.first_name ?? "",
+                cus_uuid: customer.cus_uuid ?? "",
             },
-            stripe_uuid: "",
-            fun_uuid: "",
-            high_risk: false,
+            fun_uuid: fun_uuid ?? "",
+            high_risk: false ?? "",
         };
         return payload;
     };
@@ -252,18 +158,14 @@ const OrderFormContainer = ({state, setState }: {
   return (
     <>
         <OrderForm
-            paymentType={paymentType}
-            setPaymentType={setPaymentType}
-            initialValues={initialValues}
             handleSubmit={handleSubmit}
             isLoading={isLoading}
             message={message}
             status={status}
-            high_risk={high_risk}
-            stripe={undefined}
-            elements={undefined}
+            state={state}
+            setState={setState}
         />
-    </>
+</>
   );
 };
 

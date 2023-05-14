@@ -393,7 +393,8 @@
   }
 
   .wobbleButton {
-    width: 90%;
+    width: 90% !important;
+    font-size: 20px;
   }
 
   .accordionBtn {

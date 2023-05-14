@@ -1,6 +1,6 @@
 import Image from "next/image";
 import styles from "./TestimonialItem.module.css";
-import { Rate } from "antd";
+// import { Rate } from "antd";
 import React from "react";
 
 type DATA = {
@@ -26,12 +26,12 @@ const TestimonialItem: React.FC<Iprops> = ({ data }) => {
       </div>
       <div className={styles.content}>
         <h3 className={styles.author}>{author}</h3>
-        <Rate
+        {/* <Rate
           allowHalf
           disabled
           defaultValue={Number(rating) / 2}
           style={{ color: "#FFA41C" }}
-        />
+        /> */}
         <h3 className={styles.title}>{title}</h3>
         <p className={styles.description}>{description}</p>
       </div>

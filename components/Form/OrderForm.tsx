@@ -30,25 +30,19 @@ export type LineItem = {
 
 export type OrderProps = {
     [key: string]: any,
-    initialValues: any
     handleSubmit: any
     status: any
     isLoading: any
     message: any
-    stripe: any
-    elements: any
-    high_risk: any
 }
 
 function OrderForm({
-  initialValues,
   handleSubmit,
   status,
   isLoading,
   message,
-  stripe,
-  elements,
-  high_risk,
+  setState, 
+  state
 }: OrderProps) {
 
   const [bump, setBump] = useState(true);
@@ -56,74 +50,7 @@ function OrderForm({
 
   useEffect(() => {
     setWindowWidth(window.innerWidth);
-  }, [])
-
-  const createPayment = async (
-      token: string,
-  ) => {
-        const body = {
-          line_items: [{
-              title: "Gold Entries ($150 Value) (BEST DEAL!!)",
-              price_str: "$5.00 / pc",
-              price: 5000,
-              piece: "$150 value in products",
-              options1: "Gold Entries ($150 Value)",
-              options2: "M",
-              options3: "",
-              product_id: "42235974189228",
-              high_risk: false,
-          }],
-          shipping: {
-              line1: "",
-              state: "",
-              city: "",
-              zip: "",
-              type: "",
-              country: "",
-              name: "",
-              title: ""
-          },
-          bump: true,
-          external_type: "",
-          customer: {
-              email: "",
-              first_name: ""
-          },
-          stripe_uuid: "",
-          fun_uuid: "",
-          high_risk: false,
-      };
-
-        const paymentResponse = await imPoweredRequest(
-            "http://localhost:5001/impowered-funnel/us-central1/funnel/checkout/quick",
-            "POST",
-            body
-        );
-      console.log(" RESPONSE => ");
-      console.log(paymentResponse)
-      if (paymentResponse) {
-          return paymentResponse;
-      }
-  }
-
-  const product: LineItem = {
-      high_risk: false,
-      title: "",
-      sku: "",
-      price: 0,
-      compare_at_price: 0,
-      handle: "",
-      options1: "",
-      options2: "",
-      options3: "",
-      weight: 0,
-      variant_id: 42235971567788,
-      quantity: 1,
-      status: false,
-      id: "",
-      url: "",
-      tags: []
-  };
+  }, []);
 
   const router = useRouter();
   return (
@@ -145,10 +72,10 @@ function OrderForm({
 
             {/* Step #1 PRODUCTS LIST */}
             <div className={`${styles.col} ${styles.productContainer}`}>
-              <ProductRow title={"3 Hold The Line Coins"} price={2991} piece={"$9.97/coin"} variant_id={""} product_id={""} options1={""} options2={""} options3={""} />
-              <ProductRow title={"3 Hold The Line Coins"} price={4485} piece={"$9.97/coin"} variant_id={""} product_id={""} options1={""} options2={""} options3={""} />
-              <ProductRow title={"3 Hold The Line Coins"} price={7970} piece={"$9.97/coin"} variant_id={""} product_id={""} options1={""} options2={""} options3={""} />
-              <ProductRow title={"3 Hold The Line Coins"} price={13940} piece={"$9.97/coin"} variant_id={""} product_id={""} options1={""} options2={""} options3={""} best={true} />
+              <ProductRow title={"3 Hold The Line Coins"} price={2991} piece={"$9.97/coin"} variant_id={"123"} product_id={""} options1={""} options2={""} options3={""} state={state} setState={setState} />
+              <ProductRow title={"3 Hold The Line Coins"} price={4485} piece={"$9.97/coin"} variant_id={"234"} product_id={""} options1={""} options2={""} options3={""} state={state} setState={setState} />
+              <ProductRow title={"3 Hold The Line Coins"} price={7970} piece={"$9.97/coin"} variant_id={"345"} product_id={""} options1={""} options2={""} options3={""} state={state} setState={setState} />
+              <ProductRow title={"3 Hold The Line Coins"} price={13940} piece={"$9.97/coin"} variant_id={"456"} product_id={""} options1={""} options2={""} options3={""} best={true} state={state} setState={setState} />
             </div>
 
             {/* Step #2 Contact - Title */}
@@ -202,8 +129,9 @@ function OrderForm({
                 </div>
                 <div className={`${styles.col}`}>
                   <Image src={"/images/credit-only.png"} alt={""} height={45}  width={350} style={{
-                    width: "60%",
-                    height: "auto"
+                    width: "90%",
+                    height: "auto",
+                    marginTop: "1rem"
                   }} />
                 </div>
             </div>

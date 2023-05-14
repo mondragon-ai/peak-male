@@ -4,7 +4,7 @@ import Header from "@/components/Header";
 import { useContext, useEffect, useState } from "react";
 import Footer from "@/components/Footer";
 // import Testimonials from "@/components/Testimonials";
-import OrderFormContainer  from "@/components/Form/FormSection";
+import OrderFormContainer, { InitialValuesType }  from "@/components/Form/FormSection";
 import { Context } from "../context/context";
 import { Elements } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
@@ -15,6 +15,7 @@ import { sendPageViewEvent } from "@/lib/analytics";
 import { getSecret } from "@/lib/getSecret";
 import { saveItem } from "@/context/storage";
 import { imPoweredRequest } from "@/components/lib/request";
+import { LineItem } from "@/components/Form/OrderForm";
 
 
 const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY ?? "");
@@ -69,27 +70,51 @@ export default function Home() {
     };
   };
 
-  const [state, setState] = useState({
-    product: {
+  const product: any = {
       title: "Gold Entries ($150 Value) (BEST DEAL!!)",
-      price_str: "$5.00 / pc",
-      price_num: 5000,
-      piece: "$150 value in products",
+      piece: "$5.00 / pc",
+      price: 5000,
       options1: "Gold Entries ($150 Value)",
       options2: "M",
-      product_id: "42235974189228"
-    },
-    shipping: {
-      line1: "", 
-      state: "",
-      city: "",
-      zip: "",
-    },
-    bump: true,
-    external_type: "SHOPIFY",
-    high_risk: true,
-    stripe_uuid: ""
-  });
+      options3: "",
+      product_id: "42235974189228",
+      high_risk: false,
+      sku: "",
+      compare_at_price: 0,
+      handle: "",
+      weight: 0,
+      variant_id: 345,
+      quantity: 1,
+      status: false,
+      id: "456",
+      url: "",
+      tags: [],
+  } as LineItem;
+
+  const initialValues = {
+      line_items: [product],
+      shipping: {
+          line1: "",
+          state: "",
+          city: "",
+          zip: "",
+          type: "",
+          country: "",
+          name: "",
+          title: ""
+      },
+      bump: true,
+      external_type: "",
+      customer: {
+          email: "",
+          first_name: ""
+      },
+      stripe_uuid: "",
+      fun_uuid: "",
+      high_risk: false,
+  } as InitialValuesType;
+
+  const [state, setState] = useState(initialValues);
   // Page Effect
   useEffect(() => {
     if (!window) {};
