@@ -15,17 +15,13 @@ import { sendPageViewEvent } from "@/components/lib/analytics";
 import { saveItem } from "@/context/storage";
 import { imPoweredRequest } from "@/components/lib/request";
 import { LineItem } from "@/components/Form/OrderForm";
-
+import Head from "next/head";
 
 const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY ?? "");
 
 export default function Home() {
   const [viewItem, setViewItem] = useState(0);
-  // const globalState: any | { clientSecret: string} = useContext(Context);
-  // const { clientSecret } = globalState;
   const [clientSecret, setSecret] = useState("");
-  // const clientSecret = getSecret();
-  // const [clientSecret, setClient] = useState("");
   const [windowWidth, setWindowWidth] = useState(0);
 
   const options = {
@@ -109,7 +105,7 @@ export default function Home() {
           first_name: ""
       },
       stripe_uuid: "",
-      fun_uuid: "",
+      fun_uuid: process.env.NEXT_PUBLIC_IMPOWERED_FUNNEL ?? "",
       high_risk: false,
   } as InitialValuesType;
 
@@ -118,17 +114,37 @@ export default function Home() {
   useEffect(() => {
     if (!window) {};
     setWindowWidth(window.innerWidth);
-    fetchData();
+    // fetchData();
     //Send Analytics to imPowered
     sendPageViewEvent("OPT_IN");
-    
   }, []);
 
 
-  console.log(clientSecret);
+  const description = `Enter for a chance to win a new Chevy 2500HD Duramax Diesel & $10,000.00 cash. PIck your size and get discounted items and more importantly, FAST ENTRIES to enter to win!`;
+  const ogImgUrl =  "https://www.hodgetwinssweepstakes.com/images/High-Country-Funnel-Banner.png";
+  const canonicalUrl = "https://www.hodgetwinssweepstakes.com";
+  const t = "Hodge Twins Sweepsstake" 
 
   return (
     <>
+      <Head>
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+        <title>{t}</title>
+        <meta name="description" content={description} />
+        <link rel="canonical" href={canonicalUrl} />
+
+        <link rel="shortcut icon" href="/favicon.ico" />
+        <link rel="icon" href="/favicon.ico" />
+
+        <meta property="og:locale" content="en_US" />
+        <meta property="og:type" content={"artcle"} />
+        <meta property="og:description" content={description} />
+        <meta property="og:image" content={ogImgUrl} />
+        <meta property="og:url" content={canonicalUrl} />
+        <meta property="og:title" content={t} />
+        
+      </Head>
       <main className={styles.main}>
         <Header />
         
@@ -168,8 +184,8 @@ export default function Home() {
           </div>
 
           <div className={`${styles.col} ${styles.mobileFull}`} style={{width: "50%", alignItems: "flex-start"}}>
-            {clientSecret !== "" ? (
-              <Elements stripe={stripePromise} options={options as any}>
+            {clientSecret == "" ? (
+              <Elements stripe={stripePromise}>
                 <OrderFormContainer state={state} setState={setState} />
               </Elements>
             ) : (

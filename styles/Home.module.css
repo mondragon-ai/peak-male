@@ -137,7 +137,7 @@
   height: 50px;
   background: white;
   background-color: rgb(245, 245, 245);
-  border: 1px solid aliceblue;
+  border: 1px solid #bbb;
 }
 
 .CustomInput:hover + label,
@@ -209,6 +209,7 @@
   font-size: 30px;
   border: 0 solid black;
   border-radius: 5px;
+  cursor: pointer;
 }
 
 .additonalFormInfo {
@@ -313,7 +314,7 @@
   font-weight: 100;
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
 }
 
@@ -367,6 +368,143 @@
     transform: translateX(0);
   }
 } 
+
+.progressbar_nocorners {
+  border-radius: 0 !important;
+}
+.mediumProgressBar {
+  height: 45px;
+  line-height: 45px;
+  font-size: 19px;
+}
+
+.progressBar {
+  float: left;
+  width: 0;
+  height: 100%;
+  font-size: 12px;
+  line-height: 20px;
+  color: #fff;
+  text-align: center;
+  background-color: #428bca;
+  -webkit-box-shadow: inset 0 -1px 0 rgba(0,0,0,0.15);
+  box-shadow: inset 0 -1px 0 rgba(0,0,0,0.15);
+  -webkit-transition: width .6s ease;
+  transition: width .6s ease;
+}
+
+.progress {
+  overflow: hidden;
+  height: 45px;
+  /* /* margin-bottom: 20px; */
+  background-color: #f5f5f5;
+  border-radius: 4px;
+  -webkit-box-shadow: inset 0 1px 2px rgba(0,0,0,0.1);
+  box-shadow: inset 0 1px 2px rgba(0,0,0,0.1);
+  width: 700px
+}
+
+.mediumProgressBar .progressBar {
+  line-height: 45px;
+  font-size: 19px;
+  height: 45px;
+}
+
+.progressBarStripedActive {
+  background-image: -webkit-linear-gradient(45deg, rgba(255,255,255,0.15) 25%, transparent 25%, transparent 50%, rgba(255,255,255,0.15) 50%, rgba(255,255,255,0.15) 75%, transparent 75%, transparent);
+  background-image: -o-linear-gradient(45deg, rgba(255,255,255,0.15) 25%, transparent 25%, transparent 50%, rgba(255,255,255,0.15) 50%, rgba(255,255,255,0.15) 75%, transparent 75%, transparent);
+  background-image: linear-gradient(45deg, rgba(255,255,255,0.15) 25%, transparent 25%, transparent 50%, rgba(255,255,255,0.15) 50%, rgba(255,255,255,0.15) 75%, transparent 75%, transparent);
+  -webkit-background-size: 40px 40px;
+  background-size: 40px 40px;
+  -webkit-animation: progress-bar-stripes 2s linear infinite reverse;
+  -o-animation: progress-bar-stripes 2s linear infinite reverse;
+  animation: progress-bar-stripes 2s linear infinite reverse;
+}
+.progressBar {
+  -webkit-transition: width .25s ease, height .25s ease, font-size .25s ease;
+  -moz-transition: width .25s ease, height .25s ease, font-size .25s ease;
+  -ms-transition: width .25s ease, height .25s ease, font-size .25s ease;
+  -o-transition: width .25s ease, height .25s ease, font-size .25s ease;
+  transition: width .25s ease, height .25s ease, font-size .25s ease;
+}
+
+.progressbar_w_75 {
+  width: 75%;
+}
+
+@keyframes progress-bar-stripes {
+  0% {
+    background-position: 40px 0;
+  }
+  100% {
+    background-position: 0 0;
+  }
+} 
+
+.formContainer input:-webkit-autofill {
+  -webkit-box-shadow: 0 0 0 1000px inset rgba(236, 236, 236, 0.892);
+  border: 1px solid #bbb;
+  -webkit-text-fill-color: rgb(16, 16, 16);
+}
+
+.formContainer input:-webkit-autofill::-webkit-input-placeholder {
+  color: transparent;
+}
+
+.formContainer input:-webkit-autofill::-webkit-text-fill-color {
+  color: rgb(16, 16, 16);
+}
+
+.quickInfo h2,
+.quickInfo h3 {
+  padding: 1rem 0;
+}
+
+.purchaseBox {
+  border: 1px dashed rgb(234, 78, 78);
+  padding: 0.5rem 4rem; 
+  font-size: 40px;
+  max-width: 750px;
+  border-radius: 6px;
+  text-align: left;
+  margin-bottom: 4rem;
+}
+
+.purchaseBox > div:last-of-type > div {
+  justify-content: flex-start;
+  align-items: flex-start;
+}
+
+.purchaseBox h2 {
+  text-align: left;
+  font-size: 25px;
+  padding: 1rem 0;
+}
+
+.purchaseBox h4 {
+  text-align: left;
+  font-size: 20px;
+}
+
+.purchaseBox h5 {
+  text-align: left;
+  font-size: 15px;
+  padding: 1rem 0;
+}
+
+
+.purchaseBox p {
+  text-align: left;
+  font-size: 18px;
+  padding: 1rem 0;
+}
+
+.decline {
+  border: 1px solid black;
+  border-radius: 6px;
+  padding: 1rem;
+  color: #070707;
+}
 
 /* Mobile */
 @media (max-width: 900px) {
@@ -448,6 +586,29 @@
   .influencerItem img {
     max-width: 100%;
     padding: 0rem 2rem 4rem 2rem !important;
+  }
+  .quickInfo {
+    padding: 0 1rem;
+  }
+
+  .quickInfo h2 {
+    font-size: 18px;
+  }
+
+  .quickInfo h3 {
+    padding: 1rem 0;
+  }
+  
+  .pSection {
+    padding: 0 1rem 2rem 1rem !important;
+  }
+
+  .progress {
+    width: 400px;
+  }
+
+  .upsellAc h1 {
+    width: 90%;
   }
 
 }

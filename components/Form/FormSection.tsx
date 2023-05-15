@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import OrderForm, { LineItem } from "./OrderForm";
 import { InitialValues } from "../lib/types/general";
-import { useElements, useStripe } from "@stripe/react-stripe-js";
+import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
 import { imPoweredRequest } from "../lib/request";
 
 export interface InitialValuesType {
@@ -30,7 +30,7 @@ export interface InitialValuesType {
   }
 
 const OrderFormContainer = ({state, setState }: {
-    state: any
+    state: InitialValuesType,
     setState: any
 }) => {
     const [isLoading, setIsLoading] = useState(false);
@@ -41,71 +41,93 @@ const OrderFormContainer = ({state, setState }: {
     const [message, setMessage] = useState("");
     const [paymentType, setPaymentType] = useState("stripe");
     const [clientOrigin, setClientOrigin] = useState("127.0.0.1");
-    const { high_risk } = state as {high_risk: boolean};
-
+    const [cardElement, setCardElement] = useState<any>(null);
+  
     useEffect(() => {
-        setClientOrigin(window.location.origin);
+      setCardElement(elements?.getElement(CardElement));
     }, []);
 
+    // useEffect(() => {
+    //     setClientOrigin(window.location.origin);
+    // }, []);
 
-    const handleSubmit = async ({ setSubmitting }: any) => {
+    const handleSubmit = async () => {
         try {
-        if (!stripe || !elements) return;
+            if (!stripe || !elements) return;
 
-        setIsLoading(true);// update global state with the order data
+            setIsLoading(true);// update global state with the order data
 
-        let payload = {
-            bump: false,
-            clientSecret: "",
-            cus_uuid:"",
-            stripe_uuuid:"",
-            email: "",
-            external_type: "",
-            first_name: "",
-            funnel_uuid: "",
-            high_risk: false,
-            line_items: [],
-            ...state
-        } as InitialValuesType;
+            const queryString = objectToQueryString({
+                bump: state.bump,
+                cus_uuid: state.customer.cus_uuid,
+                email: state.customer.email,
+                external_type: state.external_type,
+                first_name: state.customer.first_name,
+                fun_uuid: state.fun_uuid,
+                high_risk: state.high_risk,
+                line_items: state.line_items
+            }); // get the query string from new state
 
-        const queryString = objectToQueryString({
-            bump: payload.bump,
-            cus_uuid: payload.customer.cus_uuid,
-            email: payload.customer.email,
-            external_type: payload.external_type,
-            first_name: payload.customer.first_name,
-            fun_uuid: payload.fun_uuid,
-            high_risk: payload.high_risk,
-            line_items: payload.line_items
-        }); // get the query string from new state
+            // const { error } = await stripe.confirmSetup({
+            //     elements,
+            //     confirmParams: {
+            //         return_url: `${clientOrigin}/?${queryString}`,
+            //     },
+            // });
 
-        setTimeout(() => {
-            fetchCustomerData(state); // simulate a delay
-        }, 0);
+            const cardElement = elements.getElement(CardElement);
 
-        const { error } = await stripe.confirmSetup({
-            elements,
-            confirmParams: {
-                return_url: `${clientOrigin}/upsell?${queryString}`,
-            },
-        });
+            if (!cardElement) {
+              throw new Error("Card element not found");
+            }
+      
+            const { error, paymentMethod } = await stripe.createPaymentMethod({
+              type: "card",
+              card: cardElement,
+            });
+      
+            console.log(error)
 
-        if (error) throw new Error(error.message);
+            // console.log("START PAYING")
+            // const { error, paymentMethod } = await stripe.createPaymentMethod({
+            //     type: "card",
+            //     card: cardElement!,
+            // });
+            console.log("paymentMethod")
+            console.log(paymentMethod)
+            if (error) throw new Error(error.message);
+
+            if (state.customer.email !== "" &&
+                state.customer.first_name !== "" && 
+                state.shipping.line1!== "" && 
+                state.shipping.city !== "" && 
+                state.shipping.state !== "" && 
+                state.shipping.zip !== "") {
+
+                // setTimeout(() => {
+                //     fetchCustomerData(state); // simulate a delay
+                // }, 0);
+        
+            };
+
+
+            
         } catch (error: any) {
             setMessage(error.message);
         } finally {
-        setIsLoading(false);
-        setSubmitting(false);
+            setIsLoading(false);
         }
     };
 
     const fetchCustomerData = async (order_payload: InitialValuesType) => {
         const payload = createPayloadFromOrder(order_payload);
 
+        console.log(payload);
+
         // Make the request to the server to store the card after a successful submission
         const response = await imPoweredRequest(
+            "http://127.0.0.1:5001/impowered-production/us-central1/funnels/payments/checkout/fast",
             "POST",
-            "https://us-central1-impowered-funnel.cloudfunctions.net/funnel/checkout/quick",
             payload
         );
         if (!response.data) {
@@ -114,7 +136,7 @@ const OrderFormContainer = ({state, setState }: {
     };
 
     const createPayloadFromOrder = (order_payload: InitialValuesType) => {
-        const { line_items, shipping, bump, customer, fun_uuid } = order_payload;
+        const { line_items, shipping, bump, customer, fun_uuid, stripe_uuid } = order_payload;
         const { line1, state, city, zip } = shipping;
 
         const payload = {
@@ -125,13 +147,13 @@ const OrderFormContainer = ({state, setState }: {
                 state: state ?? "",
                 city: city ?? "",
                 zip: zip ?? "",
-                type: "",
+                type: "SHIPPING",
                 country: "US",
-                name: "",
-                title: ""
+                name:  customer.first_name ?? "",
+                title: "HOME"
             },
-            bump: bump ?? "",
-            external_type: "",
+            bump: bump ?? false,
+            external_type: "SHOPIFY",
             customer: {
                 email: customer.email ?? "",
                 first_name: customer.first_name ?? "",
@@ -139,6 +161,7 @@ const OrderFormContainer = ({state, setState }: {
             },
             fun_uuid: fun_uuid ?? "",
             high_risk: false ?? "",
+            stripe_uuid: stripe_uuid,
         };
         return payload;
     };
@@ -163,6 +186,7 @@ const OrderFormContainer = ({state, setState }: {
             message={message}
             status={status}
             state={state}
+            elements={elements}
             setState={setState}
         />
 </>

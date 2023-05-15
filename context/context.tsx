@@ -2,7 +2,7 @@ import { createContext, useEffect, useState } from "react";
 import { imPoweredRequest } from "../components/lib/request"
 import { getItem, saveItem } from "./storage";
 
-export const Context = createContext({});
+export const Context = createContext<any>({});
 
 export const ContextProvider = ({ children }: any) => {
 
@@ -73,13 +73,15 @@ export const ContextProvider = ({ children }: any) => {
     // }
   }, []);
 
+
   const setGlobalState = (data: any) => {
     setState({ ...state, ...data });
     saveItem("funnel_data", { ...state, ...data });
   };
   const globalState = state;
+  const contextValue = [globalState, setGlobalState];
   return (
-    <Context.Provider value={[globalState, setGlobalState]}>
+    <Context.Provider value={contextValue}>
       {children}
     </Context.Provider>
   );

@@ -7,10 +7,11 @@ import Head from "next/head";
 import CustomImage from "../global/Image";
 import Image from "next/image";
 import ProductRow from "../Product/Product";
-import { PaymentElement } from "@stripe/react-stripe-js";
+import { CardElement, PaymentElement } from "@stripe/react-stripe-js";
 import { InitialValuesType } from "./FormSection";
 
 export type LineItem = {
+    piece: string
     high_risk: boolean,
     title: string,
     sku: string,
@@ -39,7 +40,24 @@ export type OrderProps = {
     setState: Dispatch<SetStateAction<any>>,
 }
 
+const cardOptions = {
+  style: {
+    base: {
+      color: "#32325d",
+      fontSmoothing: "antialiased",
+      fontSize: "16px",
+      "::placeholder": {
+        color: "#aab7c4",
+      },
+    },
+    invalid: {
+      color: "#fa755a",
+    },
+  },
+};
+
 function OrderForm({
+  elements,
   handleSubmit,
   status,
   isLoading,
@@ -59,7 +77,7 @@ function OrderForm({
   return (
     <div className={`${styles.formCard}`}>
       <div className={`${styles.col} ${styles.formContainer}`}>
-          <form>
+          <div>
             {/* MAIN IMAGE */}
             <div className={`${styles.col}`}>
               <Image src={"/images/htl_form.jpg"} width={350} height={450} alt="" style={{borderRadius: "6px", width: "100%", height: "auto"}} />
@@ -76,9 +94,9 @@ function OrderForm({
             {/* Step #1 PRODUCTS LIST */}
             <div className={`${styles.col} ${styles.productContainer}`}>
               <ProductRow title={"3 Hold The Line Coins"} price={2991} piece={"$9.97/coin"} variant_id={"123"} product_id={""} options1={""} options2={""} options3={""} state={state} setState={setState} />
-              <ProductRow title={"3 Hold The Line Coins"} price={4485} piece={"$9.97/coin"} variant_id={"234"} product_id={""} options1={""} options2={""} options3={""} state={state} setState={setState} />
-              <ProductRow title={"3 Hold The Line Coins"} price={7970} piece={"$9.97/coin"} variant_id={"345"} product_id={""} options1={""} options2={""} options3={""} state={state} setState={setState} />
-              <ProductRow title={"3 Hold The Line Coins"} price={13940} piece={"$9.97/coin"} variant_id={"456"} product_id={""} options1={""} options2={""} options3={""} best={true} state={state} setState={setState} />
+              <ProductRow title={"5 Hold The Line Coins (SAVE 10%)"} price={4485} piece={"$8.97/coin"} variant_id={"234"} product_id={""} options1={""} options2={""} options3={""} state={state} setState={setState} />
+              <ProductRow title={"10 Hold The Line Coins (SAVE 20%)"} price={7970} piece={"$7.97/coin"} variant_id={"345"} product_id={""} options1={""} options2={""} options3={""} state={state} setState={setState} />
+              <ProductRow title={"BEST DEAL"} price={13940} piece={"$6.97/coin"} variant_id={"456"} product_id={""} options1={""} options2={""} options3={""} best={true} state={state} setState={setState} />
             </div>
 
             {/* Step #2 Contact - Title */}
@@ -88,8 +106,8 @@ function OrderForm({
 
             {/* Step #2 Contact - Inputs */}
             <div className={`${styles.col}`}>
-              <AddressInput label="First Name" name="customer.email" required />
-              <AddressInput label="Email" name="customer.city" required />
+              <AddressInput label="First Name" parent="customer" name="email" state={state} setState={setState} required />
+              <AddressInput label="Email" parent="customer" name="email" state={state} setState={setState} required />
             </div>
 
             {/* Step #3 Shipping - Title */}
@@ -99,10 +117,10 @@ function OrderForm({
 
             {/* Step #3 Shipping - Inputs */}
             <div className={`${styles.col}`}>
-              <AddressInput label="Address Name" name="shipping.line1" required />
-              <AddressInput label="City" name="shipping.city" required />
-              <AddressInput label="State" name="shipping.state" required />
-              <AddressInput label="Zip Code" name="shipping.zip" required />
+              <AddressInput label="Address Name" name="line1" state={state} setState={setState} parent="shipping" required />
+              <AddressInput label="City" name="city" state={state} setState={setState} parent="shipping" required />
+              <AddressInput label="State" name="state" state={state} setState={setState} parent="shipping" required />
+              <AddressInput label="Zip Code" name="zip" state={state} setState={setState} parent="shipping" required />
             </div>
 
             {/* Step #4 PAYMENT - Title */}
@@ -114,21 +132,24 @@ function OrderForm({
             <div className="">
                 <div id="payment-element">
                   {/* Stripe.js injects the Payment Element*/}
-                  <PaymentElement
-                      id="payment-element"
-                      options={{
-                        wallets: {
-                          googlePay: "never"
-                        },
-                        layout: {
-                          type: "accordion",
-                          defaultCollapsed: true
-                        },
-                        terms: {
-                          card: "never"
-                        }, 
-                      }}
-                      />
+
+                  <CardElement options={cardOptions} />
+                  {/* <PaymentElement
+                    id="payment-element"
+                    options={{
+                      wallets: {
+                        googlePay: "never"
+                      },
+                      layout: {
+                        type: "accordion",
+                        defaultCollapsed: true
+                      },
+                      terms: {
+                        card: "never"
+                      }, 
+                    }}
+                    elements={elements}
+                    /> */}
                 </div>
                 <div className={`${styles.col}`}>
                   <Image src={"/images/credit-only.png"} alt={""} height={45}  width={350} style={{
@@ -149,13 +170,13 @@ function OrderForm({
             <div className={`${styles.selected}`} >
               <div style={{ display: "flex", height: "auto", justifyContent: "space-between"}} className="productrow">
                 <p style={{ fontSize: "10px", color: "grey" }}>
-                  Rush & Ensure My Order
+                  {state.line_items && state.line_items[0].title}
                 </p>
                 <p style={{ fontSize: "10px", color: "grey" }}>
-                  $3.99
+                  {state.line_items && state.line_items[0].piece}
                 </p>
               </div>
-              {bump && (
+              {state.bump && (
                 <div style={{
                   justifyContent: "space-between",
                   display: "flex",
@@ -202,8 +223,8 @@ function OrderForm({
 
             {/* Payment Button */}
             <button
+              onClick={() => handleSubmit ()}
               className={styles.payBtn}
-              id="submit"
               // disabled={isLoading || !stripe || !elements || isSubmitting}
               type="submit"
               style={{
@@ -247,7 +268,7 @@ function OrderForm({
               <p>Not satisfied with your purchase? We'll arrange a return and full refund for you, no questions asked.</p>
             </div>
 
-          </form>
+          </div>
       </div>
     </div>
   );
