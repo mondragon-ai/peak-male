@@ -506,6 +506,27 @@
   color: #070707;
 }
 
+
+.confirmation {
+  width: 60%;
+  justify-content: center;
+  align-items: center;
+  margin: 0 auto;
+  background: #fff;
+}
+
+.confHeader {
+  background: #070707;
+  border-radius: 6px;
+  color: rgb(255, 255, 255);
+  padding: 1rem;
+  width: 90%;
+  margin: 1rem auto;
+  text-align: left;
+  justify-content: flex-start;
+  align-items: flex-start;
+}
+
 /* Mobile */
 @media (max-width: 900px) {
 }
@@ -609,6 +630,10 @@
 
   .upsellAc h1 {
     width: 90%;
+  }
+
+  .confirmation {
+    width: 100%;
   }
 
 }

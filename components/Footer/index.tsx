@@ -5,7 +5,7 @@ import Image from "next/image";
 
 const Footer = () => {
   return (
-    <div className={`${styles.container} ${styles.mobileCol}`}>
+    <div className={`${styles.container} ${styles.mobileCol}`} style={{width: "100%"}}>
       <div style={{display: "flex", flexDirection: "row", justifyContent: "center", }}>
         <Image src={"/images/htl-logo-3-crop.png"} alt={""} width={200} height={150} style={{width: "60%", height: "auto"}}  />
       </div>
