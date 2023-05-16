@@ -49,8 +49,9 @@ const Upsell = () => {
 
     setGlobalState({
       ...globalState,
+      external_type: external_type,
       customer: customer,
-      products: products,
+      line_items: products,
       bump: query.get("bump") || false,
       high_risk: false,
     });
@@ -204,15 +205,16 @@ const Upsell = () => {
 
             <div className={styles.col}>
               <button
-                  className={`${styles.payBtn} ${styles.wobbleButton}`}
-                  id="submit"
-                  // disabled={isLoading || !stripe || !elements || isSubmitting}
-                  type="submit"
-                  style={{
-                    fontFamily: "Fjalla",
-                    width: "100%"
-                  }}
-                >
+                onClick={() => signUpForFreeDecals()}
+                className={`${styles.payBtn} ${styles.wobbleButton}`}
+                id="submit"
+                // disabled={isLoading || !stripe || !elements || isSubmitting}
+                type="submit"
+                style={{
+                  fontFamily: "Fjalla",
+                  width: "100%"
+                }}
+              >
                 {false ? "Loading . . ." : "YES! Claim my FREE Coin!"}
               </button>
             </div>
@@ -225,7 +227,7 @@ const Upsell = () => {
 
         {/* DECLINE PURCHASE */}
         <div className={styles.col} style={{background: "white", width: "100%", minHeight: "150px"}}>
-          <div className={styles.col}>
+          <div className={styles.col} onClick={() => declineFreeDecals()}>
             <p className={styles.decline}>No, I don't want a free gift</p>
           </div>          
         </div>

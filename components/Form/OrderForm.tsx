@@ -41,11 +41,12 @@ export type OrderProps = {
 }
 
 const cardOptions = {
+  hidePostalCode: false,
   style: {
     base: {
       color: "#32325d",
       fontSmoothing: "antialiased",
-      fontSize: "16px",
+      fontSize: "25px",
       "::placeholder": {
         color: "#aab7c4",
       },
@@ -78,12 +79,12 @@ function OrderForm({
     <div className={`${styles.formCard}`}>
       <div className={`${styles.col} ${styles.formContainer}`}>
           <div>
+
             {/* MAIN IMAGE */}
             <div className={`${styles.col}`}>
               <Image src={"/images/htl_form.jpg"} width={350} height={450} alt="" style={{borderRadius: "6px", width: "100%", height: "auto"}} />
               <h2>ORDER NOW - SUPPLIES ARE LIMITED</h2>
             </div>
-
 
             {/* Step #1 PRODUCTS - Title */}
             <div className={`${styles.selected} ${styles.row}`} style={{justifyContent: "space-between", padding: "0 0.5rem"}}>
@@ -106,7 +107,7 @@ function OrderForm({
 
             {/* Step #2 Contact - Inputs */}
             <div className={`${styles.col}`}>
-              <AddressInput label="First Name" parent="customer" name="email" state={state} setState={setState} required />
+              <AddressInput label="First Name" parent="customer" name="first_name" state={state} setState={setState} required />
               <AddressInput label="Email" parent="customer" name="email" state={state} setState={setState} required />
             </div>
 
@@ -125,12 +126,14 @@ function OrderForm({
 
             {/* Step #4 PAYMENT - Title */}
             <div className={`${styles.formTitle}`}>
-              <h2 className="" style={{fontSize: "25px" }}><strong style={{color: "red"}}>STEP THREE:</strong> PAYMENT INFORMATION</h2>
+              <h2 className="" style={{fontSize: "25px" }}><strong style={{color: "red"}}>STEP THREE:</strong> CREDIT CARD</h2>
             </div>
 
             {/* Step #4 Billing - Card */}
             <div className="">
-                <div id="payment-element">
+                <div id="payment-element" style={{
+                    margin: "1rem auto"
+                  }}>
                   {/* Stripe.js injects the Payment Element*/}
 
                   <CardElement options={cardOptions} />
@@ -234,7 +237,7 @@ function OrderForm({
               {isLoading ? "Loading . . ." : "COMPLETE ORDER"}
             </button>
 
-            {message && (
+            {message !== "" && (
               <div className="div-block-97">
                 <p id="ERROR_TWO">{message}</p>
               </div>

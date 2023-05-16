@@ -3,6 +3,7 @@ import OrderForm, { LineItem } from "./OrderForm";
 import { InitialValues } from "../lib/types/general";
 import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
 import { imPoweredRequest } from "../lib/request";
+import Router from "next/router";
 
 export interface InitialValuesType {
     line_items: LineItem[];
@@ -39,62 +40,30 @@ const OrderFormContainer = ({state, setState }: {
     const elements = useElements();
 
     const [message, setMessage] = useState("");
-    const [paymentType, setPaymentType] = useState("stripe");
-    const [clientOrigin, setClientOrigin] = useState("127.0.0.1");
+    const [clientOrigin, setClientOrigin] = useState("http://localhost:3000");
     const [cardElement, setCardElement] = useState<any>(null);
   
     useEffect(() => {
       setCardElement(elements?.getElement(CardElement));
     }, []);
 
-    // useEffect(() => {
-    //     setClientOrigin(window.location.origin);
-    // }, []);
-
     const handleSubmit = async () => {
         try {
             if (!stripe || !elements) return;
 
-            setIsLoading(true);// update global state with the order data
-
-            const queryString = objectToQueryString({
-                bump: state.bump,
-                cus_uuid: state.customer.cus_uuid,
-                email: state.customer.email,
-                external_type: state.external_type,
-                first_name: state.customer.first_name,
-                fun_uuid: state.fun_uuid,
-                high_risk: state.high_risk,
-                line_items: state.line_items
-            }); // get the query string from new state
-
-            // const { error } = await stripe.confirmSetup({
-            //     elements,
-            //     confirmParams: {
-            //         return_url: `${clientOrigin}/?${queryString}`,
-            //     },
-            // });
+            setIsLoading(true); // update global state with the order data
 
             const cardElement = elements.getElement(CardElement);
 
             if (!cardElement) {
               throw new Error("Card element not found");
-            }
+            };
       
             const { error, paymentMethod } = await stripe.createPaymentMethod({
               type: "card",
               card: cardElement,
             });
-      
-            console.log(error)
 
-            // console.log("START PAYING")
-            // const { error, paymentMethod } = await stripe.createPaymentMethod({
-            //     type: "card",
-            //     card: cardElement!,
-            // });
-            console.log("paymentMethod")
-            console.log(paymentMethod)
             if (error) throw new Error(error.message);
 
             if (state.customer.email !== "" &&
@@ -102,16 +71,12 @@ const OrderFormContainer = ({state, setState }: {
                 state.shipping.line1!== "" && 
                 state.shipping.city !== "" && 
                 state.shipping.state !== "" && 
-                state.shipping.zip !== "") {
-
-                // setTimeout(() => {
-                //     fetchCustomerData(state); // simulate a delay
-                // }, 0);
-        
+                state.shipping.zip !== "" && 
+                paymentMethod!.id && paymentMethod!.id !== "") {
+                setTimeout(() => {
+                    fetchCustomerData(state,  paymentMethod!.id ); // simulate a delay
+                }, 0);
             };
-
-
-            
         } catch (error: any) {
             setMessage(error.message);
         } finally {
@@ -119,20 +84,39 @@ const OrderFormContainer = ({state, setState }: {
         }
     };
 
-    const fetchCustomerData = async (order_payload: InitialValuesType) => {
+    const fetchCustomerData = async (order_payload: InitialValuesType, payment_method: string) => {
         const payload = createPayloadFromOrder(order_payload);
-
-        console.log(payload);
 
         // Make the request to the server to store the card after a successful submission
         const response = await imPoweredRequest(
             "http://127.0.0.1:5001/impowered-production/us-central1/funnels/payments/checkout/fast",
             "POST",
-            payload
+            {...payload, payment_method: payment_method}
         );
+
         if (!response.data) {
-            setMessage(`We're sorry, but there was an issue processing your payment. Please try resubmitting the form or refreshing the page and trying again.`);
-        }
+            setMessage(" Try again as we are having problems charging your card");
+        };
+
+        console.log(response.data);
+
+        if (response.data.ok) {
+
+            const queryString = objectToQueryString({
+                bump: state.bump,
+                cus_uuid: response.data.data.cus_uuid ?? "",
+                email: state.customer.email,
+                external_type: state.external_type,
+                first_name: state.customer.first_name,
+                fun_uuid: state.fun_uuid,
+                high_risk: state.high_risk,
+                line_items: state.line_items
+            }); // get the query string from new state
+    
+            Router.push(`${clientOrigin}/upsell/?${queryString}`);
+        } else {
+            setMessage(response.data.data.error);
+        };
     };
 
     const createPayloadFromOrder = (order_payload: InitialValuesType) => {

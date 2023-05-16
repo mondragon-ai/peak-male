@@ -145,6 +145,7 @@ export default function Home() {
         <meta property="og:title" content={t} />
         
       </Head>
+      
       <main className={styles.main}>
         <Header />
         
@@ -368,6 +369,7 @@ export default function Home() {
         </div>
 
       </main>
+
       <Footer />
     </>
   );
