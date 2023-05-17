@@ -40,7 +40,7 @@ const OrderFormContainer = ({state, setState }: {
     const elements = useElements();
 
     const [message, setMessage] = useState("");
-    const [clientOrigin, setClientOrigin] = useState("http://localhost:3000");
+    const [clientOrigin, setClientOrigin] = useState("https://htl-funnel-main.vercel.app/");
     const [cardElement, setCardElement] = useState<any>(null);
   
     useEffect(() => {
@@ -98,8 +98,6 @@ const OrderFormContainer = ({state, setState }: {
         if (!response.data) {
             setMessage(" Try again as we are having problems charging your card");
         };
-
-        console.log(response.data);
 
         if (response.data.ok) {
 

@@ -26,7 +26,7 @@ const Upsell = () => {
     },
     external_type: "SHOPIFY",
   });
-  const [clientOrigin, setClientOrigin] = useState("http://localhost:3000");
+  const [clientOrigin, setClientOrigin] = useState("https://htl-funnel-main.vercel.app/");
   const [windowWidth, setWindowWidth] = useState(0);
 
 
@@ -94,17 +94,15 @@ const Upsell = () => {
 
 
   const signUpForFreeDecals = async () => {
-    console.log("HELLO")
     try {
+      setIsLoading(true);
       const payload = createPayloadFromOrder();
-      console.log(payload)
 
       const response = await imPoweredRequest(
         "https://us-central1-impowered-production.cloudfunctions.net/funnels/payments/charge/subscription",
         "POST",
         payload
       );
-      console.log(response)
 
       if (response.status < 300) {
         console.log("status < 300")
@@ -116,7 +114,6 @@ const Upsell = () => {
           line_items: [...prev_li, sub_product],
         });
 
-        console.log("READY TO PUH")
         Router.push(`${clientOrigin}/confirmation`);
         return;
       }
@@ -230,7 +227,7 @@ const Upsell = () => {
                 onClick={() => signUpForFreeDecals()}
                 className={`${styles.payBtn} ${styles.wobbleButton}`}
                 id="submit"
-                // disabled={isLoading || !stripe || !elements || isSubmitting}
+                disabled={isLoading}
                 type="submit"
                 style={{
                   width: "100%"
@@ -262,6 +259,6 @@ const Upsell = () => {
 export default Upsell;
 
 export async function getServerSideProps({  }) {
-  // sendPageViewEvent("UPSELL");
+  sendPageViewEvent("UPSELL");
   return { props: {} };
 }

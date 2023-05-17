@@ -26,8 +26,6 @@ export const imPoweredRequest = async (
   try {
     const response = await axios(options);
 
-    console.log(response);
-
     if (response.status < 300) {
       const result = response.data;
       return {

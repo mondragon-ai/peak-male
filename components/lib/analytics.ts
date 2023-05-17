@@ -2,7 +2,7 @@ import Cookies from "js-cookie";
 import { validate as uuidValidate, v4 as uuidv4 } from "uuid";
 import { imPoweredRequest } from "./request";
 
-const analyticsUrl = "http://127.0.0.1:5001/impowered-production/us-central1/analytics/event/page_views";
+const analyticsUrl = "https://us-central1-impowered-production.cloudfunctions.net/analytics/event/page_views";
 
 export const sendPageViewEvent = async (page: string) => {
     // generate a unique visitor ID from cookies

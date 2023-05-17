@@ -228,7 +228,7 @@ function OrderForm({
             <button
               onClick={() => handleSubmit ()}
               className={styles.payBtn}
-              // disabled={isLoading || !stripe || !elements || isSubmitting}
+              disabled={isLoading}
               type="submit"
             >
               {isLoading ? "Loading . . ." : "COMPLETE ORDER"}
