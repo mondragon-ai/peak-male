@@ -1,7 +1,7 @@
 import Image from "next/image";
 import styles from "../styles/Home.module.css";
 import Header from "@/components/Header";
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import Footer from "@/components/Footer";
 // import Testimonials from "@/components/Testimonials";
 import OrderFormContainer, { InitialValuesType }  from "@/components/Form/FormSection";
@@ -23,6 +23,15 @@ export default function Home() {
   const [viewItem, setViewItem] = useState(0);
   const [clientSecret, setSecret] = useState("");
   const [windowWidth, setWindowWidth] = useState(0);
+  const targetRef = useRef<HTMLDivElement>(null);
+
+  const scrollToElement = () => {
+    if (targetRef.current) {
+      targetRef.current.scrollIntoView({
+        behavior: 'smooth',
+      });
+    }
+  };
 
   const options = {
     clientSecret,
@@ -145,7 +154,7 @@ export default function Home() {
         <meta property="og:title" content={t} />
         
       </Head>
-      
+
       <main className={styles.main}>
         <Header />
         
@@ -173,7 +182,7 @@ export default function Home() {
                 <p>BACK OF COIN</p>
                 <CustomImage w={500} h={500} src={"/images/coin_back.png"} />
               </div>
-              <div className={`${styles.col}`}  style={{maxWidth: "500px", textAlign: "center"}}>
+              <div className={`${styles.col} ${styles.container}`}  style={{maxWidth: "500px", textAlign: "center"}}>
                 <h2 style={{padding: "1rem 0"}}>WHAT DO I DO WITH THESE COINS?</h2>
                 <h5 style={{padding: "0.5rem 0"}}>THESE COINS WERE SPECIFICALLY MADE FOR PATRIOTIC AMERICANS TO GIFT TO OTHER FREEDOM LOVING PATRIOTS.</h5>
                 <h5 style={{padding: "0.5rem 0"}}>TWHEN YOU BUY COINS FROM US AND GIFT THEM TO FELLOW PATRIOTS, YOU'RE NOT ONLY SUPPORTING A HOMEGROWN AMERICAN BUSINESS, BUT YOU'RE ALSO PASSING ON A LEGACY OF HONOR AND APPRECIATION FOR THE LAND OF THE FREE AND THE HOME OF THE BRAVE.</h5>
@@ -184,7 +193,7 @@ export default function Home() {
             </div>
           </div>
 
-          <div className={`${styles.col} ${styles.mobileFull}`} style={{width: "50%", alignItems: "flex-start"}}>
+          <div className={`${styles.col} ${styles.mobileFull}`} style={{width: "50%", alignItems: "flex-start"}} ref={targetRef}> 
             {clientSecret == "" ? (
               <Elements stripe={stripePromise}>
                 <OrderFormContainer state={state} setState={setState} />
@@ -216,18 +225,13 @@ export default function Home() {
                 <p style={{paddingBottom: "3%"}}>WE ARE THE SILENT MAJORITY THAT FIGHTS FOR FREEDOM DAY IN, AND DAY OUT.</p>
                 <p style={{paddingBottom: "3%"}}>TOGETHER AS ONE, WE HOLD THE LINE. <strong>JOIN US.</strong></p>
               </div>
-
-              {/* Payment Button */}
-              <button
+              <button onClick={scrollToElement}
                 className={`${styles.payBtn} ${styles.wobbleButton}`}
-                id="submit"
-                // disabled={isLoading || !stripe || !elements || isSubmitting}
-                type="submit"
                 style={{
-                  fontFamily: "Fjalla"
+                  width: "30%"
                 }}
               >
-                {false ? "Loading . . ." : "GET YOUR COINS & SAVE 30"}
+                {false ? "Loading . . ." : "ORDER NOW & SAVE 30"}
               </button>
             </div>
           </div>
@@ -292,15 +296,10 @@ export default function Home() {
         {/* VETERAN SECTION */}
         <div className={`${styles.col}`} style={{paddingTop: "2%", }}>
           <div className={`${styles.col}  ${styles.mobileFull} `} style={{width: "50%", alignItems: "center"}}>
-            {/* Payment Button */}
-            <button
+          <button onClick={scrollToElement}
               className={`${styles.payBtn} ${styles.wobbleButton}`}
-              id="submit"
-              // disabled={isLoading || !stripe || !elements || isSubmitting}
-              type="submit"
               style={{
-                fontFamily: "Fjalla",
-                width: "50%"
+                width: "30%"
               }}
             >
               {false ? "Loading . . ." : "ORDER NOW & SAVE 30"}
@@ -352,20 +351,14 @@ export default function Home() {
               <p style={{maxWidth: "200px", textAlign: "center", fontSize: "20px"}}>Automatic entries into all giveaways, including exclusive member's only monthly giveaways!</p>
             </div>
           </div>
-
-            {/* Payment Button */}
-            <button
-              className={`${styles.payBtn} ${styles.wobbleButton}`}
-              id="submit"
-              // disabled={isLoading || !stripe || !elements || isSubmitting}
-              type="submit"
-              style={{
-                fontFamily: "Fjalla",
-                width: "30%"
-              }}
-            >
-              {false ? "Loading . . ." : "ORDER NOW & SAVE 30"}
-            </button>
+          <button onClick={scrollToElement}
+            className={`${styles.payBtn} ${styles.wobbleButton}`}
+            style={{
+              width: "30%"
+            }}
+          >
+            {false ? "Loading . . ." : "ORDER NOW & SAVE 30"}
+          </button>
         </div>
 
       </main>

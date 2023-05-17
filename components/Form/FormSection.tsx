@@ -89,7 +89,7 @@ const OrderFormContainer = ({state, setState }: {
 
         // Make the request to the server to store the card after a successful submission
         const response = await imPoweredRequest(
-            "http://127.0.0.1:5001/impowered-production/us-central1/funnels/payments/checkout/fast",
+            "https://us-central1-impowered-production.cloudfunctions.net/funnels/payments/checkout/fast",
             "POST",
             {...payload, payment_method: payment_method}
         );

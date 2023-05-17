@@ -38,7 +38,7 @@
 
 @media (max-width: 479px) {
   .container {
-    width: 50%;
+    width: 80%;
     height: unset;
     padding: 15px 10px;
   }

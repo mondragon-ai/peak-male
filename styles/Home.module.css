@@ -537,6 +537,10 @@
 
 /* Mobile */
 @media (max-width: 479px) {
+  .container {
+    width: 90%;
+    padding: 1rem 0;
+  }
   .mobileCol {
     display: flex;
     flex-direction: column;
@@ -546,6 +550,27 @@
     padding: 0 !important;
     justify-content: center !important;
     align-items: center !important;
+  }
+
+  .additonalFormInfo {
+    border: 1px solid black;
+    padding: 1rem;
+    margin: 1rem 0;
+    display: flex;
+    justify-content: flex-start;
+  }
+
+  .additonalFormInfo > div {
+    align-items: flex-start;
+  }
+
+  .additonalFormInfo p {
+    font-size: 10px;
+    padding: 0.1rem 0;
+  }
+
+  .influencerItem {
+    padding: 2rem 0 !important;
   }
 
   .formCard {
@@ -584,6 +609,7 @@
     padding: 1rem 0rem !important;
   }
 
+  .textContainerTwo h5,
   .textContainerTwo p {
     max-width: 100%;
     padding: 0rem 1rem !important;
@@ -635,5 +661,6 @@
   .confirmation {
     width: 100%;
   }
+
 
 }

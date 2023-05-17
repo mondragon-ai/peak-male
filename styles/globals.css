@@ -85,6 +85,16 @@ body {
   overflow-x: hidden;
 }
 
+h1,
+h2,
+h3,
+h4,
+h5,
+p,
+span,
+button {
+  font-family: 'oswald', sans-serif;
+}
 /* body {
   color: rgb(var(--foreground-rgb));
   background: linear-gradient(

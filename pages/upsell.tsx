@@ -100,7 +100,7 @@ const Upsell = () => {
       console.log(payload)
 
       const response = await imPoweredRequest(
-        "http://127.0.0.1:5001/impowered-production/us-central1/funnels/payments/charge/subscription",
+        "https://us-central1-impowered-production.cloudfunctions.net/funnels/payments/charge/subscription",
         "POST",
         payload
       );
@@ -233,7 +233,6 @@ const Upsell = () => {
                 // disabled={isLoading || !stripe || !elements || isSubmitting}
                 type="submit"
                 style={{
-                  fontFamily: "Fjalla",
                   width: "100%"
                 }}
               >

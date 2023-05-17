@@ -87,7 +87,7 @@ function OrderForm({
             </div>
 
             {/* Step #1 PRODUCTS - Title */}
-            <div className={`${styles.selected} ${styles.row}`} style={{justifyContent: "space-between", padding: "0 0.5rem"}}>
+            <div id="MAIN_FORM" className={`${styles.selected} ${styles.row}`} style={{justifyContent: "space-between", padding: "0 0.5rem"}}>
               <h5>Item</h5>
               <h5>Amount</h5>
             </div>
@@ -230,9 +230,6 @@ function OrderForm({
               className={styles.payBtn}
               // disabled={isLoading || !stripe || !elements || isSubmitting}
               type="submit"
-              style={{
-                fontFamily: "Fjalla"
-              }}
             >
               {isLoading ? "Loading . . ." : "COMPLETE ORDER"}
             </button>

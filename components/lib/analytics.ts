@@ -18,7 +18,7 @@ export const sendPageViewEvent = async (page: string) => {
 
     const response = await imPoweredRequest(analyticsUrl, "POST", {
         page_view,
-        fun_uuid: "fun_19d024275f5ba239732a",
+        fun_uuid: process.env.NEXT_PUBLIC_IMPOWERED_FUNNEL ?? "",
     });
 
     if (response.status > 300 && !response.data) {
