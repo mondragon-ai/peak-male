@@ -26,7 +26,7 @@ const Upsell = () => {
     },
     external_type: "SHOPIFY",
   });
-  const [clientOrigin, setClientOrigin] = useState("https://htl-funnel-main.vercel.app/");
+  const [clientOrigin, setClientOrigin] = useState("https://htl-funnel-main.vercel.app");
   const [windowWidth, setWindowWidth] = useState(0);
 
 

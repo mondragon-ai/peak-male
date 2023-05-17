@@ -40,7 +40,7 @@ const OrderFormContainer = ({state, setState }: {
     const elements = useElements();
 
     const [message, setMessage] = useState("");
-    const [clientOrigin, setClientOrigin] = useState("https://htl-funnel-main.vercel.app/");
+    const [clientOrigin, setClientOrigin] = useState("https://htl-funnel-main.vercel.app");
     const [cardElement, setCardElement] = useState<any>(null);
   
     useEffect(() => {
@@ -48,10 +48,9 @@ const OrderFormContainer = ({state, setState }: {
     }, []);
 
     const handleSubmit = async () => {
+        setIsLoading(true); // update global state with the order data
         try {
             if (!stripe || !elements) return;
-
-            setIsLoading(true); // update global state with the order data
 
             const cardElement = elements.getElement(CardElement);
 
@@ -111,12 +110,10 @@ const OrderFormContainer = ({state, setState }: {
                 high_risk: state.high_risk,
                 line_items: state.line_items
             }); // get the query string from new state
-    
-            setIsLoading(false);
             Router.push(`${clientOrigin}/upsell/?${queryString}`);
+            setIsLoading(false);
         } else {
             setMessage(response.data.error);
-            console.log(response.data)
             setIsLoading(false);
         };
     };
