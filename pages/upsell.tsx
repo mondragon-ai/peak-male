@@ -14,9 +14,8 @@ import { LineItem } from "@stripe/stripe-js";
 
 const Upsell = () => {
   const [globalState, setGlobalState] = useContext(Context);
-  const [message, setMessage] = useState("");
+  // const [message, setMessage] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-  const [showVIP, setShowVIP] = useState("");
   const [state, setState] = useState({
     line_items: [],
     customer: {
@@ -105,7 +104,6 @@ const Upsell = () => {
       );
 
       if (response.status < 300) {
-        console.log("status < 300")
 
         const prev_li = globalState.line_items ? globalState.line_items as LineItem[] : []
       
@@ -115,6 +113,7 @@ const Upsell = () => {
         });
 
         Router.push(`${clientOrigin}/confirmation`);
+        setIsLoading(false);
         return;
       }
 
@@ -233,7 +232,7 @@ const Upsell = () => {
                   width: "100%"
                 }}
               >
-                {false ? "Loading . . ." : "YES! Claim my FREE Coin!"}
+                {isLoading ? "Loading . . ." : "YES! Claim my FREE Coin!"}
               </button>
             </div>
 
