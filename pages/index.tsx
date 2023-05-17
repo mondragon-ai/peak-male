@@ -16,6 +16,7 @@ import { saveItem } from "@/context/storage";
 import { imPoweredRequest } from "@/components/lib/request";
 import { LineItem } from "@/components/Form/OrderForm";
 import Head from "next/head";
+import StaticButton from "@/components/Button/StaticBtn";
 
 const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY ?? "");
 
@@ -52,6 +53,7 @@ export default function Home() {
         iconColor: "#fa755a",
       },
     },
+    hidePostalCode: true
   };
 
   // fetch product data and cache it
@@ -233,6 +235,7 @@ export default function Home() {
               >
                 {false ? "Loading . . ." : "ORDER NOW & SAVE 30"}
               </button>
+              {true && <StaticButton scroll={scrollToElement} />}
             </div>
           </div>
         </div>

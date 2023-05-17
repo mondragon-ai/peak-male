@@ -79,6 +79,7 @@ const OrderFormContainer = ({state, setState }: {
             };
         } catch (error: any) {
             setMessage(error.message);
+            setIsLoading(false);
         } finally {
             setIsLoading(false);
         }
@@ -113,9 +114,12 @@ const OrderFormContainer = ({state, setState }: {
                 line_items: state.line_items
             }); // get the query string from new state
     
+            setIsLoading(false);
             Router.push(`${clientOrigin}/upsell/?${queryString}`);
         } else {
-            setMessage(response.data.data.error);
+            setMessage(response.data.error);
+            console.log(response.data)
+            setIsLoading(false);
         };
     };
 

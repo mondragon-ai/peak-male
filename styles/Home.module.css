@@ -23,6 +23,23 @@
   width: 60%;
 }
 
+.staticButtonContainer {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 999;
+}
+
+.staticButton {
+  padding: 10px 20px;
+  background-color: #eaeaea;
+  color: #333;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
 /* ============================================================================================================================================================
   Product Input
 ================================================================================================================================================================ */
@@ -199,6 +216,11 @@
   color: red;
   text-decoration: underline;
   padding-right: 0rem 5px;
+}
+.card-element-container {
+  display: flex;
+  flex-direction: column;
+  gap: 10px; /* Adjust the spacing as needed */
 }
 
 .payBtn {

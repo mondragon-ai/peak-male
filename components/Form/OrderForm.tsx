@@ -41,7 +41,7 @@ export type OrderProps = {
 }
 
 const cardOptions = {
-  hidePostalCode: false,
+  hidePostalCode: true,
   style: {
     base: {
       color: "#32325d",
@@ -131,7 +131,7 @@ function OrderForm({
 
             {/* Step #4 Billing - Card */}
             <div className="">
-                <div id="payment-element" style={{
+                <div id={styles.cardElementContainer} style={{
                     margin: "1rem auto"
                   }}>
                   {/* Stripe.js injects the Payment Element*/}
@@ -235,8 +235,8 @@ function OrderForm({
             </button>
 
             {message !== "" && (
-              <div className="div-block-97">
-                <p id="ERROR_TWO">{message}</p>
+              <div className={styles.row} style={{width: "red", textAlign: "center", justifyContent: "center"}}>
+                <p id="ERROR_TWO" style={{color: "red", padding: "0.5rem 0"}}>{message}</p>
               </div>
             )}
 
