@@ -16,6 +16,7 @@ export const ContextProvider = ({ children }: any) => {
         options3: "",
         product_id: "42235974189228",
         high_risk: false,
+        weight: 20,
     }],
     shipping: {
         line1: "",

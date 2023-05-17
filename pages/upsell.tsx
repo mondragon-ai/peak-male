@@ -85,7 +85,7 @@ const Upsell = () => {
     options1: "",
     options2: "",
     options3: "",
-    weight: 0,
+    weight: 1,
     variant_id: 42235971567788,
     quantity: 1,
     product_id: "",

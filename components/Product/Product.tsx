@@ -40,7 +40,7 @@ export const ProductRow = ({ title, price, piece, product_id, variant_id, option
             sku: "",
             compare_at_price: 0,
             handle: "",
-            weight: 0,
+            weight: 5,
             variant_id: variant_id,
             quantity: 1,
             status: true,
