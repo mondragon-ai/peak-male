@@ -64,10 +64,10 @@ const Confirmation = () => {
 
         <div className={`${styles.col}`}>
           <Image src={"/images/htl_black.png"} alt={""} width={300} height={300} style={{width: "350px", height: "auto"}} />
-          <h3 style={{color: "black"}}>Your Order Is Currently Being Processed</h3>
+          {/* <h3 style={{color: "black"}}>Your Order Is Currently Being Processed</h3> */}
         </div>
 
-        <div className={`${styles.col} ${styles.confHeader}`}>
+        <div className={`${styles.col} ${styles.confHeader}`} style={{textAlign: "center"}}>
           <h3>Your Order Is Currently Being Processed</h3>
         </div>
 

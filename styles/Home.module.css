@@ -24,20 +24,7 @@
 }
 
 .staticButtonContainer {
-  position: fixed;
-  bottom: 20px;
-  left: 50%;
-  transform: translateX(-50%);
-  z-index: 999;
-}
-
-.staticButton {
-  padding: 10px 20px;
-  background-color: #eaeaea;
-  color: #333;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
+  display: none;
 }
 
 /* ============================================================================================================================================================
@@ -349,6 +336,7 @@
   color: #070707;
   cursor: pointer;
   animation: wobble 1s infinite;
+  min-width: 500px !important;
 }
 
 .textContainerTwo h5 {
@@ -592,7 +580,7 @@
   }
 
   .influencerItem {
-    padding: 2rem 0 !important;
+    padding: 2rem 2rem 4rem 2rem !important;
   }
 
   .formCard {
@@ -600,6 +588,7 @@
   }
 
   .wobbleButton {
+    min-width: 200px !important;
     width: 90% !important;
     font-size: 20px;
   }
@@ -640,6 +629,8 @@
   .accordionChild {
     width: 90%;
   }
+
+
   .textContainer h1 {
     text-align: center;
   }
@@ -654,8 +645,13 @@
   }
   .influencerItem img {
     max-width: 100%;
-    padding: 0rem 2rem 4rem 2rem !important;
+    padding: 0;
   }
+
+  .influencerItem p {
+    padding-top: 1rem;
+  }
+
   .quickInfo {
     padding: 0 1rem;
   }
@@ -684,5 +680,22 @@
     width: 100%;
   }
 
-
+  .staticButtonContainer {
+    position: fixed;
+    bottom: 00px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 999;
+    width: 100%;
+  }
+  
+  .staticButton {
+    padding: 10px 20px;
+    background-color: #eaeaea;
+    color: #333;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 18px !important;
+  }
 }

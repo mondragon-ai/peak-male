@@ -243,17 +243,17 @@ export default function Home() {
         {/* INFLUENCERS SECTION */}
         <div className={`${styles.row} ${styles.mobileCol} ${styles.influencers}`} style={{}}>
           <div className={`${styles.col} ${styles.mobileFull} ${styles.influencerItem}`} style={{width: "30%"}}>
-              <Image src={"/images/ht.jpg"} alt={""} width={300} height={300} style={{width: "100%", borderRadius: "3px", height: "auto", paddingBottom: "1rem"}}  />
+              <Image src={"/images/ht.jpg"} alt={""} width={300} height={300} style={{width: "100%", borderRadius: "6px", height: "auto"}}  />
               <p style={{paddingBottom: "1rem"}}>“If you have somebody in mind that believes in freedom, believes in the constitution, this coin is for them. HOLD THE LINE!”</p>
               <h3>-The Hodgetwins <br />Conservative Comedians</h3>
           </div>
           <div className={`${styles.col} ${styles.mobileFull} ${styles.influencerItem}`} style={{width: "30%"}}>
-              <Image src={"/images/chad.jpg"} alt={""} width={300} height={300} style={{width: "100%", borderRadius: "3px", height: "auto", paddingBottom: "1rem"}}  />
+              <Image src={"/images/chad.jpg"} alt={""} width={300} height={300} style={{width: "100%", borderRadius: "3px", height: "auto"}}  />
               <p style={{paddingBottom: "1rem"}}>“How many Patriots do you know? Every one of them needs a coin. Help us grow this family as together, we Hold The Line.”</p>
               <h3>-Chad Prather <br />Blaze TV Host</h3>
           </div>
           <div className={`${styles.col} ${styles.mobileFull} ${styles.influencerItem}`} style={{width: "30%"}}>
-              <Image src={"/images/bryce.jpg"} alt={""} width={300} height={300} style={{width: "100%", borderRadius: "3px", height: "auto", paddingBottom: "1rem"}}  />
+              <Image src={"/images/bryce.jpg"} alt={""} width={300} height={300} style={{width: "100%", borderRadius: "3px", height: "auto"}}  />
               <p style={{paddingBottom: "1rem"}}>“This coin represents freedom and is for people that refuse to give into tyranny. We the People MUST Hold the Line for Freedom.” </p>
               <h3>-Bryce "Thug Nasty" Mitchell<br />UFC Fighter</h3>
           </div>
@@ -272,23 +272,23 @@ export default function Home() {
             <div className={`${styles.col}  ${styles.mobileFull} `} style={{width: "50%"}}>
               <div className={`${styles.col} ${styles.textSectionTwo}`}>
                 <div className={`${styles.col} ${styles.textContainerTwo}`}>
-                  <h5>GIFT FOR PROUD AMERICANS</h5>
+                  <h5>🎁 GIFT FOR PROUD AMERICANS</h5>
                   <p>Perfect for Veterans, First Responders, Nurses, Blue Collar Workers, Teachers, Small Business Owners, and anyone else that holds the line for freedom!</p>
                 </div>
                 <div className={`${styles.col} ${styles.textContainerTwo}`}>
-                  <h5>HAND CRAFTED WITH PRIDE</h5>
+                  <h5>🔨 HAND CRAFTED WITH PRIDE</h5>
                   <p>Made from 1 oz. of steel and measuring 2" in diameter, our coins are crafted with meticulous care and attention to detail. Each coin is a testament to the skilled labor of dedicated artisans.</p>
                 </div>
                 <div className={`${styles.col} ${styles.textContainerTwo}`}>
-                  <h5>SAFE & SECURE</h5>
+                  <h5>🔒 SAFE & SECURE</h5>
                   <p>Our Hold The Line coins are packaged in a protective case and come in a custom Hold The Line velvet carrying bag, allowing you to take your coins with you wherever you go or present them as meaningful gifts.</p>
                 </div>
                 <div className={`${styles.col} ${styles.textContainerTwo}`}>
-                  <h5>LIFETIME WARRANTY INCLUDED</h5>
+                  <h5>⭐️ LIFETIME WARRANTY INCLUDED</h5>
                   <p>We're confident in the quality of our coins, which is why we offer a lifetime warranty for every coin we sell. You can rest assured that you're buying a piece of American pride that will last for generations to come.</p>
                 </div>
                 <div className={`${styles.col} ${styles.textContainerTwo}`}>
-                  <h5>FAST USPS SHIPPING</h5>
+                  <h5>📦 FAST USPS SHIPPING</h5>
                   <p>We're confident in the quality of our coins, which is why we offer a lifetime warranty for every coin we sell. You can rest assured that you're buying a piece of American pride that will last for generations to come.</p>
                 </div>
               </div>
@@ -311,15 +311,15 @@ export default function Home() {
           <div className={`${styles.col}`} style={{width: "50%", alignItems: "center", padding: "3rem 0"}}>
             <Image src={"/images/flag.jpg"} alt={""} width={350} height={500}  style={{width: "50%", height: "auto"}}/>
           </div>
-          <div className={`${styles.col}`} style={{width: "50%", alignItems: "center", textAlign: "center"}}>
-            <h2>At Hold The Line, we are proud to make a difference by donating a portion of every sale to support our American heroes—Veterans and First Responders—providing them with the assistance they deserve.</h2>
+          <div className={`${styles.col}`} style={{width: windowWidth > 720 ? "50%" : "80%", alignItems: "center", textAlign: "center"}}>
+            <h2 >At Hold The Line, we are proud to make a difference by donating a portion of every sale to support our American heroes—Veterans and First Responders—providing them with the assistance they deserve.</h2>
           </div>
           <div className={`${styles.row}`} style={{width: "100%", padding: "1rem", justifyContent: "center"}} ><hr style={{width: "50%"}} /></div>
         </div>
 
         {/* FAQ SECTION */}
         <div className={`${styles.col}`}>
-          <div className={`${styles.col}`} style={{justifyContent: "center", padding: "2rem 0rem 2rem 0"}}>
+          <div className={`${styles.col}`} style={{justifyContent: "center", padding: "2rem 0rem 2rem 0", textAlign: "center"}}>
               <h1>HAVE ANY QUESTIONS?</h1>
           </div>
           <Accordion title={"How long will it take to receive my order?"} detail={"Our shipping typically takes between 4 to 9 days depending on your location. We ship our coins from Fayetteville, AR via USPS Shipping with Tracking. Rest assured that we strive to deliver your order promptly and securely."} />
@@ -338,19 +338,19 @@ export default function Home() {
           </div>
           <div className={`${styles.row} ${styles.mobileCol}`} style={{padding: "2rem 0rem 4rem 0"}}>
             <div className={`${styles.col} ${styles.mobileFull} ${styles.mobileIcon}`} style={{padding: "0 3rem"}}>
-              <Image src={"/images/gift-box-icon.png"} alt={""} width={150} height={150}/>
+              <Image src={"/images/gift-box-icon.png"} alt={""} width={150} height={150} style={{height: "auto", borderRadius: "6px"}}/>
               <p style={{maxWidth: "200px", textAlign: "center", fontSize: "20px"}}>Automatic entries into all giveaways, including exclusive member's only monthly giveaways!</p>
             </div>
             <div className={`${styles.col} ${styles.mobileFull} ${styles.mobileIcon}`} style={{padding: "0 3rem"}}>
-              <Image src={"/images/money-icon.png"} alt={""} width={150} height={150}/>
+              <Image src={"/images/money-icon.png"} alt={""} width={150} height={150}  style={{height: "auto", borderRadius: "6px"}}/>
               <p style={{maxWidth: "200px", textAlign: "center", fontSize: "20px"}}>Automatic entries into all giveaways, including exclusive member's only monthly giveaways!</p>
             </div>
             <div className={`${styles.col} ${styles.mobileFull} ${styles.mobileIcon}`} style={{padding: "0 3rem"}}>
-              <Image src={"/images/phone-icon.png"} alt={""} width={150} height={150}/>
+              <Image src={"/images/phone-icon.png"} alt={""} width={150} height={150}  style={{height: "auto", borderRadius: "6px"}}/>
               <p style={{maxWidth: "200px", textAlign: "center", fontSize: "20px"}}>Automatic entries into all giveaways, including exclusive member's only monthly giveaways!</p>
             </div>
             <div className={`${styles.col} ${styles.mobileFull} ${styles.mobileIcon}`} style={{padding: "0 3rem"}}>
-              <Image src={"/images/computer-icon.png"} alt={""} width={150} height={150}/>
+              <Image src={"/images/computer-icon.png"} alt={""} width={150} height={150}  style={{height: "auto", borderRadius: "6px"}}/>
               <p style={{maxWidth: "200px", textAlign: "center", fontSize: "20px"}}>Automatic entries into all giveaways, including exclusive member's only monthly giveaways!</p>
             </div>
           </div>
