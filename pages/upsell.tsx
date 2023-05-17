@@ -9,6 +9,8 @@ import * as crypto from "crypto";
 import Image from "next/image";
 import Accordion from "@/components/global/Accordian";
 import UpsellAccordion from "@/components/global/UpsellAccordion";
+import { imPoweredRequest } from "@/components/lib/request";
+import { LineItem } from "@stripe/stripe-js";
 
 const Upsell = () => {
   const [globalState, setGlobalState] = useContext(Context);
@@ -24,7 +26,7 @@ const Upsell = () => {
     },
     external_type: "SHOPIFY",
   });
-  const [clientOrigin, setClientOrigin] = useState("");
+  const [clientOrigin, setClientOrigin] = useState("http://localhost:3000");
   const [windowWidth, setWindowWidth] = useState(0);
 
 
@@ -35,22 +37,29 @@ const Upsell = () => {
 
     // extract vars
     const products = query.get("line_items") ? JSON.parse(query.get("line_items") ?? "") : [];
-    const customer = query.get("customer") ? JSON.parse(query.get("customer") ?? "") : "";
-    const external_type = query.get("external_type") ? JSON.parse(query.get("external_type") ?? "") : "";
-  
-    // calc vars for ads
-    // const price =  p_list[0].price  ? Number(p_list[0].price ) : 0;
+    const email = query.get("email") ? query.get("email") ?? "" : "";
+    const first_name = query.get("first_name") ? query.get("first_name") ?? "": "";
+    const cus_uuid = query.get("cus_uuid") ? query.get("cus_uuid") ?? "" : "";
+    const external_type = query.get("external_type") ? query.get("external_type") ?? "" : "";
 
     setState({
       line_items: products,
-      customer: customer,
+      customer: {
+        email: email,
+        first_name: first_name,
+        cus_uuid
+      },
       external_type: external_type,
     });
 
     setGlobalState({
       ...globalState,
       external_type: external_type,
-      customer: customer,
+      customer: {
+        email: email,
+        first_name: first_name,
+        cus_uuid
+      },
       line_items: products,
       bump: query.get("bump") || false,
       high_risk: false,
@@ -66,23 +75,51 @@ const Upsell = () => {
     // });    
   }, []);
 
+  const sub_product = {
+    high_risk: false,
+    title: "VIP Membership",
+    sku: "VIP-CLUB",
+    price: 900,
+    compare_at_price: 0,
+    handle: "",
+    options1: "",
+    options2: "",
+    options3: "",
+    weight: 0,
+    variant_id: 42235971567788,
+    quantity: 1,
+    product_id: "",
+    is_recurring: true
+  }
+
 
   const signUpForFreeDecals = async () => {
+    console.log("HELLO")
     try {
-      setIsLoading(true);
       const payload = createPayloadFromOrder();
+      console.log(payload)
 
-      // const response = await imPoweredRequest(
-      //   "POST",
-      //   "https://us-central1-impowered-funnel.cloudfunctions.net/funnel/payments/quick-sub",
-      //   payload
-      // );
+      const response = await imPoweredRequest(
+        "http://127.0.0.1:5001/impowered-production/us-central1/funnels/payments/charge/subscription",
+        "POST",
+        payload
+      );
+      console.log(response)
 
-      // if (response) {
-      //   updateGlobalState(); // update global state
-      //   Router.push(`${clientOrigin}/congratulations`);
-      //   return;
-      // }
+      if (response.status < 300) {
+        console.log("status < 300")
+
+        const prev_li = globalState.line_items ? globalState.line_items as LineItem[] : []
+      
+        setGlobalState({
+          ...globalState,
+          line_items: [...prev_li, sub_product],
+        });
+
+        console.log("READY TO PUH")
+        Router.push(`${clientOrigin}/confirmation`);
+        return;
+      }
 
       throw new Error(`We're sorry, you couldn't sign up. Please try refreshing the page and try again.`);
     } catch (e) {
@@ -94,34 +131,19 @@ const Upsell = () => {
 
   const declineFreeDecals = async () => {
     setIsLoading(true);
-    Router.push(`${clientOrigin}/congratulations`);
+    Router.push(`${clientOrigin}/confirmation`);
     setIsLoading(false);
   };
 
   const createPayloadFromOrder = () => {
     try {
-      const { customer, external_type } = state;
-      const query = new URLSearchParams(window.location.search);
+      const {customer} = state;
 
       return {
-        cus_uuid: query.get("cus_uuid"),
-        product: {
-          high_risk: false,
-          title: "VIP Membership",
-          sku: "VIP-CLUB",
-          price: 900,
-          compare_at_price: 0,
-          handle: "",
-          options1: "",
-          options2: "",
-          options3: "",
-          weight: 0,
-          variant_id: 42235971567788,
-          quantity: 1,
-          product_id: "",
-          is_recurring: true
-        },
-        funnel_uuid: process.env.NEXT_PUBLIC_IMPOWERED_FUNNEL,
+        cus_uuid: customer.cus_uuid ?? "",
+        product: sub_product,
+        high_risk: false,
+        fun_uid: process.env.NEXT_PUBLIC_IMPOWERED_FUNNEL,
       };
     } catch (error) {
       console.log(error);

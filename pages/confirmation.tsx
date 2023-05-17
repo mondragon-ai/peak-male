@@ -9,52 +9,17 @@ import * as crypto from "crypto";
 import Image from "next/image";
 import Accordion from "@/components/global/Accordian";
 import UpsellAccordion from "@/components/global/UpsellAccordion";
+import { LineItem } from "@/components/Form/OrderForm";
 
 const Confirmation = () => {
   const [globalState, setGlobalState] = useContext(Context);
-  const [message, setMessage] = useState("");
-  const [isLoading, setIsLoading] = useState(false);
-  const [showVIP, setShowVIP] = useState("");
-  const [state, setState] = useState({
-    line_items: [],
-    customer: {
-      email: "",
-      first_name: "",
-      cus_uuid: ""
-    },
-    external_type: "SHOPIFY",
-  });
-  const [clientOrigin, setClientOrigin] = useState("");
   const [windowWidth, setWindowWidth] = useState(0);
 
 
   useEffect(() => {
-    let query = new URLSearchParams(window.location.search);
     setWindowWidth(window? window.innerWidth : 0);
-    sendPageViewEvent("UPSELL"); // send page view event to google analytics
+    sendPageViewEvent("CONFIRMATION"); // send page view event to google analytics
 
-    // extract vars
-    const products = query.get("line_items") ? JSON.parse(query.get("line_items") ?? "") : [];
-    const customer = query.get("customer") ? JSON.parse(query.get("customer") ?? "") : "";
-    const external_type = query.get("external_type") ? JSON.parse(query.get("external_type") ?? "") : "";
-  
-    // calc vars for ads
-    // const price =  p_list[0].price  ? Number(p_list[0].price ) : 0;
-
-    setState({
-      line_items: products,
-      customer: customer,
-      external_type: external_type,
-    });
-
-    setGlobalState({
-      ...globalState,
-      customer: customer,
-      products: products,
-      bump: query.get("bump") || false,
-      high_risk: false,
-    });
-  
     // push 3rd party analytics
     // gtags.twitterEvent(email, price);
     // gtags.event('conversion', {
@@ -65,67 +30,10 @@ const Confirmation = () => {
     // });    
   }, []);
 
+  console.log(globalState);
 
-  const signUpForFreeDecals = async () => {
-    try {
-      setIsLoading(true);
-      const payload = createPayloadFromOrder();
-
-      // const response = await imPoweredRequest(
-      //   "POST",
-      //   "https://us-central1-impowered-funnel.cloudfunctions.net/funnel/payments/quick-sub",
-      //   payload
-      // );
-
-      // if (response) {
-      //   updateGlobalState(); // update global state
-      //   Router.push(`${clientOrigin}/congratulations`);
-      //   return;
-      // }
-
-      throw new Error(`We're sorry, you couldn't sign up. Please try refreshing the page and try again.`);
-    } catch (e) {
-      setIsLoading(false);
-    } finally {
-      setIsLoading(false);
-    }
-  };
-
-  const declineFreeDecals = async () => {
-    setIsLoading(true);
-    Router.push(`${clientOrigin}/congratulations`);
-    setIsLoading(false);
-  };
-
-  const createPayloadFromOrder = () => {
-    try {
-      const { customer, external_type } = state;
-      const query = new URLSearchParams(window.location.search);
-
-      return {
-        cus_uuid: query.get("cus_uuid"),
-        product: {
-          high_risk: false,
-          title: "VIP Membership",
-          sku: "VIP-CLUB",
-          price: 900,
-          compare_at_price: 0,
-          handle: "",
-          options1: "",
-          options2: "",
-          options3: "",
-          weight: 0,
-          variant_id: 42235971567788,
-          quantity: 1,
-          product_id: "",
-          is_recurring: true
-        },
-        funnel_uuid: process.env.NEXT_PUBLIC_IMPOWERED_FUNNEL,
-      };
-    } catch (error) {
-      console.log(error);
-    }
-  };
+  const line_items: [] = globalState.line_items ? globalState.line_items : []
+  const bump: boolean = globalState.bump ? globalState.bump : false
 
   const description = `Enter for a chance to win a new Chevy 2500HD Duramax Diesel & $10,000.00 cash. PIck your size and get discounted items and more importantly, FAST ENTRIES to enter to win!`;
   const ogImgUrl =  "https://www.hodgetwinssweepstakes.com/images/High-Country-Funnel-Banner.png";
@@ -169,10 +77,18 @@ const Confirmation = () => {
             <h5 style={{color: "black"}}>Price</h5>
           </div>
           <div className={`${styles.row}`} style={{width: "100%", padding: "1rem", justifyContent: "center"}} ><hr style={{width: "100%"}} /></div>
-          <div className={`${styles.row}`} style={{justifyContent: "space-between", width: "90%"}}>
-            <h5 style={{color: "black"}}>khwebiuwberg</h5>
-            <h5 style={{color: "black"}}>$9.00 / each</h5>
-          </div>
+          {line_items && line_items.map((li: LineItem) => {
+            return (
+              <div key={li.variant_id} className={`${styles.row}`} style={{justifyContent: "space-between", width: "90%", padding: "0.5rem 0"}}>
+                <h5 style={{color: "black"}}>{li.title}</h5>
+                <h5 style={{color: "black"}}>{li.piece ? li.piece : "$" + (Number(li.price)/100).toFixed(2)}</h5>
+              </div>
+            )
+          })}
+          {bump && <div className={`${styles.row}`} style={{justifyContent: "space-between", width: "90%", padding: "0.5rem 0"}}>
+                <h5 style={{color: "black"}}>Rush & Ensure</h5>
+                <h5 style={{color: "black"}}>$3.99</h5>
+              </div>}
         </div>
 
         <div className={`${styles.col} ${styles.confHeader}`} style={{alignItems: "center"}}>
@@ -200,6 +116,6 @@ const Confirmation = () => {
 export default Confirmation;
 
 export async function getServerSideProps({  }) {
-  // sendPageViewEvent("UPSELL");
+  sendPageViewEvent("CONFIRMATION");
   return { props: {} };
 }
