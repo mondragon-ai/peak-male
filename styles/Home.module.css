@@ -169,6 +169,10 @@
   margin: 1rem 0;
 }
 
+.selected p {
+  font-size: 16px !important;
+}
+
 .formTitle {
   color: black;
   padding: 1rem 0;
@@ -587,6 +591,10 @@
     width: 90% !important;
   }
 
+  .selected p {
+    font-size: 13px !important;
+  }
+
   .wobbleButton {
     min-width: 200px !important;
     width: 90% !important;
@@ -681,6 +689,7 @@
   }
 
   .staticButtonContainer {
+    display: block;
     position: fixed;
     bottom: 00px;
     left: 50%;
@@ -690,12 +699,13 @@
   }
   
   .staticButton {
-    padding: 10px 20px;
-    background-color: #eaeaea;
-    color: #333;
+    padding: 12px 24px;
+    font-size: 30px;
+    background-color: #52B635;
+    color: #ffffff;
+    cursor: pointer;
     border: none;
     border-radius: 5px;
-    cursor: pointer;
     font-size: 18px !important;
   }
 }
