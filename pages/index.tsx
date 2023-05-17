@@ -75,13 +75,12 @@ export default function Home() {
       console.error(error);
     };
   };
-
   const product: any = {
-      title: "Gold Entries ($150 Value) (BEST DEAL!!)",
-      piece: "$5.00 / pc",
-      price: 5000,
-      options1: "Gold Entries ($150 Value)",
-      options2: "M",
+      title: "20 Hold The Line Coins (SAVE 30%)",
+      price: 14000,
+      piece: "$6.97/coin",
+      options1: "",
+      options2: "",
       options3: "",
       product_id: "42235974189228",
       high_risk: false,

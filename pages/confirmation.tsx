@@ -30,8 +30,6 @@ const Confirmation = () => {
     // });    
   }, []);
 
-  console.log(globalState);
-
   const line_items: [] = globalState.line_items ? globalState.line_items : []
   const bump: boolean = globalState.bump ? globalState.bump : false
 

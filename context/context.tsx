@@ -8,12 +8,11 @@ export const ContextProvider = ({ children }: any) => {
 
   const [state, setState] = useState({
     line_items: [{
-        title: "Gold Entries ($150 Value) (BEST DEAL!!)",
-        price_str: "$5.00 / pc",
-        price: 5000,
-        piece: "$150 value in products",
-        options1: "Gold Entries ($150 Value)",
-        options2: "M",
+        title: "20 Hold The Line Coins (SAVE 30%)",
+        price: 14000,
+        piece: "$6.97/coin",
+        options1: "",
+        options2: "",
         options3: "",
         product_id: "42235974189228",
         high_risk: false,
@@ -64,13 +63,6 @@ export const ContextProvider = ({ children }: any) => {
       high_risk,
       secret
     });
-    
-    // check if the product data is cached
-    // const cachedProductData = getItem("product_data");
-    // if (cachedProductData) {
-    //   // setState({ ...state, variants: cachedProductData });
-    // } else {
-    // }
   }, []);
 
 
