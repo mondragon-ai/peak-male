@@ -36,7 +36,7 @@ const Confirmation = () => {
   const description = `Enter for a chance to win a new Chevy 2500HD Duramax Diesel & $10,000.00 cash. PIck your size and get discounted items and more importantly, FAST ENTRIES to enter to win!`;
   const ogImgUrl =  "https://www.hodgetwinssweepstakes.com/images/High-Country-Funnel-Banner.png";
   const canonicalUrl = "https://www.hodgetwinssweepstakes.com";
-  const t = "Hodge Twins Sweepsstake" 
+  const t = "HOLD THE LINE | Hodge Twins Sweepsstake" 
 
   return (
     <div style={{background: "grey", minHeight: "100vh"}}>

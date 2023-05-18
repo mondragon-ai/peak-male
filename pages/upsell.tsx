@@ -149,7 +149,7 @@ const Upsell = () => {
   const description = `Enter for a chance to win a new Chevy 2500HD Duramax Diesel & $10,000.00 cash. PIck your size and get discounted items and more importantly, FAST ENTRIES to enter to win!`;
   const ogImgUrl =  "https://www.hodgetwinssweepstakes.com/images/High-Country-Funnel-Banner.png";
   const canonicalUrl = "https://www.hodgetwinssweepstakes.com";
-  const t = "Hodge Twins Sweepsstake" 
+  const t = "HOLD THE LINE | Hodge Twins Sweepsstake" 
 
   return (
     <div>
@@ -176,7 +176,7 @@ const Upsell = () => {
         {/* Progress */}
         <div className={`${styles.col} ${styles.pSection}`} style={{paddingBottom: "2rem"}}>
           <div className={styles.col}>
-            <h2  style={{margin: "1rem 0.5rem", textAlign: "center"}} >Your Order Qualifies For A FREE Gift!</h2>
+            <h2  style={{margin: "1rem 0.5rem", textAlign: "center"}} >🛒 Your Order Qualifies For A FREE Gift!</h2>
           </div>
           <div className={styles.col}>
             <Image src={"/images/progress2.png"} alt={""} width={300} height={100} style={{height: "35px", margin: "1rem 0"}} />
@@ -194,7 +194,7 @@ const Upsell = () => {
 
         {/* QUICK INFO */}
         <div className={`${styles.col} ${styles.quickInfo}`}>
-          <div className={styles.col} style={{border: "1px dashed white", padding: "0.5rem 4rem", fontSize: "40px"}}>  
+          <div className={styles.col} style={{border: "1px dashed white", padding: "0rem 1rem", fontSize: "40px"}}>  
             <h2>ONE TIME <strong style={{color: "red"}}>ONLY OFFER</strong> </h2>
           </div>
           <div className={styles.col}>
@@ -209,16 +209,16 @@ const Upsell = () => {
 
         {/* BOX FOR PURCHASE */}
         <div className={`${styles.row} ${styles.purchaseBox}  ${styles.mobileCol}`}>
-          <div className={`${styles.col}`}>
-            <Image src={"/images/hlt.png"} alt={""} width={500} height={500} style={{width: "200px", height: "auto", padding: "0.5rem"}} />
+          <div className={`${styles.col}`} style={{width: "100%"}} >
+            <Image src={"/images/hlt.png"} alt={""} width={500} height={500} style={{width: "100%", height: "auto", padding: "0.5rem"}} />
           </div>
           
           <div className={`${styles.col}`}>
             <div className={styles.col}>
               <h2>Hold The Line Coin</h2>
-              <h4>Coin Cost: $19.90 FREE</h4>
-              <h4>Hold The Line Club Cost Today: $9.97</h4>
-              <p>Club members receive exclusive coupons/discounts, access to members only products, and access to exclusive sales/promos first. Memberships will re-bill monthly at $9.97 per month until cancelled by contacting our support team</p>
+              <h5 style={{padding: 0}}>Coin Cost: <em style={{textDecoration: "line-through"}}>$19.90</em>  FREE</h5>
+              <h5>Hold The Line Club Cost Today: $9.97</h5>
+              <p style={{fontSize: "15px"}}>Club members receive exclusive coupons/discounts, access to members only products, and access to exclusive sales/promos first. Memberships will re-bill monthly at $9.97 per month until cancelled by contacting our support team</p>
             </div>
 
             <div className={styles.col}>
@@ -237,7 +237,7 @@ const Upsell = () => {
             </div>
 
             <div className={styles.col}>
-              <h5>***HOLD THE LINE PROUDLY DONATES A PORTION OF EACH CLUB MEMBERSHIP TO PROGRAMS & ORGANIZATIONS THAT BENEFIT VETERANS & FIRST RESPONDERS.</h5>
+              <h5 style={{fontSize: "12px"}}>***HOLD THE LINE PROUDLY DONATES A PORTION OF EACH CLUB MEMBERSHIP TO PROGRAMS & ORGANIZATIONS THAT BENEFIT VETERANS & FIRST RESPONDERS.</h5>
             </div>
           </div>
         </div>

@@ -200,13 +200,14 @@
 
 .bumpText {
   color: black;
-  padding: 1rem 2rem;
+  padding: 1rem;
+  font-size: 10px;
 }
 
 .bumpText strong {
   color: red;
   text-decoration: underline;
-  padding-right: 0rem 5px;
+  padding-right: 0rem 10px;
 }
 .card-element-container {
   display: flex;
@@ -215,9 +216,10 @@
 }
 
 .payBtn {
+  font-weight: bold !important;
   width: 100%;
   height: 80px;
-  color: rgb(255, 255, 255);
+  color: rgb(255, 255, 255) !important;
   background-color: rgb(83, 182, 54);
   font-size: 30px;
   border: 0 solid black;
@@ -236,8 +238,11 @@
 .additonalFormInfo > div {
   align-items: flex-start;
 }
+
 .additonalFormInfo p {
   color: black;
+  font-size: 12px;
+  padding: 0.2rem 0;
 }
 
 .thankYouMsg {
@@ -270,14 +275,17 @@
 .influencers {
   padding: 3rem 0;
   width: 100%;
-  justify-content: center;
-  align-items: center;
+  justify-content: center;align-items: flex-start;
   text-align: center;
 }
 
 .influencerItem {
   padding: 0 3rem;
   max-width: 400px;
+}
+
+.influencerItem p {
+  padding-top: 1rem;
 }
 
 .textContainer{
@@ -343,7 +351,7 @@
   min-width: 500px !important;
 }
 
-.textContainerTwo h5 {
+.textContainerTwo h4 {
   justify-content: flex-start;
   text-align: left;
 }
@@ -357,6 +365,7 @@
 .textContainerTwo p {
   max-width: 100%;
   padding: 0rem 3rem 0 0 !important;
+  font-size: 15px;
 }
 
 @keyframes wobble {
@@ -474,9 +483,14 @@
   padding: 1rem 0;
 }
 
+.quickInfo h2 {
+  font-size: 35px;
+}
+
+
 .purchaseBox {
   border: 1px dashed rgb(234, 78, 78);
-  padding: 0.5rem 4rem; 
+  padding: 0.5rem 1rem; 
   font-size: 40px;
   max-width: 750px;
   border-radius: 6px;
@@ -551,6 +565,27 @@
 
 /* Mobile */
 @media (max-width: 479px) {
+  .staticButtonContainer {
+    display: block;
+    position: fixed;
+    bottom: 00px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 999;
+    width: 100%;
+  }
+  
+  .staticButton {
+    padding: 12px 24px;
+    font-size: 30px;
+    background-color: #52B635;
+    color: #ffffff;
+    cursor: pointer;
+    border: none;
+    border-radius: 5px;
+    font-size: 18px !important;
+    font-weight: bold;
+  }
   .container {
     width: 90%;
     padding: 1rem 0;
@@ -584,7 +619,7 @@
   }
 
   .influencerItem {
-    padding: 2rem 2rem 4rem 2rem !important;
+    padding: 2rem 2rem 1rem 2rem !important
   }
 
   .formCard {
@@ -606,12 +641,12 @@
   }
 
   .mobileIcon {
-    margin-bottom: 25%;
+    margin-bottom: 15%;
   }
 
 
   .mobileIcon p {
-    max-width: 250px;
+    min-width: 250px;
   }
 
   .textContainer p {
@@ -619,7 +654,7 @@
     padding-right: 0rem !important;
   }
 
-  .textContainerTwo h5 {
+  .textContainerTwo h4 {
     justify-content: flex-start;
     text-align: left;
   }
@@ -628,7 +663,7 @@
     padding: 1rem 0rem !important;
   }
 
-  .textContainerTwo h5,
+  .textContainerTwo h4,
   .textContainerTwo p {
     max-width: 100%;
     padding: 0rem 1rem !important;
@@ -656,16 +691,12 @@
     padding: 0;
   }
 
-  .influencerItem p {
-    padding-top: 1rem;
-  }
-
   .quickInfo {
     padding: 0 1rem;
   }
 
   .quickInfo h2 {
-    font-size: 18px;
+    font-size: 30px;
   }
 
   .quickInfo h3 {
@@ -688,24 +719,16 @@
     width: 100%;
   }
 
-  .staticButtonContainer {
-    display: block;
-    position: fixed;
-    bottom: 00px;
-    left: 50%;
-    transform: translateX(-50%);
-    z-index: 999;
-    width: 100%;
-  }
-  
-  .staticButton {
-    padding: 12px 24px;
-    font-size: 30px;
-    background-color: #52B635;
-    color: #ffffff;
-    cursor: pointer;
-    border: none;
-    border-radius: 5px;
-    font-size: 18px !important;
-  }
+.purchaseBox {
+  border: 1px dashed rgb(234, 78, 78);
+  padding: 0.5rem 1rem; 
+  font-size: 40px;
+  max-width: 90%;
+  min-width: 90%;
+  border-radius: 6px;
+  text-align: left;
+  margin-bottom: 4rem;
+}
+
+
 }

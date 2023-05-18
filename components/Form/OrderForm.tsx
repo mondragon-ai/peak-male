@@ -50,7 +50,9 @@ const cardOptions = {
       "::placeholder": {
         color: "#aab7c4",
       },
+      border: "1px solid #000",
     },
+    border: "1px solid #000",
     invalid: {
       color: "#fa755a",
     },
@@ -87,9 +89,12 @@ function OrderForm({
             </div>
 
             {/* Step #1 PRODUCTS - Title */}
-            <div id="MAIN_FORM" className={`${styles.selected} ${styles.row}`} style={{justifyContent: "space-between", padding: "0 0.5rem"}}>
-              <h5>Item</h5>
-              <h5>Amount</h5>
+            <div className={`${styles.col}`} style={{alignItems: "space-between"}}>
+              <div className={`${styles.selected}  ${styles.row}`} style={{justifyContent: "space-between", width: "100%"}}>
+                <h5>Item</h5>
+                <h5>Amount</h5>
+              </div>
+              <div className={`${styles.row}`} style={{width: "100%", padding: "0rem 0 0.2rem 0", justifyContent: "center"}} ><hr style={{width: "100%"}} /></div>
             </div>
 
             {/* Step #1 PRODUCTS LIST */}
@@ -107,8 +112,8 @@ function OrderForm({
 
             {/* Step #2 Contact - Inputs */}
             <div className={`${styles.col}`}>
-              <AddressInput label="First Name" parent="customer" name="first_name" state={state} setState={setState} required />
-              <AddressInput label="Email" parent="customer" name="email" state={state} setState={setState} required />
+              <AddressInput placeHolder={"John Doe"} label="Full Name" parent="customer" name="first_name" state={state} setState={setState} required />
+              <AddressInput placeHolder={"Hodge@gmail.com"} label="Email" parent="customer" name="email" state={state} setState={setState} required />
             </div>
 
             {/* Step #3 Shipping - Title */}
@@ -118,22 +123,20 @@ function OrderForm({
 
             {/* Step #3 Shipping - Inputs */}
             <div className={`${styles.col}`}>
-              <AddressInput label="Address Name" name="line1" state={state} setState={setState} parent="shipping" required />
-              <AddressInput label="City" name="city" state={state} setState={setState} parent="shipping" required />
-              <AddressInput label="State" name="state" state={state} setState={setState} parent="shipping" required />
-              <AddressInput label="Zip Code" name="zip" state={state} setState={setState} parent="shipping" required />
+              <AddressInput placeHolder={"123 Bigly Ln"} label="Shipping Name" name="line1" state={state} setState={setState} parent="shipping" required />
+              <AddressInput placeHolder={"Fayetteville"} label="City" name="city" state={state} setState={setState} parent="shipping" required />
+              <AddressInput placeHolder={"AR"} label="State" name="state" state={state} setState={setState} parent="shipping" required />
+              <AddressInput placeHolder={"72713"} label="Zip Code" name="zip" state={state} setState={setState} parent="shipping" required />
             </div>
 
             {/* Step #4 PAYMENT - Title */}
             <div className={`${styles.formTitle}`}>
-              <h2 className="" style={{fontSize: "25px" }}><strong style={{color: "red"}}>STEP THREE:</strong> CREDIT CARD</h2>
+              <h2 className="" style={{fontSize: "25px" }}><strong style={{color: "red"}}>STEP THREE:</strong> BILLING INFO</h2>
             </div>
 
             {/* Step #4 Billing - Card */}
             <div className="">
-                <div id={styles.cardElementContainer} style={{
-                    margin: "1rem auto"
-                  }}>
+                <div id={styles.cardElementContainer} style={{margin: "1rem auto", border: "1px solid #ccc",  padding: "1rem", borderRadius: "6px"}}>
                   {/* Stripe.js injects the Payment Element*/}
 
                   <CardElement options={cardOptions} />
@@ -164,14 +167,17 @@ function OrderForm({
             </div>
 
             {/* Items Selected */}
-            <div className={`${styles.selected} ${styles.row}`} style={{justifyContent: "space-between"}}>
-              <h5>Item</h5>
-              <h5>Amount</h5>
+            <div className={`${styles.col}`} style={{alignItems: "space-between"}}>
+              <div className={`${styles.selected}  ${styles.row}`} style={{justifyContent: "space-between", width: "100%"}}>
+                <h5>Item</h5>
+                <h5>Amount</h5>
+              </div>
+              <div className={`${styles.row}`} style={{width: "100%", padding: "0rem 0 0.2rem 0", justifyContent: "center"}} ><hr style={{width: "100%"}} /></div>
             </div>
 
             {/* Items Selected  - Listed */}
             <div className={`${styles.selected}`} >
-              <div style={{ display: "flex", height: "auto", justifyContent: "space-between"}} className="productrow">
+              <div style={{ display: "flex", height: "auto", justifyContent: "space-between", padding: "0.2rem 0 "}} className="productrow">
                 <p style={{ fontSize: "10px", color: "grey" }}>
                   {state.line_items && state.line_items[0].title}
                 </p>
@@ -207,7 +213,7 @@ function OrderForm({
                     backgroundColor: state.bump ? "rgb(123, 123, 245)" : "white"
                 }}></div></div>
                 </div>
-                <h4>Yes! Rush & Insure my Order for $3.99</h4>
+                <h5 style={{fontSize: windowWidth < 720 ? "13px" : "15px"}}>Yes! Rush & Insure my Order for $3.99</h5>
               </div>
 
               <div className={`${styles.col}`}>
@@ -216,10 +222,10 @@ function OrderForm({
                   Put me in the front of the shipping line & insure my
                   order: 
                   </strong> 
-                  This will give your order priority in the fulfillment center
+                  {` This will give your order priority in the fulfillment center
                   (There is a huge demand for these) as well as shipping
                   insurance that will cover 100% of your shipment in case of
-                  loss or damaged packages, no questions asked!
+                  loss or damaged packages, no questions asked!`}
                 </p>
               </div>
             </div>
@@ -263,8 +269,8 @@ function OrderForm({
 
             {/* THank You Msg */}
             <div className={`${styles.col} ${styles.thankYouMsg}`}>
-              <h2>THANK YOU FOR SUPPORTING A U.S. VETERAN OWNED & OPERATED BUSINESS 🇺🇸</h2>
-              <h2>🔒 100% MONEY-BACK GUARANTEE</h2>
+              <h3>THANK YOU FOR SUPPORTING A U.S. VETERAN OWNED & OPERATED BUSINESS 🇺🇸</h3>
+              <h4 style={{padding: "1rem 0"}}>🔒 100% MONEY-BACK GUARANTEE</h4>
               <p>Not satisfied with your purchase? We'll arrange a return and full refund for you, no questions asked.</p>
             </div>
 

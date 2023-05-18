@@ -1,6 +1,6 @@
 import styles from "../../styles/Home.module.css";
 
-export const CustomInput = ({ title, parent, name, setState, state, disabled=false }: {[key: string]: any}) => {
+export const CustomInput = ({ title, parent, name, setState, state, disabled=false, placeHolder }: {[key: string]: any}) => {
     const handleInputChange = (event: any) => setState({
     ...state,
     [parent]: {
@@ -22,6 +22,7 @@ export const CustomInput = ({ title, parent, name, setState, state, disabled=fal
                 padding: "0 0.5rem",
                 fontSize: "20px"
             }}
+            placeholder={placeHolder}
             onChange={handleInputChange}
             value={state[name]}
             name={name}

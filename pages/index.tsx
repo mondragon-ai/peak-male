@@ -133,7 +133,7 @@ export default function Home() {
   const description = `Enter for a chance to win a new Chevy 2500HD Duramax Diesel & $10,000.00 cash. PIck your size and get discounted items and more importantly, FAST ENTRIES to enter to win!`;
   const ogImgUrl =  "https://www.hodgetwinssweepstakes.com/images/High-Country-Funnel-Banner.png";
   const canonicalUrl = "https://www.hodgetwinssweepstakes.com";
-  const t = "Hodge Twins Sweepsstake" 
+  const t = "HOLD THE LINE | Hodge Twins Sweepsstake" 
 
   return (
     <>
@@ -160,7 +160,7 @@ export default function Home() {
         <Header />
         
         {/* TOP SECTION */}
-        <div className={`${styles.row} ${styles.mobileCol}`} style={{paddingTop: "2%", }}>
+        <div className={`${styles.row} ${styles.mobileCol}`} style={{padding: windowWidth < 720 ? "2% 0 2rem 0" : "2% 0 2% 0" , }}>
 
           <div className={`${styles.col} ${styles.mobileFull}`} style={{
               width: "50%",
@@ -186,15 +186,15 @@ export default function Home() {
               <div className={`${styles.col} ${styles.container}`}  style={{maxWidth: "500px", textAlign: "center"}}>
                 <h2 style={{padding: "1rem 0"}}>WHAT DO I DO WITH THESE COINS?</h2>
                 <h5 style={{padding: "0.5rem 0"}}>THESE COINS WERE SPECIFICALLY MADE FOR PATRIOTIC AMERICANS TO GIFT TO OTHER FREEDOM LOVING PATRIOTS.</h5>
-                <h5 style={{padding: "0.5rem 0"}}>TWHEN YOU BUY COINS FROM US AND GIFT THEM TO FELLOW PATRIOTS, YOU'RE NOT ONLY SUPPORTING A HOMEGROWN AMERICAN BUSINESS, BUT YOU'RE ALSO PASSING ON A LEGACY OF HONOR AND APPRECIATION FOR THE LAND OF THE FREE AND THE HOME OF THE BRAVE.</h5>
-                <h5 style={{padding: "0.5rem 0"}}>TBORN FROM A DEEP-ROOTED RESPECT FOR OUR COUNTRY'S HISTORY AND THE HEROES WHO'VE FOUGHT FOR OUR FREEDOM, OUR COINS ARE MORE THAN JUST KEEPSAKES - THEY'RE SYMBOLS OF FREEDOM, PRIDE, UNITY, AND THE AMERICAN SPIRIT.</h5>
+                <h5 style={{padding: "0.5rem 0"}}>WHEN YOU BUY COINS FROM US AND GIFT THEM TO FELLOW PATRIOTS, YOU'RE NOT ONLY SUPPORTING A HOMEGROWN AMERICAN BUSINESS, BUT YOU'RE ALSO PASSING ON A LEGACY OF HONOR AND APPRECIATION FOR THE LAND OF THE FREE AND THE HOME OF THE BRAVE.</h5>
+                <h5 style={{padding: "0.5rem 0"}}>BORN FROM A DEEP-ROOTED RESPECT FOR OUR COUNTRY'S HISTORY AND THE HEROES WHO'VE FOUGHT FOR OUR FREEDOM, OUR COINS ARE MORE THAN JUST KEEPSAKES - THEY'RE SYMBOLS OF FREEDOM, PRIDE, UNITY, AND THE AMERICAN SPIRIT.</h5>
                 <h2 style={{padding: "1rem 0"}}>WHO IS THIS COIN FOR?</h2>
-                <h5 style={{padding: "0.5rem 0"}}>TWHETHER IT'S A GIFT FOR A VETERAN, FIRST RESPONDER, TEACHER, BLUE COLLAR WORKER, NURSE, OR JUST A PROUD PATRIOTIC AMERICAN, OUR COINS ARE DESIGNED TO BE A DISTINCTIVE AND HEARTFELT TOKEN OF APPRECIATION, PERFECT FOR EVERY PATRIOT THAT HOLDS THE LINE FOR FREEDOM DAY IN, AND DAY OUT.</h5>
+                <h5 style={{padding: "0.5rem 0"}}>WHETHER IT'S A GIFT FOR A VETERAN, FIRST RESPONDER, TEACHER, BLUE COLLAR WORKER, NURSE, OR JUST A PROUD PATRIOTIC AMERICAN, OUR COINS ARE DESIGNED TO BE A DISTINCTIVE AND HEARTFELT TOKEN OF APPRECIATION, PERFECT FOR EVERY PATRIOT THAT HOLDS THE LINE FOR FREEDOM DAY IN, AND DAY OUT.</h5>
               </div>
             </div>
           </div>
 
-          <div className={`${styles.col} ${styles.mobileFull}`} style={{width: "50%", alignItems: "flex-start"}} ref={targetRef}> 
+          <div className={`${styles.col} ${styles.mobileFull}`} style={{width: "50%", alignItems: "flex-start", paddingBottom: "1rem"}} ref={targetRef}> 
             {clientSecret == "" ? (
               <Elements stripe={stripePromise}>
                 <OrderFormContainer state={state} setState={setState} />
@@ -218,13 +218,13 @@ export default function Home() {
             </div>
             <div className={`${styles.col} ${styles.mobileFull}`} style={{width: "50%"}}>
               <div className={`${styles.col} ${styles.textSection}`}>
-                <p style={{paddingBottom: "3%"}}>WE ARE THE BLUE COLLAR WORKERS WORKING THROUGH THE NIGHT TO GET THE POWER BACK ON AFTER A STORM.</p>
-                <p style={{paddingBottom: "3%"}}>WE ARE THE STAY AT HOME MOMS THAT STAND UP FOR THEIR KIDS AT LOCAL SCHOOL BOARD MEETINGS AGAINST THE WOKE AGENDA.</p>
-                <p style={{paddingBottom: "3%"}}>WE ARE THE POLICE OFFICERS THAT REFUSED A MEDICAL PROCEDURE AND WERE FIRED AFTER YEARS OF PROTECTING THEIR LOCAL COMMUNITIES.</p>
-                <p style={{paddingBottom: "3%"}}>WE ARE THE TEACHERS THAT WERE FORCED TO RESIGN FOR REFUSING TO TEACH STUDENTS AN ANTI-AMERICAN CURRICULUM.</p>
-                <p style={{paddingBottom: "3%"}}>WE ARE THE VETERANS THAT LEFT THEIR FAMILIES TO FIGHT WARS OVERSEAS ONLY TO COME BACK HOME AND BE FORCED OUT INTO EARLY RETIREMENT BY WOKE BUREAUCRATS.</p>
-                <p style={{paddingBottom: "3%"}}>WE ARE THE SILENT MAJORITY THAT FIGHTS FOR FREEDOM DAY IN, AND DAY OUT.</p>
-                <p style={{paddingBottom: "3%"}}>TOGETHER AS ONE, WE HOLD THE LINE. <strong>JOIN US.</strong></p>
+                <p style={{paddingBottom: "2rem"}}>WE ARE THE BLUE COLLAR WORKERS WORKING THROUGH THE NIGHT TO GET THE POWER BACK ON AFTER A STORM.</p>
+                <p style={{paddingBottom: "2rem"}}>WE ARE THE STAY AT HOME MOMS THAT STAND UP FOR THEIR KIDS AT LOCAL SCHOOL BOARD MEETINGS AGAINST THE WOKE AGENDA.</p>
+                <p style={{paddingBottom: "2rem"}}>WE ARE THE POLICE OFFICERS THAT REFUSED A MEDICAL PROCEDURE AND WERE FIRED AFTER YEARS OF PROTECTING THEIR LOCAL COMMUNITIES.</p>
+                <p style={{paddingBottom: "2rem"}}>WE ARE THE TEACHERS THAT WERE FORCED TO RESIGN FOR REFUSING TO TEACH STUDENTS AN ANTI-AMERICAN CURRICULUM.</p>
+                <p style={{paddingBottom: "2rem"}}>WE ARE THE VETERANS THAT LEFT THEIR FAMILIES TO FIGHT WARS OVERSEAS ONLY TO COME BACK HOME AND BE FORCED OUT INTO EARLY RETIREMENT BY WOKE BUREAUCRATS.</p>
+                <p style={{paddingBottom: "2rem"}}>WE ARE THE SILENT MAJORITY THAT FIGHTS FOR FREEDOM DAY IN, AND DAY OUT.</p>
+                <p style={{paddingBottom: "2rem"}}>TOGETHER AS ONE, WE HOLD THE LINE. <strong>JOIN US.</strong></p>
               </div>
               <button onClick={scrollToElement}
                 className={`${styles.payBtn} ${styles.wobbleButton}`}
@@ -271,23 +271,23 @@ export default function Home() {
             <div className={`${styles.col}  ${styles.mobileFull} `} style={{width: "50%"}}>
               <div className={`${styles.col} ${styles.textSectionTwo}`}>
                 <div className={`${styles.col} ${styles.textContainerTwo}`}>
-                  <h5>🎁 GIFT FOR PROUD AMERICANS</h5>
+                  <h4>🎁 GIFT FOR PROUD AMERICANS</h4>
                   <p>Perfect for Veterans, First Responders, Nurses, Blue Collar Workers, Teachers, Small Business Owners, and anyone else that holds the line for freedom!</p>
                 </div>
                 <div className={`${styles.col} ${styles.textContainerTwo}`}>
-                  <h5>🔨 HAND CRAFTED WITH PRIDE</h5>
+                  <h4>🔨 HAND CRAFTED WITH PRIDE</h4>
                   <p>Made from 1 oz. of steel and measuring 2" in diameter, our coins are crafted with meticulous care and attention to detail. Each coin is a testament to the skilled labor of dedicated artisans.</p>
                 </div>
                 <div className={`${styles.col} ${styles.textContainerTwo}`}>
-                  <h5>🔒 SAFE & SECURE</h5>
+                  <h4>🔒 SAFE & SECURE</h4>
                   <p>Our Hold The Line coins are packaged in a protective case and come in a custom Hold The Line velvet carrying bag, allowing you to take your coins with you wherever you go or present them as meaningful gifts.</p>
                 </div>
                 <div className={`${styles.col} ${styles.textContainerTwo}`}>
-                  <h5>⭐️ LIFETIME WARRANTY INCLUDED</h5>
+                  <h4>⭐️ LIFETIME WARRANTY INCLUDED</h4>
                   <p>We're confident in the quality of our coins, which is why we offer a lifetime warranty for every coin we sell. You can rest assured that you're buying a piece of American pride that will last for generations to come.</p>
                 </div>
                 <div className={`${styles.col} ${styles.textContainerTwo}`}>
-                  <h5>📦 FAST USPS SHIPPING</h5>
+                  <h4>📦 FAST USPS SHIPPING</h4>
                   <p>We're confident in the quality of our coins, which is why we offer a lifetime warranty for every coin we sell. You can rest assured that you're buying a piece of American pride that will last for generations to come.</p>
                 </div>
               </div>
@@ -331,26 +331,26 @@ export default function Home() {
         {/* CLUB DETAIL SECTION */}
         <div className={`${styles.col}`}  style={{ padding: "2rem 0rem 2rem 0"}}>
           <div className={`${styles.row}`} style={{width: "100%", padding: "1rem", justifyContent: "center"}} ><hr style={{width: "50%"}} /></div>
-          <div className={`${styles.col}`} style={{width: "50%", alignItems: "center", textAlign: "center", padding: "2rem 0rem 2rem 0"}}>
+          <div className={`${styles.col}`} style={{width: "90%", alignItems: "center", textAlign: "center", padding: "2rem 0rem 2rem 0"}}>
             <h1>HOLD THE LINE CLUB</h1>
             <h4>VIP Club Members receive...</h4>
           </div>
-          <div className={`${styles.row} ${styles.mobileCol}`} style={{padding: "2rem 0rem 4rem 0"}}>
-            <div className={`${styles.col} ${styles.mobileFull} ${styles.mobileIcon}`} style={{padding: "0 3rem"}}>
+          <div className={`${styles.row} ${styles.mobileCol}`} style={{width: "90%", padding: "2rem 0rem 4rem 0"}}>
+            <div className={`${styles.col} ${styles.mobileFull} ${styles.mobileIcon}`} style={{width: "90%", padding: "0 3rem"}}>
               <Image src={"/images/gift-box-icon.png"} alt={""} width={150} height={150} style={{height: "auto", borderRadius: "6px"}}/>
-              <p style={{maxWidth: "200px", textAlign: "center", fontSize: "20px"}}>Automatic entries into all giveaways, including exclusive member's only monthly giveaways!</p>
+              <p style={{minWidth: "200px", textAlign: "center", fontSize: "20px", width: "70%"}}>Automatic entries into all giveaways, including exclusive member's only monthly giveaways!</p>
             </div>
             <div className={`${styles.col} ${styles.mobileFull} ${styles.mobileIcon}`} style={{padding: "0 3rem"}}>
               <Image src={"/images/money-icon.png"} alt={""} width={150} height={150}  style={{height: "auto", borderRadius: "6px"}}/>
-              <p style={{maxWidth: "200px", textAlign: "center", fontSize: "20px"}}>Automatic entries into all giveaways, including exclusive member's only monthly giveaways!</p>
+              <p style={{minWidth: "200px", textAlign: "center", fontSize: "20px", width: "70%"}}>Automatic entries into all giveaways, including exclusive member's only monthly giveaways!</p>
             </div>
             <div className={`${styles.col} ${styles.mobileFull} ${styles.mobileIcon}`} style={{padding: "0 3rem"}}>
               <Image src={"/images/phone-icon.png"} alt={""} width={150} height={150}  style={{height: "auto", borderRadius: "6px"}}/>
-              <p style={{maxWidth: "200px", textAlign: "center", fontSize: "20px"}}>Automatic entries into all giveaways, including exclusive member's only monthly giveaways!</p>
+              <p style={{minWidth: "200px", textAlign: "center", fontSize: "20px", width: "70%"}}>Automatic entries into all giveaways, including exclusive member's only monthly giveaways!</p>
             </div>
             <div className={`${styles.col} ${styles.mobileFull} ${styles.mobileIcon}`} style={{padding: "0 3rem"}}>
               <Image src={"/images/computer-icon.png"} alt={""} width={150} height={150}  style={{height: "auto", borderRadius: "6px"}}/>
-              <p style={{maxWidth: "200px", textAlign: "center", fontSize: "20px"}}>Automatic entries into all giveaways, including exclusive member's only monthly giveaways!</p>
+              <p style={{minWidth: "200px", textAlign: "center", fontSize: "20px", width: "70%"}}>Automatic entries into all giveaways, including exclusive member's only monthly giveaways!</p>
             </div>
           </div>
           <button onClick={scrollToElement}
