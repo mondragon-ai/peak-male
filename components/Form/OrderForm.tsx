@@ -102,7 +102,7 @@ function OrderForm({
               <ProductRow title={"3 Hold The Line Coins"} price={2991} piece={"$9.97/coin"} variant_id={"123"} product_id={""} options1={""} options2={""} options3={""} state={state} setState={setState} />
               <ProductRow title={"5 Hold The Line Coins (SAVE 10%)"} price={4485} piece={"$8.97/coin"} variant_id={"234"} product_id={""} options1={""} options2={""} options3={""} state={state} setState={setState} />
               <ProductRow title={"10 Hold The Line Coins (SAVE 20%)"} price={7970} piece={"$7.97/coin"} variant_id={"345"} product_id={""} options1={""} options2={""} options3={""} state={state} setState={setState} />
-              <ProductRow title={"BEST DEAL"} price={13940} piece={"$6.97/coin"} variant_id={"456"} product_id={""} options1={""} options2={""} options3={""} best={true} state={state} setState={setState} />
+              <ProductRow title={"20 Hold The Line Coins (SAVE 30%)"} price={13940} piece={"$6.97/coin"} variant_id={"456"} product_id={""} options1={""} options2={""} options3={""} best={true} state={state} setState={setState} />
             </div>
 
             {/* Step #2 Contact - Title */}
@@ -192,7 +192,7 @@ function OrderForm({
                   height: "auto"}}>
                   <div className={``}>
                     <p style={{ fontSize: "10px", color: "grey" }}>
-                      Rush & Ensure My Order
+                      Rush & Insure My Order
                     </p>
                   </div>
                   <div className={``}>
@@ -234,6 +234,7 @@ function OrderForm({
             <button
               onClick={() => handleSubmit ()}
               className={styles.payBtn}
+              style={{cursor: isLoading ? "progress" : "pointer"}}
               disabled={isLoading}
               type="submit"
             >

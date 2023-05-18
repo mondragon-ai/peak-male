@@ -79,9 +79,7 @@ const OrderFormContainer = ({state, setState }: {
         } catch (error: any) {
             setMessage(error.message);
             setIsLoading(false);
-        } finally {
-            setIsLoading(false);
-        }
+        };
     };
 
     const fetchCustomerData = async (order_payload: InitialValuesType, payment_method: string) => {

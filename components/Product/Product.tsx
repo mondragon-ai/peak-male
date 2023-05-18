@@ -69,7 +69,7 @@ export const ProductRow = ({ title, price, piece, product_id, variant_id, option
                     color: best ? "red" : "black",
                     fontSize:  best ? "22px"  : "20px",
                     fontWeight:  best ? 700 : "100"
-                }}>{title}</p>
+                }}>{best ? "BEST DEAL": title}</p>
                {best ? <p  style={{
                     fontSize: "18px"
                 }}>20 Hold The Line Coins (SAVE 30%)</p> : null}
