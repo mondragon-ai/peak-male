@@ -82,13 +82,13 @@ export default function Home() {
       options1: "",
       options2: "",
       options3: "",
-      product_id: "42235974189228",
+      product_id: 7623778205868,
       high_risk: false,
       sku: "",
       compare_at_price: 0,
       handle: "",
       weight: 0,
-      variant_id: 345,
+      variant_id: 7623778205868,
       quantity: 1,
       status: false,
       id: "456",
@@ -232,7 +232,7 @@ export default function Home() {
                   width: "30%"
                 }}
               >
-                {false ? "Loading . . ." : "ORDER NOW & SAVE 30"}
+                {false ? "Loading . . ." : "ORDER NOW & SAVE 30%"}
               </button>
               {true && <StaticButton scroll={scrollToElement} />}
             </div>
@@ -304,7 +304,7 @@ export default function Home() {
                 width: "30%"
               }}
             >
-              {false ? "Loading . . ." : "ORDER NOW & SAVE 30"}
+              {false ? "Loading . . ." : "ORDER NOW & SAVE 30%"}
             </button>
           </div>
           <div className={`${styles.col}`} style={{width: "50%", alignItems: "center", padding: "3rem 0"}}>
@@ -359,7 +359,7 @@ export default function Home() {
               width: "30%"
             }}
           >
-            {false ? "Loading . . ." : "ORDER NOW & SAVE 30"}
+            {false ? "Loading . . ." : "ORDER NOW & SAVE 30%"}
           </button>
         </div>
 

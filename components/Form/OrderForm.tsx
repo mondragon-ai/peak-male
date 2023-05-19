@@ -99,10 +99,10 @@ function OrderForm({
 
             {/* Step #1 PRODUCTS LIST */}
             <div className={`${styles.col} ${styles.productContainer}`}>
-              <ProductRow title={"3 Hold The Line Coins"} price={2991} piece={"$9.97/coin"} variant_id={"123"} product_id={""} options1={""} options2={""} options3={""} state={state} setState={setState} />
-              <ProductRow title={"5 Hold The Line Coins (SAVE 10%)"} price={4485} piece={"$8.97/coin"} variant_id={"234"} product_id={""} options1={""} options2={""} options3={""} state={state} setState={setState} />
-              <ProductRow title={"10 Hold The Line Coins (SAVE 20%)"} price={7970} piece={"$7.97/coin"} variant_id={"345"} product_id={""} options1={""} options2={""} options3={""} state={state} setState={setState} />
-              <ProductRow title={"20 Hold The Line Coins (SAVE 30%)"} price={13940} piece={"$6.97/coin"} variant_id={"456"} product_id={""} options1={""} options2={""} options3={""} best={true} state={state} setState={setState} />
+              <ProductRow title={"3 Hold The Line Coins"} price={2991} piece={"$9.97/coin"} variant_id={7623778205868} product_id={""} options1={""} options2={""} options3={""} state={state} setState={setState} />
+              <ProductRow title={"5 Hold The Line Coins (SAVE 10%)"} price={4485} piece={"$8.97/coin"} variant_id={7623778205868} product_id={""} options1={""} options2={""} options3={""} state={state} setState={setState} />
+              <ProductRow title={"10 Hold The Line Coins (SAVE 20%)"} price={7970} piece={"$7.97/coin"} variant_id={7623778205868} product_id={""} options1={""} options2={""} options3={""} state={state} setState={setState} />
+              <ProductRow title={"20 Hold The Line Coins (SAVE 30%)"} price={13940} piece={"$6.97/coin"} variant_id={7623778205868} product_id={""} options1={""} options2={""} options3={""} best={true} state={state} setState={setState} />
             </div>
 
             {/* Step #2 Contact - Title */}
@@ -112,8 +112,8 @@ function OrderForm({
 
             {/* Step #2 Contact - Inputs */}
             <div className={`${styles.col}`}>
-              <AddressInput placeHolder={"John Doe"} label="Full Name" parent="customer" name="first_name" state={state} setState={setState} required />
-              <AddressInput placeHolder={"Hodge@gmail.com"} label="Email" parent="customer" name="email" state={state} setState={setState} required />
+              <AddressInput placeHolder={"Full Name"} label="Full Name" parent="customer" name="first_name" state={state} setState={setState} required />
+              <AddressInput placeHolder={"Email . . ."} label="Email" parent="customer" name="email" state={state} setState={setState} required />
             </div>
 
             {/* Step #3 Shipping - Title */}
@@ -123,10 +123,10 @@ function OrderForm({
 
             {/* Step #3 Shipping - Inputs */}
             <div className={`${styles.col}`}>
-              <AddressInput placeHolder={"123 Bigly Ln"} label="Shipping Name" name="line1" state={state} setState={setState} parent="shipping" required />
-              <AddressInput placeHolder={"Fayetteville"} label="City" name="city" state={state} setState={setState} parent="shipping" required />
-              <AddressInput placeHolder={"AR"} label="State" name="state" state={state} setState={setState} parent="shipping" required />
-              <AddressInput placeHolder={"72713"} label="Zip Code" name="zip" state={state} setState={setState} parent="shipping" required />
+              <AddressInput placeHolder={"Shipping Name"} label="Shipping Name" name="line1" state={state} setState={setState} parent="shipping" required />
+              <AddressInput placeHolder={"City"} label="City" name="city" state={state} setState={setState} parent="shipping" required />
+              <AddressInput placeHolder={"state"} label="State" name="state" state={state} setState={setState} parent="shipping" required />
+              <AddressInput placeHolder={"Zip Code"} label="Zip Code" name="zip" state={state} setState={setState} parent="shipping" required />
             </div>
 
             {/* Step #4 PAYMENT - Title */}

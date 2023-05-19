@@ -7,7 +7,7 @@ export type ProductType = {
     title: string,
     price: number,
     piece: string,
-    variant_id: string,
+    variant_id: number,
     product_id: string,
     options1: string,
     options2: string,
@@ -60,7 +60,7 @@ export const ProductRow = ({ title, price, piece, product_id, variant_id, option
         }}>
             <div className={`${styles.checkBoxProduct}`} >
                 <div><div style={{
-                    backgroundColor: state.line_items && state.line_items[0].id == variant_id ? "rgb(123, 123, 245)" : "white"
+                    backgroundColor: state.line_items && typeof state.line_items[0].id == "number" && state.line_items[0].id == variant_id ? "rgb(123, 123, 245)" : "white"
                 }}></div></div>
             </div>
 

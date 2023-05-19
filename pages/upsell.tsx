@@ -76,16 +76,16 @@ const Upsell = () => {
 
   const sub_product = {
     high_risk: false,
-    title: "VIP Membership",
+    title: "Hold The Line Club - Free HTL Coin",
     sku: "VIP-CLUB",
-    price: 900,
+    price: 997,
     compare_at_price: 0,
     handle: "",
     options1: "",
     options2: "",
     options3: "",
     weight: 1,
-    variant_id: 42235971567788,
+    variant_id: 7623778205868,
     quantity: 1,
     product_id: "",
     is_recurring: true
