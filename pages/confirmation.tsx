@@ -33,10 +33,11 @@ const Confirmation = () => {
   const line_items: [] = globalState.line_items ? globalState.line_items : []
   const bump: boolean = globalState.bump ? globalState.bump : false
 
-  const description = `Enter for a chance to win a new Chevy 2500HD Duramax Diesel & $10,000.00 cash. PIck your size and get discounted items and more importantly, FAST ENTRIES to enter to win!`;
-  const ogImgUrl =  "https://www.hodgetwinssweepstakes.com/images/High-Country-Funnel-Banner.png";
-  const canonicalUrl = "https://www.hodgetwinssweepstakes.com";
-  const t = "HOLD THE LINE | Hodge Twins Sweepsstake" 
+
+  const description = `Own a piece of American pride with the Hold The Line Coin. Handcrafted from steel, this symbol of patriotism embodies strength, resilience, and the spirit of our great nation. Perfect for gifting and displaying, order your Hold The Line Coin today!!`;
+  const ogImgUrl =  "https://images.clickfunnels.com/05/3daf9073c744e19ac910592c7eab5e/hold-the-line-coins-both_clipped_rev_1-cropped.png";
+  const canonicalUrl = "https://hodgetwins.holdtheline.com/";
+  const t = "Hold The Line - Fight For Freedom Challenge Coin" 
 
   return (
     <div style={{background: "grey", minHeight: "100vh"}}>
