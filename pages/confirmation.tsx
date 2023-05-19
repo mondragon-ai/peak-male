@@ -83,10 +83,12 @@ const Confirmation = () => {
               </div>
             )
           })}
-          {bump && <div className={`${styles.row}`} style={{justifyContent: "space-between", width: "90%", padding: "0.5rem 0"}}>
-                <h5 style={{color: "black"}}>Rush & Ensure</h5>
-                <h5 style={{color: "black"}}>$3.99</h5>
-              </div>}
+          {
+            bump && <div className={`${styles.row}`} style={{justifyContent: "space-between", width: "90%", padding: "0.5rem 0"}}>
+              <h5 style={{color: "black"}}>Rush & Insure</h5>
+              <h5 style={{color: "black"}}>$3.99</h5>
+            </div>
+          }
         </div>
 
         <div className={`${styles.col} ${styles.confHeader}`} style={{alignItems: "center"}}>
