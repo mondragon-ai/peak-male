@@ -99,10 +99,10 @@ function OrderForm({
 
             {/* Step #1 PRODUCTS LIST */}
             <div className={`${styles.col} ${styles.productContainer}`}>
-              <ProductRow title={"3 Hold The Line Coins"} price={2991} piece={"$9.97/coin"} variant_id={7623778205868} product_id={""} options1={""} options2={""} options3={""} state={state} setState={setState} />
-              <ProductRow title={"5 Hold The Line Coins (SAVE 10%)"} price={4485} piece={"$8.97/coin"} variant_id={7623778205868} product_id={""} options1={""} options2={""} options3={""} state={state} setState={setState} />
-              <ProductRow title={"10 Hold The Line Coins (SAVE 20%)"} price={7970} piece={"$7.97/coin"} variant_id={7623778205868} product_id={""} options1={""} options2={""} options3={""} state={state} setState={setState} />
-              <ProductRow title={"20 Hold The Line Coins (SAVE 30%)"} price={13940} piece={"$6.97/coin"} variant_id={7623778205868} product_id={""} options1={""} options2={""} options3={""} best={true} state={state} setState={setState} />
+              <ProductRow title={"3 Hold The Line Coins"} price={2991} piece={"$9.97/coin"} variant_id={42555420606636} product_id={""} options1={""} options2={""} options3={""} state={state} setState={setState} />
+              <ProductRow title={"5 Hold The Line Coins (SAVE 10%)"} price={4485} piece={"$8.97/coin"} variant_id={42555420639404} product_id={""} options1={""} options2={""} options3={""} state={state} setState={setState} />
+              <ProductRow title={"10 Hold The Line Coins (SAVE 20%)"} price={7970} piece={"$7.97/coin"} variant_id={42555420672172} product_id={""} options1={""} options2={""} options3={""} state={state} setState={setState} />
+              <ProductRow title={"20 Hold The Line Coins (SAVE 30%)"} price={13940} piece={"$6.97/coin"} variant_id={42555420704940} product_id={""} options1={""} options2={""} options3={""} best={true} state={state} setState={setState} />
             </div>
 
             {/* Step #2 Contact - Title */}

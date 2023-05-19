@@ -85,7 +85,7 @@ const Upsell = () => {
     options2: "",
     options3: "",
     weight: 1,
-    variant_id: 7623778205868,
+    variant_id: 42555420573868,
     quantity: 1,
     product_id: "",
     is_recurring: true

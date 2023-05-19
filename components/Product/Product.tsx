@@ -49,7 +49,7 @@ export const ProductRow = ({ title, price, piece, product_id, variant_id, option
             tags: [],
         }]});
     };
-
+    
     const best_styles = best ? `${styles.bestProduct}` : ""
 
     return (
@@ -60,7 +60,7 @@ export const ProductRow = ({ title, price, piece, product_id, variant_id, option
         }}>
             <div className={`${styles.checkBoxProduct}`} >
                 <div><div style={{
-                    backgroundColor: state.line_items && typeof state.line_items[0].variant_id == "number" && state.line_items[0].variant_id == variant_id ? "rgb(123, 123, 245)" : "white"
+                    backgroundColor: state.line_items && state.line_items[0].variant_id == variant_id ? "rgb(123, 123, 245)" : "white"
                 }}></div></div>
             </div>
 
