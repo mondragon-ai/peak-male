@@ -113,7 +113,7 @@ function OrderForm({
             {/* Step #2 Contact - Inputs */}
             <div className={`${styles.col}`}>
               <AddressInput placeHolder={"Full Name"} label="Full Name" parent="customer" name="first_name" state={state} setState={setState} required />
-              <AddressInput placeHolder={"Email . . ."} label="Email" parent="customer" name="email" state={state} setState={setState} required />
+              <AddressInput placeHolder={"Email Address"} label="Email" parent="customer" name="email" state={state} setState={setState} required />
             </div>
 
             {/* Step #3 Shipping - Title */}
@@ -123,9 +123,9 @@ function OrderForm({
 
             {/* Step #3 Shipping - Inputs */}
             <div className={`${styles.col}`}>
-              <AddressInput placeHolder={"Shipping Name"} label="Shipping Name" name="line1" state={state} setState={setState} parent="shipping" required />
+              <AddressInput placeHolder={"Street Address, P.O. Box, Apt #..."} label="Shipping Address" name="line1" state={state} setState={setState} parent="shipping" required />
               <AddressInput placeHolder={"City"} label="City" name="city" state={state} setState={setState} parent="shipping" required />
-              <AddressInput placeHolder={"state"} label="State" name="state" state={state} setState={setState} parent="shipping" required />
+              <AddressInput placeHolder={"State"} label="State" name="state" state={state} setState={setState} parent="shipping" required />
               <AddressInput placeHolder={"Zip Code"} label="Zip Code" name="zip" state={state} setState={setState} parent="shipping" required />
             </div>
 
