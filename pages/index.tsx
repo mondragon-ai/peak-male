@@ -88,7 +88,7 @@ export default function Home() {
       compare_at_price: 0,
       handle: "",
       weight: 0,
-      variant_id: 7623778205868,
+      variant_id: 42555420704940,
       quantity: 1,
       status: false,
       id: "456",
