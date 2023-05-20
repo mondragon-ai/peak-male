@@ -15,7 +15,7 @@ import { LineItem } from "@stripe/stripe-js";
 const Upsell = () => {
   const [globalState, setGlobalState] = useContext(Context);
   // const [message, setMessage] = useState("");
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
   const [state, setState] = useState({
     line_items: [],
     customer: {
@@ -64,6 +64,9 @@ const Upsell = () => {
       high_risk: false,
     });
   
+    setTimeout(() => {
+      setIsLoading(false);
+    }, 3000);
     // push 3rd party analytics
     // gtags.twitterEvent(email, price);
     // gtags.event('conversion', {
@@ -151,7 +154,7 @@ const Upsell = () => {
   const ogImgUrl =  "https://images.clickfunnels.com/05/3daf9073c744e19ac910592c7eab5e/hold-the-line-coins-both_clipped_rev_1-cropped.png";
   const canonicalUrl = "https://hodgetwins.holdtheline.com/";
   const t = "Hold The Line - Fight For Freedom Challenge Coin" 
-  
+
   return (
     <div>
       <Head>
