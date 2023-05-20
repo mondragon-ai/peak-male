@@ -109,7 +109,6 @@ const OrderFormContainer = ({state, setState }: {
                 line_items: state.line_items
             }); // get the query string from new state
             Router.push(`${clientOrigin}/upsell/?${queryString}`);
-            setIsLoading(false);
         } else {
             setMessage(response.data.error);
             setIsLoading(false);

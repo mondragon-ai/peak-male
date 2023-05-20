@@ -232,9 +232,7 @@ const Upsell = () => {
                 id="submit"
                 disabled={isLoading}
                 type="submit"
-                style={{
-                  width: "100%"
-                }}
+                style={{cursor: isLoading ? "progress" : "pointer", width: "100%"}}
               >
                 {isLoading ? "Loading . . ." : "YES! Claim my FREE Coin!"}
               </button>
