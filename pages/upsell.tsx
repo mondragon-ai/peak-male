@@ -7,17 +7,16 @@ import { Context } from "@/context/context";
 import styles from "../styles/Home.module.css";
 import * as crypto from "crypto";
 import Image from "next/image";
-import Accordion from "@/components/global/Accordian";
 import UpsellAccordion from "@/components/global/UpsellAccordion";
 import { imPoweredRequest } from "@/components/lib/request";
 import { LineItem } from "@stripe/stripe-js";
+import * as gtag from "../components/lib/analytics"
 
 const Upsell = () => {
   const [globalState, setGlobalState] = useContext(Context);
-  // const [message, setMessage] = useState("");
   const [isLoading, setIsLoading] = useState(true);
   const [state, setState] = useState({
-    line_items: [],
+    line_items: [] as LineItem[],
     customer: {
       email: "",
       first_name: "",
@@ -25,7 +24,7 @@ const Upsell = () => {
     },
     external_type: "SHOPIFY",
   });
-  const [clientOrigin, setClientOrigin] = useState("https://htl-funnel-main.vercel.app");
+  const [clientOrigin, setClientOrigin] = useState("https://hodgetwins.holdtheline.com");
   const [windowWidth, setWindowWidth] = useState(0);
 
 
@@ -35,7 +34,7 @@ const Upsell = () => {
     sendPageViewEvent("UPSELL"); // send page view event to google analytics
 
     // extract vars
-    const products = query.get("line_items") ? JSON.parse(query.get("line_items") ?? "") : [];
+    const products: LineItem[] = query.get("line_items") ? JSON.parse(query.get("line_items") ?? "") : [];
     const email = query.get("email") ? query.get("email") ?? "" : "";
     const first_name = query.get("first_name") ? query.get("first_name") ?? "": "";
     const cus_uuid = query.get("cus_uuid") ? query.get("cus_uuid") ?? "" : "";
@@ -67,14 +66,22 @@ const Upsell = () => {
     setTimeout(() => {
       setIsLoading(false);
     }, 3000);
+
+    let price = 0;
+
+    products.length > 0 ? products.forEach(li => {
+      price = price + li.amount
+    }) : [];
+
+
     // push 3rd party analytics
-    // gtags.twitterEvent(email, price);
-    // gtags.event('conversion', {
+    gtag.twitterEvent(email, price);
+    // gtag.event('conversion', {
     //   'send_to': 'AW-10793712364/Knd8CNuBkpIYEOz165oo',
     //   'value': price,
     //   'currency': 'USD',
     //   'transaction_id': "txt_" + crypto.randomBytes(10).toString("hex").substring(0,10)
-    // });    
+    // });
   }, []);
 
   const sub_product = {
