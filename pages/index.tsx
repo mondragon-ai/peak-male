@@ -17,8 +17,6 @@ import { imPoweredRequest } from "@/components/lib/request";
 import { LineItem } from "@/components/Form/OrderForm";
 import Head from "next/head";
 import StaticButton from "@/components/Button/StaticBtn";
-import IFrame from "@/components/global/iFrame";
-import Parallax from "@/components/global/Parallax";
 
 const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY ?? "");
 
@@ -131,10 +129,11 @@ export default function Home() {
     sendPageViewEvent("OPT_IN");
   }, []);
 
-  const description = `Enter for a chance to win a Ford Raptor and $10,000 cash giveaway, hosted by the influential Cam Hanes, renowned bow hunter, and ultra-marathon runner. This exciting opportunity allows you to own a piece of American pride with the Hold The Line Coin. Crafted from robust steel, this coin represents patriotism, embodying the strength, resilience, and spirit of our great nation. Don't miss out on this incredible chance to win and showcase the Hold The Line Coin. Order yours today and join us in celebrating our shared values of bravery and determination!`;
-  const ogImgUrl =  "https://cdn.shopify.com/s/files/1/0697/5150/5204/files/cam3.jpg?v=1686328003";
-  const canonicalUrl = "";
-  const t = "Cam Hanes - Win a Ford Raptor + $10k Cash" 
+
+  const description = `Own a piece of American pride with the Hold The Line Coin. Handcrafted from steel, this symbol of patriotism embodies strength, resilience, and the spirit of our great nation. Perfect for gifting and displaying, order your Hold The Line Coin today!!`;
+  const ogImgUrl =  "https://images.clickfunnels.com/05/3daf9073c744e19ac910592c7eab5e/hold-the-line-coins-both_clipped_rev_1-cropped.png";
+  const canonicalUrl = "https://hodgetwins.holdtheline.com/";
+  const t = "Hold The Line - Fight For Freedom Challenge Coin" 
 
   return (
     <>
@@ -161,37 +160,41 @@ export default function Home() {
         <Header />
         
         {/* TOP SECTION */}
-        <div className={`${styles.row} ${styles.mobileCol}`} style={{padding: windowWidth < 720 ? "0% 0 0rem 0" : "0% 0 0% 0" , background: "#dddddd"}}>
+        <div className={`${styles.row} ${styles.mobileCol}`} style={{padding: windowWidth < 720 ? "2% 0 2rem 0" : "2% 0 2% 0" , }}>
 
           <div className={`${styles.col} ${styles.mobileFull}`} style={{
               width: "50%",
               alignItems: "flex-end",
-              paddingRight: "3rem",
-              padding: "2rem 3rem 2rem 0"
+              paddingRight: "3rem"
             }}>
             <div className={`${styles.col}`}>
               <div className={`${styles.col}`}>
-                <Brand text={""} src={"https://cdn.shopify.com/s/files/1/0697/5150/5204/files/Cam_Hanes_Logo_Retina_copy.png?v=1673552515"} />
+                <Brand text={"OUR MISSION: INSPIRE & UNITE AN ENTIRE GENERATION OF PATRIOTIC AMERICANS THROUGH COMMEMORATIVE SYMBOLS OF FREEDOM."} src={"/images/htl-logo-3-crop.png"} />
               </div>
               <div className={`${styles.row}`} style={{width: "100%", padding: "1rem", justifyContent: "center"}} ><hr style={{width: "80%"}} /></div>
               <div className={`${styles.col}`} style={{padding: "1rem 0", maxWidth: "500px", textAlign: "center"}}>
-               <h2 style={{color: "#212121"}}>Keep Hammering 🔨🔨.</h2>
+               <h2>INTRODUCING THE "HOLD THE LINE" FREEDOM COIN</h2>
               </div>
-              <div className={`${styles.col}`} style={{width: "450px", height: "350px", padding: "1rem 0 2rem 0"}}>
-                <IFrame videoId={"TRPYDZmFkss"} className={""} title={""} />
+              <div className={`${styles.col}`} style={{padding: "1rem 0"}}>
+                <p>FRONT OF COIN</p>
+                <CustomImage w={500} h={500} src={"/images/coin_front.png"} />
               </div>
-              <div className={`${styles.col}`}>
-                <Brand text={""} src={"https://cdn.shopify.com/s/files/1/0697/5150/5204/files/presented-by-hodge-bigly.png?v=1688574222"} />
+              <div className={`${styles.col}`} style={{padding: "1rem 0"}}>
+                <p>BACK OF COIN</p>
+                <CustomImage w={500} h={500} src={"/images/coin_back.png"} />
+              </div>
+              <div className={`${styles.col} ${styles.container}`}  style={{maxWidth: "500px", textAlign: "center"}}>
+                <h2 style={{padding: "1rem 0"}}>WHAT DO I DO WITH THESE COINS?</h2>
+                <h5 style={{padding: "0.5rem 0"}}>THESE COINS WERE SPECIFICALLY MADE FOR PATRIOTIC AMERICANS TO GIFT TO OTHER FREEDOM LOVING PATRIOTS.</h5>
+                <h5 style={{padding: "0.5rem 0"}}>WHEN YOU BUY COINS FROM US AND GIFT THEM TO FELLOW PATRIOTS, YOU'RE NOT ONLY SUPPORTING A HOMEGROWN AMERICAN BUSINESS, BUT YOU'RE ALSO PASSING ON A LEGACY OF HONOR AND APPRECIATION FOR THE LAND OF THE FREE AND THE HOME OF THE BRAVE.</h5>
+                <h5 style={{padding: "0.5rem 0"}}>BORN FROM A DEEP-ROOTED RESPECT FOR OUR COUNTRY'S HISTORY AND THE HEROES WHO'VE FOUGHT FOR OUR FREEDOM, OUR COINS ARE MORE THAN JUST KEEPSAKES - THEY'RE SYMBOLS OF FREEDOM, PRIDE, UNITY, AND THE AMERICAN SPIRIT.</h5>
+                <h2 style={{padding: "1rem 0"}}>WHO IS THIS COIN FOR?</h2>
+                <h5 style={{padding: "0.5rem 0"}}>WHETHER IT'S A GIFT FOR A VETERAN, FIRST RESPONDER, TEACHER, BLUE COLLAR WORKER, NURSE, OR JUST A PROUD PATRIOTIC AMERICAN, OUR COINS ARE DESIGNED TO BE A DISTINCTIVE AND HEARTFELT TOKEN OF APPRECIATION, PERFECT FOR EVERY PATRIOT THAT HOLDS THE LINE FOR FREEDOM DAY IN, AND DAY OUT.</h5>
               </div>
             </div>
           </div>
 
-          <div className={`${styles.col} ${styles.mobileFull}`} style={{
-              width: "50%",
-              alignItems: "flex-start", 
-              padding: "2rem 0 2rem 3rem",
-              background: "#212121"
-            }} ref={targetRef}> 
+          <div className={`${styles.col} ${styles.mobileFull}`} style={{width: "50%", alignItems: "flex-start", paddingBottom: "1rem"}} ref={targetRef}> 
             {clientSecret == "" ? (
               <Elements stripe={stripePromise}>
                 <OrderFormContainer state={state} setState={setState} />
@@ -204,94 +207,96 @@ export default function Home() {
         </div>
 
         {/* FIRST TEXT SECTION */}
-        <Parallax yOffset={3000} customId="truck-images" bckImage="https://cdn.shopify.com/s/files/1/0697/5150/5204/files/CALEB_MARMOLEJO_CAM_HANES_-00073-BW.jpg?v=1688575919">
-          <div className={`${styles.col}`} style={{paddingTop: "2%"}}>
-            <div className={`${styles.col}`} style={{justifyContent: "center"}}>
-                <h1>ABOUT THE GIVEAWAY</h1>
-                <div className={`${styles.row}`} style={{width: "100%", padding: "1rem", justifyContent: "center"}} ><hr style={{width: "80%"}} /></div>
+        <div className={`${styles.col}`} style={{paddingTop: "2%"}}>
+          <div className={`${styles.col}`} style={{justifyContent: "center"}}>
+              <h1>JOIN THE MOVEMENT</h1>
+              <div className={`${styles.row}`} style={{width: "100%", padding: "1rem", justifyContent: "center"}} ><hr style={{width: "80%"}} /></div>
+          </div>
+          <div className={`${styles.row} ${styles.mobileCol}  ${styles.textContainer}`} style={{paddingTop: "2%"}}>
+            <div className={`${styles.col} ${styles.mobileFull}`} style={{width: "50%"}}>
+              <Image src={"/images/firstTextSection.jpg"} alt={""} height={750} width={500} style={{height: "auto", borderRadius: "6px"}} />
             </div>
-            <div className={`${styles.col} `} style={{paddingTop: "2%"}}>
-              <div className={`${styles.row} ${styles.mobileCol}`} style={{alignItems: "center"}}>
-                <Image src={"https://cdn.shopify.com/s/files/1/0697/5150/5204/files/cam3.jpg?v=1686328003"} alt={""} height={750} width={500} style={{width: "100%", height: "auto", borderRadius: "6px", margin: "1rem"}} />
+            <div className={`${styles.col} ${styles.mobileFull}`} style={{width: "50%"}}>
+              <div className={`${styles.col} ${styles.textSection}`}>
+                <p style={{paddingBottom: "2rem"}}>WE ARE THE BLUE COLLAR WORKERS WORKING THROUGH THE NIGHT TO GET THE POWER BACK ON AFTER A STORM.</p>
+                <p style={{paddingBottom: "2rem"}}>WE ARE THE STAY AT HOME MOMS THAT STAND UP FOR THEIR KIDS AT LOCAL SCHOOL BOARD MEETINGS AGAINST THE WOKE AGENDA.</p>
+                <p style={{paddingBottom: "2rem"}}>WE ARE THE POLICE OFFICERS THAT REFUSED A MEDICAL PROCEDURE AND WERE FIRED AFTER YEARS OF PROTECTING THEIR LOCAL COMMUNITIES.</p>
+                <p style={{paddingBottom: "2rem"}}>WE ARE THE TEACHERS THAT WERE FORCED TO RESIGN FOR REFUSING TO TEACH STUDENTS AN ANTI-AMERICAN CURRICULUM.</p>
+                <p style={{paddingBottom: "2rem"}}>WE ARE THE VETERANS THAT LEFT THEIR FAMILIES TO FIGHT WARS OVERSEAS ONLY TO COME BACK HOME AND BE FORCED OUT INTO EARLY RETIREMENT BY WOKE BUREAUCRATS.</p>
+                <p style={{paddingBottom: "2rem"}}>WE ARE THE SILENT MAJORITY THAT FIGHTS FOR FREEDOM DAY IN, AND DAY OUT.</p>
+                <p style={{paddingBottom: "2rem"}}>TOGETHER AS ONE, WE HOLD THE LINE. <strong>JOIN US.</strong></p>
               </div>
-              <div className={`${styles.row} ${styles.mobileCol}`} style={{width: "100%", alignItems: "center"}}>
-                <div style={{background: "black", width: "100%", borderRadius: "10px", padding: "1rem", textAlign: "center"}}>
-                  <h1>
-                    <span style={{color: "#FF5100"}}>2023 FORD RAPTOR</span> 4X4
-                    <br/>
-                    <br/>
-                    <span style={{color: "#FF5100"}}>3.5L TWIN TURBO ECOBOOST</span>  High Output
-                    <br/>
-                    <br/>
-                    <span style={{color: "#FF5100"}}>PANORAMIC</span> Sun Roof
-                    <br/>
-                    <br/>
-                    <span style={{color: "#FF5100"}}>RIGID</span> Fog Lights and Retractable Tonneau Cover
-                    <br/>
-                    <br/>
-                    <span style={{color: "#FF5100"}}>20" METHOD PERFORMANCE WHEELS</span> Wrapped in 35" Nitto Ridge Grappler Tires 
-                  </h1>
-                </div>
-              </div>
-              <div className={`${styles.row} ${styles.mobileCol}`} style={{alignItems: "center"}}>
-                <Image src={"https://cdn.shopify.com/s/files/1/0697/5150/5204/files/cam3.jpg?v=1686328003"} alt={""} height={750} width={500} style={{height: "auto", borderRadius: "6px", margin: "1rem"}} />
-                <Image src={"https://cdn.shopify.com/s/files/1/0697/5150/5204/files/cam3.jpg?v=1686328003"} alt={""} height={750} width={500} style={{height: "auto", borderRadius: "6px", margin: "1rem"}} />
-              </div>
-              <div className={`${styles.row} ${styles.mobileCol}`} style={{alignItems: "center"}}>
-                <Image src={"https://cdn.shopify.com/s/files/1/0697/5150/5204/files/cam3.jpg?v=1686328003"} alt={""} height={750} width={500} style={{height: "auto", borderRadius: "6px", margin: "1rem"}} />
-                <Image src={"https://cdn.shopify.com/s/files/1/0697/5150/5204/files/cam3.jpg?v=1686328003"} alt={""} height={750} width={500} style={{height: "auto", borderRadius: "6px", margin: "1rem"}} />
-              </div>
-              <div className={`${styles.col}`} style={{width: "100%", padding: "2rem 0 4rem 0 "}}>
-                <button onClick={scrollToElement}
-                  className={`${styles.payBtn} ${styles.wobbleButton}`}
-                  style={{
-                    width: "30%"
-                  }}
-                >
-                  {false ? "Loading . . ." : "ORDER NOW & SAVE 30%"}
-                </button>
-                {true && <StaticButton scroll={scrollToElement} />}
-              </div>
+              <button onClick={scrollToElement}
+                className={`${styles.payBtn} ${styles.wobbleButton}`}
+                style={{
+                  width: "30%"
+                }}
+              >
+                {false ? "Loading . . ." : "ORDER NOW & SAVE 30%"}
+              </button>
+              {true && <StaticButton scroll={scrollToElement} />}
             </div>
           </div>
-        </Parallax>
+        </div>
+
+        {/* INFLUENCERS SECTION */}
+        <div className={`${styles.row} ${styles.mobileCol} ${styles.influencers}`} style={{}}>
+          <div className={`${styles.col} ${styles.mobileFull} ${styles.influencerItem}`} style={{width: "30%"}}>
+              <Image src={"/images/ht.jpg"} alt={""} width={300} height={300} style={{width: "100%", borderRadius: "6px", height: "auto"}}  />
+              <p style={{paddingBottom: "1rem"}}>“If you have somebody in mind that believes in freedom, believes in the constitution, this coin is for them. HOLD THE LINE!”</p>
+              <h3>-The Hodgetwins <br />Conservative Comedians</h3>
+          </div>
+          <div className={`${styles.col} ${styles.mobileFull} ${styles.influencerItem}`} style={{width: "30%"}}>
+              <Image src={"/images/chad.jpg"} alt={""} width={300} height={300} style={{width: "100%", borderRadius: "3px", height: "auto"}}  />
+              <p style={{paddingBottom: "1rem"}}>“How many Patriots do you know? Every one of them needs a coin. Help us grow this family as together, we Hold The Line.”</p>
+              <h3>-Chad Prather <br />Blaze TV Host</h3>
+          </div>
+          <div className={`${styles.col} ${styles.mobileFull} ${styles.influencerItem}`} style={{width: "30%"}}>
+              <Image src={"/images/bryce.jpg"} alt={""} width={300} height={300} style={{width: "100%", borderRadius: "3px", height: "auto"}}  />
+              <p style={{paddingBottom: "1rem"}}>“This coin represents freedom and is for people that refuse to give into tyranny. We the People MUST Hold the Line for Freedom.” </p>
+              <h3>-Bryce "Thug Nasty" Mitchell<br />UFC Fighter</h3>
+          </div>
+        </div>
 
         {/* SECOND TEXT SECTION */}
         <div className={`${styles.col}`} style={{paddingTop: "2%"}}>
-          <div className={`${styles.col}`} style={{paddingTop: "2%"}}>
-            <div className={`${styles.col}`} style={{justifyContent: "center"}}>
-                <h1>JOIN THE COLLECTIVE</h1>
-                <div className={`${styles.row}`} style={{width: "100%", padding: "1rem", justifyContent: "center"}} ><hr style={{width: "80%"}} /></div>
+          <div className={`${styles.col}`} style={{justifyContent: "center"}}>
+              <h1>JOIN THE MOVEMENT</h1>
+              <div className={`${styles.row}`} style={{width: "100%", padding: "1rem", justifyContent: "center"}} ><hr style={{width: "80%"}} /></div>
+          </div>
+          <div className={`${styles.row} ${styles.textContainer} ${styles.mobileCol}`} style={{paddingTop: "2%"}}>
+            <div className={`${styles.col}  ${styles.mobileFull} `} style={{width: "50%"}}>
+              <Image src={"/images/coinandbag.jpg"} alt={""} height={750} width={500} style={{height: "auto", borderRadius: "6px"}} />
             </div>
-            <div className={`${styles.row} ${styles.mobileCol}  ${styles.textContainer}`} style={{paddingTop: "2%"}}>
-              <div className={`${styles.col} ${styles.mobileFull}`} style={{width: "50%"}}>
-                <Image src={"https://cdn.shopify.com/s/files/1/0697/5150/5204/files/cam-email2_copy.jpg?v=1675032195"} alt={""} height={750} width={500} style={{height: "auto", borderRadius: "6px"}} />
-              </div>
-              <div className={`${styles.col} ${styles.mobileFull}`} style={{width: "50%"}}>
-                <div className={`${styles.col} ${styles.textSection}`}>
-                  <p style={{paddingBottom: "2rem"}}>People ask me, <em>"Why am I giving away cash, free gas, and trucks!?"</em> Well, let me tell you why... I got tired of relying on big tech for expensive advertising and marketing, so I decided to take matters into my own hands and give back to you, my amazing fans.</p>
-                  <p style={{paddingBottom: "2rem"}}>I've been incredibly fortunate to have the opportunity to give away over $850k+ worth of vehicles and prizes to my fans this year alone. And now, for my very first giveaway, every purchase you make will enter you for a chance to WIN a 2023 FORD RAPTOR, a custom truck that embodies power and performance, along with $10,000 CASH! 🔥</p>
-                  <p style={{paddingBottom: "2rem"}}>I want to express my sincere gratitude for all the support you've shown me throughout my journey.</p>
-                  <p style={{paddingBottom: "2rem"}}></p>
-                  <p style={{paddingBottom: "2rem", width: "100%"}}>Thank You,</p>
-                  <p style={{paddingBottom: "2rem", width: "100%"}}>Cameron Hanes & Team Bigly <strong>JOIN US.</strong></p>
+            <div className={`${styles.col}  ${styles.mobileFull} `} style={{width: "50%"}}>
+              <div className={`${styles.col} ${styles.textSectionTwo}`}>
+                <div className={`${styles.col} ${styles.textContainerTwo}`}>
+                  <h4>🎁 GIFT FOR PROUD AMERICANS</h4>
+                  <p>Perfect for Veterans, First Responders, Nurses, Blue Collar Workers, Teachers, Small Business Owners, and anyone else that holds the line for freedom!</p>
                 </div>
-                <button onClick={scrollToElement}
-                  className={`${styles.payBtn} ${styles.wobbleButton}`}
-                  style={{
-                    width: "30%"
-                  }}
-                >
-                  {false ? "Loading . . ." : "ORDER NOW & SAVE 30%"}
-                </button>
-                {true && <StaticButton scroll={scrollToElement} />}
+                <div className={`${styles.col} ${styles.textContainerTwo}`}>
+                  <h4>🔨 HAND CRAFTED WITH PRIDE</h4>
+                  <p>Made from 1 oz. of steel and measuring 2" in diameter, our coins are crafted with meticulous care and attention to detail. Each coin is a testament to the skilled labor of dedicated artisans.</p>
+                </div>
+                <div className={`${styles.col} ${styles.textContainerTwo}`}>
+                  <h4>🔒 SAFE & SECURE</h4>
+                  <p>Our Hold The Line coins are packaged in a protective case and come in a custom Hold The Line velvet carrying bag, allowing you to take your coins with you wherever you go or present them as meaningful gifts.</p>
+                </div>
+                <div className={`${styles.col} ${styles.textContainerTwo}`}>
+                  <h4>⭐️ LIFETIME WARRANTY INCLUDED</h4>
+                  <p>We're confident in the quality of our coins, which is why we offer a lifetime warranty for every coin we sell. You can rest assured that you're buying a piece of American pride that will last for generations to come.</p>
+                </div>
+                <div className={`${styles.col} ${styles.textContainerTwo}`}>
+                  <h4>📦 FAST USPS SHIPPING</h4>
+                  <p>We're confident in the quality of our coins, which is why we offer a lifetime warranty for every coin we sell. You can rest assured that you're buying a piece of American pride that will last for generations to come.</p>
+                </div>
               </div>
             </div>
           </div>
         </div>
 
         {/* VETERAN SECTION */}
-        {/* <div className={`${styles.col}`} style={{paddingTop: "2%", }}>
+        <div className={`${styles.col}`} style={{paddingTop: "2%", }}>
           <div className={`${styles.col}  ${styles.mobileFull} `} style={{width: "50%", alignItems: "center"}}>
           <button onClick={scrollToElement}
               className={`${styles.payBtn} ${styles.wobbleButton}`}
@@ -309,21 +314,19 @@ export default function Home() {
             <h2 >At Hold The Line, we are proud to make a difference by donating a portion of every sale to support our American heroes—Veterans and First Responders—providing them with the assistance they deserve.</h2>
           </div>
           <div className={`${styles.row}`} style={{width: "100%", padding: "1rem", justifyContent: "center"}} ><hr style={{width: "50%"}} /></div>
-        </div> */}
+        </div>
 
         {/* FAQ SECTION */}
-        <Parallax yOffset={4000} customId="faw-section" bckImage="https://cdn.shopify.com/s/files/1/0697/5150/5204/files/CALEB_MARMOLEJO_CAM_HANES_-09626.jpg?v=1688579100">
-          <div className={`${styles.col}`} style={{paddingTop: "2%", height: "700px"}}>
-            <div className={`${styles.col}`} style={{justifyContent: "center", padding: "2rem 0rem 2rem 0", textAlign: "center"}}>
-                <h1>HAVE ANY QUESTIONS?</h1>
-            </div>
-            <Accordion title={"How long will it take to receive my order?"} detail={"Our shipping typically takes between 4 to 9 days depending on your location. We ship our coins from Fayetteville, AR via USPS Shipping with Tracking. Rest assured that we strive to deliver your order promptly and securely."} />
-            <Accordion title={"Is there a warranty for these coins?"} detail={"Yes, all coins come with a lifetime warranty with 100% money back guarantee. We stand behind the quality and craftsmanship of our products."} />
-            <Accordion title={"Do you offer bulk discounts for large orders?"} detail={"Our coins come in 5, 10, and 20 packs. We are able to offer 30% Off on our 20-pack coins. If you're interested in larger quantities, please reach out to our sales team directly for inquiries regarding bulk orders and potential discounts. We will be more than happy to assist you with your request."} />
-            <Accordion title={"What is your return and refund policy?"} detail={"We want you to be completely satisfied with your purchase. If, for any reason, you are not happy with your order, please contact our customer service team at info@holdtheline.com. We aim to provide a hassle-free return process and resolve any issues promptly."} />
-            <Accordion title={"How can I contact customer support?"} detail={"Our dedicated customer support team is here to assist you. You can reach us by email at info@holdtheline.com or by phone at 877-462-4459 during our business hours, which are Monday-Friday from 9am-4pm CST. We value your feedback and strive to provide excellent customer service."} />
+        <div className={`${styles.col}`}>
+          <div className={`${styles.col}`} style={{justifyContent: "center", padding: "2rem 0rem 2rem 0", textAlign: "center"}}>
+              <h1>HAVE ANY QUESTIONS?</h1>
           </div>
-        </Parallax>
+          <Accordion title={"How long will it take to receive my order?"} detail={"Our shipping typically takes between 4 to 9 days depending on your location. We ship our coins from Fayetteville, AR via USPS Shipping with Tracking. Rest assured that we strive to deliver your order promptly and securely."} />
+          <Accordion title={"Is there a warranty for these coins?"} detail={"Yes, all coins come with a lifetime warranty with 100% money back guarantee. We stand behind the quality and craftsmanship of our products."} />
+          <Accordion title={"Do you offer bulk discounts for large orders?"} detail={"Our coins come in 5, 10, and 20 packs. We are able to offer 30% Off on our 20-pack coins. If you're interested in larger quantities, please reach out to our sales team directly for inquiries regarding bulk orders and potential discounts. We will be more than happy to assist you with your request."} />
+          <Accordion title={"What is your return and refund policy?"} detail={"We want you to be completely satisfied with your purchase. If, for any reason, you are not happy with your order, please contact our customer service team at info@holdtheline.com. We aim to provide a hassle-free return process and resolve any issues promptly."} />
+          <Accordion title={"How can I contact customer support?"} detail={"Our dedicated customer support team is here to assist you. You can reach us by email at info@holdtheline.com or by phone at 877-462-4459 during our business hours, which are Monday-Friday from 9am-4pm CST. We value your feedback and strive to provide excellent customer service."} />
+        </div>
 
         {/* CLUB DETAIL SECTION */}
         <div className={`${styles.col}`}  style={{ padding: "2rem 0rem 2rem 0"}}>
