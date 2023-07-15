@@ -17,9 +17,16 @@ import { imPoweredRequest } from "@/components/lib/request";
 import { LineItem } from "@/components/Form/OrderForm";
 import Head from "next/head";
 import StaticButton from "@/components/Button/StaticBtn";
+import MarqueeText from "@/components/Marquee/Marquee";
+import Marquee from "react-fast-marquee";
 
 const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY ?? "");
 
+declare namespace JSX {
+  interface IntrinsicElements {
+    marquee: React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement>;
+  }
+}
 export default function Home() {
   const [viewItem, setViewItem] = useState(0);
   const [clientSecret, setSecret] = useState("");
@@ -160,41 +167,107 @@ export default function Home() {
         <Header />
         
         {/* TOP SECTION */}
-        <div className={`${styles.row} ${styles.mobileCol}`} style={{padding: windowWidth < 720 ? "2% 0 2rem 0" : "2% 0 2% 0" , }}>
+        <div className={`${styles.row} ${styles.mobileCol}  ${styles.topContainer} `}>
 
-          <div className={`${styles.col} ${styles.mobileFull}`} style={{
-              width: "50%",
-              alignItems: "flex-end",
-              paddingRight: "3rem"
-            }}>
-            <div className={`${styles.col}`}>
-              <div className={`${styles.col}`}>
-                <Brand text={"OUR MISSION: INSPIRE & UNITE AN ENTIRE GENERATION OF PATRIOTIC AMERICANS THROUGH COMMEMORATIVE SYMBOLS OF FREEDOM."} src={"/images/htl-logo-3-crop.png"} />
+          <div className={`${styles.col} ${styles.mobileFull} ${styles.topContainerLeft}`}>
+            <div>
+              <Image src={"https://hitsdesignclients.com/Peak-Male-new/images/sldr1.png"} 
+                alt={""}
+                width={100}
+                height={400}
+                style={{width: "450px", height: "auto"}} />
+            </div>
+
+            <div className={`${styles.row} ${styles.imgSliders}`}>
+              <div>
+                <Image src={"https://hitsdesignclients.com/Peak-Male-new/images/sldr1.png"} 
+                  alt={""}
+                  width={60}
+                  height={60}
+                  style={{width: "60px", height: "auto"}} />
               </div>
-              <div className={`${styles.row}`} style={{width: "100%", padding: "1rem", justifyContent: "center"}} ><hr style={{width: "80%"}} /></div>
-              <div className={`${styles.col}`} style={{padding: "1rem 0", maxWidth: "500px", textAlign: "center"}}>
-               <h2>INTRODUCING THE "HOLD THE LINE" FREEDOM COIN</h2>
+              <div>
+                <Image src={"https://hitsdesignclients.com/Peak-Male-new/images/sldr2.png"} 
+                  alt={""}
+                  width={60}
+                  height={60}
+                  style={{width: "60px", height: "auto"}} />
               </div>
-              <div className={`${styles.col}`} style={{padding: "1rem 0"}}>
-                <p>FRONT OF COIN</p>
-                <CustomImage w={500} h={500} src={"/images/coin_front.png"} />
+              <div>
+                <Image src={"https://hitsdesignclients.com/Peak-Male-new/images/sldr3.png"} 
+                  alt={""}
+                  width={60}
+                  height={60}
+                  style={{width: "60px", height: "auto"}} />
               </div>
-              <div className={`${styles.col}`} style={{padding: "1rem 0"}}>
-                <p>BACK OF COIN</p>
-                <CustomImage w={500} h={500} src={"/images/coin_back.png"} />
-              </div>
-              <div className={`${styles.col} ${styles.container}`}  style={{maxWidth: "500px", textAlign: "center"}}>
-                <h2 style={{padding: "1rem 0"}}>WHAT DO I DO WITH THESE COINS?</h2>
-                <h5 style={{padding: "0.5rem 0"}}>THESE COINS WERE SPECIFICALLY MADE FOR PATRIOTIC AMERICANS TO GIFT TO OTHER FREEDOM LOVING PATRIOTS.</h5>
-                <h5 style={{padding: "0.5rem 0"}}>WHEN YOU BUY COINS FROM US AND GIFT THEM TO FELLOW PATRIOTS, YOU'RE NOT ONLY SUPPORTING A HOMEGROWN AMERICAN BUSINESS, BUT YOU'RE ALSO PASSING ON A LEGACY OF HONOR AND APPRECIATION FOR THE LAND OF THE FREE AND THE HOME OF THE BRAVE.</h5>
-                <h5 style={{padding: "0.5rem 0"}}>BORN FROM A DEEP-ROOTED RESPECT FOR OUR COUNTRY'S HISTORY AND THE HEROES WHO'VE FOUGHT FOR OUR FREEDOM, OUR COINS ARE MORE THAN JUST KEEPSAKES - THEY'RE SYMBOLS OF FREEDOM, PRIDE, UNITY, AND THE AMERICAN SPIRIT.</h5>
-                <h2 style={{padding: "1rem 0"}}>WHO IS THIS COIN FOR?</h2>
-                <h5 style={{padding: "0.5rem 0"}}>WHETHER IT'S A GIFT FOR A VETERAN, FIRST RESPONDER, TEACHER, BLUE COLLAR WORKER, NURSE, OR JUST A PROUD PATRIOTIC AMERICAN, OUR COINS ARE DESIGNED TO BE A DISTINCTIVE AND HEARTFELT TOKEN OF APPRECIATION, PERFECT FOR EVERY PATRIOT THAT HOLDS THE LINE FOR FREEDOM DAY IN, AND DAY OUT.</h5>
+              <div>
+                <Image src={"https://hitsdesignclients.com/Peak-Male-new/images/sldr4.png"} 
+                  alt={""}
+                  width={60}
+                  height={60}
+                  style={{width: "60px", height: "auto"}} />
               </div>
             </div>
+
+            <div className={`${styles.row} ${styles.badges}`}>
+              <div>
+                <Image src={"https://hitsdesignclients.com/Peak-Male-new/images/s1seal3.png"} 
+                  alt={""}
+                  width={60}
+                  height={60}
+                  style={{width: "100%", height: "auto"}} />
+              </div>
+              <div>
+                <Image src={"https://hitsdesignclients.com/Peak-Male-new/images/s1seal2.png"} 
+                  alt={""}
+                  width={60}
+                  height={60}
+                  style={{width: "100%", height: "auto"}} />
+              </div>
+              <div>
+                <Image src={"https://hitsdesignclients.com/Peak-Male-new/images/s1seal1.png"} 
+                  alt={""}
+                  width={60}
+                  height={60}
+                  style={{width: "100%", height: "auto"}} />
+              </div>
+              <div>
+                <Image src={"https://hitsdesignclients.com/Peak-Male-new/images/s1seal4.png"} 
+                  alt={""}
+                  width={60}
+                  height={60}
+                  style={{width: "100%", height: "auto"}} />
+              </div>
+            </div>
+
+            <div className={`${styles.row} ${styles.productTestimonial}`}>
+              <div>
+                <Image src={"https://hitsdesignclients.com/Peak-Male-new/images/s1rvface.png"} 
+                  alt={""}
+                  width={60}
+                  height={60}
+                  style={{width: "50px", height: "auto", borderRadius: "100%"}} />
+              </div>
+
+              <div className={`${styles.col}`} style={{padding: "0 0 0 1rem"}}>
+                <p>I ordered the 3 month supply and I just finished my 1st month (1 bottle), so I’m not sure if that’s long enough to truly notice any differences, but it seems like I'm starting to "feel" results!! I feel less tired most of the time, and I've been feeling better during/after my workouts. Plus, my sex drive seems to be improving too!</p>
+                <div className={`${styles.row}`} style={{width: "100%", marginTop: "12px", fontWeight: "bold", alignItems: "center"}}>
+                  <p>Alexander L.</p>
+
+                  <span className={`${styles.row}`} style={{alignItems: "center"}} >  
+                      <Image src={"https://hitsdesignclients.com/Peak-Male-new/images/rvtick.png"} 
+                        alt={""}
+                        width={60}
+                        height={60}
+                        style={{width: "10px", height: "auto", margin: "0 0.5rem 0 1rem"}} />Verified Customer
+                    </span>
+                </div>
+              </div>
+            </div>
+
           </div>
 
-          <div className={`${styles.col} ${styles.mobileFull}`} style={{width: "50%", alignItems: "flex-start", paddingBottom: "1rem"}} ref={targetRef}> 
+          <div className={`${styles.col} ${styles.mobileFull}`} style={{width: "40%"}}> 
             {clientSecret == "" ? (
               <Elements stripe={stripePromise}>
                 <OrderFormContainer state={state} setState={setState} />
@@ -206,162 +279,541 @@ export default function Home() {
 
         </div>
 
-        {/* FIRST TEXT SECTION */}
-        <div className={`${styles.col}`} style={{paddingTop: "2%"}}>
-          <div className={`${styles.col}`} style={{justifyContent: "center"}}>
-              <h1>JOIN THE MOVEMENT</h1>
-              <div className={`${styles.row}`} style={{width: "100%", padding: "1rem", justifyContent: "center"}} ><hr style={{width: "80%"}} /></div>
-          </div>
-          <div className={`${styles.row} ${styles.mobileCol}  ${styles.textContainer}`} style={{paddingTop: "2%"}}>
-            <div className={`${styles.col} ${styles.mobileFull}`} style={{width: "50%"}}>
-              <Image src={"/images/firstTextSection.jpg"} alt={""} height={750} width={500} style={{height: "auto", borderRadius: "6px"}} />
+        {/* MARQUEE TEXT */}
+        <div className={`${styles.row}`} style={{width: "100%", background: "#0d3391"}}>
+          <Marquee speed={20} autoFill={true}>
+            <p style={{ 
+              float: "left",
+              padding:" 0 30px 0 30px",
+              fontSize: "17px",
+              lineHeight: "38px",
+              color: "#fff",
+              textAlign: "center",
+              position: "relative",
+              letterSpacing: "0.5px"}}>Safe & Secure Checkout</p> 
+            <p style={{ 
+              float: "left",
+              padding:" 0 30px 0 30px",
+              fontSize: "17px",
+              lineHeight: "38px",
+              color: "#fff",
+              textAlign: "center",
+              position: "relative",
+              letterSpacing: "0.5px"}}>|</p>
+            <p style={{ 
+              float: "left",
+              padding:" 0 30px 0 30px",
+              fontSize: "17px",
+              lineHeight: "38px",
+              color: "#fff",
+              textAlign: "center",
+              position: "relative",
+              letterSpacing: "0.5px"}}>30 Day Money Back Guarantee</p> 
+            <p style={{ 
+              float: "left",
+              padding:" 0 30px 0 30px",
+              fontSize: "17px",
+              lineHeight: "38px",
+              color: "#fff",
+              textAlign: "center",
+              position: "relative",
+              letterSpacing: "0.5px"}}>|</p>
+            <p style={{ 
+              float: "left",
+              padding:" 0 30px 0 30px",
+              fontSize: "17px",
+              lineHeight: "38px",
+              color: "#fff",
+              textAlign: "center",
+              position: "relative",
+              letterSpacing: "0.5px"}}>Fast Shipping Across U.S.A.</p>
+            <p style={{ 
+              float: "left",
+              padding:" 0 30px 0 30px",
+              fontSize: "17px",
+              lineHeight: "38px",
+              color: "#fff",
+              textAlign: "center",
+              position: "relative",
+              letterSpacing: "0.5px"}}>|</p>
+          </Marquee>
+        </div>
+
+        {/* DECLINE SECTION */}
+        <div className={`${styles.col}`} style={{width: "100%", padding: "4rem 0 4rem 0", background: "url('https://hitsdesignclients.com/Peak-Male-new/images/sec2.jpg') center bottom no-repeat"}}>
+          <div className={styles.delcinedTestWrapper}>
+            <h1 style={{color: "red", fontWeight: "900", textAlign: "center", fontSize: "50px", lineHeight: "56px"}}> Decline In T-Levels In Men <br /> Is The Harsh Reality</h1>
+            <p style={{color: "black", marginTop: "19px", textAlign: "center", fontSize: "18px", lineHeight: "26px"}}>
+              Studies show that male testosterone levels have been steadily declining since the 1980's, <br />
+              impacting an entire generation of men around the world.
+            </p>
+            <h5 className={styles.s2subhding}>Some of the most common symptoms include</h5>
+            <Image src={"https://hitsdesignclients.com/Peak-Male-new/images/s2line.png"} alt={""} height={5000} width={5000} className={styles.s2line} />
+            <ul className={styles.s2list}>
+              <li>
+                <Image src={"https://hitsdesignclients.com/Peak-Male-new/images/s2img1.png"} height={1000} width={1000} alt="" />
+                <h4 className={styles.s2lhding}>Low Libido</h4>
+                <p className={styles.s2ltxt}>Low libido, or a diminished sex drive, can impact your overall quality of life, confidence, and intimate relationships. It's a common issue often associated with low testosterone levels, stress, and various lifestyle factors.</p>
+              </li>
+              <li>
+                <Image src={"https://hitsdesignclients.com/Peak-Male-new/images/s2img2.png"} height={1000} width={1000} alt="" />
+                <h4 className={styles.s2lhding}>All Day Fatigue</h4>
+                <p className={styles.s2ltxt}>Constant fatigue can leave you feeling drained, unproductive, and disengaged from the activities you once enjoyed. It can stem from various factors, including low testosterone levels, stress, and poor lifestyle choices.</p>
+              </li>
+              <li>
+                <Image src={"https://hitsdesignclients.com/Peak-Male-new/images/s2img3.png"} height={1000} width={1000} alt="" />
+                <h4 className={styles.s2lhding}>Weight Gain</h4>
+                <p className={styles.s2ltxt}>Unwanted weight gain can affect your self-esteem, physical appearance, and overall health, often resulting from hormonal imbalances, low testosterone levels, and lifestyle habits.</p>
+              </li>
+              <li>
+                <Image src={"https://hitsdesignclients.com/Peak-Male-new/images/s2img4.png"} height={1000} width={1000} alt="" />
+                <h4 className={styles.s2lhding}>Muscle Loss</h4>
+                <p className={styles.s2ltxt}>Low libido, or a diminished sex drive, can impact your overall quality of life, confidence, and intimate relationships. It's a common issue often associated with low testosterone levels, stress, and various lifestyle factors.</p>
+              </li>
+            </ul>
+
+            <div className={`${styles.s2bx2} ${styles.row}`}>
+              <Image src={"https://hitsdesignclients.com/Peak-Male-new/images/s2prd.png"} alt={""} height={5000} width={5000} className={styles.s2prd} />
             </div>
-            <div className={`${styles.col} ${styles.mobileFull}`} style={{width: "50%"}}>
-              <div className={`${styles.col} ${styles.textSection}`}>
-                <p style={{paddingBottom: "2rem"}}>WE ARE THE BLUE COLLAR WORKERS WORKING THROUGH THE NIGHT TO GET THE POWER BACK ON AFTER A STORM.</p>
-                <p style={{paddingBottom: "2rem"}}>WE ARE THE STAY AT HOME MOMS THAT STAND UP FOR THEIR KIDS AT LOCAL SCHOOL BOARD MEETINGS AGAINST THE WOKE AGENDA.</p>
-                <p style={{paddingBottom: "2rem"}}>WE ARE THE POLICE OFFICERS THAT REFUSED A MEDICAL PROCEDURE AND WERE FIRED AFTER YEARS OF PROTECTING THEIR LOCAL COMMUNITIES.</p>
-                <p style={{paddingBottom: "2rem"}}>WE ARE THE TEACHERS THAT WERE FORCED TO RESIGN FOR REFUSING TO TEACH STUDENTS AN ANTI-AMERICAN CURRICULUM.</p>
-                <p style={{paddingBottom: "2rem"}}>WE ARE THE VETERANS THAT LEFT THEIR FAMILIES TO FIGHT WARS OVERSEAS ONLY TO COME BACK HOME AND BE FORCED OUT INTO EARLY RETIREMENT BY WOKE BUREAUCRATS.</p>
-                <p style={{paddingBottom: "2rem"}}>WE ARE THE SILENT MAJORITY THAT FIGHTS FOR FREEDOM DAY IN, AND DAY OUT.</p>
-                <p style={{paddingBottom: "2rem"}}>TOGETHER AS ONE, WE HOLD THE LINE. <strong>JOIN US.</strong></p>
+            <p className={`${styles.s2lhding2} ${styles.row}`}>
+              This is why our team at Optimal Human created Peak Male – the most comprehensive male 
+              vitality supplement on the market, dedicated to addressing key human health challenges by carefully formulating 
+              targeted solutions with scientifically-backed ingredients.
+            </p>
+          </div>
+        </div>
+
+        {/* INTRODUCTION SECTION */}
+        <div className={`${styles.col} ${styles.sec3}`} style={{width: "100%", padding: "4rem 0 4rem 0"}}>
+          <div className={styles.delcinedTestWrapper}>
+            <h3 className={styles.bdhding}>
+              Introducing Peak Male <br />
+              <span style={{color: "blue"}}>Xtreme Test Booster</span>
+            </h3>
+            <div className={`${styles.row} ${styles.mobileCol}`} style={{width: "60%"}}>
+              <div className={`${styles.col}`}>
+                <p className={styles.bdfont}>
+                Our specially crafted blend of six powerful herbs has been formulated to help you achieve peak physical and mental performance. Tackling the root cause of hormone imbalances that many males face today.
+                </p>
+                <p className={styles.bdfont} style={{color: "#17378a"}}>
+                Backed by science, our unique blend includes Fenugreek, Tribulus Terrestris, Maca, Tongkat Ali Root, Horny Goat Weed, and Panax Ginseng, all of which work together to support healthy testosterone levels in men.
+                </p>
+                <p className={styles.bdfont}>
+                By targeting healthy testosterone production, our all-natural blend of six powerful herbs helps to improve the overall health and vitality of men, rather than simply masking symptoms.
+                </p>
+                <p className={styles.bdfont}>
+                Don't settle for superficial fixes that only provide temporary relief. With Peak Male, men can achieve a long-term solution that addresses the root cause of the issues that many men face, unlocking their full potential for health and vitality.
+                </p>
+                <p className={styles.bdfont} style={{width: "100%", borderBottom: "none"}}>
+                Ready to take control and unleash your full potential?
+                </p>
+                <div className={styles.s3btn}>
+                Order Now
+                </div>
+                <div className={`${styles.row} ${styles.btnTxt}`}>
+                  <p className={styles.btnTxt1}>Ships: Within 24 Hours</p> 
+                  |
+                  <p className={styles.btnTxt}>
+                    <Image src="https://hitsdesignclients.com/Peak-Male-new/images/shape.png" height={50}  width={50} alt="" className={styles.hourglass} style={{width: "10px", height: "auto"}} /> 
+                    Stock: 58 Bottles Remaining
+                  </p>
+                </div>
               </div>
-              <button onClick={scrollToElement}
-                className={`${styles.payBtn} ${styles.wobbleButton}`}
-                style={{
-                  width: "30%"
-                }}
-              >
-                {false ? "Loading . . ." : "ORDER NOW & SAVE 30%"}
-              </button>
-              {true && <StaticButton scroll={scrollToElement} />}
-            </div>
-          </div>
-        </div>
-
-        {/* INFLUENCERS SECTION */}
-        <div className={`${styles.row} ${styles.mobileCol} ${styles.influencers}`} style={{}}>
-          <div className={`${styles.col} ${styles.mobileFull} ${styles.influencerItem}`} style={{width: "30%"}}>
-              <Image src={"/images/ht.jpg"} alt={""} width={300} height={300} style={{width: "100%", borderRadius: "6px", height: "auto"}}  />
-              <p style={{paddingBottom: "1rem"}}>“If you have somebody in mind that believes in freedom, believes in the constitution, this coin is for them. HOLD THE LINE!”</p>
-              <h3>-The Hodgetwins <br />Conservative Comedians</h3>
-          </div>
-          <div className={`${styles.col} ${styles.mobileFull} ${styles.influencerItem}`} style={{width: "30%"}}>
-              <Image src={"/images/chad.jpg"} alt={""} width={300} height={300} style={{width: "100%", borderRadius: "3px", height: "auto"}}  />
-              <p style={{paddingBottom: "1rem"}}>“How many Patriots do you know? Every one of them needs a coin. Help us grow this family as together, we Hold The Line.”</p>
-              <h3>-Chad Prather <br />Blaze TV Host</h3>
-          </div>
-          <div className={`${styles.col} ${styles.mobileFull} ${styles.influencerItem}`} style={{width: "30%"}}>
-              <Image src={"/images/bryce.jpg"} alt={""} width={300} height={300} style={{width: "100%", borderRadius: "3px", height: "auto"}}  />
-              <p style={{paddingBottom: "1rem"}}>“This coin represents freedom and is for people that refuse to give into tyranny. We the People MUST Hold the Line for Freedom.” </p>
-              <h3>-Bryce "Thug Nasty" Mitchell<br />UFC Fighter</h3>
-          </div>
-        </div>
-
-        {/* SECOND TEXT SECTION */}
-        <div className={`${styles.col}`} style={{paddingTop: "2%"}}>
-          <div className={`${styles.col}`} style={{justifyContent: "center"}}>
-              <h1>JOIN THE MOVEMENT</h1>
-              <div className={`${styles.row}`} style={{width: "100%", padding: "1rem", justifyContent: "center"}} ><hr style={{width: "80%"}} /></div>
-          </div>
-          <div className={`${styles.row} ${styles.textContainer} ${styles.mobileCol}`} style={{paddingTop: "2%"}}>
-            <div className={`${styles.col}  ${styles.mobileFull} `} style={{width: "50%"}}>
-              <Image src={"/images/coinandbag.jpg"} alt={""} height={750} width={500} style={{height: "auto", borderRadius: "6px"}} />
-            </div>
-            <div className={`${styles.col}  ${styles.mobileFull} `} style={{width: "50%"}}>
-              <div className={`${styles.col} ${styles.textSectionTwo}`}>
-                <div className={`${styles.col} ${styles.textContainerTwo}`}>
-                  <h4>🎁 GIFT FOR PROUD AMERICANS</h4>
-                  <p>Perfect for Veterans, First Responders, Nurses, Blue Collar Workers, Teachers, Small Business Owners, and anyone else that holds the line for freedom!</p>
-                </div>
-                <div className={`${styles.col} ${styles.textContainerTwo}`}>
-                  <h4>🔨 HAND CRAFTED WITH PRIDE</h4>
-                  <p>Made from 1 oz. of steel and measuring 2" in diameter, our coins are crafted with meticulous care and attention to detail. Each coin is a testament to the skilled labor of dedicated artisans.</p>
-                </div>
-                <div className={`${styles.col} ${styles.textContainerTwo}`}>
-                  <h4>🔒 SAFE & SECURE</h4>
-                  <p>Our Hold The Line coins are packaged in a protective case and come in a custom Hold The Line velvet carrying bag, allowing you to take your coins with you wherever you go or present them as meaningful gifts.</p>
-                </div>
-                <div className={`${styles.col} ${styles.textContainerTwo}`}>
-                  <h4>⭐️ LIFETIME WARRANTY INCLUDED</h4>
-                  <p>We're confident in the quality of our coins, which is why we offer a lifetime warranty for every coin we sell. You can rest assured that you're buying a piece of American pride that will last for generations to come.</p>
-                </div>
-                <div className={`${styles.col} ${styles.textContainerTwo}`}>
-                  <h4>📦 FAST USPS SHIPPING</h4>
-                  <p>We're confident in the quality of our coins, which is why we offer a lifetime warranty for every coin we sell. You can rest assured that you're buying a piece of American pride that will last for generations to come.</p>
-                </div>
+              <div className={`${styles.row} ${styles.mobileCol}`} style={{width: "40%", position: "relative"}}>
+                <Image src={"https://hitsdesignclients.com/Peak-Male-new/images/s3img.png"} height={5000}  width={5000} alt="" style={{
+                  position: "absolute",
+                  bottom: 0,
+                  top: 0,
+                  left: "100px",
+                  width: "400px",
+                  height: "auto"
+                }}  />
               </div>
             </div>
           </div>
         </div>
 
-        {/* VETERAN SECTION */}
-        <div className={`${styles.col}`} style={{paddingTop: "2%", }}>
-          <div className={`${styles.col}  ${styles.mobileFull} `} style={{width: "50%", alignItems: "center"}}>
-          <button onClick={scrollToElement}
-              className={`${styles.payBtn} ${styles.wobbleButton}`}
-              style={{
-                width: "30%"
-              }}
-            >
-              {false ? "Loading . . ." : "ORDER NOW & SAVE 30%"}
-            </button>
+        {/* BENEFITS SECTION */}
+        <div className={`${styles.col} ${styles.sec4}`} style={{width: "100%", padding: "4rem 0 4rem 0"}}>
+          <div className={styles.delcinedTestWrapper}>
+            <h3 className={styles.bdhding} style={{color: "white", textAlign: "center"}}>
+              Introducing Peak Male <br />
+              <span>Xtreme Test Booster</span>
+            </h3>
+            <p className={styles.bdfont} style={{color: "white", textAlign: "center",border: "none"}}>
+              OurAwaken your inner Alpha with our supercharged blend of 6 powerful herbs
+            </p>
+            <div className={`${styles.col}`} style={{position: "relative"}}>
+              <div className={`${styles.row} ${styles.mobileCol}`} style={{width: "100%", justifyContent: "space-between", padding: "2rem 0"}}>
+                <div className={`${styles.row} ${styles.benefitItem}`} >
+                  <div>
+                    <Image src="https://hitsdesignclients.com/Peak-Male-new/images/s4icon1.png" height={500}  width={500} alt=""  style={{width: "60px", height: "auto"}} /> 
+                  </div>
+                  <div className={`${styles.col}`} style={{padding: "0 0 0 2rem"}}>
+                    <h6>Boosts Testosterone Levels</h6>
+                    <p>Testosterone is essential for building muscle, burning fat, and maximizing your potential in and out of the gym</p>
+                  </div>
+                </div>
+                <div className={`${styles.row} ${styles.benefitItem}`} style={{flexDirection: "row-reverse"}}>
+                  <div>
+                    <Image src="https://hitsdesignclients.com/Peak-Male-new/images/s4icon1.png" height={500}  width={500} alt=""  style={{width: "60px", height: "auto"}} /> 
+                  </div>
+                  <div className={`${styles.col}`} style={{padding: "0 2rem 0 0rem"}}>
+                    <h6 style={{textAlign: "right"}}>Boosts Testosterone Levels</h6>
+                    <p style={{textAlign: "right"}}>Testosterone is essential for building muscle, burning fat, and maximizing your potential in and out of the gym</p>
+                  </div>
+                </div>
+              </div>
+
+              <div className={`${styles.row} ${styles.mobileCol}`} style={{width: "100%", justifyContent: "space-between", padding: "2rem 0", borderTop: "1px solid #303d60", borderBottom: "1px solid #303d60"}}>
+                <div className={`${styles.row} ${styles.benefitItem}`} >
+                  <div>
+                    <Image src="https://hitsdesignclients.com/Peak-Male-new/images/s4icon1.png" height={500}  width={500} alt=""  style={{width: "60px", height: "auto"}} /> 
+                  </div>
+                  <div className={`${styles.col}`} style={{padding: "0 0 0 2rem"}}>
+                    <h6>Boosts Testosterone Levels</h6>
+                    <p>Testosterone is essential for building muscle, burning fat, and maximizing your potential in and out of the gym</p>
+                  </div>
+                </div>
+                <div className={`${styles.row} ${styles.benefitItem}`} style={{flexDirection: "row-reverse"}}>
+                  <div>
+                    <Image src="https://hitsdesignclients.com/Peak-Male-new/images/s4icon1.png" height={500}  width={500} alt=""  style={{width: "60px", height: "auto"}} /> 
+                  </div>
+                  <div className={`${styles.col}`} style={{padding: "0 2rem 0 0rem"}}>
+                    <h6 style={{textAlign: "right"}}>Boosts Testosterone Levels</h6>
+                    <p style={{textAlign: "right"}}>Testosterone is essential for building muscle, burning fat, and maximizing your potential in and out of the gym</p>
+                  </div>
+                </div>
+              </div>
+
+              <div className={`${styles.row} ${styles.mobileCol}`} style={{width: "100%", justifyContent: "space-between", padding: "2rem 0"}}>
+                <div className={`${styles.row} ${styles.benefitItem}`} >
+                  <div>
+                    <Image src="https://hitsdesignclients.com/Peak-Male-new/images/s4icon1.png" height={500}  width={500} alt=""  style={{width: "60px", height: "auto"}} /> 
+                  </div>
+                  <div className={`${styles.col}`} style={{padding: "0 0 0 2rem"}}>
+                    <h6>Boosts Testosterone Levels</h6>
+                    <p>Testosterone is essential for building muscle, burning fat, and maximizing your potential in and out of the gym</p>
+                  </div>
+                </div>
+                <div className={`${styles.row} ${styles.benefitItem}`} style={{flexDirection: "row-reverse"}}>
+                  <div>
+                    <Image src="https://hitsdesignclients.com/Peak-Male-new/images/s4icon1.png" height={500}  width={500} alt=""  style={{width: "60px", height: "auto"}} /> 
+                  </div>
+                  <div className={`${styles.col}`} style={{padding: "0 2rem 0 0rem"}}>
+                    <h6 style={{textAlign: "right"}}>Boosts Testosterone Levels</h6>
+                    <p style={{textAlign: "right"}}>Testosterone is essential for building muscle, burning fat, and maximizing your potential in and out of the gym</p>
+                  </div>
+                </div>
+              </div>
+
+              <Image src={"https://hitsdesignclients.com/Peak-Male-new/images/s4img.png"} height={5000}  width={5000} alt="" style={{
+                  position: "absolute",
+                  bottom: 0,
+                  top: 0,
+                  width: "400px",
+                  height: "auto"
+                }}  />
+              <div className={styles.s3btn} style={{width: "50%"}}>
+              Order Now
+              </div>
+              <div className={`${styles.row} ${styles.btnTxt}`} style={{width: "50%", color: "white"}}>
+                <p className={styles.btnTxt1} style={{color: "white"}}>Ships: Within 24 Hours</p> 
+                |
+                <p className={styles.btnTxt} style={{color: "white"}}>
+                  <Image src="https://hitsdesignclients.com/Peak-Male-new/images/shape.png" height={50}  width={50} alt="" className={styles.hourglass} style={{width: "10px", height: "auto"}} /> 
+                  Stock: 58 Bottles Remaining
+                </p>
+              </div>
+            </div>
           </div>
-          <div className={`${styles.col}`} style={{width: "50%", alignItems: "center", padding: "3rem 0"}}>
-            <Image src={"/images/flag.jpg"} alt={""} width={350} height={500}  style={{width: "50%", height: "auto"}}/>
-          </div>
-          <div className={`${styles.col}`} style={{width: windowWidth > 720 ? "50%" : "80%", alignItems: "center", textAlign: "center"}}>
-            <h2 >At Hold The Line, we are proud to make a difference by donating a portion of every sale to support our American heroes—Veterans and First Responders—providing them with the assistance they deserve.</h2>
-          </div>
-          <div className={`${styles.row}`} style={{width: "100%", padding: "1rem", justifyContent: "center"}} ><hr style={{width: "50%"}} /></div>
         </div>
 
+        {/* INGREDIENTS SECTION */}
+        <div className={`${styles.col} ${styles.sec3}`} style={{width: "100%", padding: "4rem 0 4rem 0"}}>
+          <div className={styles.delcinedTestWrapper}>
+            <h1 style={{color: "black", fontWeight: "900", textAlign: "center", fontSize: "50px", lineHeight: "56px"}}>
+              The Science behind Peak Male <br />
+              <span style={{color: "#17378a"}}>Xtreme Test Booster</span>
+            </h1>
+            <p style={{color: "black", marginTop: "19px", textAlign: "center", fontSize: "18px", lineHeight: "26px"}}>
+              Our unique blend of 6 powerful herbs work together to support healthy testosterone levels, improve muscle mass <br /> 
+              and athletic performance, and promote overall male health and vitality
+            </p>
+
+            <div className={`${styles.col}`}>
+              <div className={`${styles.row}`} style={{padding: "2rem 0"}}>
+                <Image src={"https://hitsdesignclients.com/Peak-Male-new/images/s5img1.png"} height={5000}  width={5000} alt="" style={{
+                    position: "relative",
+                    bottom: 0,
+                    top: 0,
+                    width: "400px",
+                    height: "auto"
+                  }}  />
+                <div className={`${styles.col}`}>
+                  <h5 style={{
+                    fontWeight: "bold",
+                    fontSize: "36px",
+                    lineHeight: "44px",
+                    color: "#17378a",
+                    textAlign: "left",
+                    width: "100%"
+                  }}>Fenugreek</h5>
+                  <ul className={`${styles.s5bxlist} ${styles.bdfont}`}>
+                    <li>Regulates the conversion of testosterone to DHT, providing a natural solution for excessive 
+                      DHT levels in men, resulting in an increase in testosterone levels.</li>
+                      
+                      <li>Contains a compounds called fenusides, which have been found to stimulate the production of 
+                      luteinizing hormone (LH), which is responsible for signaling the testes to produce testosterone.</li>
+                      
+                      <li>Supports overall hormonal balance, prostate health, hair loss, and skin health in&nbsp;men.</li>
+                      
+                      <li>Also contains compounds called saponins, which have been shown to inhibit the activity of 
+                      the enzyme aromatase. Aromatase is responsible for converting testosterone into estrogen, so by 
+                      inhibiting its activity, Fenugreek can help reduce the conversion of testosterone to estrogen and 
+                      increase the amount of free testosterone in the&nbsp;body.</li>
+                  </ul>
+                </div>
+              </div>
+
+              <div className={`${styles.row}`} style={{padding: "2rem 0", flexDirection: "row-reverse"}}>
+                <Image src={"https://hitsdesignclients.com/Peak-Male-new/images/s5img2.png"} height={5000}  width={5000} alt="" style={{
+                    position: "relative",
+                    bottom: 0,
+                    top: 0,
+                    width: "400px",
+                    height: "auto"
+                  }}  />
+                <div className={`${styles.col}`}>
+                  <h5 style={{
+                    fontWeight: "bold",
+                    fontSize: "36px",
+                    lineHeight: "44px",
+                    color: "#17378a",
+                    textAlign: "left",
+                    width: "100%"
+                  }}>Maca Powder</h5>
+                  <ul className={`${styles.s5bxlist} ${styles.bdfont}`}>
+                    <li>Maca has been shown to reduce cortisol levels in men who are experiencing chronic stress, resulting in improved testosterone levels and overall well being.</li>
+                      
+                      <li>Promotes the production of luteinizing hormone (LH), which is responsible for stimulating the testes to produce testosterone in males.</li>
+                      
+                      <li>Supports overall hormonal balance, prostate health, hair loss, and skin health in&nbsp;men.</li>
+                      
+                      <li>Maca powder contains compounds that can help reduce the activity of the enzyme aromatase, which is responsible for converting testosterone into estrogen. One study found that Maca supplementation led to a significant reduction in aromatase activity in men.</li>
+                  </ul>
+                </div>
+              </div>
+
+              <div className={`${styles.row}`} style={{padding: "2rem 0"}}>
+                <Image src={"https://hitsdesignclients.com/Peak-Male-new/images/s5img3.png"} height={5000}  width={5000} alt="" style={{
+                    position: "relative",
+                    bottom: 0,
+                    top: 0,
+                    width: "400px",
+                    height: "auto"
+                  }}  />
+                <div className={`${styles.col}`}>
+                  <h5 style={{
+                    fontWeight: "bold",
+                    fontSize: "36px",
+                    lineHeight: "44px",
+                    color: "#17378a",
+                    textAlign: "left",
+                    width: "100%"
+                  }}>Tongkot Ali</h5>
+                  <ul className={`${styles.s5bxlist} ${styles.bdfont}`}>
+                    <li>Tongkat Ali has been shown to reduce the production of cortisol, which is a stress hormone that can negatively impact testosterone production.</li>
+                    
+                    <li>Contains a compound called eurycomanone, that helps to stimulate the production of luteinizing hormone (LH), which is responsible for signaling the testes to produce testosterone in males.</li>
+                    
+                    <li>Tongkat Ali has also been shown to reduce levels of sex hormone binding globulin (SHBG), which is a protein that binds to testosterone and prevents it from being used by the body. By reducing SHBG levels, Tongkat Ali can increase the amount of free testosterone in the body, leading to improved muscle mass, athletic performance, and sexual function.</li>
+                    
+                  </ul>
+                </div>
+              </div>
+
+              <div className={`${styles.row}`} style={{padding: "2rem 0",flexDirection: "row-reverse"}}>
+                <Image src={"https://hitsdesignclients.com/Peak-Male-new/images/s5img4.png"} height={5000}  width={5000} alt="" style={{
+                    position: "relative",
+                    bottom: 0,
+                    top: 0,
+                    width: "400px",
+                    height: "auto"
+                  }}  />
+                <div className={`${styles.col}`}>
+                  <h5 style={{
+                    fontWeight: "bold",
+                    fontSize: "36px",
+                    lineHeight: "44px",
+                    color: "#17378a",
+                    textAlign: "left",
+                    width: "100%"
+                  }}>Panax Ginseng:</h5>
+                  <ul className={`${styles.s5bxlist} ${styles.bdfont}`}>
+                    <li>Contains a compound called ginsenoside, which has been found to stimulate the production of luteinizing hormone (LH), which is responsible for signaling the testes to produce testosterone.</li>
+                      
+                    <li>Panax Ginseng has been shown to have adaptogenic properties, meaning it can help the body adapt to and cope with stress.</li>
+                      
+                    <li>Has been shown to have anti-inflammatory and antioxidant properties, which can help protect the body against oxidative stress and reduce inflammation throughout the body.</li>
+                      
+                  </ul>
+                </div>
+              </div>
+
+              <div className={`${styles.row}`} style={{padding: "2rem 0"}}>
+                <Image src={"https://hitsdesignclients.com/Peak-Male-new/images/s5img5.png"} height={5000}  width={5000} alt="" style={{
+                    position: "relative",
+                    bottom: 0,
+                    top: 0,
+                    width: "400px",
+                    height: "auto"
+                  }}  />
+                <div className={`${styles.col}`}>
+                  <h5 style={{
+                    fontWeight: "bold",
+                    fontSize: "36px",
+                    lineHeight: "44px",
+                    color: "#17378a",
+                    textAlign: "left",
+                    width: "100%"
+                  }}>Horny Goat Weed:</h5>
+                  <ul className={`${styles.s5bxlist} ${styles.bdfont}`}>
+                    <li>Contains a compound called icariin, has been found to inhibit the activity of the enzyme that converts testosterone into estrogen, leading to higher levels of free testosterone in the body.</li>
+                    
+                    <li>Horny Goat Weed has been shown to have vasodilatory effects, meaning it can help improve blood flow throughout the body. This can have a positive impact on athletic performance and sexual function, as it can increase the amount of oxygen and nutrients that reach the muscles and sexual organs.</li>
+                  
+                  </ul>
+                </div>
+              </div>
+
+              <div className={`${styles.row}`} style={{padding: "2rem 0",flexDirection: "row-reverse"}}>
+                <Image src={"https://hitsdesignclients.com/Peak-Male-new/images/s5img6.png"} height={5000}  width={5000} alt="" style={{
+                    position: "relative",
+                    bottom: 0,
+                    top: 0,
+                    width: "400px",
+                    height: "auto"
+                  }}  />
+                <div className={`${styles.col}`}>
+                  <h5 style={{
+                    fontWeight: "bold",
+                    fontSize: "36px",
+                    lineHeight: "44px",
+                    color: "#17378a",
+                    textAlign: "left",
+                    width: "100%"
+                  }}>Tribulus Terrestris:</h5>
+                  <ul className={`${styles.s5bxlist} ${styles.bdfont}`}>
+                    <li>Contains a compound called protodioscin, that helps to stimulate the production of luteinizing hormone (LH), which is responsible for signaling the testes to produce testosterone in males.</li>
+                      
+                    <li>Has been shown to reduce SHBG levels, Tribulus Terrestris can increase the amount of free testosterone in the body, leading to improved muscle mass, athletic performance, and sexual function.</li>
+                      
+                  </ul>
+                </div>
+              </div>
+
+              <p className={styles.s5subhding}>Peak Male Promise</p>
+              
+              <ul className={styles.s5list}>
+                <li>
+                    <Image  height={5000}  width={5000} alt="" src="https://hitsdesignclients.com/Peak-Male-new/images/s5icon1.png" style={{width: "100px", height: "auto"}} />
+                      <p>Non-GMO</p>
+                  </li>
+                  <li>
+                    <Image  height={5000}  width={5000} alt="" src="https://hitsdesignclients.com/Peak-Male-new/images/s5icon2.png" style={{width: "100px", height: "auto"}}  />
+                      <p>All Natural<br />Ingredients</p>
+                  </li>
+                  <li>
+                    <Image  height={5000}  width={5000} alt="" src="https://hitsdesignclients.com/Peak-Male-new/images/s5icon3.png" style={{width: "100px", height: "auto"}}  />
+                      <p>Fast<br />Shipping</p>
+                  </li>
+                  <li>
+                    <Image  height={5000}  width={5000} alt="" src="https://hitsdesignclients.com/Peak-Male-new/images/s5icon4.png" style={{width: "100px", height: "auto"}}  />
+                      <p>Secure<br />Shopping</p>
+                  </li>
+                  <li>
+                    <Image  height={5000}  width={5000} alt="" src="https://hitsdesignclients.com/Peak-Male-new/images/s5icon5.png" style={{width: "100px", height: "auto"}}  />
+                      <p>Satisfaction<br />Guaranteed</p>
+                  </li>
+              </ul>
+
+              <div className={styles.s3btn} style={{width: "50%", margin: "2rem 0 0 0"}}>
+              Order Now
+              </div>
+              <div className={`${styles.row} ${styles.btnTxt}`} style={{width: "50%"}}>
+                <p className={styles.btnTxt1}>Ships: Within 24 Hours</p> 
+                |
+                <p className={styles.btnTxt}>
+                  <Image src="https://hitsdesignclients.com/Peak-Male-new/images/shape.png" height={50}  width={50} alt="" className={styles.hourglass} style={{width: "10px", height: "auto"}} /> 
+                  Stock: 58 Bottles Remaining
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* TESTIMONIAL SECTION */}
+        <div className={`${styles.col} ${styles.sec3} ${styles.sec6}`} style={{width: "100%",}}>
+          <div className={styles.delcinedTestWrapper}>
+            <h1 style={{color: "black", fontWeight: "900", textAlign: "center", fontSize: "50px", lineHeight: "56px"}}>
+              Customer Testimonials <br />
+              <span style={{color: "#17378a"}}>Real People. Real Results</span>
+            </h1>
+            <div className={`${styles.row} ${styles.testimonial}`}>
+              <div className={`${styles.col}`} style={{width: "30%",}}>
+                <Image src="https://hitsdesignclients.com/Peak-Male-new/images/t2.png" height={5000}  width={5000} alt="" style={{width: "300px", height: "auto"}} /> 
+              </div>
+              <div className={`${styles.col}`}  style={{width: "70%", padding: "1rem", alignItems: "flex-start"}}>
+                <Image src="https://hitsdesignclients.com/Peak-Male-new/images/sldrstars.png" height={500}  width={500} alt="" style={{width: "150px", height: "auto"}} /> 
+                <h2 className={styles.sldrTxt1}>The Kickstart I Needed</h2>
+                <p className={styles.sldrTxt2}>
+                  I'm at that stage in life where testosterone seems to take a back seat, and I knew it was time to intervene. I wasn't ready for the big leap into injections, so I sought out a natural route. Peak Male popped up on my Instagram, and I figured, why not give it a try?
+                  <br/><br/>
+                  I've been through an entire bottle, taking two caps a day for the past four weeks. The first week went by without much change. But come week two, I started noticing a shift. I know what testosterone feels like, and this was it - not as intense, but a similar vibe.
+                </p>
+                <div className={`${styles.col}`} style={{width: "100%", justifyContent: "flex-start", alignItems: "flex-start", position: "relative"}}>
+                  <div  className={`${styles.row}`} style={{width: "100%"}}>
+                  <Image src="https://hitsdesignclients.com/Peak-Male-new/images/sldrqt.png" height={500}  width={500} alt="" style={{width: "70px", height: "auto"}} /> 
+                  <Image src="https://hitsdesignclients.com/Peak-Male-new/images/sldrbtl.png" height={500}  width={500} alt="" style={{width: "70px", height: "auto", position: "absolute", right: "40px", bottom: "20px"}} />
+                  </div>
+                  <p className={styles.sldrnm}>Terrance B.</p>
+                </div>
+              </div>
+              <button className={styles.slickPrev}></button>
+              <button className={styles.slickNext}></button>
+            </div>
+          </div>
+        </div>
+
+        {/* <StaticButton scroll={scrollToElement} /> */}
         {/* FAQ SECTION */}
-        <div className={`${styles.col}`}>
+        <div className={`${styles.col}`} style={{background: "#eef5fc",padding: "2rem 0rem 2rem 0"}}>
           <div className={`${styles.col}`} style={{justifyContent: "center", padding: "2rem 0rem 2rem 0", textAlign: "center"}}>
-              <h1>HAVE ANY QUESTIONS?</h1>
+              <h1 style={{color: "black", fontSize: "50px"}}>
+                Frequently Asked Questions <br />
+                <span style={{color: "#17378a"}}>We've Got All The Answers</span>
+              </h1>
           </div>
           <Accordion title={"How long will it take to receive my order?"} detail={"Our shipping typically takes between 4 to 9 days depending on your location. We ship our coins from Fayetteville, AR via USPS Shipping with Tracking. Rest assured that we strive to deliver your order promptly and securely."} />
           <Accordion title={"Is there a warranty for these coins?"} detail={"Yes, all coins come with a lifetime warranty with 100% money back guarantee. We stand behind the quality and craftsmanship of our products."} />
           <Accordion title={"Do you offer bulk discounts for large orders?"} detail={"Our coins come in 5, 10, and 20 packs. We are able to offer 30% Off on our 20-pack coins. If you're interested in larger quantities, please reach out to our sales team directly for inquiries regarding bulk orders and potential discounts. We will be more than happy to assist you with your request."} />
           <Accordion title={"What is your return and refund policy?"} detail={"We want you to be completely satisfied with your purchase. If, for any reason, you are not happy with your order, please contact our customer service team at info@holdtheline.com. We aim to provide a hassle-free return process and resolve any issues promptly."} />
           <Accordion title={"How can I contact customer support?"} detail={"Our dedicated customer support team is here to assist you. You can reach us by email at info@holdtheline.com or by phone at 877-462-4459 during our business hours, which are Monday-Friday from 9am-4pm CST. We value your feedback and strive to provide excellent customer service."} />
+        
+          <div className={styles.s3btn} style={{width: "20%", margin: "2rem 0 0 0"}}>
+          Order Now
+          </div>
+          <div className={`${styles.row} ${styles.btnTxt}`} style={{width: "30%"}}>
+            <p className={styles.btnTxt1}>Ships: Within 24 Hours</p> 
+            |
+            <p className={styles.btnTxt}>
+              <Image src="https://hitsdesignclients.com/Peak-Male-new/images/shape.png" height={50}  width={50} alt="" className={styles.hourglass} style={{width: "10px", height: "auto"}} /> 
+              Stock: 58 Bottles Remaining
+            </p>
+          </div>
         </div>
 
-        {/* CLUB DETAIL SECTION */}
-        <div className={`${styles.col}`}  style={{ padding: "2rem 0rem 2rem 0"}}>
-          <div className={`${styles.row}`} style={{width: "100%", padding: "1rem", justifyContent: "center"}} ><hr style={{width: "50%"}} /></div>
-          <div className={`${styles.col}`} style={{width: "90%", alignItems: "center", textAlign: "center", padding: "2rem 0rem 2rem 0"}}>
-            <h1>HOLD THE LINE CLUB</h1>
-            <h4>VIP Club Members receive...</h4>
-          </div>
-          <div className={`${styles.row} ${styles.mobileCol}`} style={{width: "90%", padding: "2rem 0rem 4rem 0"}}>
-            <div className={`${styles.col} ${styles.mobileFull} ${styles.mobileIcon}`} style={{width: "90%", padding: "0 3rem"}}>
-              <Image src={"/images/gift-box-icon.png"} alt={""} width={150} height={150} style={{height: "auto", borderRadius: "6px"}}/>
-              <p style={{minWidth: "200px", textAlign: "center", fontSize: "20px", width: "70%"}}>Automatic entries into all giveaways, including exclusive member's only monthly giveaways!</p>
-            </div>
-            <div className={`${styles.col} ${styles.mobileFull} ${styles.mobileIcon}`} style={{padding: "0 3rem"}}>
-              <Image src={"/images/money-icon.png"} alt={""} width={150} height={150}  style={{height: "auto", borderRadius: "6px"}}/>
-              <p style={{minWidth: "200px", textAlign: "center", fontSize: "20px", width: "70%"}}>Automatic entries into all giveaways, including exclusive member's only monthly giveaways!</p>
-            </div>
-            <div className={`${styles.col} ${styles.mobileFull} ${styles.mobileIcon}`} style={{padding: "0 3rem"}}>
-              <Image src={"/images/phone-icon.png"} alt={""} width={150} height={150}  style={{height: "auto", borderRadius: "6px"}}/>
-              <p style={{minWidth: "200px", textAlign: "center", fontSize: "20px", width: "70%"}}>Automatic entries into all giveaways, including exclusive member's only monthly giveaways!</p>
-            </div>
-            <div className={`${styles.col} ${styles.mobileFull} ${styles.mobileIcon}`} style={{padding: "0 3rem"}}>
-              <Image src={"/images/computer-icon.png"} alt={""} width={150} height={150}  style={{height: "auto", borderRadius: "6px"}}/>
-              <p style={{minWidth: "200px", textAlign: "center", fontSize: "20px", width: "70%"}}>Automatic entries into all giveaways, including exclusive member's only monthly giveaways!</p>
-            </div>
-          </div>
-          <button onClick={scrollToElement}
-            className={`${styles.payBtn} ${styles.wobbleButton}`}
-            style={{
-              width: "30%"
-            }}
-          >
-            {false ? "Loading . . ." : "ORDER NOW & SAVE 30%"}
-          </button>
-        </div>
 
       </main>
 

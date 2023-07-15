@@ -19,17 +19,599 @@
 .formCard {
   background-color: #ffffff !important;
   border-radius: 6px;
-  padding: 1rem;
-  width: 60%;
+  padding: 1rem 2rem;
+  box-shadow: 0 0 10px 1px rgba(0,0,0,0.2);
+  width: 90%;
 }
 
+.helpsWith {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: flex-start;
+  width: 100%;
+  text-decoration: none;
+  list-style: none;
+}
+
+.helpsWith li {
+  float: left;
+  margin: 0 8px 0 0;
+  padding: 7px 14px 4px 14px;
+  background: #f3f6ff;
+  border: 1px solid #b0c2f0;
+  color: #070707;
+  border-radius: 8px;
+  font-size: 17px;
+  line-height: 25px;
+  text-align: left;
+  font-weight: 500;
+  letter-spacing: 0.5px;
+  text-decoration: none;
+}
+
+.benefitbox {
+  width: 100%;
+  margin-top: 15px;
+  justify-content: flex-start;
+}
+
+.benefitbox > div > p {
+  font-weight: bold;
+  font-size: 20px;
+  line-height: 26px;
+  color: #070707;
+  text-align: left;
+}
+
+
+.benefitbox ul {
+  color: #070707;
+  list-style: none;
+  margin-right: 15px;
+}
+
+.benefitbox ul li {
+  color: #070707;
+  list-style: none;
+  padding: 0 0 0 32px;
+  font-size: 18px;
+  line-height: 25px;
+  text-align: left;
+  margin-top: 8.5px;
+}
+
+.keyIngredients ul li {
+  color: #070707;
+  list-style: none;
+  padding: 0 0 0 26px;
+  margin-top: 3.5px;
+  font-size: 18px;
+  line-height: 25px;
+  text-align: left;
+}
 .staticButtonContainer {
   display: none;
 }
 
+.chooosePackage {
+  width: 100%;
+  margin: 30px 0 0 0;
+  font-weight: bold;
+  font-size: 24px;
+  line-height: 30px;
+  text-align: center;
+  position: relative;
+  color: #070707;
+}
+
+.chooosePackage::after {
+  content: "";
+  position: absolute;
+  top: 18px;
+  height: 1px;
+  background: #d0d0d0;
+  width: 120px;
+  left: 0;
+}
+
+
+.chooosePackage::before {
+  right: 0;
+  content: "";
+  position: absolute;
+  top: 18px;
+  height: 1px;
+  background: #d0d0d0;
+  width: 120px;
+}
+
+.subBtn {
+  float: left;
+  width: 48%;
+  margin: 0 4% 0 0;
+  border: 1px solid #d7d7d7;
+  border-radius: 6px;
+  padding: 12px 10px 12px 44px;
+  font-size: 17px;
+  line-height: 25px;
+  text-align: left;
+  background: #fff url('https://hitsdesignclients.com/Peak-Male-new/images/select.png') 15px center no-repeat;
+  cursor: pointer;
+  font-weight: 500;
+  color: #070707;
+}
+
+.subBtn span {
+  color: #18770b;
+  text-decoration: underline;
+}
+
+.productItem {
+  width: 32%;
+  border: 1px solid #adadad;
+  background: #fff;
+  cursor: pointer;
+  padding-bottom: 10px;
+  color: #070707;
+}
+
+.pkghding {
+  background: #17378a;
+  padding: 6px 10px;
+  font-weight: 800;
+  font-size: 24px;
+  line-height: 24px;
+  letter-spacing: 0.5px;
+  color: #fff;
+  text-align: center;
+  text-transform: uppercase;
+  width: 100%;
+}
+
+.supplyText {
+  font-size: 17px;
+  line-height: 18px;
+  color: #232323;
+  text-align: center;
+  margin-top: 7px;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+.pkgprc2 {
+  font-weight: bold;
+  font-size: 29px;
+  line-height: 34px;
+  text-align: center;
+  color: #000;
+}
+
+.BigPrice {
+  font-weight: 800;
+}
+.PriceUnit {
+  font-size: 11px;
+  line-height: 16px;
+  color: #000;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.pkgtxt1 {
+  font-size: 15px;
+  line-height: 20px;
+  text-align: center;
+  color: #000;
+  padding: 1px 0;
+  margin-top: 7px;
+  font-style: italic;
+}
+
+.pkgprc1 {
+  font-size: 17px;
+  line-height: 26px;
+  color: #232323;
+  text-align: center;
+  margin-top: 7px;
+}
+
+.pkgprc1 span {
+  padding: 0 6px;
+}
+
+.strikeout {
+  position: relative;
+}
+.strikeout::after {
+  border-bottom: 2px solid #F00;
+  content: "";
+  left: 0;
+  margin-top: calc(0.12em / 2 * -1);
+  position: absolute;
+  right: 0;
+  top: 54%;
+  transform: rotate(-10deg);
+}
+
+.pkgprc1 strong {
+  font-weight: 800;
+}
+
+.pkgTophd {
+  height: 26px;
+  right: 0;
+  margin: 0 auto;
+  display: block;
+  font-weight: 800;
+  letter-spacing: 0.5px;
+  font-size: 15px;
+  line-height: 26px;
+  text-align: center;
+  text-transform: uppercase;
+  background: #face00;
+  width: 100%;
+}
+
+.freeship {
+  text-align: center;
+  margin-top: 5px;
+}
+.freeship span {
+  display: inline-block;
+  vertical-align: middle;
+  background: #F00;
+  padding: 2px 7px;
+  border-radius: 5px;
+  color: #fff;
+  text-transform: uppercase;
+  font-size: 14px;
+  line-height: 19px;
+  font-weight: bold;
+}
+
+.riskFreeTxt {
+  font-weight: bold;
+  font-size: 19px;
+  line-height: 25px;
+  color: #171515;
+  text-align: center;
+  margin-top: 25px;
+}
+.s1btn {
+  height: 78px;
+  width: 100%;
+  margin: 15px auto 0 auto;
+  display: block;
+  background: #ff7200;
+  border-radius: 5px;
+  font-weight: bold;
+  font-size: 28px;
+  line-height: 74px;
+  color: #fff;
+  text-align: center;
+}
+
+.btnTxt {
+  width: 100%;
+  color: #000;
+  margin-top: 12px;
+  text-align: center;
+}
+
+.btnTxt p {
+  display: inline-block;
+  vertical-align: top;
+  padding: 0 8px;
+  font-size: 14px;
+  line-height: 22px;
+  letter-spacing: 0;
+  position: relative;
+  width: 50%;
+  margin: 0;
+}
+@keyframes fade {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes rotateP {
+  0% {
+    transform: rotate(0deg);
+  }
+  50% {
+    transform: rotate(180deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.btnTxt1:before {
+  display: inline-block;
+  vertical-align: middle;
+  margin: -1px 7px 0 0;
+  width: 9px;
+  height: 9px;
+  background: #11b142;
+  border-radius: 50%;
+  content: "";
+  animation: fade 1s ease-in-out infinite;
+}
+
+.hourglass {
+  display: inline-block;
+  vertical-align: middle;
+  margin: -5px 3px 0 0;
+  animation: rotateP 2.5s ease-in-out forwards infinite;
+}
+
 /* ============================================================================================================================================================
-  Product Input
+  DECLINED TESTOSTERONE WRAPPER
 ================================================================================================================================================================ */
+.delcinedTestWrapper {
+  width: 60%;
+}
+
+.s2subhding {
+  font-weight: bold;
+  font-size: 24px;
+  line-height: 30px;
+  text-align: center;
+  margin-top: 38px;
+  color: #000;
+}
+
+.s2line {
+  margin: 42px auto 0 auto;
+  display: block;
+  width: 80%;
+  height: auto;
+}
+
+.s2list {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+}
+
+.s2list li {
+  width: 23%;
+}
+
+.s2list li img {
+  margin: 0 auto 14px auto;
+  display: block;
+  max-width: 100%;
+  max-width: 100%;
+  width: 100%;
+  height: auto;
+}
+
+.s2lhding {
+  font-weight: bold;
+  color: #ff0000;
+  font-size: 24px;
+  line-height: 28px;
+}
+
+.s2ltxt {
+  font-size: 18px;
+  line-height: 24px;
+  margin-top: 12px;
+  color: #000;
+}
+
+.s2bx2 {
+  margin: 40px 0 0 0;
+  background: url("https://hitsdesignclients.com/Peak-Male-new/images/s2line2.png") center 60px no-repeat;
+}
+
+.s2prd {
+  margin: 0 auto;
+  display: block;
+  max-width: 20%;
+  width: 20%;
+  height: auto;
+}
+
+.s2lhding2 {
+  font-weight: bold;
+  font-size: 22px;
+  line-height: 32px;
+  color: #17378a;
+  text-align: center;
+  margin-top: 30px;
+  padding: 0 40px;
+}
+
+
+/* ============================================================================================================================================================
+  INTRODUCTION TESTOSTERONE WRAPPER
+================================================================================================================================================================ */
+.sec3 {
+  padding: 44px 0 60px 0;
+  background: #eef5fc;
+}
+
+.delcinedTestWrapper {
+  width: 60%;
+}
+
+.bdhding {
+  font-weight: bold;
+  font-size: 50px;
+  line-height: 56px;
+  text-align: left;
+  width: 100%;
+  color: #000;
+}
+
+.bdfont {
+  font-size: 18px;
+  line-height: 26px;
+  text-align: left;
+  letter-spacing: 0.5px;
+  color: #000;
+  padding: 2rem 0;
+  border-bottom: 1px solid #d7d7d7;
+}
+
+.s3btn {
+  height: 78px;
+  width: 100%;
+  margin: 15px auto 0 auto;
+  display: block;
+  background: #ff7200;
+  border-radius: 5px;
+  font-weight: bold;
+  font-size: 28px;
+  line-height: 74px;
+  color: #fff;
+  text-align: center;
+}
+
+/* ============================================================================================================================================================
+  BENEFITS TESTOSTERONE WRAPPER
+================================================================================================================================================================ */
+.sec4 {
+  padding: 60px 0 60px 0;
+  background: #142654;
+}
+
+.benefitItem {
+  text-align: left;
+  width: 30%
+}
+
+.benefitItem h6,
+.benefitItem p {
+  width: 100%;
+  text-align: left;
+}
+
+.s5bxlist {
+  list-style: none;
+}
+
+.s5bxlist li {
+  background: url("https://hitsdesignclients.com/Peak-Male-new/images/bullet3.png") left 10px no-repeat;
+  background-size: 20px;
+  padding: 0 0 0 35px;
+  margin-top: 20px;
+  list-style: none;
+}
+
+.benefitItem h6 {
+  font-size: 20px;
+  font-weight: 800;
+}
+
+.benefitItem p {
+  font-size: 15px;
+  font-weight: 100;
+}
+
+
+.s5subhding {
+  font-weight: bold;
+  font-size: 22px;
+  line-height: 36px;
+  color: #002560;
+  text-align: center;
+  margin-top: 40px;
+  position: relative;
+}
+
+.s5list {
+  float: left;
+  width: 100%;
+  padding: 30px 0 15px 0;
+  text-align: center;
+}
+
+.s5list li {
+  display: inline-block;
+  vertical-align: top;
+  width: 180px;
+}
+
+.s5list p {
+  color:#171515;
+}
+
+
+.sec6 {
+  background: #fff url("https://hitsdesignclients.com/Peak-Male-new/images/sec6.png") left bottom repeat-x;
+  padding: 60px 0 0 0;
+}
+
+.testimonial {
+  padding: 1rem 0 0 0;
+  position: relative;
+}
+
+.sldrTxt1 {
+  font-weight: bold;
+  font-size: 26px;
+  line-height: 32px;
+  text-align: left;
+  margin-top: 20px;
+  color: #000;
+}
+.sldrTxt2 {
+  font-size: 17px;
+  line-height: 25px;
+  text-align: left;
+  margin-top: 25px;
+  font-style: italic;
+  height: auto;
+  color: #000;
+}
+
+.sldrnm {
+  font-weight: 500;
+  font-size: 30px;
+  line-height: 40px;
+  color: #fff;
+  text-align: left;
+  margin-top: 15px;
+}
+
+.slickPrev {
+  left: -110px;
+  background: #25438f url('https://hitsdesignclients.com/Peak-Male-new/images/prev.png') no-repeat center center;
+}
+
+.slickNext {
+  right: -110px;
+  background: #25438f url('https://hitsdesignclients.com/Peak-Male-new/images/next.png') no-repeat center center;
+}
+
+.slickPrev, .slickNext {
+  position: absolute;
+  bottom: 0;
+  display: block;
+  width: 122px;
+  height: 122px;
+  padding: 0;
+  outline: none;
+  border: none;
+  z-index: 99;
+  cursor: pointer;
+}
+
 .productRow {
   cursor: pointer;
   position: relative;
@@ -555,6 +1137,58 @@
   align-items: flex-start;
 }
 
+ /* ================================================ */
+ /*   Top Cotnainer  (Supliments)                    */
+ /* ================================================ */
+.topContainer {
+  padding: 54px 0;
+  background-color: #bbb;
+  background: url("https://hitsdesignclients.com/Peak-Male-new/images/sec1.jpg") center top no-repeat;
+  justify-content: center;
+}
+.topContainerLeft {
+  padding: 1rem;
+  width: 30%;
+  position: relative;
+}
+
+.imgSliders {
+  padding: 1rem 2rem;
+}
+
+.imgSliders > div {
+  padding: 1rem;
+  margin: 0 1rem;
+  cursor: pointer;
+  border: 1px solid #d1d1d1;
+}
+
+.badges {
+  padding: 1rem 0rem;
+  width: 100%;
+}
+
+.badges  > div {
+  margin: 0 1rem;
+  border: none;
+  width: 25%;
+}
+
+.productTestimonial {
+  padding: 1rem;
+  border-radius: 6px;
+  width: 100%;
+  box-shadow: 0 0 10px #CCC;
+}
+
+.productTestimonial p,
+.productTestimonial span {
+  font-size: 16px;
+  line-height: 22px;
+  text-align: left;
+  color: #070707;
+}
+
 /* Mobile */
 @media (max-width: 900px) {
 }
@@ -621,6 +1255,8 @@
   .influencerItem {
     padding: 2rem 2rem 1rem 2rem !important
   }
+
+
 
   .formCard {
     width: 90% !important;
