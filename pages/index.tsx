@@ -173,8 +173,8 @@ export default function Home() {
             <div>
               <Image src={"https://hitsdesignclients.com/Peak-Male-new/images/sldr1.png"} 
                 alt={""}
-                width={100}
-                height={400}
+                width={5000}
+                height={5000}
                 style={{width: "450px", height: "auto"}} />
             </div>
 
@@ -182,29 +182,29 @@ export default function Home() {
               <div>
                 <Image src={"https://hitsdesignclients.com/Peak-Male-new/images/sldr1.png"} 
                   alt={""}
-                  width={60}
-                  height={60}
+                  width={500}
+                  height={500}
                   style={{width: "60px", height: "auto"}} />
               </div>
               <div>
                 <Image src={"https://hitsdesignclients.com/Peak-Male-new/images/sldr2.png"} 
                   alt={""}
-                  width={60}
-                  height={60}
+                  width={500}
+                  height={500}
                   style={{width: "60px", height: "auto"}} />
               </div>
               <div>
                 <Image src={"https://hitsdesignclients.com/Peak-Male-new/images/sldr3.png"} 
                   alt={""}
-                  width={60}
-                  height={60}
+                  width={500}
+                  height={500}
                   style={{width: "60px", height: "auto"}} />
               </div>
               <div>
                 <Image src={"https://hitsdesignclients.com/Peak-Male-new/images/sldr4.png"} 
                   alt={""}
-                  width={60}
-                  height={60}
+                  width={500}
+                  height={500}
                   style={{width: "60px", height: "auto"}} />
               </div>
             </div>

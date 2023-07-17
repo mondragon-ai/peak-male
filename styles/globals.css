@@ -93,8 +93,9 @@ h4,
 h5,
 p,
 span,
-button {
-  font-family: 'oswald', sans-serif;
+button,
+a {
+  font-family: 'sans-serif', sans-serif;
 }
 /* body {
   color: rgb(var(--foreground-rgb));

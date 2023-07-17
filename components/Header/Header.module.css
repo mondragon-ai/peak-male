@@ -123,6 +123,17 @@
   .container {
     height: unset;
   }
+  .menuHeader {
+    padding: 0.5rem 0;
+    width: 90%;
+  }
+  .menuLogo img {
+    width: 100px !important;
+  }
+  .menuItems,
+  .customerService {
+    display: none;
+  }
   .header {
     font-size: 12px;
   }
