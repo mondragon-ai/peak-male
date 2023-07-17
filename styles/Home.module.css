@@ -255,6 +255,7 @@
 .freeship {
   text-align: center;
   margin-top: 5px;
+  width: 90%;
 }
 .freeship span {
   display: inline-block;
@@ -264,9 +265,13 @@
   border-radius: 5px;
   color: #fff;
   text-transform: uppercase;
-  font-size: 14px;
-  line-height: 19px;
+  font-size: 10px;
+  line-height: 13px;
   font-weight: bold;
+}
+
+.freeship span img {
+  width: 8px !important;
 }
 
 .riskFreeTxt {
@@ -1199,6 +1204,290 @@
 
 /* Mobile */
 @media (max-width: 479px) {
+  .topContainer {
+    padding: 20px 0;
+  }
+
+  .imgSliders {
+    padding: 1rem 2rem;
+  }
+
+  .imgSliders > div {
+    padding: 0.5rem;
+    margin: 0 1rem;
+    cursor: pointer;
+    border: 1px solid #d1d1d1;
+  }
+
+  .helpsWith {
+    flex-wrap: wrap;
+    justify-content: space-between;
+  }
+
+  .helpsWith li {
+    float: left;
+    width: 49%;
+    margin: 0px 0px 5px 0;
+    padding: 7px 14px 4px 14px;
+    background: #f3f6ff;
+    border: 1px solid #b0c2f0;
+    color: #070707;
+    border-radius: 8px;
+    font-size: 17px;
+    line-height: 25px;
+    text-align: left;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+    text-decoration: none;
+  }
+
+  .benefitbox {
+    padding: 0 1rem;
+  }
+
+  .benefitbox > div > p {
+    font-weight: bold;
+    font-size: 20px;
+    line-height: 26px;
+    color: #070707;
+    text-align: left;
+  }
+
+
+  .benefitbox ul {
+    color: #070707;
+    list-style: none;
+    margin-right: 15px;
+  }
+
+  .benefitbox ul li {
+    color: #070707;
+    list-style: none;
+    padding: 0 0 0 32px;
+    font-size: 18px;
+    line-height: 25px;
+    text-align: left;
+    margin-top: 8.5px;
+  }
+
+  .chooosePackage {
+    width: 90%;
+    margin: 30px 0 15px 0;
+    font-weight: bold;
+    font-size: 18px;
+    line-height: 18px;
+    text-align: center;
+    position: relative;
+    color: #070707;
+  }
+
+  .chooosePackage::after {
+    top: 10px;
+    width: 60px;
+  }
+
+  .chooosePackage::before {
+    top: 10px;
+    width: 60px;
+  }
+
+  .subBtn {
+    float: left;
+    width: 48%;
+    margin: 0 2% 0 0;
+    border: 1px solid #d7d7d7;
+    border-radius: 6px;
+    padding: 5px 5px 8px 40px;
+    font-size: 15px;
+    line-height: 20px;
+    text-align: left;
+    background: #fff url('https://hitsdesignclients.com/Peak-Male-new/images/select.png') 15px center no-repeat;
+    cursor: pointer;
+    font-weight: 800;
+    color: #070707;
+  }
+
+  .subBtn span {
+    color: #18770b;
+    font-weight: 500;
+    text-decoration: underline;
+  }
+
+
+  .productItem {
+    width: 90%;
+    margin-bottom: 1rem;
+  }
+
+  .pkghding {
+    background: #17378a;
+    padding: 6px 10px;
+    font-weight: 800;
+    font-size: 24px;
+    line-height: 24px;
+    letter-spacing: 0.5px;
+    color: #fff;
+    text-align: center;
+    text-transform: uppercase;
+    width: 100%;
+  }
+
+
+  .supplyText {
+    font-size: 17px;
+    line-height: 18px;
+    color: #232323;
+    text-align: center;
+    margin-top: 7px;
+    font-weight: 800;
+    text-transform: uppercase;
+  }
+  .pkgprc2 {
+    font-weight: bold;
+    font-size: 29px;
+    line-height: 34px;
+    text-align: center;
+    color: #000;
+    margin: 5px 0;
+  }
+
+  .BigPrice {
+    font-weight: 800;
+  }
+  .PriceUnit {
+    font-size: 11px;
+    line-height: 16px;
+    color: #000;
+    text-align: center;
+    text-transform: uppercase;
+  }
+
+  .pkgtxt1 {
+    font-size: 15px;
+    line-height: 20px;
+    text-align: center;
+    color: #000;
+    padding: 1px 0;
+    margin-top: 7px;
+    font-style: italic;
+  }
+
+  .pkgprc1 {
+    font-size: 17px;
+    line-height: 26px;
+    color: #232323;
+    text-align: center;
+    margin-top: 7px;
+  }
+
+  .pkgprc1 span {
+    padding: 0 6px;
+  }
+
+  .strikeout {
+    position: relative;
+  }
+  .strikeout::after {
+    border-bottom: 2px solid #F00;
+    content: "";
+    left: 0;
+    margin-top: calc(0.12em / 2 * -1);
+    position: absolute;
+    right: 0;
+    top: 54%;
+    transform: rotate(-10deg);
+  }
+
+  .pkgprc1 strong {
+    font-weight: 800;
+  }
+
+  .pkgTophd {
+    height: 26px;
+    right: 0;
+    margin: 0 auto;
+    display: block;
+    font-weight: 800;
+    letter-spacing: 0.5px;
+    font-size: 15px;
+    line-height: 26px;
+    text-align: center;
+    text-transform: uppercase;
+    background: #face00;
+    width: 100%;
+  }
+
+  .freeship {
+    text-align: center;
+    margin-top: 5px;
+  }
+  .freeship span {
+    display: inline-block;
+    vertical-align: middle;
+    background: #F00;
+    padding: 2px 7px;
+    border-radius: 5px;
+    color: #fff;
+    text-transform: uppercase;
+    font-size: 10px;
+    line-height: 15px;
+    font-weight: bold;
+  }
+
+  .freeship span img {
+    display: inline-block;
+    vertical-align: middle;
+    width: 10px;
+    margin: -3px 2px 0 0;
+  }
+
+  .riskFreeTxt {
+    font-weight: bold;
+    font-size: 13px;
+    line-height: 20px;
+    color: #171515;
+    text-align: center;
+    margin-top: 0;
+  }
+
+  .s1btn {
+    width: 90%;
+  }
+
+  .btnTxt {
+    width: 100%;
+    color: #000;
+    margin: 12px 0;
+    text-align: center;
+  }
+  
+  .btnTxt p {
+    display: inline-block;
+    vertical-align: top;
+    padding: 0 8px;
+    font-size: 10px;
+    line-height: 15px;
+    letter-spacing: 0;
+    position: relative;
+    width: 50%;
+    margin: 0;
+  }
+
+  .productTestimonial {
+    width: 90%;
+  }
+  
+  .productTestimonial p,
+  .productTestimonial span {
+    font-size: 12px;
+    line-height: 15px;
+    text-align: left;
+    color: #070707;
+  }
+  .delcinedTestWrapper {
+    width: 90%;
+  }
+
   .staticButtonContainer {
     display: block;
     position: fixed;
@@ -1209,6 +1498,337 @@
     width: 100%;
   }
   
+  .bdhding {
+    font-size: 30px;
+    line-height: 36px;
+    text-align: center;
+  }
+  .none {
+    display: none !important;
+  }
+
+
+  .s2subhding {
+    font-weight: bold;
+    font-size: 24px;
+    line-height: 30px;
+    text-align: center;
+    margin-top: 38px;
+    color: #000;
+  }
+
+  .s2line {
+    margin: 42px auto 0 auto;
+    display: block;
+    width: 80%;
+    height: auto;
+  }
+
+  .s2list {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+    display: -webkit-box;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+  }
+
+  .s2list li {
+    width: 90%;
+  }
+
+  .s2list li img {
+    margin: 0 auto 14px auto;
+    display: block;
+    max-width: 100%;
+    max-width: 100%;
+    width: 100%;
+    height: auto;
+  }
+
+  .s2lhding {
+    font-weight: bold;
+    color: #ff0000;
+    font-size: 24px;
+    line-height: 28px;
+  }
+
+  .s2ltxt {
+    font-size: 18px;
+    line-height: 24px;
+    margin-top: 12px;
+    color: #000;
+  }
+
+  .s2bx2 {
+    margin: 40px 0 0 0;
+    background: url("https://hitsdesignclients.com/Peak-Male-new/images/s2line2.png") center 60px no-repeat;
+  }
+
+
+  .s2prd {
+    margin: 0 auto;
+    display: block;
+    max-width: 20%;
+    width: 20%;
+    height: auto;
+    width: 200px;
+    margin: 0 auto;
+    display: block;
+    max-width: 100%;
+  }
+
+  .s2lhding2 {
+    font-weight: bold;
+    font-size: 22px;
+    line-height: 32px;
+    color: #17378a;
+    text-align: center;
+    margin-top: 30px;
+    padding: 0 40px;
+  }
+
+
+  /* ============================================================================================================================================================
+    INTRODUCTION TESTOSTERONE WRAPPER
+  ================================================================================================================================================================ */
+  .sec3 {
+    padding:0px 0;
+    background: #eef5fc;
+  }
+
+  .bdfont {
+    font-size: 18px;
+    line-height: 26px;
+    text-align: left;
+    letter-spacing: 0.5px;
+    color: #000;
+    padding: 2rem 0;
+    border-bottom: 1px solid #d7d7d7;
+  }
+
+  .bdfont:last-child {
+    border-bottom: none;
+  }
+
+  .s3btn {
+    height: 78px;
+    width: 100%;
+    margin: 15px auto 0 auto;
+    display: block;
+    background: #ff7200;
+    border-radius: 5px;
+    font-weight: bold;
+    font-size: 28px;
+    line-height: 74px;
+    color: #fff;
+    text-align: center;
+  }
+
+  /* ============================================================================================================================================================
+    BENEFITS TESTOSTERONE WRAPPER
+  ================================================================================================================================================================ */
+  .sec4 {
+    padding: 60px 0 60px 0;
+    background: #142654;
+  }
+
+  .benefitItem {
+    text-align: left;
+    width: 100%;
+    margin: 1rem 0 0 0; 
+  }
+
+  .benefitItem h6,
+  .benefitItem p {
+    width: 100%;
+    text-align: left;
+  }
+
+  .s5bxlist {
+    list-style: none;
+  }
+
+  .s5bxlist li {
+    background: url("https://hitsdesignclients.com/Peak-Male-new/images/bullet3.png") left 10px no-repeat;
+    background-size: 20px;
+    padding: 0 0 0 35px;
+    margin-top: 20px;
+    list-style: none;
+  }
+
+  .benefitItem h6 {
+    font-size: 20px;
+    font-weight: 800;
+  }
+
+  .benefitItem p {
+    font-size: 15px;
+    font-weight: 100;
+  }
+
+
+  .s5subhding {
+    font-weight: bold;
+    font-size: 22px;
+    line-height: 36px;
+    color: #002560;
+    text-align: center;
+    margin-top: 40px;
+    position: relative;
+  }
+
+  .s5list {
+    float: left;
+    width: 100%;
+    padding: 30px 0 15px 0;
+    text-align: center;
+  }
+
+  .s5list li {
+    display: inline-block;
+    vertical-align: top;
+    width: 32%;
+    margin-top: 35px;
+  }
+
+  .s5list li img {
+    width: 70px;
+  }
+
+  .s5list p {
+    color:#171515;
+  }
+
+
+  .sec6 {
+    background: #fff ;
+    padding: 0px 0 0 0;
+  }
+
+  .testimonial {
+    padding: 1rem 0 0 0;
+    position: relative;
+  }
+
+  .sldrTxt1 {
+    font-weight: bold;
+    font-size: 26px;
+    line-height: 32px;
+    text-align: left;
+    margin-top: 20px;
+    color: #000;
+  }
+  .sldrTxt2 {
+    font-size: 17px;
+    line-height: 25px;
+    text-align: left;
+    margin-top: 25px;
+    font-style: italic;
+    height: auto;
+    color: #000;
+  }
+
+  .sldrnm {
+    font-weight: 500;
+    font-size: 30px;
+    line-height: 40px;
+    color: #fff;
+    text-align: left;
+    margin-top: 15px;
+  }
+
+  .slickPrev {
+    left: -20px;
+    background: #25438f url('https://hitsdesignclients.com/Peak-Male-new/images/prev.png') no-repeat center center;
+  }
+
+  .slickNext {
+    right: -20px;
+    background: #25438f url('https://hitsdesignclients.com/Peak-Male-new/images/next.png') no-repeat center center;
+  }
+
+  .slickPrev, .slickNext {
+    position: absolute;
+    bottom: 0;
+    display: block;
+    width: 50px;
+    height: 50px;
+    padding: 0;
+    top: 140px;
+    outline: none;
+    border: none;
+    z-index: 99;
+    cursor: pointer;
+  }
+
+  .productRow {
+    cursor: pointer;
+    position: relative;
+    display: flex;
+    height: auto;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 0.5rem;
+    width: 100%;
+    color: rgb(34, 34, 34)
+  }
+
+  .productRow:hover {
+    background-color: rgb(236, 236, 236);
+    border-radius: 5px;
+  }
+
+  .checkBoxProduct {
+    position: "relative";
+    display: "flex";
+    height: "auto";
+    flex-direction: "column";
+    justify-content: "center";
+    align-content: "center";
+    padding-right: "10px";
+    width: "10%";
+  }
+
+  .productTitleBox {
+    position: "relative";
+    display: "flex";
+    height: "auto";
+    flex-direction: "column";
+    justify-content: "flex-end";
+    width: 70%;
+  }
+
+  .productPrice {
+    width: 20%;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+  }
+
+  .checkBoxProduct > div {
+    background-color: rgb(255, 255, 255);
+    width: 15px;
+    height: 15px;
+    border-radius: 10px;
+    border: 1px solid black;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .checkBoxProduct > div > div {
+    background-color: rgb(123, 123, 245);
+    width: 10px;
+    height: 10px;
+    border-radius: 10px;
+  }
   .staticButton {
     padding: 12px 24px;
     font-size: 30px;

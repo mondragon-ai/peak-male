@@ -101,7 +101,6 @@ function OrderForm({
           </p>
         </div>
 
-
         <div className={`${styles.row}`} style={{width: "100%", margin: "20px auto"}}>
           <p style={{
             fontSize: "17px",
@@ -150,7 +149,6 @@ function OrderForm({
             boost testosterone levels, increase energy, and support overall male vitality.
           </p>
         </div>
-
 
         <p style={{
           width: "100%", 
