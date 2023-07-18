@@ -30,9 +30,13 @@ export interface InitialValuesType {
     clientSecret: string;
   }
 
-const OrderFormContainer = ({state, setState }: {
+const OrderFormContainer = ({state, setState, isSubbed, setSub, setProduct, productSelected }: {
     state: InitialValuesType,
-    setState: any
+    setState: any,
+    isSubbed: boolean,
+    setSub: any,
+    setProduct: any,
+    productSelected: string
 }) => {
     const [isLoading, setIsLoading] = useState(false);
     const [status, setStatus] = useState("");
@@ -168,8 +172,12 @@ const OrderFormContainer = ({state, setState }: {
             state={state}
             elements={elements}
             setState={setState}
+            isSubbed={isSubbed}
+            setSub={setSub}
+            setProduct={setProduct}
+            productSelected={productSelected}
         />
-</>
+    </>
   );
 };
 

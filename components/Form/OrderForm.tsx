@@ -29,7 +29,6 @@ export type LineItem = {
     url: string,
     tags: string[]
 }
-
 export type OrderProps = {
     [key: string]: any,
     handleSubmit: any
@@ -38,6 +37,10 @@ export type OrderProps = {
     message: any,
     state: InitialValuesType,
     setState: Dispatch<SetStateAction<any>>,
+    isSubbed: boolean,
+    setSub: Dispatch<SetStateAction<boolean>>,
+    setProduct: Dispatch<SetStateAction<string>>,
+    productSelected: string
 }
 
 const cardOptions = {
@@ -66,7 +69,11 @@ function OrderForm({
   isLoading,
   message,
   setState, 
-  state
+  state,
+  isSubbed,
+  setSub,
+  setProduct,
+  productSelected
 }: OrderProps) {
 
   const [bump, setBump] = useState(true);
@@ -167,13 +174,13 @@ function OrderForm({
               <Image src={"https://hitsdesignclients.com/Peak-Male-new/images/help-icon1.png"} alt={""} width={50} height={50} style={{height: "20px", width: "auto", verticalAlign: "middle", margin: "-2px 6px 0 0"}}/>Libido
             </li>
             <li>
-              <Image src={"https://hitsdesignclients.com/Peak-Male-new/images/help-icon2.png"} alt={""} width={50} height={50} style={{height: "20px", width: "auto", verticalAlign: "middle", margin: "-2px 6px 0 0"}}/>Libido
+              <Image src={"https://hitsdesignclients.com/Peak-Male-new/images/help-icon2.png"} alt={""} width={50} height={50} style={{height: "20px", width: "auto", verticalAlign: "middle", margin: "-2px 6px 0 0"}}/>Energy
             </li>
             <li>
-              <Image src={"https://hitsdesignclients.com/Peak-Male-new/images/help-icon3.png"} alt={""} width={50} height={50} style={{height: "20px", width: "auto", verticalAlign: "middle", margin: "-2px 6px 0 0"}}/>Libido
+              <Image src={"https://hitsdesignclients.com/Peak-Male-new/images/help-icon3.png"} alt={""} width={50} height={50} style={{height: "20px", width: "auto", verticalAlign: "middle", margin: "-2px 6px 0 0"}}/>T-Booster
             </li>
             <li>
-              <Image src={"https://hitsdesignclients.com/Peak-Male-new/images/help-icon4.png"} alt={""} width={50} height={50} style={{height: "20px", width: "auto", verticalAlign: "middle", margin: "-2px 6px 0 0"}}/>Libido
+              <Image src={"https://hitsdesignclients.com/Peak-Male-new/images/help-icon4.png"} alt={""} width={50} height={50} style={{height: "20px", width: "auto", verticalAlign: "middle", margin: "-2px 6px 0 0"}}/>Cognition
             </li>
           </ul>
         </div>
@@ -226,17 +233,17 @@ function OrderForm({
 
         <p className={`${styles.chooosePackage}`} id="order">Choose Your Package</p>
 
-        <div className={`${styles.row}`} style={{width: "100%", justifyContent: "center"}}>
-          <div className={`${styles.subBtn}`}>
+        <div className={`${styles.row}`} style={{width: "90%", justifyContent: "center"}}>
+          <div onClick={() => setSub(false)} className={`${styles.subBtn}`} style={{ background: !isSubbed ? "#fff url('https://hitsdesignclients.com/Peak-Male-new/images/selected.png') 15px center no-repeat" : "#fff", border: !isSubbed ? "1px solid #17378a" : ""}}>
             One Time Purchase
           </div>
-          <div className={`${styles.subBtn}`} style={{margin: 0}}>
+          <div onClick={() => setSub(true)} className={`${styles.subBtn}`} style={{margin: 0, background: isSubbed ? "#fff url('https://hitsdesignclients.com/Peak-Male-new/images/selected.png') 15px center no-repeat" : "#fff", border: isSubbed ? "1px solid #17378a" : ""}}>
             Subscribe & <span>Save 20%</span>
           </div>
         </div>
 
         <div className={`${styles.row}`} style={{width: "100%", justifyContent: "space-between", alignItems: "center", margin: '2rem 0'}}>
-          <div className={`${styles.col} ${styles.productItem}`} >
+          <div onClick={() => setProduct("ONE")} className={`${styles.col} ${styles.productItem}`} style={{background: productSelected == "ONE" ? "#e5ecfe" : "#fff", border: productSelected == "ONE" ? "2px solid #17378a" : ""}} >
             <h5 className={styles.pkghding}>1 Bottle</h5>
             <h6 className={styles.supplyText}>30 Day Supply</h6>
             <div  className={`${styles.row}`} style={{width: "100%", justifyContent: "center", alignItems: "center"}}>
@@ -252,44 +259,44 @@ function OrderForm({
             </div>
           </div>
 
-          <div className={`${styles.col} ${styles.productItem}`} >
+          <div onClick={() => setProduct("THREE")} className={`${styles.col} ${styles.productItem}`} style={{background: productSelected == "SIX" ? "#e5ecfe" : "#fff", border: productSelected == "SIX" ? "2px solid #17378a" : ""}} >
             <p className={styles.pkgTophd}>BEST VALUE</p>
-            <h5 className={styles.pkghding}>1 Bottle</h5>
-            <h6 className={styles.supplyText}>30 Day Supply</h6>
+            <h5 className={styles.pkghding}>6 Bottle</h5>
+            <h6 className={styles.supplyText}>180 Day Supply</h6>
             <div  className={`${styles.row}`} style={{width: "100%", justifyContent: "center", alignItems: "center"}}>
               <Image src={"https://hitsdesignclients.com/Peak-Male-new/images/pkg3.png"} alt={""} width={100} height={50} style={{height: "auto", width: "100%"}}  />
             </div>
-            <p className={styles.freeship}><span>
-              <Image src="https://hitsdesignclients.com/Peak-Male-new/images/chk.png" alt="" height={50} width={50} style={{height: "auto", width: "20px"}}/> Free Usa Shipping</span>
-            </p>
             <div className={`${styles.col}`}  style={{width: "100%"}}>
               <p className={styles.pkgprc2}>
-                <span className={styles.BigPrice}>$59</span>
+                <span className={styles.BigPrice}>$39</span>
                 <span className={styles.PriceUnit}>/per bottle</span>
               </p>
-              <p className={styles.pkgtxt1}>You Save $30</p>
-              <p className={styles.pkgprc1}><span className={styles.strikeout}>$89</span> <strong>$59</strong></p>
+              <p className={styles.freeship}><span>
+                <Image src="https://hitsdesignclients.com/Peak-Male-new/images/chk.png" alt="" height={50} width={50} style={{height: "auto", width: "20px"}}/> Free Usa Shipping</span>
+              </p>
+              <p className={styles.pkgtxt1}>You Save $300</p>
+              <p className={styles.pkgprc1}><span className={styles.strikeout}>$534</span> <strong>$234</strong></p>
             </div>
           </div>
 
 
-          <div className={`${styles.col} ${styles.productItem}`} >
-            <p className={styles.pkgTophd}>BEST VALUE</p>
-            <h5 className={styles.pkghding}>1 Bottle</h5>
-            <h6 className={styles.supplyText}>30 Day Supply</h6>
+          <div onClick={() => setProduct("SIX")} className={`${styles.col} ${styles.productItem}`} style={{background: productSelected == "THREE" ? "#e5ecfe" : "#fff", border: productSelected == "THREE" ? "2px solid #17378a" : ""}} >
+            <p className={styles.pkgTophd}>MOST POPULAR</p>
+            <h5 className={styles.pkghding}>3 Bottle</h5>
+            <h6 className={styles.supplyText}>60 Day Supply</h6>
             <div  className={`${styles.row}`} style={{width: "100%", justifyContent: "center", alignItems: "center"}}>
               <Image src={"https://hitsdesignclients.com/Peak-Male-new/images/pkg3.png"} alt={""} width={100} height={50} style={{height: "auto", width: "100%"}}  />
             </div>
-            <p className={styles.freeship}><span>
-              <Image src="https://hitsdesignclients.com/Peak-Male-new/images/chk.png" alt="" height={50} width={50} style={{height: "auto", width: "20px"}}/> Free Usa Shipping</span>
-            </p>
             <div className={`${styles.col}`}  style={{width: "100%"}}>
               <p className={styles.pkgprc2}>
-                <span className={styles.BigPrice}>$59</span>
+                <span className={styles.BigPrice}>$49</span>
                 <span className={styles.PriceUnit}>/per bottle</span>
               </p>
-              <p className={styles.pkgtxt1}>You Save $30</p>
-              <p className={styles.pkgprc1}><span className={styles.strikeout}>$89</span> <strong>$59</strong></p>
+              <p className={styles.freeship}><span>
+                <Image src="https://hitsdesignclients.com/Peak-Male-new/images/chk.png" alt="" height={50} width={50} style={{height: "auto", width: "20px"}}/> Free Usa Shipping</span>
+              </p>
+              <p className={styles.pkgtxt1}>You Save $120</p>
+              <p className={styles.pkgprc1}><span className={styles.strikeout}>$267</span> <strong>$147</strong></p>
             </div>
           </div>
         </div>
