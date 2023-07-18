@@ -5,13 +5,11 @@ import Router from "next/router";
 import Head from "next/head";
 import { Context } from "@/context/context";
 import styles from "../styles/Home.module.css";
-import * as crypto from "crypto";
-import Image from "next/image";
-import UpsellAccordion from "@/components/global/UpsellAccordion";
+import checkout_styles from "../styles/Checkout.module.css";
 import { imPoweredRequest } from "@/components/lib/request";
 import { LineItem } from "@stripe/stripe-js";
 import * as gtag from "../components/lib/analytics"
-import Header from "@/components/Header";
+import Image from "next/image";
 
 const CheckOut = () => {
   const [globalState, setGlobalState] = useContext(Context);
@@ -183,32 +181,517 @@ const CheckOut = () => {
         <meta property="og:title" content={t} />
         
       </Head>
-      <main className={styles.row}>
-        <div className={styles.col} style={{color: "black"}}>
-          <header className={`${styles.header} ${styles.col}`} >
-            logo
+      <main className={`${styles.row}  ${styles.mobileCol} ${checkout_styles.container}`}>
+        <div className={`${styles.col} ${checkout_styles.left}`}>
+          <header className={`${checkout_styles.header} ${styles.row}`} >
+            <div>
+              <Image src={"https://hitsdesignclients.com/Peak-Male-new/images/logo.png"} alt={""} width={500} height={500} style={{height: "auto", width: "100px"}} />
+            </div>
+            <p className={`${checkout_styles.secureLock} ${styles.row}`}>
+              <Image src="https://hitsdesignclients.com/Peak-Male-new/images/secure-lock.png" alt="" width={500} height={500} style={{height: "auto", width: "50px"}}/>
+              <span>SECURE<br />CHECKOUT</span>
+            </p>
           </header>
-          <div className={`${styles.checkoutForm} ${styles.col}`}>
-            checkout
+
+          {windowWidth < 720 ? 
+          <>
+            <h2 className={checkout_styles.sumryHdng}>Order Summary</h2>
+            <div style={{width: "100%", padding: "0 0 15px"}} >
+              <div style={{width: "100%", padding: "0 0 15px"}}> 
+                <div className={checkout_styles.deviderCp}></div>
+
+                <div className={checkout_styles.prodBox}>
+                  <div className={checkout_styles.ordLft}>
+                    <div className={checkout_styles.prodImg}>
+                      <Image src={"https://hitsdesignclients.com/Peak-Male-new/images/chk-prod.png"} alt={""} width={500} height={500} style={{height: "auto", width: "55px"}} />
+                      <p className={checkout_styles.prodCount}>6</p>
+                    </div>
+                    <div className={checkout_styles.odrRgt}>
+                        <p className={checkout_styles.ordTitle}><strong>Peak Male</strong><br />Xtreme Test Booster</p>
+                    </div>
+                  </div>
+                  <div className={checkout_styles.ordRight}>
+                      <p><span>$249.00</span><br />$179.99</p>
+                  </div>
+                </div>
+
+                <div className={checkout_styles.deviderCp}></div>
+                  
+                <table className={checkout_styles.cartTable}>
+                  <tbody>
+                    <tr>
+                      <td align="left">Subtotal</td>
+                      <td align="right"><span>$199.98</span></td>
+                    </tr>
+                  </tbody>
+                </table>
+
+                <div className={checkout_styles.deviderCp}></div>
+                  
+                <table className={checkout_styles.cartTable}>
+                  <tbody>
+                    <tr>
+                      <td align="left">Shipping</td>
+                      <td align="right"><span>$0.00</span></td>
+                    </tr>
+                  </tbody>
+                </table>
+
+                <div className={checkout_styles.deviderCp}></div>
+                  
+                <table className={checkout_styles.cartTable}>
+                  <tbody>
+                    <tr>
+                      <td align="left" className={checkout_styles.totTxtL}>Total</td>
+                      <td align="right" className={checkout_styles.totTxtL}><span>$212.93</span></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </>: null}
+
+          <div className={`${checkout_styles.checkoutForm} ${styles.col}`}>
+            <div className={`${checkout_styles.sale} ${styles.row}`}>
+              <div className={`${checkout_styles.viewBoxImg}`}>
+                <Image src="https://hitsdesignclients.com/Peak-Male-new/images/per-path.png" alt="" width={500} height={500} style={{height: "auto", width: "100%"}}/>
+                <span>%</span>
+              </div>
+              <div className={`${checkout_styles.viewBoxTxt}`}>
+                <strong>Sale ends soon!</strong> Your cart is reserved for:  
+                <span id="stopwatch2">00:00</span>
+              </div>
+            </div>
+
+            <ul className={checkout_styles.brdcrm}>
+              <li><span>Checkout</span></li>
+              <li><svg width="10" focusable="false" aria-hidden="true" className="icon-svg icon-svg--color-accent icon-svg--size-10 previous-link__icon" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 10 10"><path d="M2 1l1-1 4 4 1 1-1 1-4 4-1-1 4-4"></path></svg></li>
+              <li>Special Offers</li>
+              <li><svg width="10" focusable="false" aria-hidden="true" className="icon-svg icon-svg--color-accent icon-svg--size-10 previous-link__icon" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 10 10"><path d="M2 1l1-1 4 4 1 1-1 1-4 4-1-1 4-4"></path></svg></li>
+              <li>Order Receipt</li>
+            </ul>
+
+            <div className={checkout_styles.cpContact}>
+                <div className={checkout_styles.headingBox}>
+                    <p className={checkout_styles.chkHead}>Contact information</p>
+                </div>
+                <div className={`${checkout_styles.frmFlds}`}>
+                  <div className={``}>
+                    <label htmlFor="email" className="fl-label">Email</label>
+                    <input type="email" className={`${checkout_styles.inputFlds}`} placeholder="Email" id="email" data-placeholder="Email" />
+                  </div>
+                </div>
+            </div>
+
+            <div className={checkout_styles.cpContact}>
+                <div className={checkout_styles.headingBox}>
+                    <p className={checkout_styles.chkHead}>Shipping Address</p>
+                </div>
+
+                <div className={`${styles.row}`} style={{width: "100%", justifyContent: "space-between"}}>
+                  <div className={`${checkout_styles.frmFlds} ${checkout_styles.fl}`}>
+                    <div className={``}>
+                      <label htmlFor="first_name" className="fl-label">First Name</label>
+                      <input type="first_name" className={`${checkout_styles.inputFlds}`} placeholder="First Name" id="first_name" data-placeholder="First Name" />
+                    </div>
+                  </div>
+                  <div className={`${checkout_styles.frmFlds} ${checkout_styles.fl}`}>
+                    <div className={``}>
+                      <label htmlFor="last_name" className="fl-label">Last Name</label>
+                      <input type="last_name" className={`${checkout_styles.inputFlds}`} placeholder="Last Name" id="last_name" data-placeholder="Last Name" />
+                    </div>
+                  </div>
+                </div>
+
+                <div className={`${checkout_styles.frmFlds}`}>
+                  <div className={``}>
+                    <label htmlFor="line1" className="fl-label">Street Address</label>
+                    <input type="line1" className={`${checkout_styles.inputFlds}`} placeholder="Street Address" id="line1" data-placeholder="Street Address" />
+                  </div>
+                </div>
+
+                <div className={`${styles.row}`} style={{width: "100%", justifyContent: "space-between"}}>
+                  <div className={`${checkout_styles.frmFlds} ${checkout_styles.fl}`}>
+                    <div className={``}>
+                      <label htmlFor="city" className="fl-label">City</label>
+                      <input type="city" className={`${checkout_styles.inputFlds}`} placeholder="City" id="city" data-placeholder="City" />
+                    </div>
+                  </div>
+                  <div className={`${checkout_styles.frmFlds} ${checkout_styles.fl}`}>
+                    <div className={``}>
+                      <select name="state" className={checkout_styles.selcetFld} id="state">
+                        <option value="1" selected>- Select State -</option>
+                        <option value="AL">Alabama</option>
+                        <option value="AK">Alaska</option>
+                        <option value="AZ">Arizona</option>
+                        <option value="AR">Arkansas</option>
+                        <option value="CA">California</option>
+                        <option value="CO">Colorado</option>
+                        <option value="CT">Connecticut</option>
+                        <option value="DE">Delaware</option>
+                        <option value="FL">Florida</option>
+                        <option value="GA">Georgia</option>
+                        <option value="HI">Hawaii</option>
+                        <option value="ID">Idaho</option>
+                        <option value="IL">Illinois</option>
+                        <option value="IN">Indiana</option>
+                        <option value="IA">Iowa</option>
+                        <option value="KS">Kansas</option>
+                        <option value="KY">Kentucky</option>
+                        <option value="LA">Louisiana</option>
+                        <option value="ME">Maine</option>
+                        <option value="MD">Maryland</option>
+                        <option value="MA">Massachusetts</option>
+                        <option value="MI">Michigan</option>
+                        <option value="MN">Minnesota</option>
+                        <option value="MS">Mississippi</option>
+                        <option value="MO">Missouri</option>
+                        <option value="MT">Montana</option>
+                        <option value="NE">Nebraska</option>
+                        <option value="NV">Nevada</option>
+                        <option value="NH">New Hampshire</option>
+                        <option value="NJ">New Jersey</option>
+                        <option value="NM">New Mexico</option>
+                        <option value="NY">New York</option>
+                        <option value="NC">North Carolina</option>
+                        <option value="ND">North Dakota</option>
+                        <option value="OH">Ohio</option>
+                        <option value="OK">Oklahoma</option>
+                        <option value="OR">Oregon</option>
+                        <option value="PA">Pennsylvania</option>
+                        <option value="RI">Rhode Island</option>
+                        <option value="SC">South Carolina</option>
+                        <option value="SD">South Dakota</option>
+                        <option value="TN">Tennessee</option>
+                        <option value="TX">Texas</option>
+                        <option value="UT">Utah</option>
+                        <option value="VT">Vermont</option>
+                        <option value="VA">Virginia</option>
+                        <option value="WA">Washington</option>
+                        <option value="WV">West Virginia</option>
+                        <option value="WI">Wisconsin</option>
+                        <option value="WY">Wyoming</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+
+
+                <div className={`${styles.row}`} style={{width: "100%", justifyContent: "space-between"}}>
+                  <div className={`${checkout_styles.frmFlds} ${checkout_styles.fl}`}>
+                    <div className={``}>
+                      <label htmlFor="zip" className="fl-label">Zip Code</label>
+                      <input type="zip" className={`${checkout_styles.inputFlds}`} placeholder="Zip Code" id="zip" data-placeholder="Zip Code" />
+                    </div>
+                  </div>
+                  <div className={`${checkout_styles.frmFlds} ${checkout_styles.fl}`}>
+                    <div className={``}>
+                      <label htmlFor="country" className="fl-label">Country</label>
+                      <input type="country" className={`${checkout_styles.inputFlds}`} placeholder="US" id="country" data-placeholder="US" disabled />
+                    </div>
+                  </div>
+                </div>
+
+            </div>
+
+            <div className={checkout_styles.cpContact}>
+                <div className={checkout_styles.headingBox}>
+                    <p className={checkout_styles.chkHead}>Billing Address</p>
+                    <p className={checkout_styles.chkSubheading}>Select the address that matches your card or payment method.</p>
+                </div>
+            </div>
+
+            <div className={checkout_styles.payoptbox}>
+              <div className={checkout_styles.paymentCardsBox}>
+                <label className={checkout_styles.billingtogglbtn}>
+                  <input type="radio" name="address" checked/>Same as shipping address
+                </label>
+              </div>
+              <div className={checkout_styles.paymentCardsBox}>
+                <label className={checkout_styles.billingtogglbtn}>
+                  <input type="radio" name="address" />Use a different billing address
+                </label>
+              </div>
+              <div className={checkout_styles.paymentFldsBox}>
+                <div className={checkout_styles.cpContact} style={{marginTop: "0"}}>
+
+                    <div className={`${styles.row}`} style={{width: "100%", justifyContent: "space-between"}}>
+                      <div className={`${checkout_styles.frmFlds} ${checkout_styles.fl}`}>
+                        <div className={``}>
+                          <label htmlFor="first_name" className="fl-label">First Name</label>
+                          <input type="first_name" className={`${checkout_styles.inputFlds}`} placeholder="First Name" id="first_name" data-placeholder="First Name" />
+                        </div>
+                      </div>
+                      <div className={`${checkout_styles.frmFlds} ${checkout_styles.fl}`}>
+                        <div className={``}>
+                          <label htmlFor="last_name" className="fl-label">Last Name</label>
+                          <input type="last_name" className={`${checkout_styles.inputFlds}`} placeholder="Last Name" id="last_name" data-placeholder="Last Name" />
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className={`${checkout_styles.frmFlds}`}>
+                      <div className={``}>
+                        <label htmlFor="line1" className="fl-label">Street Address</label>
+                        <input type="line1" className={`${checkout_styles.inputFlds}`} placeholder="Street Address" id="line1" data-placeholder="Street Address" />
+                      </div>
+                    </div>
+
+                    <div className={`${styles.row}`} style={{width: "100%", justifyContent: "space-between"}}>
+                      <div className={`${checkout_styles.frmFlds} ${checkout_styles.fl}`}>
+                        <div className={``}>
+                          <label htmlFor="city" className="fl-label">City</label>
+                          <input type="city" className={`${checkout_styles.inputFlds}`} placeholder="City" id="city" data-placeholder="City" />
+                        </div>
+                      </div>
+                      <div className={`${checkout_styles.frmFlds} ${checkout_styles.fl}`}>
+                        <div className={``}>
+                          <select name="state" className={checkout_styles.selcetFld} id="state">
+                            <option value="1" selected>- Select State -</option>
+                            <option value="AL">Alabama</option>
+                            <option value="AK">Alaska</option>
+                            <option value="AZ">Arizona</option>
+                            <option value="AR">Arkansas</option>
+                            <option value="CA">California</option>
+                            <option value="CO">Colorado</option>
+                            <option value="CT">Connecticut</option>
+                            <option value="DE">Delaware</option>
+                            <option value="FL">Florida</option>
+                            <option value="GA">Georgia</option>
+                            <option value="HI">Hawaii</option>
+                            <option value="ID">Idaho</option>
+                            <option value="IL">Illinois</option>
+                            <option value="IN">Indiana</option>
+                            <option value="IA">Iowa</option>
+                            <option value="KS">Kansas</option>
+                            <option value="KY">Kentucky</option>
+                            <option value="LA">Louisiana</option>
+                            <option value="ME">Maine</option>
+                            <option value="MD">Maryland</option>
+                            <option value="MA">Massachusetts</option>
+                            <option value="MI">Michigan</option>
+                            <option value="MN">Minnesota</option>
+                            <option value="MS">Mississippi</option>
+                            <option value="MO">Missouri</option>
+                            <option value="MT">Montana</option>
+                            <option value="NE">Nebraska</option>
+                            <option value="NV">Nevada</option>
+                            <option value="NH">New Hampshire</option>
+                            <option value="NJ">New Jersey</option>
+                            <option value="NM">New Mexico</option>
+                            <option value="NY">New York</option>
+                            <option value="NC">North Carolina</option>
+                            <option value="ND">North Dakota</option>
+                            <option value="OH">Ohio</option>
+                            <option value="OK">Oklahoma</option>
+                            <option value="OR">Oregon</option>
+                            <option value="PA">Pennsylvania</option>
+                            <option value="RI">Rhode Island</option>
+                            <option value="SC">South Carolina</option>
+                            <option value="SD">South Dakota</option>
+                            <option value="TN">Tennessee</option>
+                            <option value="TX">Texas</option>
+                            <option value="UT">Utah</option>
+                            <option value="VT">Vermont</option>
+                            <option value="VA">Virginia</option>
+                            <option value="WA">Washington</option>
+                            <option value="WV">West Virginia</option>
+                            <option value="WI">Wisconsin</option>
+                            <option value="WY">Wyoming</option>
+                          </select>
+                        </div>
+                      </div>
+                    </div>
+
+
+                    <div className={`${styles.row}`} style={{width: "100%", justifyContent: "space-between"}}>
+                      <div className={`${checkout_styles.frmFlds} ${checkout_styles.fl}`}>
+                        <div className={``}>
+                          <label htmlFor="zip" className="fl-label">Zip Code</label>
+                          <input type="zip" className={`${checkout_styles.inputFlds}`} placeholder="Zip Code" id="zip" data-placeholder="Zip Code" />
+                        </div>
+                      </div>
+                      <div className={`${checkout_styles.frmFlds} ${checkout_styles.fl}`}>
+                        <div className={``}>
+                          <label htmlFor="country" className="fl-label">Country</label>
+                          <input type="country" className={`${checkout_styles.inputFlds}`} placeholder="US" id="country" data-placeholder="US" disabled />
+                        </div>
+                      </div>
+                    </div>
+
+                </div>
+              </div>
+            </div>
           </div>
+
+          <div className={checkout_styles.cpContact}>
+            <div className={checkout_styles.headingBox}>
+                <p className={checkout_styles.chkHead}>Payment Method</p>
+                <p className={checkout_styles.chkSubheading}>
+                  <Image src="https://hitsdesignclients.com/Peak-Male-new/images/lock-icn.png" alt="" width={500} height={500} style={{height: "auto", width: "10px"}}/>
+                  All transactions are secure and encrypted..
+                </p>
+            </div>
+            <div className={checkout_styles.payoptbox}>
+
+            </div>
+          </div>
+
+          <div className={checkout_styles.allSubmit}>
+            <button type="submit" className={checkout_styles.frmSubmit}>
+              <span>
+                <Image src="https://hitsdesignclients.com/Peak-Male-new/images/lock2.png" alt="" width={500} height={500} style={{height: "auto", width: "18px"}}/>complete purchase
+              </span>
+              <p>Try it risk free! - 30-day money back Guarantee</p>
+            </button>
+          </div>
+
+          <div className={checkout_styles.guarantyRow}>
+            <Image src="https://hitsdesignclients.com/Peak-Male-new/images/30mbg.png" alt="" width={500} height={500} style={{height: "auto", width: "50px"}}/>
+            <p><strong>30-Day Guarantee:</strong> Peak Male offers a 30-Day Money Back Guarantee in case you don't fall completely in love with our product.</p>
+          </div>
+
+          {windowWidth > 720 ? <div className={checkout_styles.footer}>
+            <p>
+              <a href="#">Terms &amp; Conditions</a>
+              <a href="#">Privacy Policy</a> 
+              <a href="#">Contact Us</a>
+            </p>
+            <p>Copyright © <script type="text/javascript">var year = new Date();document.write(year.getFullYear());</script>2023  Optimal Human. All Rights Reserved.</p>
+          </div> : null}
         </div>
-        <div className={styles.col} style={{color: "black"}}>
-          <div className={`${styles.orderSummary} ${styles.col}`}>
-            order summary
+
+        <div className={`${styles.col} ${checkout_styles.right}`}>
+          {windowWidth > 720 ? 
+          <>
+            <h2 className={checkout_styles.sumryHdng}>Order Summary</h2>
+            <div style={{width: "100%", padding: "0 0 15px"}} >
+              <div style={{width: "100%", padding: "0 0 15px"}}> 
+                <div className={checkout_styles.deviderCp}></div>
+
+                <div className={checkout_styles.prodBox}>
+                  <div className={checkout_styles.ordLft}>
+                    <div className={checkout_styles.prodImg}>
+                      <Image src={"https://hitsdesignclients.com/Peak-Male-new/images/chk-prod.png"} alt={""} width={500} height={500} style={{height: "auto", width: "55px"}} />
+                      <p className={checkout_styles.prodCount}>6</p>
+                    </div>
+                    <div className={checkout_styles.odrRgt}>
+                        <p className={checkout_styles.ordTitle}><strong>Peak Male</strong><br />Xtreme Test Booster</p>
+                    </div>
+                  </div>
+                  <div className={checkout_styles.ordRight}>
+                      <p><span>$249.00</span><br />$179.99</p>
+                  </div>
+                </div>
+
+                <div className={checkout_styles.deviderCp}></div>
+                  
+                <table className={checkout_styles.cartTable}>
+                  <tbody>
+                    <tr>
+                      <td align="left">Subtotal</td>
+                      <td align="right"><span>$199.98</span></td>
+                    </tr>
+                  </tbody>
+                </table>
+
+                <div className={checkout_styles.deviderCp}></div>
+                  
+                <table className={checkout_styles.cartTable}>
+                  <tbody>
+                    <tr>
+                      <td align="left">Shipping</td>
+                      <td align="right"><span>$0.00</span></td>
+                    </tr>
+                  </tbody>
+                </table>
+
+                <div className={checkout_styles.deviderCp}></div>
+                  
+                <table className={checkout_styles.cartTable}>
+                  <tbody>
+                    <tr>
+                      <td align="left" className={checkout_styles.totTxtL}>Total</td>
+                      <td align="right" className={checkout_styles.totTxtL}><span>$212.93</span></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </>: null}
+
+          <div className={`${checkout_styles.reviewBox}`}>
+            <div className={checkout_styles.rgtLabel}>
+              <span>trusted customer reviews</span>
+            </div>
           </div>
-          <div className={`${styles.customerReviews} ${styles.col}`}>
-            Reviews
+          
+          <div className={`${checkout_styles.chooseBox} ${styles.col}`} style={{width: "100%", marginTop: "10px"}}>
+            <div className={styles.col} style={{width: "100%"}}>
+              <div className={checkout_styles.s6MidCol}>
+                <p className={checkout_styles.s6TestiHead}>The Kickstart I Needed</p>
+                <Image src="https://hitsdesignclients.com/Peak-Male-new/images/s6-testi-star.png" alt="" width={500} height={500} style={{height: "auto", width: "100px"}} className={checkout_styles.s6TestiStar}/>
+                <p className={checkout_styles.s6Para}>
+                  I just turned 33, and I wasn't expecting to feel as drained as I did. I was in a workout slump, and none of the supplements I tried gave me that boost I needed. Then came Peak Male. It kicked in fast, and suddenly, I was breezing through workdays and crushing it at the gym. The big surprise was the mental uplift - I felt unstoppable. If you're feeling stuck, give Peak Male a try - it's been a total game-changer for me.
+                </p>
+                <p className={checkout_styles.s6TestiNm}>
+                  Jimmy B.
+                  <span>
+                    <Image src="https://hitsdesignclients.com/Peak-Male-new/images/t-tk.png" alt="" width={500} height={500} style={{height: "auto", width: "15px"}} className={checkout_styles.s6TestiStar}/>
+                    Verified Customer
+                  </span>
+                </p>
+              </div>
+            </div>
           </div>
-          <div className={`${styles.whyChooseUs} ${styles.col}`}>
-            Why CHoose Us
+
+          <div className={`${checkout_styles.chooseBox} ${styles.col}`} style={{width: "100%", marginTop: "10px"}}>
+            <div className={styles.col} style={{width: "100%"}}>
+              <div className={checkout_styles.s6MidCol}>
+                <p className={checkout_styles.s6TestiHead}>The Kickstart I Needed</p>
+                <Image src="https://hitsdesignclients.com/Peak-Male-new/images/s6-testi-star.png" alt="" width={500} height={500} style={{height: "auto", width: "100px"}} className={checkout_styles.s6TestiStar}/>
+                <p className={checkout_styles.s6Para}>
+                  I just turned 33, and I wasn't expecting to feel as drained as I did. I was in a workout slump, and none of the supplements I tried gave me that boost I needed. Then came Peak Male. It kicked in fast, and suddenly, I was breezing through workdays and crushing it at the gym. The big surprise was the mental uplift - I felt unstoppable. If you're feeling stuck, give Peak Male a try - it's been a total game-changer for me.
+                </p>
+                <p className={checkout_styles.s6TestiNm}>
+                  Jimmy B.
+                  <span>
+                    <Image src="https://hitsdesignclients.com/Peak-Male-new/images/t-tk.png" alt="" width={500} height={500} style={{height: "auto", width: "15px"}} className={checkout_styles.s6TestiStar}/>
+                    Verified Customer
+                  </span>
+                </p>
+              </div>
+            </div>
           </div>
-          <div className={`${styles.checkoutFooter} ${styles.col}`}>
-            Footer
+          
+          <div className={`${checkout_styles.chooseBox} ${styles.col}`} style={{width: "100%", marginTop: "50px"}}>
+            <div className={checkout_styles.rgtLabel}>
+              <span>Why Choose Us</span>
+            </div>
+            <div className={checkout_styles.chooseCol}>
+              <Image src="https://hitsdesignclients.com/Peak-Male-new/images/choose-ic1.png" alt="" width={500} height={500} style={{height: "auto", width: "50px"}} className={checkout_styles.s6TestiStar}/>
+              <span>30-Day Satisfaction Guarantee</span>
+              <p>If you're not satisfied with your product(s), we'll make it right! We promise.</p>
+            </div>
+            <div className={checkout_styles.chooseCol}>
+              <Image src="https://hitsdesignclients.com/Peak-Male-new/images/choose-ic2.png" alt="" width={500} height={500} style={{height: "auto", width: "50px"}} className={checkout_styles.s6TestiStar}/>
+              <span>Over 7582+ successfully shipped orders</span>
+              <p>Happy customers, end to end tracking and reliable customer service.</p>
+            </div>
           </div>
+
+
+          {windowWidth < 720 ? <div className={checkout_styles.footer}>
+            <p>
+              <a href="#">Terms &amp; Conditions</a>
+              <a href="#">Privacy Policy</a> 
+              <a href="#">Contact Us</a>
+            </p>
+            <p>Copyright © <script type="text/javascript">var year = new Date();document.write(year.getFullYear());</script>2023  Optimal Human. All Rights Reserved.</p>
+          </div> : null}
         </div>
 
       </main>
-      <Footer />
     </div>
   );
 };

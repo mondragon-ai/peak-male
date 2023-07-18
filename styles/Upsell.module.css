@@ -1,0 +1,642 @@
+
+@keyframes fade {
+    0% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
+  
+  @keyframes rotateP {
+    0% {
+      transform: rotate(0deg);
+    }
+    50% {
+      transform: rotate(180deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+
+.upHeader {
+    float: left;
+    width: 100%;
+    padding: 15px 0;
+}
+
+.container {
+    width: 980px;
+    margin: 0 auto;
+    padding: 0;
+    position: relative;
+}
+
+.logo {
+    float: left;
+    width: 100px;
+}
+
+.upHeaderRight {
+    float: right;
+    width: 220px;
+    margin-top: 3px;
+}
+.upHdrStep {
+    display: block;
+    margin: 0 auto;
+}
+
+.upHeaderRight ul {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    margin-top: 3px;
+}
+.upHeaderRight ul li {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    color: #333;
+    font-size: 10px;
+}
+
+.upsellSec {
+    float: left;
+    width: 100%;
+    padding: 0 0 60px 0;
+    min-height: 84vh;
+}
+
+.upsellBox {
+    float: left;
+    width: 100%;
+    background: #fff;
+    border: 1px solid rgba(0,0,0,0.4);
+}
+
+.upsellTopStrip {
+    float: left;
+    width: 100%;
+    background: url(https://hitsdesignclients.com/Peak-Male-new/images/sec1.jpg) center top no-repeat;
+    background-size: cover;
+    padding: 25px;
+    text-align: center;
+}
+
+.upText1 {
+    font-size: 17px;
+    font-weight: bold;
+    line-height: 22px;
+    color: #ffffff;
+    letter-spacing: 0.3px;
+}
+
+.upText2 {
+    font-size: 30px;
+    line-height: 36px;
+    font-weight: bold;
+    color: #fefb43;
+    letter-spacing: 0.3px;
+    margin-top: 5px;
+}
+
+.upText3 {
+    font-size: 19px;
+    line-height: 22px;
+    color: #ffffff;
+    letter-spacing: 0.3px;
+    margin-top: 5px;
+}
+
+.upsellContent {
+    display: -webkit-box;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+    padding: 25px 30px;
+}
+
+.upsellLeft {
+    width: 48%;
+    text-align: center;
+}
+
+.petBrushCol {
+    float: left;
+    width: 100%;
+    background: #fcf7f2;
+    overflow: hidden;
+}
+
+.petBrushColHdr {
+    float: left;
+    width: 100%;
+    background: #17378a;
+    position: relative;
+    padding: 25px 30px;
+}
+.petBrushColHdr p {
+    font-size: 18px;
+    line-height: 26px;
+    color: #ffffff;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+}
+.petBrushColHdr h3 {
+    font-size: 30px;
+    line-height: 35px;
+    color: #ffffff;
+    font-weight: bold;
+    letter-spacing: 0.3px;
+}
+.petBrushColHdr span {
+    position: absolute;
+    right: -15px;
+    top: -15px;
+    background: #6fb620;
+    font-size: 18px;
+    line-height: 20px;
+    color: #ffffff;
+    font-weight: bold;
+    letter-spacing: 0.3px;
+    padding: 25px 20px 5px;
+    transform: rotate(45deg);
+    -webkit-transform: rotate(45deg);
+}
+.petBrushColHdr span:before {
+    position: absolute;
+    left: -35px;
+    border-left: 36px solid #6fb620;
+    content: "";
+    bottom: 0;
+    top: 0;
+}
+.petBrushColHdr span:after {
+    position: absolute;
+    right: -35px;
+    border-right: 36px solid #6fb620;
+    content: "";
+    bottom: 0;
+    top: 0;
+}
+.petBrushCol {
+    float: left;
+    width: 100%;
+    background: #fcf7f2;
+    overflow: hidden;
+}
+.upSlideDiv {
+    float: left;
+    width: 100%;
+    padding: 20px 30px;
+}
+.slickSlider {
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    -webkit-touch-callout: none;
+    -khtml-user-select: none;
+    -ms-touch-action: pan-y;
+    touch-action: pan-y;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.slickSlider .slickList, .slickSlider .slickTrack {
+    -webkit-transform: translate3d(0, 0, 0);
+    -moz-transform: translate3d(0, 0, 0);
+    -ms-transform: translate3d(0, 0, 0);
+    -o-transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0);
+}
+
+.slickList {
+    overflow: hidden;
+    margin: 0;
+    padding: 0;
+}
+.slickList, .slickSlider, .slickTrack {
+    position: relative;
+    display: block;
+}
+.slickTrack {
+    top: 0;
+    left: 0;
+}
+
+.slickSlide {
+    display: block;
+}
+
+.slickSlide {
+    /* display: none; */
+    float: left;
+    height: 100%;
+    min-height: 1px;
+}
+.slickList, .slickSlider, .slickTrack  {
+    position: relative;
+    display: block !important;
+}
+
+.slickSlide img {
+    display: block;
+}
+
+.upSlideImg {
+    display: block;
+    margin: 0 auto;
+    max-width: 100%;
+}
+
+.upSliderNav {
+    float: left;
+    width: 100%;
+    text-align: center;
+    margin-top: 20px;
+}
+
+.slickSlider {
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    -webkit-touch-callout: none;
+    -khtml-user-select: none;
+    -ms-touch-action: pan-y;
+    touch-action: pan-y;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.slick-list, .slickSlider, .slick-track {
+    position: relative;
+    display: block;
+}
+
+.upSliderNav .slickSlide {
+    width: 52px !important;
+    height: 52px;
+    display: inline-block;
+    float: none;
+    cursor: pointer;
+    outline: none;
+    position: relative;
+    overflow: hidden;
+    margin: 0 4px;
+    padding: 3px 3px;
+    opacity: 0.8px;
+    border: 1px solid #ddd;
+}
+
+.slickSlide {
+    float: left;
+    height: 100%;
+    min-height: 1px;
+}
+
+.upSliderNav img {
+    display: block;
+    max-width: 100%;
+    margin: 0 auto 0;
+}
+
+
+.upsellRight {
+    width: 52%;
+    text-align: left;
+    padding-left: 35px;
+}
+.custmrRvw {
+    font-size: 11px;
+    line-height: 16px;
+    color: #282d3e;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+}
+
+.custmrRvw img {
+    display: inline-block;
+    vertical-align: middle;
+    margin: -4px 7px 0 0;
+    width: 80px;
+}
+.otOfrStrip {
+    float: left;
+    width: 100%;
+    margin-top: 15px;
+    background: #fff1aa;
+    padding: 10px 15px 7px 40px;
+    border-radius: 3px;
+    text-align: left;
+    position: relative;
+}
+
+.hourglass {
+    position: absolute;
+    left: 15px;
+    top: 13px;
+    animation: rotateP 2.5s ease-in-out forwards infinite;
+}
+.otOfrStrip p {
+    font-size: 12px;
+    line-height: 15px;
+    color: #000000;
+    text-transform: uppercase;
+    font-weight: 500;
+}
+.otOfrStrip p span {
+    color: #ff0013;
+}
+
+.upRghtText1 {
+    float: left;
+    width: 100%;
+    font-size: 16px;
+    line-height: 24px;
+    color: #000000;
+    text-align: left;
+    margin-top: 15px;
+}
+
+.upRgtList {
+    float: left;
+    width: 100%;
+    margin-top: 10px;
+}
+.upRgtList li {
+    float: left;
+    width: 100%;
+    margin-top: 10px;
+    font-size: 16px;
+    line-height: 23px;
+    color: #000000;
+    text-align: left;
+    padding-left: 28px;
+    background: url('https://hitsdesignclients.com/Peak-Male-new/images/up-tik.png') no-repeat left 2px;
+}
+
+.upPrcRow {
+    float: left;
+    width: 100%;
+    margin-top: 25px;
+    display: -webkit-box;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+.upPrc {
+    font-size: 10px;
+    line-height: 16px;
+    color: #000000;
+    font-weight: bold;
+    text-transform: uppercase;
+    text-align: left;
+}
+.upPrc span {
+    font-size: 28px;
+    line-height: 26px;
+}
+.upPrc small {
+    display: inline-block;
+    vertical-align: top;
+    font-size: 20px;
+    line-height: 28px;
+    color: #6fb620;
+    padding-left: 3px;
+}
+.dealReserve {
+    font-size: 13px;
+    line-height: 18px;
+    letter-spacing: 0.5px;
+    color: #000000;
+    position: relative;
+}
+.dealReserve:before {
+    display: inline-block;
+    vertical-align: middle;
+    margin: -3px 7px 0 0;
+    width: 9px;
+    height: 9px;
+    background: #6fb620;
+    border-radius: 50%;
+    content: "";
+    animation: fade 1s ease-in-out infinite;
+}
+
+.upBtn {
+    display: inline-block;
+    vertical-align: middle;
+    width: 100%;
+    margin-top: 20px;
+    font-size: 16px;
+    line-height: 18px;
+    color: #fff;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+    background: #ff7200;
+    border-radius: 5px;
+    border: none;
+    outline: none;
+    padding: 20px 15px 17px;
+    font-family: 'Roboto', sans-serif;
+    cursor: pointer;
+    text-align: center;
+}
+
+.moneyBkText {
+    float: left;
+    width: 100%;
+    font-size: 13px;
+    color: #000;
+    text-align: center;
+    margin-top: 20px;
+}
+.moneyBkText img {
+    display: inline-block;
+    vertical-align: middle;
+    margin: -3px 5px 0 0;
+}
+
+.noThnx {
+    display: inline-block;
+    vertical-align: middle;
+    width: 100%;
+    font-size: 14px;
+    line-height: 24px;
+    color: #000000;
+    text-decoration: underline;
+    margin-top: 15px;
+    text-align: center;
+}
+
+
+.deviderCp {
+    float: left;
+    width: 100%;
+    margin: 10px 0;
+    height: 1px;
+    background: #a9a9a9;
+}
+
+.footer {
+    float: left;
+    width: 100%;
+    padding: 30px 0;
+    background: #fff;
+}
+
+.footer p {
+    font-size: 13px;
+    line-height: 17px;
+    letter-spacing: 0.3px;
+    color: #333;
+}
+.footer p a {
+    padding: 0 2px;
+}
+.fl {
+    float: left;
+}
+.fr {
+    float: right;
+}
+
+.forMob {
+    display: none;
+}
+@media only screen and (max-width: 767px) {
+    .upHeader {
+        padding: 10px 0;
+    }
+    .container {
+        width: 100%;
+        max-width: 600px;
+        padding: 0 15px;
+    }
+    .logo {
+        width: 90px;
+    }
+    .upHeaderRight {
+        width: 170px;
+    }
+    .upHdrStep {
+        width: 155px;
+    }
+    .upHeaderRight ul li {
+        font-size: 10px;
+    }
+    .upsellSec {
+        padding: 0 0 30px;
+        min-height: auto;
+    }
+    .upsellTopStrip {
+        padding: 15px 15px;
+    }
+    .upText1 {
+        font-size: 12px;
+        line-height: 16px;
+    }
+    .upText2 {
+        font-size: 24px;
+        line-height: 28px;
+    }
+    .upText3 {
+        font-size: 14px;
+        line-height: 20px;
+    }
+    .forMob {
+        display: block;
+    }
+    .upsellContent {
+        padding: 20px 15px;
+    }
+    .upsellLeft {
+        width: 100%;
+    }
+    .petBrushColHdr {
+        padding: 16px 18px 15px;
+    }
+    .petBrushColHdr p {
+        font-size: 15px;
+        line-height: 20px;
+    }
+    .petBrushColHdr h3 {
+        font-size: 27px;
+        line-height: 32px;
+    }
+    .petBrushColHdr span {
+        font-size: 14px;
+        line-height: 16px;
+        padding: 20px 15px 4px;
+    }
+
+    .upsellRight {
+        width: 100%;
+        margin-top: 25px;
+        padding: 0;
+    }
+
+    .upsellRight li {
+        list-style: none;
+    }
+
+    .otOfrStrip {
+        padding: 10px 10px 7px 30px;
+    }
+
+    .hourglass {
+        left: 10px;
+        width: 12px;
+        top: 50%;
+        margin-top: -8px;
+    }
+    .otOfrStrip p {
+        font-size: 10px;
+    }
+    .upRghtText1 {
+        font-size: 15px;
+        line-height: 21px;
+    }
+    .dealReserve {
+        width: 100%;
+        margin-top: 15px;
+    }
+    .upBtn {
+        font-size: 12px;
+        line-height: 13px;
+        padding: 20px 8px 17px;
+        margin-top: 15px;
+    }
+    .noThnx {
+        font-size: 12px;
+    }
+    .footer {
+        padding: 20px 0;
+    }
+    .footer p {
+        width: 100%;
+        margin: 5px 0;
+        letter-spacing: -0.2px;
+        text-align: center;
+    }
+}

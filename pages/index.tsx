@@ -167,7 +167,7 @@ export default function Home() {
         <Header />
         
         {/* TOP SECTION */}
-        <div className={`${styles.row} ${styles.mobileCol}  ${styles.topContainer} `}>
+        <div className={`${styles.row} ${styles.mobileCol}  ${styles.topContainer} `} style={{marginTop: "7rem"}}>
 
           <div className={`${styles.col} ${styles.mobileFull} ${styles.topContainerLeft}`}>
 
@@ -680,7 +680,7 @@ export default function Home() {
         </div>
 
         {/* INTRODUCTION SECTION */}
-        <div className={`${styles.col} ${styles.sec3}`} style={{width: "100%", padding: "4rem 0 4rem 0"}}>
+        <div id="INTRODUCTION" className={`${styles.col} ${styles.sec3}`} style={{width: "100%", padding: "4rem 0 4rem 0"}}>
           <div className={styles.delcinedTestWrapper}>
             <h3 className={styles.bdhding}>
               Introducing Peak Male <br />
@@ -737,7 +737,7 @@ export default function Home() {
         </div>
 
         {/* BENEFITS SECTION */}
-        <div className={`${styles.col} ${styles.sec4}`} style={{width: "100%", padding: "4rem 0 4rem 0"}}>
+        <div id="BENEFITS" className={`${styles.col} ${styles.sec4}`} style={{width: "100%", padding: "4rem 0 4rem 0"}}>
           <div className={styles.delcinedTestWrapper}>
             <h3 className={styles.bdhding} style={{color: "white", textAlign: "center"}}>
               Introducing Peak Male <br />
@@ -838,7 +838,7 @@ export default function Home() {
         </div>
 
         {/* INGREDIENTS SECTION */}
-        <div className={`${styles.col} ${styles.sec3}`} style={{width: "100%", padding: "4rem 0 4rem 0"}}>
+        <div id="INGREDIENTS" className={`${styles.col} ${styles.sec3}`} style={{width: "100%", padding: "4rem 0 4rem 0"}}>
           <div className={styles.delcinedTestWrapper}>
             <h1 style={{color: "black", fontWeight: "900", textAlign: "center", fontSize:  windowWidth < 720 ? "30px" : "50px", lineHeight: windowWidth < 720 ? "36px" : "56px"}}>
               The Science behind Peak Male <br />
@@ -1063,7 +1063,7 @@ export default function Home() {
         </div>
 
         {/* TESTIMONIAL SECTION */}
-        <div className={`${styles.col} ${styles.sec3} ${styles.sec6}`} style={{width: "100%",}}>
+        <div id="REVIEWS" className={`${styles.col} ${styles.sec3} ${styles.sec6}`} style={{width: "100%",}}>
           <div className={styles.delcinedTestWrapper}>
             <h1 style={{color: "black", fontWeight: "900", textAlign: "center", fontSize: windowWidth < 720 ? "30px" : "50px", lineHeight:windowWidth < 720 ? "36px" :  "56px"}}>
               Customer Testimonials <br />

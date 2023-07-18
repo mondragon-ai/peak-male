@@ -5,6 +5,7 @@ import Router from "next/router";
 import Head from "next/head";
 import { Context } from "@/context/context";
 import styles from "../styles/Home.module.css";
+import upsell_styles from "../styles/Upsell.module.css";
 import * as crypto from "crypto";
 import Image from "next/image";
 import UpsellAccordion from "@/components/global/UpsellAccordion";
@@ -182,84 +183,112 @@ const Upsell = () => {
         <meta property="og:title" content={t} />
         
       </Head>
-      <main className={styles.col}>
+      <main className={styles.col} style={{width: "100%", background: "rgb(252, 249, 245)"}}>
+        <div className={upsell_styles.upHeader}>
+          <div className={upsell_styles.container}>
+              <img src="https://hitsdesignclients.com/Peak-Male-new/images/logo.png" className={upsell_styles.logo} />
+                <div className={upsell_styles.upHeaderRight}>
+                  <img src="https://hitsdesignclients.com/Peak-Male-new/images/up-hdr-step.png" className={upsell_styles.upHdrStep} />
+                    <ul>
+                      <li>Checkout</li>
+                      <li>Special Deal</li>
+                      <li>Summary</li>
+                    </ul>
+                </div>
+                
+            </div>
+        </div>
 
-        {/* Progress */}
-        <div className={`${styles.col} ${styles.pSection}`} style={{paddingBottom: "2rem"}}>
-          <div className={styles.col}>
-            <h2  style={{margin: "1rem 0.5rem", textAlign: "center"}} >🛒 Your Order Qualifies For A FREE Gift!</h2>
-          </div>
-          <div className={styles.col}>
-            <Image src={"/images/progress2.png"} alt={""} width={300} height={100} style={{height: "35px", margin: "1rem 0"}} />
-          </div>
-          <div className={styles.col}>
-            <div className={` ${styles.progress} ${styles.progressbar_nocorners} ${styles.mediumProgressBar}`}>
-              <div className={` ${styles.progressBar} ${styles.progressbar_w_75} ${styles.progressBarStripedActive}`}>
-                <span className="">
-                  Almost Complete...
-                </span>
+        <div className={upsell_styles.upsellSec}>
+          <div className={upsell_styles.container}>
+            <div className={upsell_styles.upsellBox}>
+              <div className={upsell_styles.upsellTopStrip}>
+                <p className={upsell_styles.upText1}>Hold Up! Exclusive Offer To Compliment Your Order!</p>
+                <p className={upsell_styles.upText2}>Add Thermogenic Weight Loss Support at 45% Off</p>
+                <p className={upsell_styles.upText3}>Lorem quis bibendum auctor, <br className={upsell_styles.forMob} />nisi elit consequat ipsum!</p>
+              </div>
+
+              <div className={upsell_styles.upsellContent}>
+                <div className={upsell_styles.upsellLeft}>
+                  <div className={upsell_styles.petBrushCol}>
+                    <div className={upsell_styles.petBrushColHdr}>
+                      <p>CLAIM ANOTHER DEAL</p>
+                      <h3>Xtreme Fat Burner</h3>
+                      <span>45% <br /> Off</span>
+                    </div>
+                    <div className={`${upsell_styles.upSlideDiv} ${upsell_styles.slickSlider}`}>
+                      <div className={upsell_styles.slickList}>
+                        <div className={upsell_styles.slickTrack}>
+                          <div className={`${upsell_styles.slickSlide} ${upsell_styles.slickActive}`} data-slick-index="0" style={{width: windowWidth < 720 ? "" : "381px"}}>
+                            <img src="https://hitsdesignclients.com/Peak-Male-new/images/up-slide1.png" className={`${upsell_styles.upSlideImg}`} alt="img" />
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className={`${upsell_styles.upSliderNav} ${upsell_styles.slickSlider}`}>
+                      
+                    <div className={upsell_styles.slickList} >
+                      <div className={upsell_styles.slickTrack} style={{opacity: 1, width: windowWidth < 720 ? "" : "441px", transform: "translate3d(0px, 0px, 0px)"}}>
+                        <div className={`${upsell_styles.slickSlide}`} data-slick-index="0" style={{width: "139px"}}>
+                          <img src="https://hitsdesignclients.com/Peak-Male-new/images/up-slide1.png" className="up-nav" alt="img"/>
+                        </div>
+                        <div className={`${upsell_styles.slickSlide}`} data-slick-index="1" style={{width: "139px"}}>
+                          <img src="https://hitsdesignclients.com/Peak-Male-new/images/up-slide2.png" className="up-nav" alt="img" />
+                        </div>
+                        <div className={`${upsell_styles.slickSlide}`} data-slick-index="2" style={{width: "139px"}}>
+                          <img src="https://hitsdesignclients.com/Peak-Male-new/images/up-slide3.png" className="up-nav" alt="img" />
+                        </div>
+                      </div>
+                    </div>                    
+                  </div>
+                </div>
+                
+                <div className={upsell_styles.upsellRight}>
+                  <p className={upsell_styles.custmrRvw}>
+                    <img src="https://hitsdesignclients.com/Peak-Male-new/images/star.png" />2000+ Verified Reviews
+                  </p>
+                  <div className={upsell_styles.otOfrStrip}>
+                      <img src="https://hitsdesignclients.com/Peak-Male-new/images/hourglass.png" className={upsell_styles.hourglass} />
+                      <p>One-time Offer - Only available with this current order. <span>You will never see this again.</span></p>
+                  </div>
+                  <p className={upsell_styles.upRghtText1}>Lorem quis bibendum auctor, nisi elit consequat ipsum, nec sagittis sem nibh id elit. Duis sed odio sit amet nibh vulputate cursus a sit amet mauris. Nam nec tellus a odio tincidunt auctor a ornare odio.</p>
+                  <ul className={upsell_styles.upRgtList}>
+                    <li>Lorem quis bibendum auctor nisi</li>
+                    <li>Nisi elit consequat ipsum nec</li>
+                    <li>Nec sagittis sem nibh id elit ipsum</li>
+                    <li>Duis sed odio sit amet nibh nec</li>
+                  </ul>
+                  <div className={upsell_styles.upPrcRow}>
+                    <p className={upsell_styles.upPrc}><span>$24.99</span> <small>(SAVE 45%)</small></p>
+                    <p className={upsell_styles.dealReserve}>Deal reserved for: <strong><span style={{}}>00:00</span> min</strong></p>
+                  </div>
+                  <a href="#" className={upsell_styles.upBtn}>Yes, Upgrade my Order with 1-Click-Buy! </a>
+                  <p className={upsell_styles.moneyBkText}>
+                    <img src="https://hitsdesignclients.com/Peak-Male-new/images/money-bk-seal.png" /> 30 Day Money Back Guarantee&nbsp;</p>
+                  <div className={upsell_styles.deviderCp}></div>
+                  <a href="#" className={upsell_styles.noThnx}>No thanks! I don't want to save with this one time offer.</a>
+                </div>
+                
               </div>
             </div>
+
+            
           </div>
         </div>
 
-        {/* QUICK INFO */}
-        <div className={`${styles.col} ${styles.quickInfo}`}>
-          <div className={styles.col} style={{border: "1px dashed white", padding: "0rem 1rem", fontSize: "40px"}}>  
-            <h2>ONE TIME <strong style={{color: "red"}}>ONLY OFFER</strong> </h2>
-          </div>
-          <div className={styles.col}>
-            <h3>Join the  <strong style={{color: "red"}}>Hold The Line Club </strong>and claim your FREE Hold The Line Coin below </h3>
-          </div>
-        </div>
-
-        {/* Accordion */}
-        <div className={`${styles.col} ${styles.upsellAc}`}  style={{margin: "1rem 0", width: "100%"}} >
-          <UpsellAccordion title={"What is the Hold The Line Club?"} detail={""} />
-        </div>
-
-        {/* BOX FOR PURCHASE */}
-        <div className={`${styles.row} ${styles.purchaseBox}  ${styles.mobileCol}`}>
-          <div className={`${styles.col}`} style={{width: "100%"}} >
-            <Image src={"/images/hlt.png"} alt={""} width={500} height={500} style={{width: "100%", height: "auto", padding: "0.5rem"}} />
-          </div>
-          
-          <div className={`${styles.col}`}>
-            <div className={styles.col}>
-              <h2>Hold The Line Coin</h2>
-              <h5 style={{padding: 0}}>Coin Cost: <em style={{textDecoration: "line-through"}}>$19.90</em>  FREE</h5>
-              <h5>Hold The Line Club Cost Today: $9.97</h5>
-              <p style={{fontSize: "15px"}}>Club members receive exclusive coupons/discounts, access to members only products, and access to exclusive sales/promos first. Memberships will re-bill monthly at $9.97 per month until cancelled by contacting our support team</p>
+        <div className={upsell_styles.footer}>
+          <div className={upsell_styles.container}>
+              <p className={`${upsell_styles.ftrTxt1} ${upsell_styles.fl}`}>Copyright  © <script type="text/javascript">var year = new Date();document.write(year.getFullYear());</script>2023  Optimal Human. All Rights Reserved.</p>
+                <p className={`${upsell_styles.ftrTxt1} ${upsell_styles.fr}`}>
+                    <a href="#">Terms &amp; Conditions </a>  | 
+                    <a href="#">Privacy Policy </a> | 
+                    <a href="#">Contact Us</a>
+                </p>
             </div>
-
-            <div className={styles.col}>
-              <button
-                onClick={() => signUpForFreeDecals()}
-                className={`${styles.payBtn} ${styles.wobbleButton}`}
-                id="submit"
-                disabled={isLoading}
-                type="submit"
-                style={{cursor: isLoading ? "progress" : "pointer", width: "100%"}}
-              >
-                {isLoading ? "Loading . . ." : "YES! Claim my FREE Coin!"}
-              </button>
-            </div>
-
-            <div className={styles.col}>
-              <h5 style={{fontSize: "12px"}}>***HOLD THE LINE PROUDLY DONATES A PORTION OF EACH CLUB MEMBERSHIP TO PROGRAMS & ORGANIZATIONS THAT BENEFIT VETERANS & FIRST RESPONDERS.</h5>
-            </div>
-          </div>
         </div>
-
-        {/* DECLINE PURCHASE */}
-        <div className={styles.col} style={{background: "white", width: "100%", minHeight: "150px"}}>
-          <div className={styles.col} onClick={() => declineFreeDecals()}>
-            <p className={styles.decline}>No, I don't want a free gift</p>
-          </div>          
-        </div>
-
       </main>
-      <Footer />
     </div>
   );
 };
