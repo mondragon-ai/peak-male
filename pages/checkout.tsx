@@ -26,6 +26,34 @@ const CheckOut = () => {
   const [clientOrigin, setClientOrigin] = useState("https://hodgetwins.holdtheline.com");
   const [windowWidth, setWindowWidth] = useState(0);
 
+  const [countdown, setCountdown] = useState(180); // 3 minutes in seconds
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCountdown((prevCountdown) => prevCountdown - 1);
+    }, 1000);
+
+    return () => clearInterval(timer);
+  }, []);
+
+  const formatTime = (time: number): string => {
+    const minutes = Math.floor(time / 60);
+    const seconds = time % 60;
+
+    const formattedMinutes = String(minutes).padStart(2, "0");
+    const formattedSeconds = String(seconds).padStart(2, "0");
+
+    return `${formattedMinutes}:${formattedSeconds}`;
+  };
+
+  const renderCountdown = () => {
+
+    for (let i = countdown; i > 0; i--) {
+        return (<span key={i} style={{color: "red"}} id={`second-${i}`}>
+          {formatTime(i)}
+        </span>)
+    }
+  };
 
   useEffect(() => {
     let query = new URLSearchParams(window.location.search);
@@ -258,8 +286,9 @@ const CheckOut = () => {
                 <span>%</span>
               </div>
               <div className={`${checkout_styles.viewBoxTxt}`}>
-                <strong>Sale ends soon!</strong> Your cart is reserved for:  
-                <span id="stopwatch2">00:00</span>
+                <strong>Sale ends soon!</strong> Your cart is reserved for: &nbsp;  
+                {/* <span id="stopwatch2">00:00</span> */}
+                {renderCountdown()}
               </div>
             </div>
 

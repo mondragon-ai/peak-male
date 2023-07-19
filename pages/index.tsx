@@ -29,7 +29,8 @@ declare namespace JSX {
 }
 export default function Home() {
   const [mainImage, setImage] = useState("");
-  const [testimonial, setTestimonial] = useState(0);
+  const [testimonial, setTestimonial] = useState(1);
+  const [issueNum, setIssue] = useState(1);
   const [productSelected, setProduct] = useState("SIX");
   const [isSubbed, setSub] = useState(false);
   const [clientSecret, setSecret] = useState("");
@@ -150,13 +151,25 @@ export default function Home() {
   };
 
   const changeTestimonial = (num: number) => {
+    console.log(testimonial)
     if ((testimonial + num) > 3) {
-      setTestimonial(0);
+      setTestimonial(1);
+    } else if ((testimonial + num) < 1) {
+      setTestimonial(3);
+    } else {
+      setTestimonial(testimonial + num);
     }
-    if ((testimonial + num) < 0) {
-      setTestimonial(0);
+  };
+
+  const changeIssue = (num: number) => {
+    console.log(issueNum)
+    if ((issueNum + num) > 4) {
+      setIssue(1);
+    } else if ((issueNum + num) < 1) {
+      setIssue(4);
+    } else {
+      setIssue(issueNum + num);
     }
-    
   };
 
   return (
@@ -489,15 +502,15 @@ export default function Home() {
                     <div className={`${styles.col}`} style={{width: "50%"}}>
                       <h6 className={styles.supplyText}>60 Day Supply</h6>
 
-                      <p className={styles.pkgprc2}>
-                        <span className={styles.BigPrice}>$49</span>
-                        <span className={styles.PriceUnit}>/per bottle</span>
-                      </p>
-
                       <p className={styles.freeship}><span>
                         <Image src="https://hitsdesignclients.com/Peak-Male-new/images/chk.png" alt="" height={50} width={50} style={{height: "auto", width: "10px"}}/> Free Usa Shipping</span>
                       </p>
 
+
+                      <p className={styles.pkgprc2}>
+                        <span className={styles.BigPrice}>$49</span>
+                        <span className={styles.PriceUnit}>/per bottle</span>
+                      </p>
                       
                       <div className={`${styles.col}`}  style={{width: "100%"}}>
                         <p className={styles.pkgtxt1}>You Save $120</p>
@@ -666,7 +679,7 @@ export default function Home() {
             </p>
             <h5 className={styles.s2subhding}>Some of the most common symptoms include</h5>
             <Image src={"https://hitsdesignclients.com/Peak-Male-new/images/s2line.png"} alt={""} height={5000} width={5000} className={`${styles.none} ${styles.s2line}`} />
-            <ul className={styles.s2list}>
+            {windowWidth > 720 ? <ul className={styles.s2list}>
               <li>
                 <Image src={"https://hitsdesignclients.com/Peak-Male-new/images/s2img1.png"} height={1000} width={1000} alt="" />
                 <h4 className={styles.s2lhding}>Low Libido</h4>
@@ -687,7 +700,31 @@ export default function Home() {
                 <h4 className={styles.s2lhding}>Muscle Loss</h4>
                 <p className={styles.s2ltxt}>Low libido, or a diminished sex drive, can impact your overall quality of life, confidence, and intimate relationships. It's a common issue often associated with low testosterone levels, stress, and various lifestyle factors.</p>
               </li>
-            </ul>
+            </ul> : 
+            <div className={styles.s2list}>
+              {issueNum == 1 ? <li>
+                <Image src={"https://hitsdesignclients.com/Peak-Male-new/images/s2img1.png"} height={1000} width={1000} alt="" />
+                <h4 className={styles.s2lhding}>Low Libido</h4>
+                <p className={styles.s2ltxt}>Low libido, or a diminished sex drive, can impact your overall quality of life, confidence, and intimate relationships. It's a common issue often associated with low testosterone levels, stress, and various lifestyle factors.</p>
+              </li> : null}
+              {issueNum == 2 ? <li>
+                <Image src={"https://hitsdesignclients.com/Peak-Male-new/images/s2img2.png"} height={1000} width={1000} alt="" />
+                <h4 className={styles.s2lhding}>All Day Fatigue</h4>
+                <p className={styles.s2ltxt}>Constant fatigue can leave you feeling drained, unproductive, and disengaged from the activities you once enjoyed. It can stem from various factors, including low testosterone levels, stress, and poor lifestyle choices.</p>
+              </li> : null}
+              {issueNum == 3 ? <li>
+                <Image src={"https://hitsdesignclients.com/Peak-Male-new/images/s2img3.png"} height={1000} width={1000} alt="" />
+                <h4 className={styles.s2lhding}>Weight Gain</h4>
+                <p className={styles.s2ltxt}>Unwanted weight gain can affect your self-esteem, physical appearance, and overall health, often resulting from hormonal imbalances, low testosterone levels, and lifestyle habits.</p>
+              </li> : null}
+              {issueNum == 4 ? <li>
+                <Image src={"https://hitsdesignclients.com/Peak-Male-new/images/s2img4.png"} height={1000} width={1000} alt="" />
+                <h4 className={styles.s2lhding}>Muscle Loss</h4>
+                <p className={styles.s2ltxt}>Low libido, or a diminished sex drive, can impact your overall quality of life, confidence, and intimate relationships. It's a common issue often associated with low testosterone levels, stress, and various lifestyle factors.</p>
+              </li> : null}
+              <button onClick={() => changeIssue(-1)} className={styles.issuePrev}></button>
+              <button onClick={() => changeIssue(1)}  className={styles.issueNext}></button>
+            </div> }
 
             <div className={`${styles.s2bx2} ${styles.row}`}>
               <Image src={"https://hitsdesignclients.com/Peak-Male-new/images/s2prd.png"} alt={""} height={5000} width={5000} className={styles.s2prd} />
@@ -719,7 +756,7 @@ export default function Home() {
 
                 {windowWidth < 720 ? <div className={`${styles.row} ${styles.mobileCol}`} style={{width: "90%", position: "relative", justifyContent: "center", alignItems: "center", margin: "2rem 0 0 0"}}>
                   <Image src={"https://hitsdesignclients.com/Peak-Male-new/images/s3img.png"} height={5000}  width={5000} alt="" style={{
-                    width: "200px",
+                    width: "330px",
                     height: "auto"
                   }}  />
                 </div> : null}
@@ -845,17 +882,19 @@ export default function Home() {
                   width: "550px",
                   height: "auto"
                 }}  /> : null}
-              <div className={styles.s3btn} style={{width: windowWidth <720 ? "100%" : "50%"}}>
-              Order Now
-              </div>
-              <div className={`${styles.row} ${styles.btnTxt}`} style={{width:  windowWidth <720 ? "100%" : "50%", color: "white"}}>
-                <p className={styles.btnTxt1} style={{color: "white"}}>Ships: Within 24 Hours</p> 
-                |
-                <p className={styles.btnTxt} style={{color: "white"}}>
-                  <Image src="https://hitsdesignclients.com/Peak-Male-new/images/shape.png" height={50}  width={50} alt="" className={styles.hourglass} style={{width: "10px", height: "auto"}} /> 
-                  Stock: 58 Bottles Remaining
-                </p>
-              </div>
+              {windowWidth > 720 ? <>
+                <div className={styles.s3btn} style={{width: windowWidth <720 ? "100%" : "50%"}}>
+                Order Now
+                </div>
+                <div className={`${styles.row} ${styles.btnTxt}`} style={{width:  windowWidth <720 ? "100%" : "50%", color: "white"}}>
+                  <p className={styles.btnTxt1} style={{color: "white"}}>Ships: Within 24 Hours</p> 
+                  |
+                  <p className={styles.btnTxt} style={{color: "white"}}>
+                    <Image src="https://hitsdesignclients.com/Peak-Male-new/images/shape.png" height={50}  width={50} alt="" className={styles.hourglass} style={{width: "10px", height: "auto"}} /> 
+                    Stock: 58 Bottles Remaining
+                  </p>
+                </div>
+              </> : null}
             </div>
           </div>
         </div>
@@ -874,6 +913,15 @@ export default function Home() {
 
             <div className={`${styles.col}`}>
               <div className={`${styles.row} ${styles.mobileCol}`} style={{padding: "2rem 0", alignItems: windowWidth <720 ? "center" : "flex-start", width: "100%"}}>
+                  {windowWidth < 720 ? <h5 style={{
+                    fontWeight: "bold",
+                    fontSize: "36px",
+                    lineHeight: "44px",
+                    color: "#17378a",
+                    textAlign: windowWidth < 720 ? "center" : "left",
+                    width: "100%",
+                    paddingBottom: "2rem"
+                  }}>Fenugreek</h5> : null}
                 <Image src={"https://hitsdesignclients.com/Peak-Male-new/images/s5img1.png"} height={5000}  width={5000} alt="" style={{
                     position: "relative",
                     bottom: 0,
@@ -882,14 +930,14 @@ export default function Home() {
                     height: "auto"
                   }}  />
                 <div className={`${styles.col}`}>
-                  <h5 style={{
+                  {windowWidth > 720 ? <h5 style={{
                     fontWeight: "bold",
                     fontSize: "36px",
                     lineHeight: "44px",
                     color: "#17378a",
                     textAlign: windowWidth < 720 ? "center" : "left",
                     width: "100%"
-                  }}>Fenugreek</h5>
+                  }}>Fenugreek</h5> : null}
                   <ul className={`${styles.s5bxlist} ${styles.bdfont}`}>
                     <li>Regulates the conversion of testosterone to DHT, providing a natural solution for excessive 
                       DHT levels in men, resulting in an increase in testosterone levels.</li>
@@ -907,8 +955,17 @@ export default function Home() {
                 </div>
               </div>
 
-              <div className={`${styles.row} ${styles.mobileCol}`} style={{padding: "2rem 0", alignItems: windowWidth <720 ? "center" : "flex-start", width: "100%", flexDirection: windowWidth <720 ? "column" : "row-reverse"}}>
-                <Image src={"https://hitsdesignclients.com/Peak-Male-new/images/s5img2.png"} height={5000}  width={5000} alt="" style={{
+              <div className={`${styles.row} ${styles.mobileCol}`} style={{padding: windowWidth <720 ? "0" : "2rem 0", alignItems: windowWidth <720 ? "center" : "flex-start", width: "100%", flexDirection: windowWidth <720 ? "column" : "row-reverse"}}>
+                  {windowWidth < 720 ? <h5 style={{
+                    fontWeight: "bold",
+                    fontSize: "36px",
+                    lineHeight: "44px",
+                    color: "#17378a",
+                    textAlign: windowWidth < 720 ? "center" : "left",
+                    width: "100%",
+                    paddingBottom: "2rem"
+                  }}>Maca Powder</h5> : null}
+                  <Image src={"https://hitsdesignclients.com/Peak-Male-new/images/s5img2.png"} height={5000}  width={5000} alt="" style={{
                     position: "relative",
                     bottom: 0,
                     top: 0,
@@ -916,14 +973,14 @@ export default function Home() {
                     height: "auto"
                   }}  />
                 <div className={`${styles.col}`}>
-                  <h5 style={{
+                  {windowWidth > 720 ? <h5 style={{
                     fontWeight: "bold",
                     fontSize: "36px",
                     lineHeight: "44px",
                     color: "#17378a",
                     textAlign: windowWidth < 720 ? "center" : "left",
                     width: "100%"
-                  }}>Maca Powder</h5>
+                  }}>Maca Powder</h5> : null}
                   <ul className={`${styles.s5bxlist} ${styles.bdfont}`}>
                     <li>Maca has been shown to reduce cortisol levels in men who are experiencing chronic stress, resulting in improved testosterone levels and overall well being.</li>
                       
@@ -936,7 +993,16 @@ export default function Home() {
                 </div>
               </div>
 
-              <div className={`${styles.row} ${styles.mobileCol}`} style={{padding: "2rem 0", alignItems: windowWidth <720 ? "center" : "flex-start", width: "100%"}}>
+              <div className={`${styles.row} ${styles.mobileCol}`} style={{padding: windowWidth <720 ? "0" : "2rem 0", alignItems: windowWidth <720 ? "center" : "flex-start", width: "100%"}}>
+                {windowWidth < 720 ? <h5 style={{
+                    fontWeight: "bold",
+                    fontSize: "36px",
+                    lineHeight: "44px",
+                    color: "#17378a",
+                    textAlign: windowWidth < 720 ? "center" : "left",
+                    width: "100%",
+                    paddingBottom: "2rem"
+                  }}>Tongkat Ali</h5> : null}
                 <Image src={"https://hitsdesignclients.com/Peak-Male-new/images/s5img3.png"} height={5000}  width={5000} alt="" style={{
                     position: "relative",
                     bottom: 0,
@@ -945,14 +1011,14 @@ export default function Home() {
                     height: "auto"
                   }}  />
                 <div className={`${styles.col}`}>
-                  <h5 style={{
+                  {windowWidth > 720 ? <h5 style={{
                     fontWeight: "bold",
                     fontSize: "36px",
                     lineHeight: "44px",
                     color: "#17378a",
                     textAlign: windowWidth < 720 ? "center" : "left",
                     width: "100%"
-                  }}>Tongkot Ali</h5>
+                  }}>Tongkat Ali</h5> : null}
                   <ul className={`${styles.s5bxlist} ${styles.bdfont}`}>
                     <li>Tongkat Ali has been shown to reduce the production of cortisol, which is a stress hormone that can negatively impact testosterone production.</li>
                     
@@ -964,7 +1030,16 @@ export default function Home() {
                 </div>
               </div>
 
-              <div className={`${styles.row} ${styles.mobileCol}`} style={{padding: "2rem 0", width: "100%", alignItems: windowWidth <720 ? "center" : "flex-start", flexDirection: windowWidth <720 ? "column" : "row-reverse"}}>
+              <div className={`${styles.row} ${styles.mobileCol}`} style={{padding: windowWidth <720 ? "0" : "2rem 0", width: "100%", alignItems: windowWidth <720 ? "center" : "flex-start", flexDirection: windowWidth <720 ? "column" : "row-reverse"}}>
+                {windowWidth < 720 ? <h5 style={{
+                    fontWeight: "bold",
+                    fontSize: "36px",
+                    lineHeight: "44px",
+                    color: "#17378a",
+                    textAlign: windowWidth < 720 ? "center" : "left",
+                    width: "100%",
+                    paddingBottom: "2rem"
+                  }}>Panax Ginseng</h5> : null}
                 <Image src={"https://hitsdesignclients.com/Peak-Male-new/images/s5img4.png"} height={5000}  width={5000} alt="" style={{
                     position: "relative",
                     bottom: 0,
@@ -973,14 +1048,14 @@ export default function Home() {
                     height: "auto"
                   }}  />
                 <div className={`${styles.col}`}>
-                  <h5 style={{
+                  {windowWidth > 720 ? <h5 style={{
                     fontWeight: "bold",
                     fontSize: "36px",
                     lineHeight: "44px",
                     color: "#17378a",
                     textAlign: windowWidth < 720 ? "center" : "left",
                     width: "100%"
-                  }}>Panax Ginseng:</h5>
+                  }}>Panax Ginseng</h5> : null}
                   <ul className={`${styles.s5bxlist} ${styles.bdfont}`}>
                     <li>Contains a compound called ginsenoside, which has been found to stimulate the production of luteinizing hormone (LH), which is responsible for signaling the testes to produce testosterone.</li>
                       
@@ -992,7 +1067,16 @@ export default function Home() {
                 </div>
               </div>
 
-              <div className={`${styles.row} ${styles.mobileCol}`} style={{padding: "2rem 0", width: "100%", alignItems: windowWidth <720 ? "center" : "flex-start"}}>
+              <div className={`${styles.row} ${styles.mobileCol}`} style={{padding: windowWidth <720 ? "0" : "2rem 0", width: "100%", alignItems: windowWidth <720 ? "center" : "flex-start"}}>
+                {windowWidth < 720 ? <h5 style={{
+                    fontWeight: "bold",
+                    fontSize: "36px",
+                    lineHeight: "44px",
+                    color: "#17378a",
+                    textAlign: windowWidth < 720 ? "center" : "left",
+                    width: "100%",
+                    paddingBottom: "2rem"
+                  }}>Horny Goat Weed</h5> : null}
                 <Image src={"https://hitsdesignclients.com/Peak-Male-new/images/s5img5.png"} height={5000}  width={5000} alt="" style={{
                     position: "relative",
                     bottom: 0,
@@ -1001,14 +1085,14 @@ export default function Home() {
                     height: "auto"
                   }}  />
                 <div className={`${styles.col}`}>
-                  <h5 style={{
+                  {windowWidth > 720 ? <h5 style={{
                     fontWeight: "bold",
                     fontSize: "36px",
                     lineHeight: "44px",
                     color: "#17378a",
                     textAlign: windowWidth < 720 ? "center" : "left",
                     width: "100%"
-                  }}>Horny Goat Weed:</h5>
+                  }}>Horny Goat Weed</h5> : null}
                   <ul className={`${styles.s5bxlist} ${styles.bdfont}`}>
                     <li>Contains a compound called icariin, has been found to inhibit the activity of the enzyme that converts testosterone into estrogen, leading to higher levels of free testosterone in the body.</li>
                     
@@ -1018,8 +1102,18 @@ export default function Home() {
                 </div>
               </div>
 
-              <div className={`${styles.row} ${styles.mobileCol}`} style={{padding: "2rem 0", width: "100%", flexDirection: windowWidth <720 ? "column" : "row-reverse", alignItems: windowWidth <720 ? "center" : "flex-start"}}>
-                <Image src={"https://hitsdesignclients.com/Peak-Male-new/images/s5img6.png"} height={5000}  width={5000} alt="" style={{
+              <div className={`${styles.row} ${styles.mobileCol}`} style={{padding: windowWidth <720 ? "0" : "2rem 0", width: "100%", flexDirection: windowWidth <720 ? "column" : "row-reverse", alignItems: windowWidth <720 ? "center" : "flex-start"}}>
+                
+                {windowWidth < 720 ? <h5 style={{
+                    fontWeight: "bold",
+                    fontSize: "36px",
+                    lineHeight: "44px",
+                    color: "#17378a",
+                    textAlign: windowWidth < 720 ? "center" : "left",
+                    width: "100%",
+                    paddingBottom: "2rem"
+                  }}>Tribulus Terrestris</h5> : null}
+                  <Image src={"https://hitsdesignclients.com/Peak-Male-new/images/s5img6.png"} height={5000}  width={5000} alt="" style={{
                     position: "relative",
                     bottom: 0,
                     top: 0,
@@ -1027,14 +1121,14 @@ export default function Home() {
                     height: "auto"
                   }}  />
                 <div className={`${styles.col}`}>
-                  <h5 style={{
+                  {windowWidth > 720 ? <h5 style={{
                     fontWeight: "bold",
                     fontSize: "36px",
                     lineHeight: "44px",
                     color: "#17378a",
                     textAlign: windowWidth < 720 ? "center" : "left",
                     width: "100%"
-                  }}>Tribulus Terrestris:</h5>
+                  }}>Tribulus Terrestris</h5> : null}
                   <ul className={`${styles.s5bxlist} ${styles.bdfont}`}>
                     <li>Contains a compound called protodioscin, that helps to stimulate the production of luteinizing hormone (LH), which is responsible for signaling the testes to produce testosterone in males.</li>
                       
@@ -1070,17 +1164,19 @@ export default function Home() {
                   </li>
               </ul>
 
-              <div className={styles.s3btn} style={{width: windowWidth < 720 ? "100%" : "50%", margin: "2rem 0 0 0"}}>
-              Order Now
-              </div>
-              <div className={`${styles.row} ${styles.btnTxt}`} style={{width: windowWidth < 720 ? "100%" : "50%"}}>
-                <p className={styles.btnTxt1}>Ships: Within 24 Hours</p> 
-                |
-                <p className={styles.btnTxt}>
-                  <Image src="https://hitsdesignclients.com/Peak-Male-new/images/shape.png" height={50}  width={50} alt="" className={styles.hourglass} style={{width: "10px", height: "auto"}} /> 
-                  Stock: 58 Bottles Remaining
-                </p>
-              </div>
+              {windowWidth > 720 ? <>
+                <div className={styles.s3btn} style={{width: windowWidth <720 ? "100%" : "50%"}}>
+                Order Now
+                </div>
+                <div className={`${styles.row} ${styles.btnTxt}`} style={{width:  windowWidth <720 ? "100%" : "50%", color: "black"}}>
+                  <p className={styles.btnTxt1} style={{color: "black"}}>Ships: Within 24 Hours</p> 
+                  |
+                  <p className={styles.btnTxt} style={{color: "black"}}>
+                    <Image src="https://hitsdesignclients.com/Peak-Male-new/images/shape.png" height={50}  width={50} alt="" className={styles.hourglass} style={{width: "10px", height: "auto"}} /> 
+                    Stock: 58 Bottles Remaining
+                  </p>
+                </div>
+              </> : null}
             </div>
           </div>
         </div>
@@ -1088,32 +1184,50 @@ export default function Home() {
         {/* TESTIMONIAL SECTION */}
         <div id="REVIEWS" className={`${styles.col} ${styles.sec3} ${styles.sec6}`} style={{width: "100%",}}>
           <div className={styles.delcinedTestWrapper}>
-            <h1 style={{color: "black", fontWeight: "900", textAlign: "center", fontSize: windowWidth < 720 ? "30px" : "50px", lineHeight:windowWidth < 720 ? "36px" :  "56px"}}>
+            <h1 style={{padding: windowWidth < 720 ? "3rem 0 0 0" : 0, color: "black", fontWeight: "900", textAlign: "center", fontSize: windowWidth < 720 ? "30px" : "50px", lineHeight:windowWidth < 720 ? "36px" :  "56px"}}>
               Customer Testimonials <br />
               <span style={{color: "#17378a"}}>Real People. Real Results</span>
             </h1>
             <div className={`${styles.row} ${styles.testimonial} ${styles.mobileCol} `}>
               <div className={`${styles.col}`} style={{width: windowWidth < 720 ? "100%" : "30%",}}>
-                <Image src="https://hitsdesignclients.com/Peak-Male-new/images/t2.png" height={5000}  width={5000} alt="" style={{width: "300px", height: "auto"}} /> 
+                {testimonial == 1 ? <Image src="https://hitsdesignclients.com/Peak-Male-new/images/t1.png" height={5000}  width={5000} alt="" style={{width: "300px", height: "auto"}} /> : testimonial == 2 ?
+                  <Image src="https://hitsdesignclients.com/Peak-Male-new/images/t2.png" height={5000}  width={5000} alt="" style={{width: "300px", height: "auto"}} />  : testimonial == 3 ? 
+                  <Image src="https://hitsdesignclients.com/Peak-Male-new/images/t3.png" height={5000}  width={5000} alt="" style={{width: "300px", height: "auto"}} /> : null} 
               </div>
               <div className={`${styles.col}`}  style={{width: windowWidth < 720 ? "90%" : "70%", padding: "1rem", alignItems: "flex-start"}}>
                 <Image src="https://hitsdesignclients.com/Peak-Male-new/images/sldrstars.png" height={500}  width={500} alt="" style={{width: "150px", height: "auto"}} /> 
-                <h2 className={styles.sldrTxt1}>The Kickstart I Needed</h2>
-                <p className={styles.sldrTxt2}>
-                  I'm at that stage in life where testosterone seems to take a back seat, and I knew it was time to intervene. I wasn't ready for the big leap into injections, so I sought out a natural route. Peak Male popped up on my Instagram, and I figured, why not give it a try?
-                  <br/><br/>
-                  I've been through an entire bottle, taking two caps a day for the past four weeks. The first week went by without much change. But come week two, I started noticing a shift. I know what testosterone feels like, and this was it - not as intense, but a similar vibe.
-                </p>
+               {testimonial == 1 ? <>
+                  <h2 className={styles.sldrTxt1}>Confidence Boost</h2>
+                  <p className={styles.sldrTxt2}>
+                    Before I found Peak Male, I was just an average Joe, struggling with low energy and lackluster workouts. I tried other supplements, but nothing really stuck. That all changed when a buddy recommended Peak Male. Within days, I felt an energy boost, and by the third week, my workouts were next level. But what really surprised me was the boost in confidence. Being physically stronger has made me mentally stronger. Long story short, Peak Male turned my life around. If you're feeling stuck, give it a try - it's a total game-changer.
+                  </p>
+                </> : testimonial == 2 ?
+                <>
+                  <h2 className={styles.sldrTxt1}>The Kickstart I Needed</h2>
+                  <p className={styles.sldrTxt2}>
+                    I'm at that stage in life where testosterone seems to take a back seat, and I knew it was time to intervene. I wasn't ready for the big leap into injections, so I sought out a natural route. Peak Male popped up on my Instagram, and I figured, why not give it a try?
+                    <br/><br/>
+                    I've been through an entire bottle, taking two caps a day for the past four weeks. The first week went by without much change. But come week two, I started noticing a shift. I know what testosterone feels like, and this was it - not as intense, but a similar vibe.
+                  </p>
+                </> : testimonial == 3 ?
+                <>
+                  <h2 className={styles.sldrTxt1}>Why not Give it a Try?</h2>
+                  <p className={styles.sldrTxt2}>
+                    I'm at that stage in life where testosterone seems to take a back seat, and I knew it was time to intervene. I wasn't ready for the big leap into injections, so I sought out a natural route. Peak Male popped up on my Instagram, and I figured, why not give it a try?
+                    <br/><br/>
+                    I've been through an entire bottle, taking two caps a day for the past four weeks. The first week went by without much change. But come week two, I started noticing a shift. I know what testosterone feels like, and this was it - not as intense, but a similar vibe.
+                  </p>
+                </> : null}
                 <div className={`${styles.col}`} style={{width: "100%", justifyContent: "flex-start", alignItems: "flex-start", position: "relative"}}>
                   <div  className={`${styles.row}`} style={{width: "100%", display: windowWidth < 720 ? "none" : ""}}>
                     <Image src="https://hitsdesignclients.com/Peak-Male-new/images/sldrqt.png" height={500}  width={500} alt="" style={{width: "70px", height: "auto"}} /> 
                     <Image src="https://hitsdesignclients.com/Peak-Male-new/images/sldrbtl.png" height={500}  width={500} alt="" style={{width: "70px", height: "auto", position: "absolute", right: "40px", bottom: "20px"}} />
                   </div>
-                  <p className={styles.sldrnm}>Terrance B.</p>
+                  <p className={styles.sldrnm}>{testimonial == 1 ? "Terrance B." : testimonial == 2 ? "Marting H." : testimonial == 3 ? "Jimmy B" : ""}</p>
                 </div>
               </div>
               <button onClick={() => changeTestimonial(1)} className={styles.slickPrev}></button>
-              <button className={styles.slickNext}></button>
+              <button onClick={() => changeTestimonial(-1)}  className={styles.slickNext}></button>
             </div>
           </div>
         </div>
@@ -1122,7 +1236,7 @@ export default function Home() {
         {/* FAQ SECTION */}
         <div className={`${styles.col}`} style={{background: "#eef5fc",padding: "2rem 0rem 2rem 0"}}>
           <div className={`${styles.col}`} style={{justifyContent: "center", padding: "2rem 0rem 2rem 0", textAlign: "center"}}>
-              <h1 style={{color: "black", fontSize: windowWidth < 720 ? "30px" :"50px"}}>
+              <h1 style={{color: "black", fontSize: windowWidth < 720 ? "22px" :"50px"}}>
                 Frequently Asked Questions <br />
                 <span style={{color: "#17378a"}}>We've Got All The Answers</span>
               </h1>
@@ -1133,17 +1247,19 @@ export default function Home() {
           <Accordion title={"What is your return and refund policy?"} detail={"We want you to be completely satisfied with your purchase. If, for any reason, you are not happy with your order, please contact our customer service team at info@holdtheline.com. We aim to provide a hassle-free return process and resolve any issues promptly."} />
           <Accordion title={"How can I contact customer support?"} detail={"Our dedicated customer support team is here to assist you. You can reach us by email at info@holdtheline.com or by phone at 877-462-4459 during our business hours, which are Monday-Friday from 9am-4pm CST. We value your feedback and strive to provide excellent customer service."} />
         
-          <div className={styles.s3btn} style={{width: windowWidth < 720 ? "90%" : "20%", margin: "2rem 0 0 0"}}>
-          Order Now
-          </div>
-          <div className={`${styles.row} ${styles.btnTxt}`} style={{width: windowWidth < 720 ? "90%" : "30%"}}>
-            <p className={styles.btnTxt1}>Ships: Within 24 Hours</p> 
-            |
-            <p className={styles.btnTxt}>
-              <Image src="https://hitsdesignclients.com/Peak-Male-new/images/shape.png" height={50}  width={50} alt="" className={styles.hourglass} style={{width: "10px", height: "auto"}} /> 
-              Stock: 58 Bottles Remaining
-            </p>
-          </div>
+          {windowWidth > 720 ? <>
+            <div className={styles.s3btn} style={{width: windowWidth <720 ? "100%" : "50%"}}>
+            Order Now
+            </div>
+            <div className={`${styles.row} ${styles.btnTxt}`} style={{width:  windowWidth <720 ? "100%" : "50%", color: "black"}}>
+              <p className={styles.btnTxt1} style={{color: "black"}}>Ships: Within 24 Hours</p> 
+              |
+              <p className={styles.btnTxt} style={{color: "black"}}>
+                <Image src="https://hitsdesignclients.com/Peak-Male-new/images/shape.png" height={50}  width={50} alt="" className={styles.hourglass} style={{width: "10px", height: "auto"}} /> 
+                Stock: 58 Bottles Remaining
+              </p>
+            </div>
+          </> : null}
         </div>
 
       </main>

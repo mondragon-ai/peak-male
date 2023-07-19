@@ -92,6 +92,8 @@
 }
 .staticButtonContainer {
   display: none;
+  padding: 1rem;
+  background: black;
 }
 
 .chooosePackage {
@@ -392,6 +394,7 @@
 }
 
 .s2list {
+  position: relative;
   width: 100%;
   display: flex;
   flex-wrap: wrap;
@@ -1596,12 +1599,12 @@
 
   .s2lhding2 {
     font-weight: bold;
-    font-size: 22px;
-    line-height: 32px;
+    font-size: 18px;
+    line-height: 22px;
     color: #17378a;
     text-align: center;
     margin-top: 30px;
-    padding: 0 40px;
+    padding: 0 0px;
   }
 
 
@@ -1697,7 +1700,7 @@
   .s5list {
     float: left;
     width: 100%;
-    padding: 30px 0 15px 0;
+    padding: 0px 0 15px 0;
     text-align: center;
   }
 
@@ -1705,7 +1708,7 @@
     display: inline-block;
     vertical-align: top;
     width: 32%;
-    margin-top: 35px;
+    margin-top:  18px;
   }
 
   .s5list li img {
@@ -1749,7 +1752,7 @@
     font-weight: 500;
     font-size: 30px;
     line-height: 40px;
-    color: #fff;
+    color: #000;
     text-align: left;
     margin-top: 15px;
   }
@@ -1765,6 +1768,31 @@
   }
 
   .slickPrev, .slickNext {
+    position: absolute;
+    bottom: 0;
+    display: block;
+    width: 50px;
+    height: 50px;
+    padding: 0;
+    top: 140px;
+    outline: none;
+    border: none;
+    z-index: 99;
+    cursor: pointer;
+  }
+
+
+  .issuePrev {
+    left: -20px;
+    background: #25438f url('https://hitsdesignclients.com/Peak-Male-new/images/prev.png') no-repeat center center;
+  }
+
+  .issueNext {
+    right: -20px;
+    background: #25438f url('https://hitsdesignclients.com/Peak-Male-new/images/next.png') no-repeat center center;
+  }
+
+  .issuePrev, .issueNext {
     position: absolute;
     bottom: 0;
     display: block;
@@ -1843,7 +1871,7 @@
   .staticButton {
     padding: 12px 24px;
     font-size: 30px;
-    background-color: #52B635;
+    background-color: #ff7200;
     color: #ffffff;
     cursor: pointer;
     border: none;

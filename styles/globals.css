@@ -98,7 +98,7 @@ button,
 div,
 strong,
 a {
-  font-family: 'sans-serif', sans-serif;
+  font-family: 'sans-serif', sans-serif !important;
 }
 /* body {
   color: rgb(var(--foreground-rgb));

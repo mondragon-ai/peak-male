@@ -1,6 +1,5 @@
 import { ContextProvider } from '@/context/context'
 import '@/styles/globals.css'
-import '@/styles/font.css'
 import type { AppProps } from 'next/app'
 import Script from 'next/script'
 import { useRouter } from 'next/router'
