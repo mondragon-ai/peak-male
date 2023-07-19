@@ -1,8 +1,27 @@
 import Image from "next/image";
 import styles from "./Header.module.css";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 const Header = () => {
+  const [isScrolled, setIsScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window?.scrollY > 0) {
+        setIsScrolled(true);
+      } else {
+        setIsScrolled(false);
+      }
+    };
+
+    window?.addEventListener("scroll", handleScroll);
+
+    return () => {
+      window?.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
+
+  console.log(isScrolled)
   
   useEffect(() => {
     // Function to handle smooth scrolling to an ID
@@ -47,13 +66,13 @@ const Header = () => {
     };
   }, []);
   return (
-    <div className={styles.container}>
-      <div  className={styles.announcmentBanner}>
+    <div className={`${styles.container} ${isScrolled && styles.scrolled}`}>
+      <div  className={`${isScrolled && styles.hidden} ${styles.announcmentBanner}`}>
         <h3 className={styles.header}>
           FREE SHIPPING WHEN YOU BUY 5+ COINS!
         </h3>
       </div>
-      <div className={styles.menuWrapper}>
+      <div  id={"MENU_ITEMS"}  className={styles.menuWrapper}>
         <div className={styles.menuHeader}>
             <div className={styles.menuLogo}>
               <Image src={"https://hitsdesignclients.com/Peak-Male-new/images/logo.png"} width={50} height={50} alt={""} style={{height: "auto", width: "150px"}} />

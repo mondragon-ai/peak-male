@@ -29,6 +29,7 @@ declare namespace JSX {
 }
 export default function Home() {
   const [mainImage, setImage] = useState("");
+  const [testimonial, setTestimonial] = useState(0);
   const [productSelected, setProduct] = useState("SIX");
   const [isSubbed, setSub] = useState(false);
   const [clientSecret, setSecret] = useState("");
@@ -147,6 +148,17 @@ export default function Home() {
   const selectImage = (img: string) => {
     setImage(img);
   };
+
+  const changeTestimonial = (num: number) => {
+    if ((testimonial + num) > 3) {
+      setTestimonial(0);
+    }
+    if ((testimonial + num) < 0) {
+      setTestimonial(0);
+    }
+    
+  };
+
   return (
     <>
       <Head>
@@ -691,6 +703,7 @@ export default function Home() {
         {/* INTRODUCTION SECTION */}
         <div id="INTRODUCTION" className={`${styles.col} ${styles.sec3}`} style={{width: "100%", padding: "4rem 0 4rem 0"}}>
           <div className={styles.delcinedTestWrapper}>
+            <Image src={"https://hitsdesignclients.com/Peak-Male-new/images/s2line3.png"} className={styles.s2line3} height={5000}  width={5000} alt="" style={{width: "auto", height: "85px"}}  />  
             <h3 className={styles.bdhding}>
               Introducing Peak Male <br />
               <span style={{color: "blue"}}>Xtreme Test Booster</span>
@@ -761,6 +774,7 @@ export default function Home() {
                   width: "300px",
                   height: "auto"
                 }}  /> : null}
+
               <div className={`${styles.row} ${styles.mobileCol}`} style={{width: "100%", justifyContent: "space-between", padding: windowWidth < 720 ? "0rem 0" : "2rem 0"}}>
                 <div className={`${styles.row} ${styles.benefitItem}`} >
                   <div>
@@ -771,7 +785,7 @@ export default function Home() {
                     <p>Testosterone is essential for building muscle, burning fat, and maximizing your potential in and out of the gym</p>
                   </div>
                 </div>
-                <div className={`${styles.row} ${styles.benefitItem}`} style={{flexDirection: windowWidth < 720 ? "row" : "row-reverse", borderTop: windowWidth > 720 ? "none" : "1px solid #303d60", borderBottom: "1px solid #303d60", padding: windowWidth < 720 ? "1rem 0" : ""}}>
+                <div className={`${styles.row} ${styles.benefitItem}`} style={{flexDirection: windowWidth < 720 ? "row" : "row-reverse", borderTop: windowWidth > 720 ? "none" : "1px solid #303d60", borderBottom:  windowWidth > 720 ?  "none" : "1px solid #303d60", padding: windowWidth < 720 ? "1rem 0" : ""}}>
                   <div>
                     <Image src="https://hitsdesignclients.com/Peak-Male-new/images/s4icon1.png" height={500}  width={500} alt=""  style={{width: "60px", height: "auto"}} /> 
                   </div>
@@ -782,7 +796,7 @@ export default function Home() {
                 </div>
               </div>
 
-              <div className={`${styles.row} ${styles.mobileCol}`} style={{width: "100%", justifyContent: "space-between",  borderTop: windowWidth < 720 ? "none" : "1px solid #303d60", borderBottom: "1px solid #303d60", padding: windowWidth < 720 ? "1rem 0" : "2rem 0"}}>
+              <div className={`${styles.row} ${styles.mobileCol}`} style={{width: "100%", justifyContent: "space-between",  borderTop: windowWidth < 720 ? "none" : "1px solid #303d60", borderBottom: windowWidth < 720 ?  "none" : "1px solid #303d60", padding: windowWidth < 720 ? "1rem 0" : "2rem 0"}}>
                 <div className={`${styles.row} ${styles.benefitItem}`} >
                   <div>
                     <Image src="https://hitsdesignclients.com/Peak-Male-new/images/s4icon1.png" height={500}  width={500} alt=""  style={{width: "60px", height: "auto"}} /> 
@@ -792,7 +806,7 @@ export default function Home() {
                     <p>Testosterone is essential for building muscle, burning fat, and maximizing your potential in and out of the gym</p>
                   </div>
                 </div>
-                <div className={`${styles.row} ${styles.benefitItem}`} style={{flexDirection:  windowWidth < 720 ? "row" : "row-reverse", borderTop: windowWidth > 720 ? "none" : "1px solid #303d60", borderBottom: "1px solid #303d60", padding: windowWidth < 720 ? "1rem 0" : ""}}>
+                <div className={`${styles.row} ${styles.benefitItem}`} style={{flexDirection:  windowWidth < 720 ? "row" : "row-reverse", borderTop: windowWidth > 720 ? "none" : "1px solid #303d60", borderBottom:windowWidth < 720 ? "1px solid #303d60" : "none", padding: windowWidth < 720 ? "1rem 0" : ""}}>
                   <div>
                     <Image src="https://hitsdesignclients.com/Peak-Male-new/images/s4icon1.png" height={500}  width={500} alt=""  style={{width: "60px", height: "auto"}} /> 
                   </div>
@@ -813,7 +827,7 @@ export default function Home() {
                     <p>Testosterone is essential for building muscle, burning fat, and maximizing your potential in and out of the gym</p>
                   </div>
                 </div>
-                <div className={`${styles.row} ${styles.benefitItem}`} style={{flexDirection: windowWidth < 720 ? "row" : "row-reverse", borderTop: windowWidth > 720 ? "none" : "1px solid #303d60", borderBottom:  windowWidth < 720 ? "none" : "1px solid #303d60", padding: windowWidth < 720 ? "1rem 0" : ""}}>
+                <div className={`${styles.row} ${styles.benefitItem}`} style={{flexDirection: windowWidth < 720 ? "row" : "row-reverse", borderTop: windowWidth > 720 ? "none" : "1px solid #303d60", borderBottom: "none", padding: windowWidth < 720 ? "1rem 0" : ""}}>
                   <div>
                     <Image src="https://hitsdesignclients.com/Peak-Male-new/images/s4icon1.png" height={500}  width={500} alt=""  style={{width: "60px", height: "auto"}} /> 
                   </div>
@@ -1098,7 +1112,7 @@ export default function Home() {
                   <p className={styles.sldrnm}>Terrance B.</p>
                 </div>
               </div>
-              <button className={styles.slickPrev}></button>
+              <button onClick={() => changeTestimonial(1)} className={styles.slickPrev}></button>
               <button className={styles.slickNext}></button>
             </div>
           </div>

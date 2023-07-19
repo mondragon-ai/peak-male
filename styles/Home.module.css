@@ -362,6 +362,17 @@
 ================================================================================================================================================================ */
 .delcinedTestWrapper {
   width: 60%;
+  position: relative;
+}
+
+
+.s2line3 {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: -103px;
+  margin: 0 auto;
+  display: block;
 }
 
 .s2subhding {
