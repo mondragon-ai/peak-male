@@ -22,8 +22,8 @@ const Footer = () => {
           <a>Terms of Services</a>
           <a>Contact Us</a>
         </div>
-        <p>Copyright © 2023 Optimal Human. All Rights Reserved</p>
-        <p style={{fontWeight: 100, fontSize: "10px", color: "gray"}}>*These statements have not been evaluated by the Food and Drug Administration. <br />
+        <p>Copyright © 2023 Optimal Human. <br /> All Rights Reserved</p>
+        <p style={{fontWeight: 100, fontSize: windowWidth < 720 ? "14px" : "10px", color: "gray", lineHeight: "20px"}}>*These statements have not been evaluated by the Food and Drug Administration. <br />
           This product is not intended to diagnose, treat, cure, or prevent any disease.</p>
       </div>
 

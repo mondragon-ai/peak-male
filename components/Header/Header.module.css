@@ -208,16 +208,17 @@
   }
   .logo {
     width: 100px;
-    margin: 8px 0 0 0;
+    margin: 0px 0 0 0;
   }
   .menuWrapper {
     height: 60px;
-    top: 60px;
+    top: 55px !important;
     margin-top: -60px;
+    background: rgba(255, 255, 255, 0.685);
   }
   .menuHeader {
-    padding: 0.5rem 0;
-    width: 90%;
+    padding: 0rem 0;
+    width: 95%;
   }
   .menuLogo img {
     width: 100px !important;
@@ -236,7 +237,7 @@
     width: 35px;
     height: 20px;
     float: right;
-    margin: 19px 0 5px 0;
+    margin: 10px 0 5px 0;
   }
   .hamburger span:nth-child(1) {
     top: 0;

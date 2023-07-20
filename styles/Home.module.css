@@ -649,6 +649,7 @@
   position: absolute;
   bottom: 50px;
   right: 250px;
+  padding-left: 2rem
 }
 
 .slickPrev {
@@ -1296,7 +1297,8 @@
   }
 
   .imgSliders {
-    padding: 1rem 2rem;
+    padding: 1rem 0rem;
+    justify-content: center;
   }
 
   .imgSliders > div {
@@ -1358,14 +1360,14 @@
   }
 
   .chooosePackage {
-    width: 90%;
-    margin: 30px 0 15px 0;
+    width: 95%;
+    margin: 30px auto 15px auto;
     font-weight: bold;
     font-size: 18px;
     line-height: 18px;
     text-align: center;
     position: relative;
-    color: #070707;
+    color: #25438f;
   }
 
   .chooosePackage::after {
@@ -1395,7 +1397,7 @@
   }
 
   .subBtn span {
-    color: #18770b;
+    color: #ff8c00;
     font-weight: 500;
     text-decoration: underline;
   }
@@ -1408,34 +1410,19 @@
 
   .pkghding {
     background: #17378a;
-    padding: 6px 10px;
+    padding: 5px 10px;
     font-weight: 800;
-    font-size: 24px;
+    font-size: 18px;
     line-height: 24px;
-    letter-spacing: 0.5px;
-    color: #fff;
-    text-align: center;
-    text-transform: uppercase;
-    width: 100%;
   }
 
 
   .supplyText {
-    font-size: 17px;
+    font-size: 13px;
     line-height: 18px;
-    color: #232323;
-    text-align: center;
-    margin-top: 7px;
-    font-weight: 800;
-    text-transform: uppercase;
   }
   .pkgprc2 {
-    font-weight: bold;
-    font-size: 29px;
-    line-height: 34px;
-    text-align: center;
-    color: #000;
-    margin: 5px 0;
+    margin: 0;
   }
 
   .BigPrice {
@@ -1450,12 +1437,8 @@
   }
 
   .pkgtxt1 {
-    font-size: 15px;
-    line-height: 20px;
-    text-align: center;
-    color: #000;
-    padding: 1px 0;
-    margin-top: 7px;
+    font-size: 12px;
+    line-height: 18px;
     font-style: italic;
   }
 
@@ -1507,25 +1490,23 @@
   .freeship {
     text-align: center;
     margin-top: 5px;
+    width: 100%;
   }
   .freeship span {
     display: inline-block;
     vertical-align: middle;
     background: #F00;
-    padding: 2px 7px;
+    padding: 7px 7px;
     border-radius: 5px;
     color: #fff;
     text-transform: uppercase;
-    font-size: 10px;
-    line-height: 15px;
+    font-size: 3vw;
+    line-height: 13px;
     font-weight: bold;
   }
-
+  
   .freeship span img {
-    display: inline-block;
-    vertical-align: middle;
-    width: 10px;
-    margin: -3px 2px 0 0;
+    width: 10px !important;
   }
 
   .riskFreeTxt {
@@ -1534,7 +1515,7 @@
     line-height: 20px;
     color: #171515;
     text-align: center;
-    margin-top: 0;
+    margin-top: 10px;
   }
 
   .s1btn {
@@ -1561,16 +1542,22 @@
   }
 
   .productTestimonial {
-    width: 90%;
+    width: 95%;
+    margin: 0 auto;
   }
   
   .productTestimonial p,
   .productTestimonial span {
-    font-size: 12px;
-    line-height: 15px;
+    font-size: 15px;
+    line-height: 20px;
     text-align: left;
-    color: #070707;
   }
+
+  .productTestimonial span {
+    font-size: 13px;
+    line-height: 18px;
+  }
+
   .delcinedTestWrapper {
     width: 90%;
   }
@@ -1589,6 +1576,7 @@
     font-size: 30px;
     line-height: 36px;
     text-align: center;
+    font-weight: 550;
   }
   .none {
     display: none !important;
@@ -1639,6 +1627,7 @@
   }
 
   .s2lhding {
+    text-align: center;
     font-weight: bold;
     color: #ff0000;
     font-size: 24px;
@@ -1646,6 +1635,7 @@
   }
 
   .s2ltxt {
+    text-align: center;
     font-size: 18px;
     line-height: 24px;
     margin-top: 12px;
@@ -1672,13 +1662,11 @@
   }
 
   .s2lhding2 {
-    font-weight: bold;
+    font-weight: 400;
     font-size: 18px;
-    line-height: 22px;
-    color: #17378a;
-    text-align: center;
-    margin-top: 30px;
-    padding: 0 0px;
+    line-height: 28px;
+    padding: 0;
+    margin-top: 15px;
   }
 
 
@@ -1696,8 +1684,7 @@
     text-align: left;
     letter-spacing: 0.5px;
     color: #000;
-    padding: 2rem 0;
-    border-bottom: 1px solid #d7d7d7;
+    padding: 0.8rem 0;
   }
 
   .bdfont:last-child {
@@ -1731,11 +1718,17 @@
     width: 100%;
     margin: 1rem 0 0 0; 
   }
+  .benefitItem img {
+    width: 60px !important;
+  }
+
 
   .benefitItem h6,
   .benefitItem p {
     width: 100%;
     text-align: left;
+    line-height: 23px;
+    font-size: 16px;
   }
 
   .s5bxlist {
@@ -1751,13 +1744,16 @@
   }
 
   .benefitItem h6 {
-    font-size: 20px;
+    font-size: 22px;
+    line-height: 28px;
     font-weight: 800;
   }
 
   .benefitItem p {
-    font-size: 15px;
-    font-weight: 100;
+    line-height: 23px;
+    font-size: 16px;
+    color: #eeeeee;
+    letter-spacing: 0.5px;
   }
 
 
@@ -1813,13 +1809,7 @@
     color: #000;
   }
   .sldrTxt2 {
-    font-size: 17px;
-    line-height: 25px;
-    text-align: left;
-    margin-top: 25px;
-    font-style: italic;
-    height: auto;
-    color: #000;
+    padding-bottom: 4rem;
   }
 
   .sldrnm {
@@ -1829,6 +1819,9 @@
     color: #000;
     text-align: left;
     margin-top: 15px;
+    left: 4vw;
+    bottom: 1vh;
+    padding-left:"2rem"
   }
 
   .slickPrev {
@@ -2087,6 +2080,15 @@
   .confirmation {
     width: 100%;
   }
+
+  .topContainerLeft {
+    width: 100%;
+  }
+  .keyIngredients ul li {
+    font-size: 16px;
+    line-height: 22px;
+  }
+
 
 .purchaseBox {
   border: 1px dashed rgb(234, 78, 78);

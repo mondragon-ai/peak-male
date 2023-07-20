@@ -6,7 +6,7 @@ const StaticButton = ({scroll}: any) => {
 
   useEffect(() => {
     const handleScroll = () => {
-      if (window?.scrollY < 7650) {
+      if (window?.scrollY < 4500 || window?.scrollY !== 0) {
         console.log(window?.scrollY);
         setIsScrolled(true);
       } else {

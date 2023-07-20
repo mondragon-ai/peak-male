@@ -200,69 +200,75 @@ export default function Home() {
         <div className={`${styles.row} ${styles.mobileCol}  ${styles.topContainer} `} style={{marginTop: windowWidth < 720 ? "90px" : "7rem"}}>
 
           <div className={`${styles.col} ${styles.mobileFull} ${styles.topContainerLeft}`}>
-            <div style={{width: "540px"}}>
+            <div style={{width: windowWidth < 720 ? "100%" : "540px"}}>
               {windowWidth < 720 ? 
                 <>
-                <div className={`${styles.row}`} style={{width: "100%", padding: "0 1rem"}}>
-                  <p style={{
-                    fontSize: "18px",
-                    lineHeight: "27px",
-                    color: "#fff",
-                    textAlign: "left",
-                    fontWeight: "500",
-                    letterSpacing: "0.5px"}}>
-                      <span style={{
-                        background: "url('https://hitsdesignclients.com/Peak-Male-new/images/s1rgttxt1bg.png') left center no-repeat",
-                        width: "134px",
-                        color: "#fff",
-                        display: "inline-block",
-                        padding: "0 0 0 5px",
-                        fontSize: "19px",
-                        letterSpacing: 0}}>#1 Best Seller</span>
-                        - Male Performance 
-                  </p>
-                </div>
-
-                <div className={`${styles.row}`} style={{width: "100%", margin: "5px auto",  padding: "0 1rem"}}>
-                  <p style={{
-                    fontSize: "12px",
-                    lineHeight: "18px",
-                    marginTop: "13px",
-                    color: "#fff",
-                    textAlign: "left"}}>
-                      <Image src={"https://hitsdesignclients.com/Peak-Male-new/images/stars.png"} alt={""} width={100} height={50} style={{
-                        display: "inline-block",
-                        verticalAlign: "middle",
-                        margin: "-4px 6px 0 0",
-                        height: "auto"
-                      }}  />
-                      Rated 4.9 by 2000+ Verified Customers 
-                  </p>
-                </div>
-
-                <div className={`${styles.row}`} style={{
-                  justifyContent: "space-between",
-                  padding: "0rem",
-                  width: "90%",
-                  marginBottom: "2rem",
-                  borderBottom: "1px solid #cccccc"}}>
-                  <p style={{
-                    fontSize: "17px",
-                    fontWeight: "500",
-                    lineHeight: "25px",
-                    textAlign: "left",
-                    marginTop: "20px",
-                    color: "#fff",
-                    padding: "0 0 11px 0"}}>
-                      <span style={{
-                        fontSize: "30px",
-                        color: "#17378a",
-                        fontWeight: "bold"}}>Peak Male</span>
-                      <br />
-                      Xtreme Test Booster 
+                  <div className={`${styles.row}`} style={{width: "95%", margin: "0 auto"}}>
+                    <p style={{
+                      fontSize: "18px",
+                      lineHeight: "27px",
+                      color: "#252525",
+                      textAlign: "left",
+                      fontWeight: "500",
+                      letterSpacing: "0.5px"}}>
+                        <span className={styles.span1} style={{
+                          background: "#ff7200",
+                          color: "#fff",
+                          display: "inline-block",
+                          padding: "1px 10px 2px 5px",
+                          fontSize: "15px",
+                          position: "relative",
+                          letterSpacing: 0}}>#1 Best Seller - Male Performance </span>
                     </p>
-                    <Image src={"https://hitsdesignclients.com/Peak-Male-new/images/capsule.png"} alt={""} width={100} height={100} style={{height: "auto", width: "100px"}}  />
-                </div> 
+                  </div>
+
+                  <div className={`${styles.row}`} style={{width: "95%", margin: "0px auto",  padding: "0rem"}}>
+                    <p style={{
+                      fontSize: "3.4vw",
+                      lineHeight: "18px",
+                      marginTop: "13px",
+                      color: "#fff",
+                      textAlign: "left"}}>
+                        <Image src={"https://hitsdesignclients.com/Peak-Male-new/images/stars.png"} alt={""} width={100} height={50} style={{
+                          display: "inline-block",
+                          verticalAlign: "middle",
+                          margin: "-4px 6px 0 0",
+                          height: "auto",
+                          fontWeight: "100"
+                        }}  />
+                        Rated 4.9 by 2000+ Verified Customers 
+                    </p>
+                  </div>
+
+                  <div style={{
+                    justifyContent: "space-between",
+                    padding: "0rem",
+                    width: "95%",
+                    margin: "1rem auto 2rem auto"
+                    }}>
+                    <p className={`${styles.row}`} style={{
+                      width: "100%",
+                      fontSize: "20px",
+                      fontWeight: "500",
+                      lineHeight: "25px",
+                      textAlign: "left",
+                      marginTop: "20px",
+                      color: "#fff",
+                      borderBottom: "1px solid #cccccc",
+                      justifyContent: "space-between",
+                      padding: "0 0rem 5px 0rem"}}>
+                        <div>
+                          <span style={{
+                            letterSpacing: "3px",
+                            fontSize: "40px",
+                            color: "white",
+                            fontWeight: "bold"}}>Peak Male</span>
+                          <br />
+                          <span style={{fontSize: "20px",}}>Xtreme Test Booster </span>
+                        </div>
+                        <Image src={"https://hitsdesignclients.com/Peak-Male-new/images/capsule.png"} alt={""} width={100} height={100} style={{height: "auto", width: "80px", margin: "0"}}  />
+                      </p>
+                  </div> 
                 </>
                 : null}
 
@@ -401,46 +407,52 @@ export default function Home() {
                       </ul>
                     </div>
                     <div className={`${styles.col} ${styles.keyIngredients}`}>
-                      <p><Image src={"https://hitsdesignclients.com/Peak-Male-new/images/ingredient-icon.png"} alt={""} width={50} height={50} style={{height: "20px", width: "auto", verticalAlign: "middle", margin: "-2px 6px 0 0"}}/>Key Ingredients:</p>
-                      <ul>
-                        <li style={{background:"url('https://hitsdesignclients.com/Peak-Male-new/images/bullet2.png') left 7px no-repeat", padding: "0 0 0 32px"}}>
-                        Fenugreek
-                        </li>
-                        <li style={{background:"url('https://hitsdesignclients.com/Peak-Male-new/images/bullet2.png') left 7px no-repeat", padding: "0 0 0 32px"}}>
-                        Maca Powder
-                        </li>
-                        <li style={{background:"url('https://hitsdesignclients.com/Peak-Male-new/images/bullet2.png') left 7px no-repeat", padding: "0 0 0 32px"}}>
-                        Tribulus Terrestris
-                        </li>
-                        <li style={{background:"url('https://hitsdesignclients.com/Peak-Male-new/images/bullet2.png') left 7px no-repeat", padding: "0 0 0 32px"}}>
-                        Tongkat Ali
-                        </li>
-                        <li style={{background:"url('https://hitsdesignclients.com/Peak-Male-new/images/bullet2.png') left 7px no-repeat", padding: "0 0 0 32px"}}>
-                        Panax Ginseng
-                        </li>
-                        <li style={{background:"url('https://hitsdesignclients.com/Peak-Male-new/images/bullet2.png') left 7px no-repeat", padding: "0 0 0 32px"}}>
-                        Horny Goat Weed
-                        </li>
-                      </ul>
+                      <p style={{width: "100%"}}><Image src={"https://hitsdesignclients.com/Peak-Male-new/images/ingredient-icon.png"} alt={""} width={50} height={50} style={{height: "25px", width: "auto", verticalAlign: "middle", margin: "-2px 6px 0 0"}}/>Key Ingredients:</p>
+                      <div className={`${styles.row}`}>
+                        <ul>
+                          <li style={{background:"url('https://hitsdesignclients.com/Peak-Male-new/images/bullet2.png') left 7px no-repeat", padding: "0 0 0 32px"}}>
+                          Fenugreek
+                          </li>
+                          <li style={{background:"url('https://hitsdesignclients.com/Peak-Male-new/images/bullet2.png') left 7px no-repeat", padding: "0 0 0 32px"}}>
+                          Maca Powder
+                          </li>
+                          <li style={{background:"url('https://hitsdesignclients.com/Peak-Male-new/images/bullet2.png') left 7px no-repeat", padding: "0 0 0 32px"}}>
+                          Tribulus Terrestris
+                          </li>
+                        </ul>
+                        <ul>
+                          <li style={{background:"url('https://hitsdesignclients.com/Peak-Male-new/images/bullet2.png') left 7px no-repeat", padding: "0 0 0 32px"}}>
+                          Tongkat Ali
+                          </li>
+                          <li style={{background:"url('https://hitsdesignclients.com/Peak-Male-new/images/bullet2.png') left 7px no-repeat", padding: "0 0 0 32px"}}>
+                          Panax Ginseng
+                          </li>
+                          <li style={{background:"url('https://hitsdesignclients.com/Peak-Male-new/images/bullet2.png') left 7px no-repeat", padding: "0 0 0 32px"}}>
+                          Horny Goat Weed
+                          </li>
+                        </ul>
+                      </div>
                     </div>
                   </div>
 
                   <p className={`${styles.chooosePackage}`} id="order">Choose Your Package</p>
 
-                  <div className={`${styles.row}`} style={{width: "90%", justifyContent: "center"}}>
-                    <div onClick={() => setSub(false)} className={`${styles.subBtn}`} style={{ background: !isSubbed ? "#fff url('https://hitsdesignclients.com/Peak-Male-new/images/selected.png') 15px center no-repeat" : "#fff", border: !isSubbed ? "1px solid #17378a" : ""}}>
+                  <div className={`${styles.row}`} style={{width: "95%", justifyContent: "center", margin: "0 auto"}}>
+                    <div onClick={() => setSub(false)} className={`${styles.subBtn}`} style={{color: !isSubbed ? "white" : "",background: !isSubbed ? "#17378a url('https://hitsdesignclients.com/Peak-Male-new/images/selected.png') 15px center no-repeat" : "#fff", border: !isSubbed ? "1px solid #17378a" : ""}}>
                       One Time Purchase
                     </div>
-                    <div onClick={() => setSub(true)} className={`${styles.subBtn}`} style={{margin: 0, background: isSubbed ? "#fff url('https://hitsdesignclients.com/Peak-Male-new/images/selected.png') 15px center no-repeat" : "#fff", border: isSubbed ? "1px solid #17378a" : ""}}>
-                      Subscribe & <span>Save 20%</span>
+                    <div onClick={() => setSub(true)} className={`${styles.subBtn}`} style={{color: isSubbed ? "white" : "",margin: 0, background: isSubbed ? "#17378a url('https://hitsdesignclients.com/Peak-Male-new/images/selected.png') 15px center no-repeat" : "#fff", border: isSubbed ? "1px solid #17378a" : ""}}>
+                      Subscribe & <br /><span>Save 20%</span>
                     </div>
                   </div>
 
-                  <div className={`${styles.row}  ${styles.mobileCol}`} style={{width: "100%", justifyContent: "space-between", alignItems: "center", margin: '2rem 0 0 0', flexDirection: "column-reverse"}}>
+                  <p className={styles.riskFreeTxt}>Try Risk-Free 30 Day Money Back Guarantee</p>
+
+                  <div className={`${styles.row}  ${styles.mobileCol}`} style={{width: "100%", justifyContent: "space-between", alignItems: "center", margin: '01rem 0 0 0', flexDirection: "column-reverse"}}>
                     
                     <div onClick={() => setProduct("ONE")} className={`${styles.col} ${styles.productItem}`} style={{background: productSelected == "ONE" ? "#e5ecfe" : "#fff", border: productSelected == "ONE" ? "2px solid #17378a" : ""}} >
                       <h5 className={styles.pkghding}>1 Bottle</h5>
-                      <div className={`${styles.row}`} style={{marginTop: "20px",width: "100%"}}>
+                      <div className={`${styles.row}`} style={{marginTop: "0px",width: "100%"}}>
                         <div  className={`${styles.row}`} style={{width: "50%", justifyContent: "center", alignItems: "center", height: "100%", minHeight: "150px"}}>
                           <Image src={"https://hitsdesignclients.com/Peak-Male-new/images/pkg3.png"} alt={""} width={100} height={50} style={{height: "auto", width: "100%"}}  />
                         </div>
@@ -457,19 +469,85 @@ export default function Home() {
                           </div>
                         </div>
                       </div>
+                      <div  className={`${styles.row}`} style={{margin: "0px auto",width: "100%"}}>
+                        <button style={{
+                          display: "block",
+                          margin: "10px auto 0",
+                          background: "#ff7200",
+                          height: "45px",
+                          width: "80%",
+                          borderRadius: "5px",
+                          fontSize: "18px",
+                          lineHeight: "45px",
+                          letterSpacing: "0.5px",
+                          color: "#fff",
+                          border: "none",
+                          outline: "none",
+                          fontWeight: "600"}}> Add To Cart</button>
+                      </div>
                     </div>
 
-                    <div onClick={() => setProduct("SIX")} className={`${styles.col} ${styles.productItem}`} style={{background: productSelected == "SIX" ? "#e5ecfe" : "#fff", border: productSelected == "SIX" ? "2px solid #17378a" : ""}} >
-                      <p className={styles.pkgTophd}>BEST VALUE</p>
-                      <h5 className={styles.pkghding}>6 Bottle</h5>
-                      <div className={`${styles.row}`} style={{marginTop: "20px",width: "100%"}}>
+
+                    <div onClick={() => setProduct("THREE")} className={`${styles.col} ${styles.productItem}`} style={{background: productSelected == "THREE" ? "#e5ecfe" : "#fff", border: productSelected == "THREE" ? "2px solid #17378a" : ""}} >
+                      <p className={styles.pkgTophd}>MOST POPULAR</p>
+                      <h5 className={styles.pkghding}>3 Bottles</h5>
+                      <div className={`${styles.row}`} style={{marginTop: "0px", width: "100%"}}>
                         <div  className={`${styles.row}`} style={{width: "50%", justifyContent: "center", alignItems: "center", height: "100%", minHeight: "150px"}}>
                           <Image src={"https://hitsdesignclients.com/Peak-Male-new/images/pkg2.png"} alt={""} width={100} height={50} style={{height: "auto", width: "100%"}}  />
                         </div>
 
                         <div className={`${styles.col}`} style={{width: "50%"}}>
+                          <h6 className={styles.supplyText}>60 Day Supply</h6>
+
+                          <p className={styles.pkgprc2}>
+                            <span className={styles.BigPrice}>$49</span>
+                            <span className={styles.PriceUnit}>/per bottle</span>
+                          </p>
+
+                          <p className={styles.freeship}><span>
+                            <Image src="https://hitsdesignclients.com/Peak-Male-new/images/chk.png" alt="" height={50} width={50} style={{height: "auto", width: "10px"}}/> Free Usa Shipping</span>
+                          </p>
+                          
+                          <div className={`${styles.col}`}  style={{width: "100%"}}>
+                            <p className={styles.pkgtxt1}><span style={{fontWeight: "800"}}>45% OFF</span> - You Save $120</p>
+                            <p className={styles.pkgprc1}><span className={styles.strikeout}>$267</span> <strong>$147</strong></p>
+                          </div>
+                        </div>
+                      </div>
+                      <div  className={`${styles.row}`} style={{margin: "0px auto",width: "100%"}}>
+                        <button style={{
+                          display: "block",
+                          margin: "10px auto 0",
+                          background: "#ff7200",
+                          height: "45px",
+                          width: "80%",
+                          borderRadius: "5px",
+                          fontSize: "18px",
+                          lineHeight: "45px",
+                          letterSpacing: "0.5px",
+                          color: "#fff",
+                          border: "none",
+                          outline: "none",
+                          fontWeight: "600"}}> Add To Cart</button>
+                      </div>
+                    </div>
+
+
+                    <div onClick={() => setProduct("SIX")} className={`${styles.col} ${styles.productItem}`} style={{background: productSelected == "SIX" ? "#e5ecfe" : "#fff", border: productSelected == "SIX" ? "2px solid #17378a" : ""}} >
+                      <p className={styles.pkgTophd}>BEST VALUE</p>
+                      <h5 className={styles.pkghding}>6 Bottles</h5>
+                      <div className={`${styles.row}`} style={{marginTop: "0px",width: "100%"}}>
+                        <div  className={`${styles.row}`} style={{width: "45%", justifyContent: "center", alignItems: "center", height: "100%", minHeight: "150px"}}>
+                          <Image src={"https://hitsdesignclients.com/Peak-Male-new/images/pkg1.png"} alt={""} width={100} height={50} style={{height: "auto", width: "100%"}}  />
+                        </div>
+
+                        <div className={`${styles.col}`} style={{width: "55%"}}>
                           <h6 className={styles.supplyText}>180 Day Supply</h6>
 
+                          <p className={styles.pkgprc2}>
+                            <span className={styles.BigPrice}>$39</span>
+                            <span className={styles.PriceUnit}>/per bottle</span>
+                          </p>
 
                           <p className={styles.freeship}>
                             <span>
@@ -477,55 +555,30 @@ export default function Home() {
                             </span>
                           </p>
 
-                          <p className={styles.pkgprc2}>
-                            <span className={styles.BigPrice}>$39</span>
-                            <span className={styles.PriceUnit}>/per bottle</span>
-                          </p>
 
                           <div className={`${styles.col}`}  style={{width: "100%"}}>
-                            <p className={styles.pkgtxt1}>You Save $300</p>
+                            <p className={styles.pkgtxt1}><span style={{fontWeight: "800"}}>55% OFF</span> - You Save $300</p>
                             <p className={styles.pkgprc1}><span className={styles.strikeout}>$534</span> <strong>$234</strong></p>
                           </div>
                         </div>
                       </div>
-                    </div>
-
-
-                    <div onClick={() => setProduct("THREE")} className={`${styles.col} ${styles.productItem}`} style={{background: productSelected == "THREE" ? "#e5ecfe" : "#fff", border: productSelected == "THREE" ? "2px solid #17378a" : ""}} >
-                      <p className={styles.pkgTophd}>MOST POPULAR</p>
-                      <h5 className={styles.pkghding}>3 Bottle</h5>
-                      <div className={`${styles.row}`} style={{marginTop: "20px", width: "100%"}}>
-                        <div  className={`${styles.row}`} style={{width: "50%", justifyContent: "center", alignItems: "center", height: "100%", minHeight: "150px"}}>
-                          <Image src={"https://hitsdesignclients.com/Peak-Male-new/images/pkg1.png"} alt={""} width={100} height={50} style={{height: "auto", width: "100%"}}  />
-                        </div>
-
-                        <div className={`${styles.col}`} style={{width: "50%"}}>
-                          <h6 className={styles.supplyText}>60 Day Supply</h6>
-
-                          <p className={styles.freeship}><span>
-                            <Image src="https://hitsdesignclients.com/Peak-Male-new/images/chk.png" alt="" height={50} width={50} style={{height: "auto", width: "10px"}}/> Free Usa Shipping</span>
-                          </p>
-
-
-                          <p className={styles.pkgprc2}>
-                            <span className={styles.BigPrice}>$49</span>
-                            <span className={styles.PriceUnit}>/per bottle</span>
-                          </p>
-                          
-                          <div className={`${styles.col}`}  style={{width: "100%"}}>
-                            <p className={styles.pkgtxt1}>You Save $120</p>
-                            <p className={styles.pkgprc1}><span className={styles.strikeout}>$267</span> <strong>$147</strong></p>
-                          </div>
-                        </div>
-
+                      <div  className={`${styles.row}`} style={{margin: "0px auto",width: "100%"}}>
+                        <button style={{
+                          display: "block",
+                          margin: "10px auto 0",
+                          background: "#ff7200",
+                          height: "45px",
+                          width: "80%",
+                          borderRadius: "5px",
+                          fontSize: "18px",
+                          lineHeight: "45px",
+                          letterSpacing: "0.5px",
+                          color: "#fff",
+                          border: "none",
+                          outline: "none",
+                          fontWeight: "600"}}> Add To Cart</button>
                       </div>
                     </div>
-                  </div>
-
-                  <p className={styles.riskFreeTxt}>Try Risk-Free 30 Day Money Back Guarantee</p>
-
-                  <div className={styles.s1btn}>
-                    Add to Cart & Save 45%
                   </div>
 
                   <div className={`${styles.row} ${styles.btnTxt}`}>
@@ -598,7 +651,7 @@ export default function Home() {
 
           </div>
 
-          <div className={`${styles.col} ${styles.mobileFull}`} style={{width: "55%", flexWrap: "wrap", alignContent: "flex-start"}}> 
+          <div className={`${styles.col} ${styles.mobileFull}`} style={{width:  windowWidth < 720 ? "100%" : "55%", flexWrap: "wrap", alignContent: "flex-start"}}> 
             {clientSecret == "" ? (
               <Elements stripe={stripePromise}>
                 {windowWidth > 720 ? <OrderFormContainer state={state} setState={setState} isSubbed={isSubbed} setSub={setSub} setProduct={setProduct} productSelected={productSelected} /> : null}
@@ -777,10 +830,10 @@ export default function Home() {
                 Ready to take control and unleash your full potential?
                 </p>
                 <div className={styles.col} style={{width: "100%", alignItems: "flex-start"}}>
-                  <div className={styles.s3btn} style={{width: "70%", marginLeft: "0"}}>
+                  <div className={styles.s3btn} style={{width: windowWidth < 720 ? "100%" : "70%", marginLeft: "0"}}>
                   Order Now
                   </div>
-                  <div className={`${styles.row} ${styles.btnTxt}`}  style={{width: "70%"}}>
+                  <div className={`${styles.row} ${styles.btnTxt}`}  style={{width: windowWidth < 720 ? "100%" : "70%"}}>
                     <p className={styles.btnTxt1}>Ships: Within 24 Hours</p> 
                     |
                     <p className={styles.btnTxt}>
@@ -790,7 +843,7 @@ export default function Home() {
                   </div>
                 </div>
               </div>
-              {windowWidth > 720 ? <div className={`${styles.row} ${styles.mobileCol}`} style={{width: "40%", position: "relative"}}>
+              {windowWidth > 720 ? <div className={`${styles.row} ${styles.mobileCol}`} style={{width:"40%", position: "relative"}}>
                 <Image src={"https://hitsdesignclients.com/Peak-Male-new/images/s3img.png"} height={5000}  width={5000} alt="" style={{
                   position: "absolute",
                   bottom: 0,
@@ -805,8 +858,8 @@ export default function Home() {
         </div>
 
         {/* BENEFITS SECTION */}
-        <div id="BENEFITS" className={`${styles.col} ${styles.sec4}`} style={{width: "100%", padding: "4rem 0 4rem 0"}}>
-          <div className={styles.delcinedTestWrapper} style={{width: "70%"}}>
+        <div id="BENEFITS" className={`${styles.col} ${styles.sec4}`} style={{width: "100%", padding: windowWidth < 720 ? "2rem 0 1rem 0" : "4rem 0 4rem 0"}}>
+          <div className={styles.delcinedTestWrapper} style={{width: windowWidth < 720 ? "95%" : "70%"}}>
             <h3 className={styles.bdhding} style={{color: "white", textAlign: "center"}}>
             Benefits Of Peak Male <br />
               <span>Xtreme Test Booster</span>
@@ -910,9 +963,9 @@ export default function Home() {
 
         {/* INGREDIENTS SECTION */}
         <div id="INGREDIENTS" className={`${styles.col} ${styles.sec3}`} style={{width: "100%", padding: "4rem 0 4rem 0"}}>
-          <div className={styles.delcinedTestWrapper} style={{width: "60%"}}>
+          <div className={styles.delcinedTestWrapper} style={{width: windowWidth < 720 ? "90%" :"60%"}}>
             <h1 style={{color: "black", fontWeight: "900", textAlign: "center", fontSize:  windowWidth < 720 ? "30px" : "50px", lineHeight: windowWidth < 720 ? "36px" : "56px"}}>
-              The Science behind Peak Male <br />
+              The Science behind <br /> Peak Male <br />
               <span style={{color: "#17378a"}}>Xtreme Test Booster</span>
             </h1>
             <p style={{color: "black", marginTop: "19px", textAlign: "center", fontSize: "18px", lineHeight: "26px"}}>
@@ -931,7 +984,7 @@ export default function Home() {
                     width: "100%",
                     paddingBottom: "2rem"
                   }}>Fenugreek</h5> : null}
-                <div className={styles.col} style={{width: "40%", height: "400px"}}>
+                <div className={styles.col} style={{width: windowWidth < 720 ? "95%" : "40%", height: windowWidth < 720 ? "200px" : "400px"}}>
                   <Image src={"https://hitsdesignclients.com/Peak-Male-new/images/s5img1.png"} height={5000}  width={5000} alt="" style={{
                       position: "relative",
                       bottom: 0,
@@ -940,7 +993,7 @@ export default function Home() {
                       height: "auto"
                     }}  />
                 </div>
-                <div className={`${styles.col}`} style={{width: "60%"}}>
+                <div className={`${styles.col}`} style={{width: windowWidth < 720 ? "95%" :"60%"}}>
                   {windowWidth > 720 ? <h5 style={{
                     fontWeight: "bold",
                     fontSize: "36px",
@@ -976,7 +1029,7 @@ export default function Home() {
                     width: "100%",
                     paddingBottom: "2rem"
                   }}>Maca Powder</h5> : null}
-                  <div className={styles.col} style={{width: "40%", height: "400px"}}>
+                  <div className={styles.col} style={{width: windowWidth < 720 ? "95%" : "40%", height:  windowWidth < 720 ? "200px" :"400px"}}>
                     <Image src={"https://hitsdesignclients.com/Peak-Male-new/images/s5img1.png"} height={5000}  width={5000} alt="" style={{
                         position: "relative",
                         bottom: 0,
@@ -985,7 +1038,7 @@ export default function Home() {
                         height: "auto"
                       }}  />
                   </div>
-                <div className={`${styles.col}`} style={{width: "60%"}}>
+                <div className={`${styles.col}`} style={{width: windowWidth < 720 ? "95%" : "60%"}}>
                   {windowWidth > 720 ? <h5 style={{
                     fontWeight: "bold",
                     fontSize: "36px",
@@ -1016,7 +1069,7 @@ export default function Home() {
                     width: "100%",
                     paddingBottom: "2rem"
                   }}>Fenugreek</h5> : null}
-                <div className={styles.col} style={{width: "40%", height: "400px"}}>
+                <div className={styles.col} style={{width: windowWidth < 720 ? "95%" : "40%", height: windowWidth < 720 ? "200px" : "400px"}}>
                   <Image src={"https://hitsdesignclients.com/Peak-Male-new/images/s5img1.png"} height={5000}  width={5000} alt="" style={{
                       position: "relative",
                       bottom: 0,
@@ -1025,7 +1078,7 @@ export default function Home() {
                       height: "auto"
                     }}  />
                 </div>
-                <div className={`${styles.col}`} style={{width: "60%"}}>
+                <div className={`${styles.col}`} style={{width: windowWidth < 720 ? "95%" : "60%"}}>
                   {windowWidth > 720 ? <h5 style={{
                     fontWeight: "bold",
                     fontSize: "36px",
@@ -1061,7 +1114,7 @@ export default function Home() {
                     width: "100%",
                     paddingBottom: "2rem"
                   }}>Maca Powder</h5> : null}
-                  <div className={styles.col} style={{width: "40%", height: "400px"}}>
+                  <div className={styles.col} style={{width: windowWidth < 720 ? "95%" : "40%", height: windowWidth < 720 ? "200px" :  "400px"}}>
                     <Image src={"https://hitsdesignclients.com/Peak-Male-new/images/s5img1.png"} height={5000}  width={5000} alt="" style={{
                         position: "relative",
                         bottom: 0,
@@ -1070,7 +1123,7 @@ export default function Home() {
                         height: "auto"
                       }}  />
                   </div>
-                <div className={`${styles.col}`} style={{width: "60%"}}>
+                <div className={`${styles.col}`} style={{width: windowWidth < 720 ? "95%" : "60%"}}>
                   {windowWidth > 720 ? <h5 style={{
                     fontWeight: "bold",
                     fontSize: "36px",
@@ -1101,7 +1154,7 @@ export default function Home() {
                     width: "100%",
                     paddingBottom: "2rem"
                   }}>Fenugreek</h5> : null}
-                <div className={styles.col} style={{width: "40%", height: "400px"}}>
+                <div className={styles.col} style={{width: windowWidth < 720 ? "95%" : "40%", height: windowWidth < 720 ? "200px" : "400px"}}>
                   <Image src={"https://hitsdesignclients.com/Peak-Male-new/images/s5img1.png"} height={5000}  width={5000} alt="" style={{
                       position: "relative",
                       bottom: 0,
@@ -1110,7 +1163,7 @@ export default function Home() {
                       height: "auto"
                     }}  />
                 </div>
-                <div className={`${styles.col}`} style={{width: "60%"}}>
+                <div className={`${styles.col}`} style={{width: windowWidth < 720 ? "95%" :  "60%"}}>
                   {windowWidth > 720 ? <h5 style={{
                     fontWeight: "bold",
                     fontSize: "36px",
@@ -1146,7 +1199,7 @@ export default function Home() {
                     width: "100%",
                     paddingBottom: "2rem"
                   }}>Maca Powder</h5> : null}
-                  <div className={styles.col} style={{width: "40%", height: "400px"}}>
+                  <div className={styles.col} style={{width: windowWidth < 720 ? "95%" : "40%", height: windowWidth < 720 ? "200px" : "400px"}}>
                     <Image src={"https://hitsdesignclients.com/Peak-Male-new/images/s5img1.png"} height={5000}  width={5000} alt="" style={{
                         position: "relative",
                         bottom: 0,
@@ -1155,7 +1208,7 @@ export default function Home() {
                         height: "auto"
                       }}  />
                   </div>
-                <div className={`${styles.col}`} style={{width: "60%"}}>
+                <div className={`${styles.col}`} style={{width: windowWidth < 720 ? "95%" : "60%"}}>
                   {windowWidth > 720 ? <h5 style={{
                     fontWeight: "bold",
                     fontSize: "36px",
@@ -1222,17 +1275,17 @@ export default function Home() {
         {/* TESTIMONIAL SECTION */}
         <div id="REVIEWS" className={`${styles.col} ${styles.sec3} ${styles.sec6}`} style={{width: "100%",}}>
           <div className={styles.delcinedTestWrapper}>
-            <h1 style={{padding: windowWidth < 720 ? "3rem 0 0 0" : 0, color: "black", fontWeight: "900", textAlign: "center", fontSize: windowWidth < 720 ? "30px" : "50px", lineHeight:windowWidth < 720 ? "36px" :  "56px"}}>
+            <h1 style={{padding: windowWidth < 720 ? "3rem 0 0 0" : 0, color: "black", fontWeight: "900", textAlign: "center", fontSize: windowWidth < 720 ? "25px" : "50px", lineHeight:windowWidth < 720 ? "28px" :  "56px"}}>
               Customer Testimonials <br />
               <span style={{color: "#17378a"}}>Real People. Real Results</span>
             </h1>
             <div className={`${styles.row} ${styles.testimonial} ${styles.mobileCol} `} >
               <div className={`${styles.col}`} style={{width: windowWidth < 720 ? "100%" : "30%",}}>
-                {testimonial == 1 ? <Image src="https://hitsdesignclients.com/Peak-Male-new/images/t1.png" height={5000}  width={5000} alt="" style={{width: "410px", height: "auto"}} /> : testimonial == 2 ?
-                  <Image src="https://hitsdesignclients.com/Peak-Male-new/images/t2.png" height={5000}  width={5000} alt="" style={{width: "410px", height: "auto"}} />  : testimonial == 3 ? 
-                  <Image src="https://hitsdesignclients.com/Peak-Male-new/images/t3.png" height={5000}  width={5000} alt="" style={{width: "410px", height: "auto"}} /> : null} 
+                {testimonial == 1 ? <Image src="https://hitsdesignclients.com/Peak-Male-new/images/t1.png" height={5000}  width={5000} alt="" style={{width: "23vw", height: "auto"}} /> : testimonial == 2 ?
+                  <Image src="https://hitsdesignclients.com/Peak-Male-new/images/t2.png" height={5000}  width={5000} alt="" style={{width: "23vw", height: "auto"}} />  : testimonial == 3 ? 
+                  <Image src="https://hitsdesignclients.com/Peak-Male-new/images/t3.png" height={5000}  width={5000} alt="" style={{width: "23vw", height: "auto"}} /> : null} 
               </div>
-              <div className={`${styles.col}`}  style={{width: windowWidth < 720 ? "90%" : "70%", padding: "1rem", alignItems: "flex-start"}}>
+              <div className={`${styles.col}`}  style={{width: windowWidth < 720 ? "100%" : "70%", padding: "1rem", alignItems: "flex-start", minHeight: windowWidth < 720 ? "200px" : ""}}>
                 <Image src="https://hitsdesignclients.com/Peak-Male-new/images/sldrstars.png" height={500}  width={500} alt="" style={{width: "150px", height: "auto"}} /> 
                {testimonial == 1 ? <>
                   <h2 className={styles.sldrTxt1}>Confidence Boost</h2>
@@ -1258,7 +1311,7 @@ export default function Home() {
                 </> : null}
                 <div className={`${styles.col}`} style={{width: "100%", justifyContent: "flex-start", alignItems: "flex-start"}}>
                   <div className={`${styles.col}`}>
-                    <div className={`${styles.row}`} style={{width: "50%", display: windowWidth < 720 ? "none" : "", position: "absolute", bottom: 100, right: "250px"}}>
+                    <div className={`${styles.row}`} style={{width: "50%", display: windowWidth < 720 ? "none" : "", position: "absolute", bottom: 100, right: "250px",paddingLeft:"2rem"}}>
                       <Image src="https://hitsdesignclients.com/Peak-Male-new/images/sldrqt.png" height={500}  width={500} alt="" style={{width: "70px", height: "auto"}} /> 
                       <Image src="https://hitsdesignclients.com/Peak-Male-new/images/sldrbtl.png" height={500}  width={500} alt="" style={{width: "70px", height: "auto", position: "absolute", right: "40px", bottom: "-30px"}} />
                     </div>
@@ -1273,6 +1326,7 @@ export default function Home() {
         </div>
 
         <StaticButton scroll={scrollToElement} />
+
         {/* FAQ SECTION */}
         <div className={`${styles.col}`} style={{background: "#eef5fc",padding: "2rem 0rem 2rem 0"}}>
           <div className={`${styles.col}`} style={{justifyContent: "center", padding: "2rem 0rem 2rem 0", textAlign: "center"}}>
