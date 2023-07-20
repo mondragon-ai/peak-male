@@ -8,7 +8,7 @@ import styles from "../styles/Home.module.css";
 import checkout_styles from "../styles/Checkout.module.css";
 import { imPoweredRequest } from "@/components/lib/request";
 import { LineItem } from "@stripe/stripe-js";
-import * as gtag from "../components/lib/analytics"
+// import * as gtag from "../components/lib/analytics"
 import Image from "next/image";
 
 const CheckOut = () => {
@@ -102,7 +102,7 @@ const CheckOut = () => {
 
 
     // push 3rd party analytics
-    gtag.twitterEvent(email, price);
+    // gtag.twitterEvent(email, price);
     // gtag.event('conversion', {
     //   'send_to': 'AW-10793712364/Knd8CNuBkpIYEOz165oo',
     //   'value': price,

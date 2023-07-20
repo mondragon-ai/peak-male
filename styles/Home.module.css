@@ -19,9 +19,10 @@
 .formCard {
   background-color: #ffffff !important;
   border-radius: 6px;
-  padding: 1rem 2rem;
+  padding: 25px 30px;
   box-shadow: 0 0 10px 1px rgba(0,0,0,0.2);
-  width: 90%;
+  width: 700px;
+  /* min-width: ; */
 }
 
 .helpsWith {
@@ -48,6 +49,7 @@
   font-weight: 500;
   letter-spacing: 0.5px;
   text-decoration: none;
+  width: auto;
 }
 
 .benefitbox {
@@ -79,6 +81,7 @@
   line-height: 25px;
   text-align: left;
   margin-top: 8.5px;
+  font-weight: 100;
 }
 
 .keyIngredients ul li {
@@ -128,6 +131,38 @@
   width: 120px;
 }
 
+.promise {
+  width:50%;
+  margin: 30px 0 0 0;
+  font-weight: bold;
+  font-size: 24px;
+  line-height: 30px;
+  text-align: center;
+  position: relative;
+  color: #070707;
+}
+
+.promise::after {
+  content: "";
+  position: absolute;
+  top: 18px;
+  height: 1px;
+  background: #d0d0d0;
+  width: 120px;
+  left: 0;
+}
+
+
+.promise::before {
+  right: 0;
+  content: "";
+  position: absolute;
+  top: 18px;
+  height: 1px;
+  background: #d0d0d0;
+  width: 120px;
+}
+
 .subBtn {
   float: left;
   width: 48%;
@@ -145,7 +180,7 @@
 }
 
 .subBtn span {
-  color: #18770b;
+  color: #ff8c00;
   text-decoration: underline;
 }
 
@@ -179,6 +214,7 @@
   margin-top: 7px;
   font-weight: 800;
   text-transform: uppercase;
+  margin: 10px auto 0;
 }
 .pkgprc2 {
   font-weight: bold;
@@ -257,23 +293,23 @@
 .freeship {
   text-align: center;
   margin-top: 5px;
-  width: 90%;
+  width: 100%;
 }
 .freeship span {
   display: inline-block;
   vertical-align: middle;
   background: #F00;
-  padding: 2px 7px;
+  padding: 7px 7px;
   border-radius: 5px;
   color: #fff;
   text-transform: uppercase;
-  font-size: 10px;
+  font-size: 0.8vw;
   line-height: 13px;
   font-weight: bold;
 }
 
 .freeship span img {
-  width: 8px !important;
+  width: 11px !important;
 }
 
 .riskFreeTxt {
@@ -363,7 +399,7 @@
   DECLINED TESTOSTERONE WRAPPER
 ================================================================================================================================================================ */
 .delcinedTestWrapper {
-  width: 60%;
+  width: 80%;
   position: relative;
 }
 
@@ -430,6 +466,7 @@
   line-height: 24px;
   margin-top: 12px;
   color: #000;
+  font-weight: 100;
 }
 
 .s2bx2 {
@@ -441,7 +478,7 @@
   margin: 0 auto;
   display: block;
   max-width: 20%;
-  width: 20%;
+  width: 16%;
   height: auto;
 }
 
@@ -452,7 +489,7 @@
   color: #17378a;
   text-align: center;
   margin-top: 30px;
-  padding: 0 40px;
+  padding: 0 150px;
 }
 
 
@@ -464,9 +501,6 @@
   background: #eef5fc;
 }
 
-.delcinedTestWrapper {
-  width: 60%;
-}
 
 .bdhding {
   font-weight: bold;
@@ -483,8 +517,8 @@
   text-align: left;
   letter-spacing: 0.5px;
   color: #000;
-  padding: 2rem 0;
-  border-bottom: 1px solid #d7d7d7;
+  padding: 1rem 0;
+  font-weight: 100;
 }
 
 .s3btn {
@@ -511,7 +545,12 @@
 
 .benefitItem {
   text-align: left;
-  width: 30%
+  width: 35%
+}
+
+.benefitItem p {
+  margin-top: 10px;
+  font-weight: 100;
 }
 
 .benefitItem h6,
@@ -528,7 +567,7 @@
   background: url("https://hitsdesignclients.com/Peak-Male-new/images/bullet3.png") left 10px no-repeat;
   background-size: 20px;
   padding: 0 0 0 35px;
-  margin-top: 20px;
+  margin-bottom: 20px;
   list-style: none;
 }
 
@@ -604,8 +643,12 @@
   font-size: 30px;
   line-height: 40px;
   color: #fff;
+  width: 50%;
   text-align: left;
   margin-top: 15px;
+  position: absolute;
+  bottom: 50px;
+  right: 250px;
 }
 
 .slickPrev {
@@ -939,6 +982,12 @@
   justify-content: center;
   align-items: center;
 }
+.accordionChild p {
+  padding-bottom: 30px;
+  background: #fff;
+  font-size: 18px;
+  line-height: 26px;
+}
 
 .wobbleButton {
   padding: 12px 24px;
@@ -1164,22 +1213,27 @@
   background-color: #bbb;
   background: url("https://hitsdesignclients.com/Peak-Male-new/images/sec1.jpg") center top no-repeat;
   justify-content: center;
+  width: 100%;
 }
 .topContainerLeft {
   padding: 1rem;
-  width: 30%;
+  width: 45%;
   position: relative;
+  align-items: flex-end;
+  padding-right: 3rem;
 }
 
 .imgSliders {
-  padding: 1rem 2rem;
+  padding: 1rem 0rem;
+  margin: 0 auto;
 }
 
 .imgSliders > div {
   padding: 1rem;
-  margin: 0 1rem;
+  margin: 0.5rem;
   cursor: pointer;
   border: 1px solid #d1d1d1;
+  margin: 0 auto;
 }
 
 .badges {
@@ -1195,17 +1249,36 @@
 
 .productTestimonial {
   padding: 1rem;
-  border-radius: 6px;
+  border-radius: 12px;
   width: 100%;
   box-shadow: 0 0 10px #CCC;
 }
 
-.productTestimonial p,
+.productTestimonial p {
+  font-size: 16px;
+  line-height: 25px;
+  font-weight: 100;
+  text-align: left;
+  color: #070707;
+}
+
 .productTestimonial span {
   font-size: 16px;
   line-height: 22px;
+  font-weight: 100;
   text-align: left;
   color: #070707;
+}
+
+.span1:after {
+  position: absolute;
+  right: -10px;
+  top: 0;
+  bottom: 0;
+  border-bottom: 15px solid #ff7200;
+  border-top: 15px solid #ff7200;
+  border-right: 10px solid transparent;
+  content: "";
 }
 
 /* Mobile */
@@ -1577,6 +1650,7 @@
     line-height: 24px;
     margin-top: 12px;
     color: #000;
+    font-weight: 100;
   }
 
   .s2bx2 {

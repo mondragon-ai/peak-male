@@ -4,7 +4,7 @@ import type { AppProps } from 'next/app'
 import Script from 'next/script'
 import { useRouter } from 'next/router'
 import { useEffect } from 'react'
-import * as gtag from "../components/lib/analytics"
+// import * as gtag from "../components/lib/analytics"
 
 
 export default function App({ Component, pageProps }: AppProps) {
@@ -16,7 +16,7 @@ export default function App({ Component, pageProps }: AppProps) {
 
   useEffect(() => {
     const handleRouteChange = (url: string) => {
-      gtag.pageview(url);
+      // gtag.pageview(url);
     };
     router.events.on('routeChangeComplete', handleRouteChange)
     return () => {

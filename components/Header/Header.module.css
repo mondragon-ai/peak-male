@@ -1,5 +1,6 @@
 .container {
-  height: 120px;
+  max-height: 120px;
+  height: auto;
   background: white;
   box-shadow: 0px 4px 4px 2px rgba(0, 0, 0, 0.25);
   display: flex;
@@ -22,12 +23,6 @@
 
 
 .header {
-  font-style: normal;
-  font-weight: 400;
-  font-size: 20px;
-  line-height: 25px;
-  letter-spacing: 0.09em;
-  color: #ffffff;
   font-family: 'Apercu Pro';
   font-size: 17px;
   line-height: 22px;
@@ -37,14 +32,19 @@
 
 .announcmentBanner {
   display: flex;
-  background: linear-gradient(180deg, #ff5f5f 0%, #fe0000 100%);
+  /* background: linear-gradient(180deg, #ff5f5f 0%, #fe0000 100%); */
   flex-direction: column;
   align-items: center;
   justify-content: center;
   text-align: center;
   width: 100%;
-  height: 50px;
   transition: opacity 0.3s ease-in-out;
+  height: auto;
+  margin: 0 auto;
+  padding: 0;
+  box-sizing: border-box;
+  background: #ff0000;
+  padding: 3px 0 5px 0;
 }
 
 .hidden {
@@ -61,45 +61,69 @@
   justify-content: center;
   text-align: center;
   width: 100%;
-  height: 100%;
+  height: 80px;
+  height: 80px;
+  margin-top: -80px;
   position: relative;
+  top: 81px;
+  /* background: #fff; */
 }
 
 .menuHeader {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-between;
-  text-align: center;
-  width: 70%;
-  height: 100%;
+  width: 1170px;
+  height: auto;
+  margin: 0 auto;
+  padding: 0;
+  box-sizing: border-box;
 }
-
+.logo {
+  float: left;
+  margin: 0px 0 0 0;
+  max-width: 100%;
+}
 .menuItems {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: center;
+  margin: 26px auto 0 auto;
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  display: block;
+  width: 580px;
+}
+.menuItems li {
+  float: left;
+  display: inline-block;
+  padding: 0 25px;
+  background: url('https://hitsdesignclients.com/Peak-Male-new/images/mnuline.jpg') right center no-repeat;
+  color: #000;
+}
+.menuItems li:last-child {
+  background: none;
+}
+.menuItems li a {
+  float: left;
+  font-size: 17px;
+  line-height: 30px;
   text-align: center;
-  width: 60%;
-  height: 100%;
+  color: #141414;
+  letter-spacing: 0.3px;
 }
 
-.menuItems > div {
+/* .menuItems > div {
   padding: 0 1rem;
   width: auto;
   margin: 0;
   line-height: 0px;
-}
+} */
 
-.menuItems > div > a{
+/* .menuItems > div > a {
   padding: 1rem;
   width: auto;
   margin: 0;
-}
+} */
 
 
-.menuItems > div h6 {
+/* .menuItems > div h6 {
   font-size: 25px;
   color: rgb(13, 13, 13);
   font-weight: 100;
@@ -108,19 +132,29 @@
   text-align: center;
   color: #141414;
   letter-spacing: 0.3px;
-}
+} */
 
 .customerService {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  height: 100%;
-  width: auto;
+  float: right;
+  margin: 5px 0 0 0;
+  font-size: 17px;
+  line-height: 25px;
+  text-align: left;
+  color: #141414;
+  letter-spacing: 0.5px;
+}
+.customerService img {
+  float: left;
+  display: inline-block;
+  margin: 8px 18px 0 0;
 }
 
-.customerServiceText {
+.customerService span {
+  font-weight: bold;
+  font-size: 18px;
+}
+
+/* .customerServiceText {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -142,9 +176,9 @@
   padding: 1rem;
   width: auto;
   margin: 0;
-}
+} */
 
-.menuItems > div h6 {
+/* .menuItems > div h6 {
   font-size: 25px;
   color: rgb(13, 13, 13);
   font-weight: 100;
@@ -164,13 +198,22 @@
   text-align: center;
   color: #141414;
   letter-spacing: 0.3px;
-}
+} */
 .hamburger {
   display: none;
 }
 @media (max-width: 479px) {
   .container {
     height: unset;
+  }
+  .logo {
+    width: 100px;
+    margin: 8px 0 0 0;
+  }
+  .menuWrapper {
+    height: 60px;
+    top: 60px;
+    margin-top: -60px;
   }
   .menuHeader {
     padding: 0.5rem 0;
@@ -192,6 +235,8 @@
     position: relative;
     width: 35px;
     height: 20px;
+    float: right;
+    margin: 19px 0 5px 0;
   }
   .hamburger span:nth-child(1) {
     top: 0;

@@ -4,10 +4,11 @@ import styles from "../../styles/Home.module.css";
 type AccordionProps = {
   title: string;
   detail: string;
+  defaultOpen: boolean;
 };
 
-export const Accordion: React.FC<AccordionProps> = ({ title, detail }) => {
-  const [isOpen, setIsOpen] = useState(false);
+export const Accordion: React.FC<AccordionProps> = ({ title, detail, defaultOpen = false }) => {
+  const [isOpen, setIsOpen] = useState(defaultOpen);
 
   const toggleAccordion = () => {
     setIsOpen(!isOpen);

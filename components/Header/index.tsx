@@ -70,47 +70,47 @@ const Header = () => {
   return (
     <div className={`${styles.container} ${isScrolled && styles.scrolled}`}>
       <div  className={`${isScrolled && styles.hidden} ${styles.announcmentBanner}`}>
-        <h3 className={styles.header}>
-          FREE SHIPPING WHEN YOU BUY 5+ COINS!
-        </h3>
+        <p className={styles.header}>
+          Act Fast! Limited Supply! Will Sell Out!
+        </p>
       </div>
-      <div  id={"MENU_ITEMS"}  className={styles.menuWrapper}>
+      <div  id={"MENU_ITEMS"}  className={styles.menuWrapper} style={{top: isScrolled ? "35px" : ""}}>
         <div className={styles.menuHeader}>
-            <div className={styles.menuLogo}>
-              <Image src={"https://hitsdesignclients.com/Peak-Male-new/images/logo.png"} width={50} height={50} alt={""} style={{height: "auto", width: "150px"}} />
-            </div>
-            <div id={"MENU_ITEMS"} className={styles.menuItems}>
-              <div style={{borderRight: "1px solid gray"}}><a href="#INTRODUCTION"><h6>Overview</h6></a></div>
-              <div style={{borderRight: "1px solid gray"}}><a href="#BENEFITS"><h6>Benefit</h6></a></div>
-              <div style={{borderRight: "1px solid gray"}}><a href="#INGREDIENTS"><h6>Science</h6></a></div>
-              <div style={{borderRight: "1px solid gray"}}><a href="#REVIEWS"><h6>Reviews</h6></a></div>
-              <div><a href=""><h6>FAQ</h6></a></div>
-            </div>
-            <div onClick={() => toggleMenu(!menu)} className={styles.hamburger}>
-              {!menu ?
-              <>
-                <span></span>
-                <span></span>
-                <span></span>
-              </> :
-              <>
-                <span style={{top: "9px",transform: "rotate(135deg)"}}></span>
-                <span style={{top: "9px",transform: "rotate(-135deg)"}}></span>
-              </>}
-            </div>
-            {menu ? <div className={styles.menuList}>
-              <div style={{borderRight: "1px solid gray"}}><a href="#INTRODUCTION" onClick={() => toggleMenu(!menu)}><h6>Overview</h6></a></div>
-              <div style={{borderRight: "1px solid gray"}}><a href="#BENEFITS" onClick={() => toggleMenu(!menu)}><h6>Benefit</h6></a></div>
-              <div style={{borderRight: "1px solid gray"}}><a href="#INGREDIENTS" onClick={() => toggleMenu(!menu)}><h6>Science</h6></a></div>
-              <div style={{borderRight: "1px solid gray"}}><a href="#REVIEWS" onClick={() => toggleMenu(!menu)}><h6>Reviews</h6></a></div>
-            </div> : null}
-            <div className={styles.customerService}>
-              <div><Image src={"https://hitsdesignclients.com/Peak-Male-new/images/phone.png"} alt={""} width={60} height={50}/></div>
-              <div className={styles.customerServiceText}>
-                <h6>Customer Service</h6>
-                <h6>877-462-4459</h6>
-              </div>
-            </div>
+          <img src="https://hitsdesignclients.com/Peak-Male-new/images/logo.png" alt="" className={styles.logo} />
+          {/* <div className={styles.menuLogo}>
+            <Image src={"https://hitsdesignclients.com/Peak-Male-new/images/logo.png"} width={50} height={50} alt={""} style={{height: "auto", width: "150px"}} />
+          </div> */}
+          <p className={styles.customerService}>
+            <img src={"https://hitsdesignclients.com/Peak-Male-new/images/phone.png"} alt="" />
+            <span>Customer Service</span>
+            <br />
+            877-462-4459
+          </p>
+          <ul id={"MENU_ITEMS"} className={styles.menuItems}>
+            <li><a href="#INTRODUCTION">Overview</a></li>
+            <li><a href="#BENEFITS">Benefit</a></li>
+            <li><a href="#INGREDIENTS">Science</a></li>
+            <li><a href="#REVIEWS">Reviews</a></li>
+            <li><a href="">FAQ</a></li>
+          </ul>
+          <div onClick={() => toggleMenu(!menu)} className={styles.hamburger}>
+            {!menu ?
+            <>
+              <span></span>
+              <span></span>
+              <span></span>
+            </> :
+            <>
+              <span style={{top: "9px",transform: "rotate(135deg)"}}></span>
+              <span style={{top: "9px",transform: "rotate(-135deg)"}}></span>
+            </>}
+          </div>
+          {menu ? <div className={styles.menuList}>
+            <div style={{borderRight: "1px solid gray"}}><a href="#INTRODUCTION" onClick={() => toggleMenu(!menu)}><h6>Overview</h6></a></div>
+            <div style={{borderRight: "1px solid gray"}}><a href="#BENEFITS" onClick={() => toggleMenu(!menu)}><h6>Benefit</h6></a></div>
+            <div style={{borderRight: "1px solid gray"}}><a href="#INGREDIENTS" onClick={() => toggleMenu(!menu)}><h6>Science</h6></a></div>
+            <div style={{borderRight: "1px solid gray"}}><a href="#REVIEWS" onClick={() => toggleMenu(!menu)}><h6>Reviews</h6></a></div>
+          </div> : null}
         </div>
       </div>
     </div>
