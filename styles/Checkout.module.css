@@ -602,6 +602,37 @@
     margin-top: 5px;
 }
 
+.securityText {
+    float: left;
+    width: 100%;
+    color: #000;
+    font-size: 12px;
+    line-height: 20px;
+    margin: 15px auto;
+    text-align: left;
+    position: relative;
+    padding-left: 30px;
+}
+.paymentCardsBox {
+    float: left;
+    width: 100%;
+    padding: 13px 15px 10px 15px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-top: 1px solid #d9d9d9;
+}
+.paymybtn {
+    float: left;
+    width: 50%;
+}
+
+.securityText img {
+    position: absolute;
+    left: 0;
+    top: 0;
+}
+
 
 
 

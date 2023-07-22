@@ -1,19 +1,56 @@
+import checkout_styles from "../styles/Checkout.module.css";
 import { useState, useEffect, useContext } from "react";
-import Footer from "../components/Footer";
-import { sendPageViewEvent } from "../components/lib/analytics"; 
 import Router from "next/router";
 import Head from "next/head";
 import { Context } from "@/context/context";
 import styles from "../styles/Home.module.css";
-import checkout_styles from "../styles/Checkout.module.css";
 import { imPoweredRequest } from "@/components/lib/request";
 import { LineItem } from "@stripe/stripe-js";
-// import * as gtag from "../components/lib/analytics"
 import Image from "next/image";
+import CollectJSSection from "@/components/Payments/COollectionJSSection";
+import { formatTime } from "@/components/lib/formatter";
+
+interface FormData {
+  firstName: string;
+  lastName: string;
+  amount: string;
+  isSubmitting: boolean;
+  alertMessage: string;
+  token: string;
+}
+
+const sub_product = {
+  high_risk: false,
+  title: "Hold The Line Club - Free HTL Coin",
+  sku: "VIP-CLUB",
+  price: 997,
+  compare_at_price: 0,
+  handle: "",
+  options1: "",
+  options2: "",
+  options3: "",
+  weight: 1,
+  variant_id: 42555420573868,
+  quantity: 1,
+  product_id: "",
+  is_recurring: true
+}
+
+const description = `Rivigerate your manhood with Peak Male`;
+const ogImgUrl =  "";
+const canonicalUrl = "https://hitsdesignclients.com/Peak-Male-new/images/logo.png";
+const title = "Peak Male | Optimal Human" 
+
 
 const CheckOut = () => {
+  const [countdown, setCountdown] = useState(300);
   const [globalState, setGlobalState] = useContext(Context);
   const [isLoading, setIsLoading] = useState(true);
+  const [differentBilling, setBilling] = useState(true);
+  const [clientOrigin, setClientOrigin] = useState("");
+  const [windowWidth, setWindowWidth] = useState(0);
+
+  // Customer & Product Data
   const [state, setState] = useState({
     line_items: [] as LineItem[],
     customer: {
@@ -23,83 +60,68 @@ const CheckOut = () => {
     },
     external_type: "SHOPIFY",
   });
-  const [clientOrigin, setClientOrigin] = useState("https://hodgetwins.holdtheline.com");
-  const [windowWidth, setWindowWidth] = useState(0);
 
-  const [countdown, setCountdown] = useState(180); // 3 minutes in seconds
+  // CC Form Data
+  const [formData, setFormData] = useState<FormData>({
+    firstName: '',
+    lastName: '',
+    amount: '',
+    isSubmitting: false,
+    alertMessage: '',
+    token: '',
+  });
 
+  // On Load Effect -> Collect.js
   useEffect(() => {
+
+    const CollectJS = window ? (window as any).CollectJS : null;
+    console.log('CollectJS:', CollectJS);
+
+    if (CollectJS) {
+      console.log('CollectJS is available!');
+      CollectJS.configure({
+        variant: 'inline',
+        'theme': 'bootstrap',
+        'buttonText': 'SUBMIT ME!',
+        callback: (token: string) => {
+          console.log(token);
+          finishSubmit(token);
+        },
+        fields: {
+          ccnumber: {
+            placeholder: 'CC Number',
+            selector: '#ccnumber',
+          },
+          ccexp: {
+            placeholder: 'CC Expiration',
+            selector: '#ccexp',
+          },
+          cvv: {
+            placeholder: 'CVV',
+            selector: '#cvv',
+          },
+        },
+      });
+    } else {
+      console.log('CollectJS is not available!');
+    }
+
     const timer = setInterval(() => {
       setCountdown((prevCountdown) => prevCountdown - 1);
     }, 1000);
 
     return () => clearInterval(timer);
+
   }, []);
 
-  const formatTime = (time: number): string => {
-    const minutes = Math.floor(time / 60);
-    const seconds = time % 60;
-
-    const formattedMinutes = String(minutes).padStart(2, "0");
-    const formattedSeconds = String(seconds).padStart(2, "0");
-
-    return `${formattedMinutes}:${formattedSeconds}`;
-  };
-
-  const renderCountdown = () => {
-
-    for (let i = countdown; i > 0; i--) {
-        return (<span key={i} style={{color: "red"}} id={`second-${i}`}>
-          {formatTime(i)}
-        </span>)
-    }
-  };
-
+  // Analytics Use Effect
   useEffect(() => {
     let query = new URLSearchParams(window.location.search);
     setWindowWidth(window? window.innerWidth : 0);
-    sendPageViewEvent("UPSELL"); // send page view event to google analytics
-
-    // extract vars
-    const products: LineItem[] = query.get("line_items") ? JSON.parse(query.get("line_items") ?? "") : [];
-    const email = query.get("email") ? query.get("email") ?? "" : "";
-    const first_name = query.get("first_name") ? query.get("first_name") ?? "": "";
-    const cus_uuid = query.get("cus_uuid") ? query.get("cus_uuid") ?? "" : "";
-    const external_type = query.get("external_type") ? query.get("external_type") ?? "" : "";
-
-    setState({
-      line_items: products,
-      customer: {
-        email: email,
-        first_name: first_name,
-        cus_uuid
-      },
-      external_type: external_type,
-    });
-
-    setGlobalState({
-      ...globalState,
-      external_type: external_type,
-      customer: {
-        email: email,
-        first_name: first_name,
-        cus_uuid
-      },
-      line_items: products,
-      bump: query.get("bump") || false,
-      high_risk: false,
-    });
+    // sendPageViewEvent("UPSELL"); // send page view event to google analytics
   
-    setTimeout(() => {
-      setIsLoading(false);
-    }, 3000);
 
     let price = 0;
-
-    products.length > 0 ? products.forEach(li => {
-      price = price + li.amount
-    }) : [];
-
 
     // push 3rd party analytics
     // gtag.twitterEvent(email, price);
@@ -111,25 +133,38 @@ const CheckOut = () => {
     // });
   }, []);
 
-  const sub_product = {
-    high_risk: false,
-    title: "Hold The Line Club - Free HTL Coin",
-    sku: "VIP-CLUB",
-    price: 997,
-    compare_at_price: 0,
-    handle: "",
-    options1: "",
-    options2: "",
-    options3: "",
-    weight: 1,
-    variant_id: 42555420573868,
-    quantity: 1,
-    product_id: "",
-    is_recurring: true
-  }
+  // When the Collect.js callback is triggered -> POST
+  const finishSubmit = (response: any) => {
+    const { isSubmitting, alertMessage, ...formDataWithoutSubmissionProps } = formData;
+    formDataWithoutSubmissionProps.token = response.token;
+    console.log(formDataWithoutSubmissionProps.token);
+    setFormData({
+      ...formDataWithoutSubmissionProps,
+      isSubmitting: false,
+      alertMessage: 'The form was submitted. Check the console to see the output data.',
+    });
+  };
 
+  // Handle CC Form Submit
+  const handleSubmit = (event: React.FormEvent) => {
+    const CollectJS = window ? (window as any).CollectJS : null;
+    event.preventDefault();
+    setFormData((prevFormData) => ({ ...prevFormData, isSubmitting: true }));
+    CollectJS.startPaymentRequest();
+  };
 
-  const signUpForFreeDecals = async () => {
+  // Render Countdown
+  const renderCountdown = () => {
+
+    for (let i = countdown; i > 0; i--) {
+        return (<span key={i} style={{color: "red"}} id={`second-${i}`}>
+          {formatTime(i)}
+        </span>)
+    }
+  };
+
+  // Fn to Handle POST to imPowered API
+  const handlePurchase = async () => {
     try {
       setIsLoading(true);
       const payload = createPayloadFromOrder();
@@ -162,12 +197,7 @@ const CheckOut = () => {
     }
   };
 
-  const declineFreeDecals = async () => {
-    setIsLoading(true);
-    Router.push(`${clientOrigin}/confirmation`);
-    setIsLoading(false);
-  };
-
+  // Create Payload for imPowered POST
   const createPayloadFromOrder = () => {
     try {
       const {customer} = state;
@@ -183,18 +213,12 @@ const CheckOut = () => {
     }
   };
 
-
-  const description = `Own a piece of American pride with the Hold The Line Coin. Handcrafted from steel, this symbol of patriotism embodies strength, resilience, and the spirit of our great nation. Perfect for gifting and displaying, order your Hold The Line Coin today!!`;
-  const ogImgUrl =  "https://images.clickfunnels.com/05/3daf9073c744e19ac910592c7eab5e/hold-the-line-coins-both_clipped_rev_1-cropped.png";
-  const canonicalUrl = "https://hodgetwins.holdtheline.com/";
-  const t = "Hold The Line - Fight For Freedom Challenge Coin" 
-
   return (
     <div>
       <Head>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-        <title>{t}</title>
+        <title>{title}</title>
         <meta name="description" content={description} />
         <link rel="canonical" href={canonicalUrl} />
 
@@ -206,8 +230,26 @@ const CheckOut = () => {
         <meta property="og:description" content={description} />
         <meta property="og:image" content={ogImgUrl} />
         <meta property="og:url" content={canonicalUrl} />
-        <meta property="og:title" content={t} />
-        
+        <meta property="og:title" content={title} />
+        <script 
+          src="https://secure.safewebservices.com/token/Collect.js"
+          data-tokenization-key="6wJ393-XNxZRT-2MgyE5-9732R4"
+          data-custom-css='{
+            "background-color": "white",
+            "color": "000",
+            "float": "left",
+            "width": "100%",
+            "border": "1px solid #bbb9b7",
+            "outline": "none !important",
+            "height": "50px",
+            "padding": "10px 15px",
+            "border-radius": "5px",
+            "font-weight": "normal",
+            "transition": "all 0.2s ease-out",
+            "box-sizing": "border-box",
+            "font-size": "16px",
+            "margin-bottom": "0.5rem"
+          }'></script>
       </Head>
       <main className={`${styles.row}  ${styles.mobileCol} ${checkout_styles.container}`}>
         <div className={`${styles.col} ${checkout_styles.left}`}>
@@ -279,301 +321,319 @@ const CheckOut = () => {
             </div>
           </>: null}
 
-          <div className={`${checkout_styles.checkoutForm} ${styles.col}`}>
-            <div className={`${checkout_styles.sale} ${styles.row}`}>
-              <div className={`${checkout_styles.viewBoxImg}`}>
-                <Image src="https://hitsdesignclients.com/Peak-Male-new/images/per-path.png" alt="" width={500} height={500} style={{height: "auto", width: "100%"}}/>
-                <span>%</span>
+
+          <form onSubmit={handleSubmit}>
+            <div className={`${checkout_styles.checkoutForm} ${styles.col}`}>
+              <div className={`${checkout_styles.sale} ${styles.row}`}>
+                <div className={`${checkout_styles.viewBoxImg}`}>
+                  <Image src="https://hitsdesignclients.com/Peak-Male-new/images/per-path.png" alt="" width={500} height={500} style={{height: "auto", width: "100%"}}/>
+                  <span>%</span>
+                </div>
+                <div className={`${checkout_styles.viewBoxTxt}`}>
+                  <strong>Sale ends soon!</strong> Your cart is reserved for: &nbsp;  
+                  {/* <span id="stopwatch2">00:00</span> */}
+                  {renderCountdown()}
+                </div>
               </div>
-              <div className={`${checkout_styles.viewBoxTxt}`}>
-                <strong>Sale ends soon!</strong> Your cart is reserved for: &nbsp;  
-                {/* <span id="stopwatch2">00:00</span> */}
-                {renderCountdown()}
+
+              <ul className={checkout_styles.brdcrm}>
+                <li><span>Checkout</span></li>
+                <li><svg width="10" focusable="false" aria-hidden="true" className="icon-svg icon-svg--color-accent icon-svg--size-10 previous-link__icon" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 10 10"><path d="M2 1l1-1 4 4 1 1-1 1-4 4-1-1 4-4"></path></svg></li>
+                <li>Special Offers</li>
+                <li><svg width="10" focusable="false" aria-hidden="true" className="icon-svg icon-svg--color-accent icon-svg--size-10 previous-link__icon" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 10 10"><path d="M2 1l1-1 4 4 1 1-1 1-4 4-1-1 4-4"></path></svg></li>
+                <li>Order Receipt</li>
+              </ul>
+
+              <div className={checkout_styles.cpContact}>
+                  <div className={checkout_styles.headingBox}>
+                      <p className={checkout_styles.chkHead}>Contact information</p>
+                  </div>
+                  <div className={`${checkout_styles.frmFlds}`}>
+                    <div className={``}>
+                      <label htmlFor="email" className="fl-label">Email</label>
+                      <input type="email" className={`${checkout_styles.inputFlds}`} placeholder="Email" id="email" data-placeholder="Email" />
+                    </div>
+                  </div>
               </div>
-            </div>
 
-            <ul className={checkout_styles.brdcrm}>
-              <li><span>Checkout</span></li>
-              <li><svg width="10" focusable="false" aria-hidden="true" className="icon-svg icon-svg--color-accent icon-svg--size-10 previous-link__icon" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 10 10"><path d="M2 1l1-1 4 4 1 1-1 1-4 4-1-1 4-4"></path></svg></li>
-              <li>Special Offers</li>
-              <li><svg width="10" focusable="false" aria-hidden="true" className="icon-svg icon-svg--color-accent icon-svg--size-10 previous-link__icon" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 10 10"><path d="M2 1l1-1 4 4 1 1-1 1-4 4-1-1 4-4"></path></svg></li>
-              <li>Order Receipt</li>
-            </ul>
-
-            <div className={checkout_styles.cpContact}>
-                <div className={checkout_styles.headingBox}>
-                    <p className={checkout_styles.chkHead}>Contact information</p>
-                </div>
-                <div className={`${checkout_styles.frmFlds}`}>
-                  <div className={``}>
-                    <label htmlFor="email" className="fl-label">Email</label>
-                    <input type="email" className={`${checkout_styles.inputFlds}`} placeholder="Email" id="email" data-placeholder="Email" />
+              <div className={checkout_styles.cpContact}>
+                  <div className={checkout_styles.headingBox}>
+                      <p className={checkout_styles.chkHead}>Shipping Address</p>
                   </div>
-                </div>
-            </div>
 
-            <div className={checkout_styles.cpContact}>
-                <div className={checkout_styles.headingBox}>
-                    <p className={checkout_styles.chkHead}>Shipping Address</p>
-                </div>
-
-                <div className={`${styles.row}`} style={{width: "100%", justifyContent: "space-between"}}>
-                  <div className={`${checkout_styles.frmFlds} ${checkout_styles.fl}`}>
-                    <div className={``}>
-                      <label htmlFor="first_name" className="fl-label">First Name</label>
-                      <input type="first_name" className={`${checkout_styles.inputFlds}`} placeholder="First Name" id="first_name" data-placeholder="First Name" />
-                    </div>
-                  </div>
-                  <div className={`${checkout_styles.frmFlds} ${checkout_styles.fl}`}>
-                    <div className={``}>
-                      <label htmlFor="last_name" className="fl-label">Last Name</label>
-                      <input type="last_name" className={`${checkout_styles.inputFlds}`} placeholder="Last Name" id="last_name" data-placeholder="Last Name" />
-                    </div>
-                  </div>
-                </div>
-
-                <div className={`${checkout_styles.frmFlds}`}>
-                  <div className={``}>
-                    <label htmlFor="line1" className="fl-label">Street Address</label>
-                    <input type="line1" className={`${checkout_styles.inputFlds}`} placeholder="Street Address" id="line1" data-placeholder="Street Address" />
-                  </div>
-                </div>
-
-                <div className={`${styles.row}`} style={{width: "100%", justifyContent: "space-between"}}>
-                  <div className={`${checkout_styles.frmFlds} ${checkout_styles.fl}`}>
-                    <div className={``}>
-                      <label htmlFor="city" className="fl-label">City</label>
-                      <input type="city" className={`${checkout_styles.inputFlds}`} placeholder="City" id="city" data-placeholder="City" />
-                    </div>
-                  </div>
-                  <div className={`${checkout_styles.frmFlds} ${checkout_styles.fl}`}>
-                    <div className={``}>
-                      <select name="state" className={checkout_styles.selcetFld} id="state">
-                        <option value="1" selected>- Select State -</option>
-                        <option value="AL">Alabama</option>
-                        <option value="AK">Alaska</option>
-                        <option value="AZ">Arizona</option>
-                        <option value="AR">Arkansas</option>
-                        <option value="CA">California</option>
-                        <option value="CO">Colorado</option>
-                        <option value="CT">Connecticut</option>
-                        <option value="DE">Delaware</option>
-                        <option value="FL">Florida</option>
-                        <option value="GA">Georgia</option>
-                        <option value="HI">Hawaii</option>
-                        <option value="ID">Idaho</option>
-                        <option value="IL">Illinois</option>
-                        <option value="IN">Indiana</option>
-                        <option value="IA">Iowa</option>
-                        <option value="KS">Kansas</option>
-                        <option value="KY">Kentucky</option>
-                        <option value="LA">Louisiana</option>
-                        <option value="ME">Maine</option>
-                        <option value="MD">Maryland</option>
-                        <option value="MA">Massachusetts</option>
-                        <option value="MI">Michigan</option>
-                        <option value="MN">Minnesota</option>
-                        <option value="MS">Mississippi</option>
-                        <option value="MO">Missouri</option>
-                        <option value="MT">Montana</option>
-                        <option value="NE">Nebraska</option>
-                        <option value="NV">Nevada</option>
-                        <option value="NH">New Hampshire</option>
-                        <option value="NJ">New Jersey</option>
-                        <option value="NM">New Mexico</option>
-                        <option value="NY">New York</option>
-                        <option value="NC">North Carolina</option>
-                        <option value="ND">North Dakota</option>
-                        <option value="OH">Ohio</option>
-                        <option value="OK">Oklahoma</option>
-                        <option value="OR">Oregon</option>
-                        <option value="PA">Pennsylvania</option>
-                        <option value="RI">Rhode Island</option>
-                        <option value="SC">South Carolina</option>
-                        <option value="SD">South Dakota</option>
-                        <option value="TN">Tennessee</option>
-                        <option value="TX">Texas</option>
-                        <option value="UT">Utah</option>
-                        <option value="VT">Vermont</option>
-                        <option value="VA">Virginia</option>
-                        <option value="WA">Washington</option>
-                        <option value="WV">West Virginia</option>
-                        <option value="WI">Wisconsin</option>
-                        <option value="WY">Wyoming</option>
-                      </select>
-                    </div>
-                  </div>
-                </div>
-
-
-                <div className={`${styles.row}`} style={{width: "100%", justifyContent: "space-between"}}>
-                  <div className={`${checkout_styles.frmFlds} ${checkout_styles.fl}`}>
-                    <div className={``}>
-                      <label htmlFor="zip" className="fl-label">Zip Code</label>
-                      <input type="zip" className={`${checkout_styles.inputFlds}`} placeholder="Zip Code" id="zip" data-placeholder="Zip Code" />
-                    </div>
-                  </div>
-                  <div className={`${checkout_styles.frmFlds} ${checkout_styles.fl}`}>
-                    <div className={``}>
-                      <label htmlFor="country" className="fl-label">Country</label>
-                      <input type="country" className={`${checkout_styles.inputFlds}`} placeholder="US" id="country" data-placeholder="US" disabled />
-                    </div>
-                  </div>
-                </div>
-
-            </div>
-
-            <div className={checkout_styles.cpContact}>
-                <div className={checkout_styles.headingBox}>
-                    <p className={checkout_styles.chkHead}>Billing Address</p>
-                    <p className={checkout_styles.chkSubheading}>Select the address that matches your card or payment method.</p>
-                </div>
-            </div>
-
-            <div className={checkout_styles.payoptbox}>
-              <div className={checkout_styles.paymentCardsBox}>
-                <label className={checkout_styles.billingtogglbtn}>
-                  <input type="radio" name="address" checked/>Same as shipping address
-                </label>
-              </div>
-              <div className={checkout_styles.paymentCardsBox}>
-                <label className={checkout_styles.billingtogglbtn}>
-                  <input type="radio" name="address" />Use a different billing address
-                </label>
-              </div>
-              <div className={checkout_styles.paymentFldsBox}>
-                <div className={checkout_styles.cpContact} style={{marginTop: "0"}}>
-
-                    <div className={`${styles.row}`} style={{width: "100%", justifyContent: "space-between"}}>
-                      <div className={`${checkout_styles.frmFlds} ${checkout_styles.fl}`}>
-                        <div className={``}>
-                          <label htmlFor="first_name" className="fl-label">First Name</label>
-                          <input type="first_name" className={`${checkout_styles.inputFlds}`} placeholder="First Name" id="first_name" data-placeholder="First Name" />
-                        </div>
-                      </div>
-                      <div className={`${checkout_styles.frmFlds} ${checkout_styles.fl}`}>
-                        <div className={``}>
-                          <label htmlFor="last_name" className="fl-label">Last Name</label>
-                          <input type="last_name" className={`${checkout_styles.inputFlds}`} placeholder="Last Name" id="last_name" data-placeholder="Last Name" />
-                        </div>
-                      </div>
-                    </div>
-
-                    <div className={`${checkout_styles.frmFlds}`}>
+                  <div className={`${styles.row}`} style={{width: "100%", justifyContent: "space-between"}}>
+                    <div className={`${checkout_styles.frmFlds} ${checkout_styles.fl}`}>
                       <div className={``}>
-                        <label htmlFor="line1" className="fl-label">Street Address</label>
-                        <input type="line1" className={`${checkout_styles.inputFlds}`} placeholder="Street Address" id="line1" data-placeholder="Street Address" />
+                        <label htmlFor="first_name" className="fl-label">First Name</label>
+                        <input type="first_name" className={`${checkout_styles.inputFlds}`} placeholder="First Name" id="first_name" data-placeholder="First Name" />
                       </div>
                     </div>
-
-                    <div className={`${styles.row}`} style={{width: "100%", justifyContent: "space-between"}}>
-                      <div className={`${checkout_styles.frmFlds} ${checkout_styles.fl}`}>
-                        <div className={``}>
-                          <label htmlFor="city" className="fl-label">City</label>
-                          <input type="city" className={`${checkout_styles.inputFlds}`} placeholder="City" id="city" data-placeholder="City" />
-                        </div>
-                      </div>
-                      <div className={`${checkout_styles.frmFlds} ${checkout_styles.fl}`}>
-                        <div className={``}>
-                          <select name="state" className={checkout_styles.selcetFld} id="state">
-                            <option value="1" selected>- Select State -</option>
-                            <option value="AL">Alabama</option>
-                            <option value="AK">Alaska</option>
-                            <option value="AZ">Arizona</option>
-                            <option value="AR">Arkansas</option>
-                            <option value="CA">California</option>
-                            <option value="CO">Colorado</option>
-                            <option value="CT">Connecticut</option>
-                            <option value="DE">Delaware</option>
-                            <option value="FL">Florida</option>
-                            <option value="GA">Georgia</option>
-                            <option value="HI">Hawaii</option>
-                            <option value="ID">Idaho</option>
-                            <option value="IL">Illinois</option>
-                            <option value="IN">Indiana</option>
-                            <option value="IA">Iowa</option>
-                            <option value="KS">Kansas</option>
-                            <option value="KY">Kentucky</option>
-                            <option value="LA">Louisiana</option>
-                            <option value="ME">Maine</option>
-                            <option value="MD">Maryland</option>
-                            <option value="MA">Massachusetts</option>
-                            <option value="MI">Michigan</option>
-                            <option value="MN">Minnesota</option>
-                            <option value="MS">Mississippi</option>
-                            <option value="MO">Missouri</option>
-                            <option value="MT">Montana</option>
-                            <option value="NE">Nebraska</option>
-                            <option value="NV">Nevada</option>
-                            <option value="NH">New Hampshire</option>
-                            <option value="NJ">New Jersey</option>
-                            <option value="NM">New Mexico</option>
-                            <option value="NY">New York</option>
-                            <option value="NC">North Carolina</option>
-                            <option value="ND">North Dakota</option>
-                            <option value="OH">Ohio</option>
-                            <option value="OK">Oklahoma</option>
-                            <option value="OR">Oregon</option>
-                            <option value="PA">Pennsylvania</option>
-                            <option value="RI">Rhode Island</option>
-                            <option value="SC">South Carolina</option>
-                            <option value="SD">South Dakota</option>
-                            <option value="TN">Tennessee</option>
-                            <option value="TX">Texas</option>
-                            <option value="UT">Utah</option>
-                            <option value="VT">Vermont</option>
-                            <option value="VA">Virginia</option>
-                            <option value="WA">Washington</option>
-                            <option value="WV">West Virginia</option>
-                            <option value="WI">Wisconsin</option>
-                            <option value="WY">Wyoming</option>
-                          </select>
-                        </div>
+                    <div className={`${checkout_styles.frmFlds} ${checkout_styles.fl}`}>
+                      <div className={``}>
+                        <label htmlFor="last_name" className="fl-label">Last Name</label>
+                        <input type="last_name" className={`${checkout_styles.inputFlds}`} placeholder="Last Name" id="last_name" data-placeholder="Last Name" />
                       </div>
                     </div>
+                  </div>
 
+                  <div className={`${checkout_styles.frmFlds}`}>
+                    <div className={``}>
+                      <label htmlFor="line1" className="fl-label">Street Address</label>
+                      <input type="line1" className={`${checkout_styles.inputFlds}`} placeholder="Street Address" id="line1" data-placeholder="Street Address" />
+                    </div>
+                  </div>
 
-                    <div className={`${styles.row}`} style={{width: "100%", justifyContent: "space-between"}}>
-                      <div className={`${checkout_styles.frmFlds} ${checkout_styles.fl}`}>
-                        <div className={``}>
-                          <label htmlFor="zip" className="fl-label">Zip Code</label>
-                          <input type="zip" className={`${checkout_styles.inputFlds}`} placeholder="Zip Code" id="zip" data-placeholder="Zip Code" />
-                        </div>
-                      </div>
-                      <div className={`${checkout_styles.frmFlds} ${checkout_styles.fl}`}>
-                        <div className={``}>
-                          <label htmlFor="country" className="fl-label">Country</label>
-                          <input type="country" className={`${checkout_styles.inputFlds}`} placeholder="US" id="country" data-placeholder="US" disabled />
-                        </div>
+                  <div className={`${styles.row}`} style={{width: "100%", justifyContent: "space-between"}}>
+                    <div className={`${checkout_styles.frmFlds} ${checkout_styles.fl}`}>
+                      <div className={``}>
+                        <label htmlFor="city" className="fl-label">City</label>
+                        <input type="city" className={`${checkout_styles.inputFlds}`} placeholder="City" id="city" data-placeholder="City" />
                       </div>
                     </div>
+                    <div className={`${checkout_styles.frmFlds} ${checkout_styles.fl}`}>
+                      <div className={``}>
+                        <select name="state" className={checkout_styles.selcetFld} id="state">
+                          <option value="1" selected>- Select State -</option>
+                          <option value="AL">Alabama</option>
+                          <option value="AK">Alaska</option>
+                          <option value="AZ">Arizona</option>
+                          <option value="AR">Arkansas</option>
+                          <option value="CA">California</option>
+                          <option value="CO">Colorado</option>
+                          <option value="CT">Connecticut</option>
+                          <option value="DE">Delaware</option>
+                          <option value="FL">Florida</option>
+                          <option value="GA">Georgia</option>
+                          <option value="HI">Hawaii</option>
+                          <option value="ID">Idaho</option>
+                          <option value="IL">Illinois</option>
+                          <option value="IN">Indiana</option>
+                          <option value="IA">Iowa</option>
+                          <option value="KS">Kansas</option>
+                          <option value="KY">Kentucky</option>
+                          <option value="LA">Louisiana</option>
+                          <option value="ME">Maine</option>
+                          <option value="MD">Maryland</option>
+                          <option value="MA">Massachusetts</option>
+                          <option value="MI">Michigan</option>
+                          <option value="MN">Minnesota</option>
+                          <option value="MS">Mississippi</option>
+                          <option value="MO">Missouri</option>
+                          <option value="MT">Montana</option>
+                          <option value="NE">Nebraska</option>
+                          <option value="NV">Nevada</option>
+                          <option value="NH">New Hampshire</option>
+                          <option value="NJ">New Jersey</option>
+                          <option value="NM">New Mexico</option>
+                          <option value="NY">New York</option>
+                          <option value="NC">North Carolina</option>
+                          <option value="ND">North Dakota</option>
+                          <option value="OH">Ohio</option>
+                          <option value="OK">Oklahoma</option>
+                          <option value="OR">Oregon</option>
+                          <option value="PA">Pennsylvania</option>
+                          <option value="RI">Rhode Island</option>
+                          <option value="SC">South Carolina</option>
+                          <option value="SD">South Dakota</option>
+                          <option value="TN">Tennessee</option>
+                          <option value="TX">Texas</option>
+                          <option value="UT">Utah</option>
+                          <option value="VT">Vermont</option>
+                          <option value="VA">Virginia</option>
+                          <option value="WA">Washington</option>
+                          <option value="WV">West Virginia</option>
+                          <option value="WI">Wisconsin</option>
+                          <option value="WY">Wyoming</option>
+                        </select>
+                      </div>
+                    </div>
+                  </div>
 
+
+                  <div className={`${styles.row}`} style={{width: "100%", justifyContent: "space-between"}}>
+                    <div className={`${checkout_styles.frmFlds} ${checkout_styles.fl}`}>
+                      <div className={``}>
+                        <label htmlFor="zip" className="fl-label">Zip Code</label>
+                        <input type="zip" className={`${checkout_styles.inputFlds}`} placeholder="Zip Code" id="zip" data-placeholder="Zip Code" />
+                      </div>
+                    </div>
+                    <div className={`${checkout_styles.frmFlds} ${checkout_styles.fl}`}>
+                      <div className={``}>
+                        <label htmlFor="country" className="fl-label">Country</label>
+                        <input type="country" className={`${checkout_styles.inputFlds}`} placeholder="US" id="country" data-placeholder="US" disabled />
+                      </div>
+                    </div>
+                  </div>
+
+              </div>
+
+              <div className={checkout_styles.cpContact}>
+                  <div className={checkout_styles.headingBox}>
+                      <p className={checkout_styles.chkHead}>Billing Address</p>
+                      <p className={checkout_styles.chkSubheading}>Select the address that matches your card or payment method.</p>
+                  </div>
+              </div>
+
+              <div className={checkout_styles.payoptbox}>
+                <div className={checkout_styles.paymentCardsBox}>
+                  <label className={checkout_styles.billingtogglbtn}>
+                    <input onClick={() => setBilling(false)} type="radio" name="address" checked={!differentBilling}/>Same as shipping address
+                  </label>
                 </div>
+                <div className={checkout_styles.paymentCardsBox}>
+                  <label className={checkout_styles.billingtogglbtn}>
+                    <input onClick={() => setBilling(true)}  type="radio" name="address" checked={differentBilling} />Use a different billing address
+                  </label>
+                </div>
+              {differentBilling ? <div className={checkout_styles.paymentFldsBox}>
+                  <div className={checkout_styles.cpContact} style={{marginTop: "0"}}>
+
+                      <div className={`${styles.row}`} style={{width: "100%", justifyContent: "space-between"}}>
+                        <div className={`${checkout_styles.frmFlds} ${checkout_styles.fl}`}>
+                          <div className={``}>
+                            <label htmlFor="first_name" className="fl-label">First Name</label>
+                            <input type="first_name" className={`${checkout_styles.inputFlds}`} placeholder="First Name" id="first_name" data-placeholder="First Name" />
+                          </div>
+                        </div>
+                        <div className={`${checkout_styles.frmFlds} ${checkout_styles.fl}`}>
+                          <div className={``}>
+                            <label htmlFor="last_name" className="fl-label">Last Name</label>
+                            <input type="last_name" className={`${checkout_styles.inputFlds}`} placeholder="Last Name" id="last_name" data-placeholder="Last Name" />
+                          </div>
+                        </div>
+                      </div>
+
+                      <div className={`${checkout_styles.frmFlds}`}>
+                        <div className={``}>
+                          <label htmlFor="line1" className="fl-label">Street Address</label>
+                          <input type="line1" className={`${checkout_styles.inputFlds}`} placeholder="Street Address" id="line1" data-placeholder="Street Address" />
+                        </div>
+                      </div>
+
+                      <div className={`${styles.row}`} style={{width: "100%", justifyContent: "space-between"}}>
+                        <div className={`${checkout_styles.frmFlds} ${checkout_styles.fl}`}>
+                          <div className={``}>
+                            <label htmlFor="city" className="fl-label">City</label>
+                            <input type="city" className={`${checkout_styles.inputFlds}`} placeholder="City" id="city" data-placeholder="City" />
+                          </div>
+                        </div>
+                        <div className={`${checkout_styles.frmFlds} ${checkout_styles.fl}`}>
+                          <div className={``}>
+                            <select name="state" className={checkout_styles.selcetFld} id="state">
+                              <option value="1" selected>- Select State -</option>
+                              <option value="AL">Alabama</option>
+                              <option value="AK">Alaska</option>
+                              <option value="AZ">Arizona</option>
+                              <option value="AR">Arkansas</option>
+                              <option value="CA">California</option>
+                              <option value="CO">Colorado</option>
+                              <option value="CT">Connecticut</option>
+                              <option value="DE">Delaware</option>
+                              <option value="FL">Florida</option>
+                              <option value="GA">Georgia</option>
+                              <option value="HI">Hawaii</option>
+                              <option value="ID">Idaho</option>
+                              <option value="IL">Illinois</option>
+                              <option value="IN">Indiana</option>
+                              <option value="IA">Iowa</option>
+                              <option value="KS">Kansas</option>
+                              <option value="KY">Kentucky</option>
+                              <option value="LA">Louisiana</option>
+                              <option value="ME">Maine</option>
+                              <option value="MD">Maryland</option>
+                              <option value="MA">Massachusetts</option>
+                              <option value="MI">Michigan</option>
+                              <option value="MN">Minnesota</option>
+                              <option value="MS">Mississippi</option>
+                              <option value="MO">Missouri</option>
+                              <option value="MT">Montana</option>
+                              <option value="NE">Nebraska</option>
+                              <option value="NV">Nevada</option>
+                              <option value="NH">New Hampshire</option>
+                              <option value="NJ">New Jersey</option>
+                              <option value="NM">New Mexico</option>
+                              <option value="NY">New York</option>
+                              <option value="NC">North Carolina</option>
+                              <option value="ND">North Dakota</option>
+                              <option value="OH">Ohio</option>
+                              <option value="OK">Oklahoma</option>
+                              <option value="OR">Oregon</option>
+                              <option value="PA">Pennsylvania</option>
+                              <option value="RI">Rhode Island</option>
+                              <option value="SC">South Carolina</option>
+                              <option value="SD">South Dakota</option>
+                              <option value="TN">Tennessee</option>
+                              <option value="TX">Texas</option>
+                              <option value="UT">Utah</option>
+                              <option value="VT">Vermont</option>
+                              <option value="VA">Virginia</option>
+                              <option value="WA">Washington</option>
+                              <option value="WV">West Virginia</option>
+                              <option value="WI">Wisconsin</option>
+                              <option value="WY">Wyoming</option>
+                            </select>
+                          </div>
+                        </div>
+                      </div>
+
+
+                      <div className={`${styles.row}`} style={{width: "100%", justifyContent: "space-between"}}>
+                        <div className={`${checkout_styles.frmFlds} ${checkout_styles.fl}`}>
+                          <div className={``}>
+                            <label htmlFor="zip" className="fl-label">Zip Code</label>
+                            <input type="zip" className={`${checkout_styles.inputFlds}`} placeholder="Zip Code" id="zip" data-placeholder="Zip Code" />
+                          </div>
+                        </div>
+                        <div className={`${checkout_styles.frmFlds} ${checkout_styles.fl}`}>
+                          <div className={``}>
+                            <label htmlFor="country" className="fl-label">Country</label>
+                            <input type="country" className={`${checkout_styles.inputFlds}`} placeholder="US" id="country" data-placeholder="US" disabled />
+                          </div>
+                        </div>
+                      </div>
+
+                  </div>
+                </div> : null}
               </div>
             </div>
-          </div>
 
-          <div className={checkout_styles.cpContact}>
-            <div className={checkout_styles.headingBox}>
-                <p className={checkout_styles.chkHead}>Payment Method</p>
-                <p className={checkout_styles.chkSubheading}>
-                  <Image src="https://hitsdesignclients.com/Peak-Male-new/images/lock-icn.png" alt="" width={500} height={500} style={{height: "auto", width: "10px"}}/>
-                  All transactions are secure and encrypted..
-                </p>
+            <div className={checkout_styles.cpContact}>
+              <div className={checkout_styles.headingBox}>
+                  <p className={checkout_styles.chkHead}>Payment Method</p>
+                  <p className={checkout_styles.chkSubheading}>
+                    <Image src="https://hitsdesignclients.com/Peak-Male-new/images/lock-icn.png" alt="" width={500} height={500} style={{height: "auto", width: "10px"}}/>
+                    All transactions are secure and encrypted..
+                  </p>
+              </div>
+
+              {formData.alertMessage && <div className="alert">{formData.alertMessage}</div>}
+              <div className={checkout_styles.payoptbox}>
+                <div className={checkout_styles.paymentCardsBox}>
+                  <label className={checkout_styles.paymybtn}>
+                    <input type="radio" name="paymenttoggle" checked />Credit card
+                  </label>
+                  <img src="https://hitsdesignclients.com/Peak-Male-new/images/payment-cards.png" alt=""/> 
+                </div>
+                <div style={{padding: "1rem"}}>
+                  <CollectJSSection />
+                  <p className={checkout_styles.securityText}>
+                    <img src="https://hitsdesignclients.com/Peak-Male-new/images/lock.png" alt="" />
+                    <span>We protect your payment information using encryption to provide bank-level security.</span>
+                  </p>
+                </div>
+                
+              </div>
             </div>
-            <div className={checkout_styles.payoptbox}>
 
+            <div className={checkout_styles.allSubmit}>
+              <button className={checkout_styles.frmSubmit} id='payButton' type="submit" disabled={formData.isSubmitting}>
+                <span>
+                  <Image src="https://hitsdesignclients.com/Peak-Male-new/images/lock2.png" alt="" width={500} height={500} style={{height: "auto", width: "18px"}}/>complete purchase
+                </span>
+                <p>Try it risk free! - 30-day money back Guarantee</p>
+              </button>
             </div>
-          </div>
-
-          <div className={checkout_styles.allSubmit}>
-            <button type="submit" className={checkout_styles.frmSubmit}>
-              <span>
-                <Image src="https://hitsdesignclients.com/Peak-Male-new/images/lock2.png" alt="" width={500} height={500} style={{height: "auto", width: "18px"}}/>complete purchase
-              </span>
-              <p>Try it risk free! - 30-day money back Guarantee</p>
-            </button>
-          </div>
+          </form>
 
           <div className={checkout_styles.guarantyRow}>
             <Image src="https://hitsdesignclients.com/Peak-Male-new/images/30mbg.png" alt="" width={500} height={500} style={{height: "auto", width: "50px"}}/>
@@ -728,6 +788,6 @@ const CheckOut = () => {
 export default CheckOut;
 
 export async function getServerSideProps({  }) {
-  sendPageViewEvent("CHECKOUT");
+  // sendPageViewEvent("CHECKOUT");
   return { props: {} };
 }

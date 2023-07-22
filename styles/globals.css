@@ -85,6 +85,9 @@ body {
   overflow-x: hidden;
   background-color: white;
 }
+iframe {
+  border: none;
+}
 
 h1,
 h2,

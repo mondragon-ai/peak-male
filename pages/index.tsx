@@ -3,13 +3,7 @@ import styles from "../styles/Home.module.css";
 import Header from "@/components/Header";
 import { useContext, useEffect, useRef, useState } from "react";
 import Footer from "@/components/Footer";
-// import Testimonials from "@/components/Testimonials";
 import OrderFormContainer, { InitialValuesType }  from "@/components/Form/FormSection";
-import { Context } from "../context/context";
-import { Elements } from "@stripe/react-stripe-js";
-import { loadStripe } from "@stripe/stripe-js";
-import Brand from "@/components/Brand";
-import CustomImage from "@/components/global/Image";
 import Accordion from "@/components/global/Accordian";
 import { sendPageViewEvent } from "@/components/lib/analytics";
 import { saveItem } from "@/context/storage";
@@ -17,16 +11,42 @@ import { imPoweredRequest } from "@/components/lib/request";
 import { LineItem } from "@/components/Form/OrderForm";
 import Head from "next/head";
 import StaticButton from "@/components/Button/StaticBtn";
-import MarqueeText from "@/components/Marquee/Marquee";
 import Marquee from "react-fast-marquee";
-
-const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY ?? "");
 
 declare namespace JSX {
   interface IntrinsicElements {
     marquee: React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement>;
   }
 }
+
+
+// Initial Product Selected
+const product: any = {
+  title: "20 Hold The Line Coins (SAVE 30%)",
+  price: 14000,
+  piece: "$6.97/coin",
+  options1: "",
+  options2: "",
+  options3: "",
+  product_id: 7623778205868,
+  high_risk: false,
+  sku: "",
+  compare_at_price: 0,
+  handle: "",
+  weight: 0,
+  variant_id: 42555420704940,
+  quantity: 1,
+  status: false,
+  id: "456",
+  url: "",
+  tags: [],
+} as LineItem;
+
+const description = `Rivigerate your manhood with Peak Male`;
+const ogImgUrl =  "";
+const canonicalUrl = "https://hitsdesignclients.com/Peak-Male-new/images/logo.png";
+const title = "Peak Male | Optimal Human" 
+
 export default function Home() {
   const [mainImage, setImage] = useState("");
   const [testimonial, setTestimonial] = useState(1);
@@ -37,34 +57,38 @@ export default function Home() {
   const [windowWidth, setWindowWidth] = useState(0);
   const targetRef = useRef<HTMLDivElement>(null);
 
+  const initialValues = {
+    line_items: [product],
+    shipping: {
+        line1: "",
+        state: "",
+        city: "",
+        zip: "",
+        type: "",
+        country: "",
+        name: "",
+        title: ""
+    },
+    bump: true,
+    external_type: "",
+    customer: {
+        email: "",
+        first_name: ""
+    },
+    stripe_uuid: "",
+    fun_uuid: process.env.NEXT_PUBLIC_IMPOWERED_FUNNEL ?? "",
+    high_risk: false,
+  } as InitialValuesType;
+
+  const [state, setState] = useState(initialValues);
+
+  // Scroll to Top Effect
   const scrollToElement = () => {
     if (targetRef.current) {
       targetRef.current.scrollIntoView({
         behavior: 'smooth',
       });
     }
-  };
-
-  const options = {
-    clientSecret,
-    appearance: { theme: "stripe" },
-    style: {
-      base: {
-        color: "#32325d",
-        fontSmoothing: "antialiased",
-        fontSize: windowWidth > 720 ? "35px" : "18px",
-        lineHeight: windowWidth > 720 ? "85px" : "25px",
-        fontFamily: 'Roboto, Open Sans, Segoe UI, sans-serif',
-        "::placeholder": {
-          color: "#ff5858",
-        },
-      },
-      invalid: {
-        color: "#fa755a",
-        iconColor: "#fa755a",
-      },
-    },
-    hidePostalCode: true
   };
 
   // fetch product data and cache it
@@ -86,52 +110,8 @@ export default function Home() {
       console.error(error);
     };
   };
-  const product: any = {
-      title: "20 Hold The Line Coins (SAVE 30%)",
-      price: 14000,
-      piece: "$6.97/coin",
-      options1: "",
-      options2: "",
-      options3: "",
-      product_id: 7623778205868,
-      high_risk: false,
-      sku: "",
-      compare_at_price: 0,
-      handle: "",
-      weight: 0,
-      variant_id: 42555420704940,
-      quantity: 1,
-      status: false,
-      id: "456",
-      url: "",
-      tags: [],
-  } as LineItem;
 
-  const initialValues = {
-      line_items: [product],
-      shipping: {
-          line1: "",
-          state: "",
-          city: "",
-          zip: "",
-          type: "",
-          country: "",
-          name: "",
-          title: ""
-      },
-      bump: true,
-      external_type: "",
-      customer: {
-          email: "",
-          first_name: ""
-      },
-      stripe_uuid: "",
-      fun_uuid: process.env.NEXT_PUBLIC_IMPOWERED_FUNNEL ?? "",
-      high_risk: false,
-  } as InitialValuesType;
-
-  const [state, setState] = useState(initialValues);
-  // Page Effect
+  // Page Effect -> Analytics
   useEffect(() => {
     if (!window) {};
     setWindowWidth(window.innerWidth);
@@ -141,15 +121,12 @@ export default function Home() {
   }, []);
 
 
-  const description = `Own a piece of American pride with the Hold The Line Coin. Handcrafted from steel, this symbol of patriotism embodies strength, resilience, and the spirit of our great nation. Perfect for gifting and displaying, order your Hold The Line Coin today!!`;
-  const ogImgUrl =  "https://images.clickfunnels.com/05/3daf9073c744e19ac910592c7eab5e/hold-the-line-coins-both_clipped_rev_1-cropped.png";
-  const canonicalUrl = "https://hodgetwins.holdtheline.com/";
-  const t = "Hold The Line - Fight For Freedom Challenge Coin" 
-
+  // Select Main Image
   const selectImage = (img: string) => {
     setImage(img);
   };
 
+  // Slide Between Testimonials
   const changeTestimonial = (num: number) => {
     console.log(testimonial)
     if ((testimonial + num) > 3) {
@@ -161,6 +138,7 @@ export default function Home() {
     }
   };
 
+  // Slide Between Issues
   const changeIssue = (num: number) => {
     console.log(issueNum)
     if ((issueNum + num) > 4) {
@@ -177,7 +155,7 @@ export default function Home() {
       <Head>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-        <title>{t}</title>
+        <title>{title}</title>
         <meta name="description" content={description} />
         <link rel="canonical" href={canonicalUrl} />
 
@@ -189,7 +167,7 @@ export default function Home() {
         <meta property="og:description" content={description} />
         <meta property="og:image" content={ogImgUrl} />
         <meta property="og:url" content={canonicalUrl} />
-        <meta property="og:title" content={t} />
+        <meta property="og:title" content={title} />
         
       </Head>
 
@@ -652,13 +630,7 @@ export default function Home() {
           </div>
 
           <div className={`${styles.col} ${styles.mobileFull}`} style={{width:  windowWidth < 720 ? "100%" : "55%", flexWrap: "wrap", alignContent: "flex-start"}}> 
-            {clientSecret == "" ? (
-              <Elements stripe={stripePromise}>
-                {windowWidth > 720 ? <OrderFormContainer state={state} setState={setState} isSubbed={isSubbed} setSub={setSub} setProduct={setProduct} productSelected={productSelected} /> : null}
-              </Elements>
-            ) : (
-              null
-            )}
+            {windowWidth > 720 ? <OrderFormContainer state={state} setState={setState} isSubbed={isSubbed} setSub={setSub} setProduct={setProduct} productSelected={productSelected} /> : null}
           </div>
 
         </div>

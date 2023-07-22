@@ -31,6 +31,12 @@ export default function App({ Component, pageProps }: AppProps) {
         strategy="afterInteractive"
         src="https://www.googletagmanager.com/gtag/js?id=AW-10793712364"
       />
+      {/* <Script 
+        id="NMI"
+        strategy="afterInteractive"
+        src="https://secure.safewebservices.com/token/Collect.js"
+        data-tokenization-key="5mN8N7-jhr55W-N22pxX-uAW2s9"
+      /> */}
       <Script
         id="stark"
         strategy="afterInteractive"
