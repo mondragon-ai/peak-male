@@ -5,10 +5,10 @@ import Head from "next/head";
 import { Context } from "@/context/context";
 import styles from "../styles/Home.module.css";
 import { imPoweredRequest } from "@/components/lib/request";
-import { LineItem } from "@stripe/stripe-js";
 import Image from "next/image";
 import { formatTime } from "@/components/lib/formatter";
 import CollectJSSection from "@/components/Payments/COollectionJSSection";
+import { LineItem } from "@/components/Form/OrderForm";
 
 interface FormData {
   firstName: string;

@@ -7,7 +7,7 @@ import Head from "next/head";
 import CustomImage from "../global/Image";
 import Image from "next/image";
 import ProductRow from "../Product/Product";
-import { CardElement, PaymentElement } from "@stripe/react-stripe-js";
+
 import { InitialValuesType } from "./FormSection";
 
 export type LineItem = {
@@ -63,7 +63,6 @@ const cardOptions = {
 };
 
 function OrderForm({
-  elements,
   handleSubmit,
   status,
   isLoading,

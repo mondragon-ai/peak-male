@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import OrderForm, { LineItem } from "./OrderForm";
 import { InitialValues } from "../lib/types/general";
-import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
 import { imPoweredRequest } from "../lib/request";
 import Router from "next/router";
 
@@ -40,44 +39,31 @@ const OrderFormContainer = ({state, setState, isSubbed, setSub, setProduct, prod
 }) => {
     const [isLoading, setIsLoading] = useState(false);
     const [status, setStatus] = useState("");
-    const stripe = useStripe();
-    const elements = useElements();
 
     const [message, setMessage] = useState("");
     const [clientOrigin, setClientOrigin] = useState("https://htl-funnel-main.vercel.app");
     const [cardElement, setCardElement] = useState<any>(null);
   
     useEffect(() => {
-      setCardElement(elements?.getElement(CardElement));
     }, []);
 
     const handleSubmit = async () => {
         setIsLoading(true); // update global state with the order data
         try {
-            if (!stripe || !elements) return;
-
-            const cardElement = elements.getElement(CardElement);
 
             if (!cardElement) {
               throw new Error("Card element not found");
             };
-      
-            const { error, paymentMethod } = await stripe.createPaymentMethod({
-              type: "card",
-              card: cardElement,
-            });
 
-            if (error) throw new Error(error.message);
 
             if (state.customer.email !== "" &&
                 state.customer.first_name !== "" && 
                 state.shipping.line1!== "" && 
                 state.shipping.city !== "" && 
                 state.shipping.state !== "" && 
-                state.shipping.zip !== "" && 
-                paymentMethod!.id && paymentMethod!.id !== "") {
+                state.shipping.zip !== "") {
                 setTimeout(() => {
-                    fetchCustomerData(state,  paymentMethod!.id ); // simulate a delay
+                    // fetchCustomerData(state, ""); // simulate a delay
                 }, 0);
             };
         } catch (error: any) {
@@ -170,7 +156,6 @@ const OrderFormContainer = ({state, setState, isSubbed, setSub, setProduct, prod
             message={message}
             status={status}
             state={state}
-            elements={elements}
             setState={setState}
             isSubbed={isSubbed}
             setSub={setSub}
