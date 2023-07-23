@@ -1,14 +1,14 @@
 import React from 'react';
 
-export default class CollectJSSection extends React.Component {
+export const CollectJSSection = () => {
   // Created the 3 divs for the CollectJS iframes
-  render() {
-    return (
-      <React.Fragment>
-        <div id="ccnumber" style={{marginBottom: "0.5rem"}} />
-        <div id="ccexp" style={{marginBottom: "0.5rem"}}  />
-        <div id="cvv" style={{marginBottom: "0.5rem"}}  />
-      </React.Fragment>
-    );
-  }
+  return (
+    <div>
+      <div id="ccnumber" style={{marginBottom: "0.5rem"}} />
+      <div id="ccexp" style={{marginBottom: "0.5rem"}}  />
+      <div id="cvv" style={{marginBottom: "0.5rem"}}  />
+    </div>
+  );
 }
+
+export default CollectJSSection;

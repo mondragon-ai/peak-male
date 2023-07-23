@@ -7,8 +7,8 @@ import styles from "../styles/Home.module.css";
 import { imPoweredRequest } from "@/components/lib/request";
 import { LineItem } from "@stripe/stripe-js";
 import Image from "next/image";
-import CollectJSSection from "@/components/Payments/COollectionJSSection";
 import { formatTime } from "@/components/lib/formatter";
+import CollectJSSection from "@/components/Payments/COollectionJSSection";
 
 interface FormData {
   firstName: string;
@@ -71,67 +71,6 @@ const CheckOut = () => {
     token: '',
   });
 
-  // On Load Effect -> Collect.js
-  useEffect(() => {
-
-    const CollectJS = window ? (window as any).CollectJS : null;
-    console.log('CollectJS:', CollectJS);
-
-    if (CollectJS) {
-      console.log('CollectJS is available!');
-      CollectJS.configure({
-        variant: 'inline',
-        'theme': 'bootstrap',
-        'buttonText': 'SUBMIT ME!',
-        callback: (token: string) => {
-          console.log(token);
-          finishSubmit(token);
-        },
-        fields: {
-          ccnumber: {
-            placeholder: 'CC Number',
-            selector: '#ccnumber',
-          },
-          ccexp: {
-            placeholder: 'CC Expiration',
-            selector: '#ccexp',
-          },
-          cvv: {
-            placeholder: 'CVV',
-            selector: '#cvv',
-          },
-        },
-      });
-    } else {
-      console.log('CollectJS is not available!');
-    }
-
-    const timer = setInterval(() => {
-      setCountdown((prevCountdown) => prevCountdown - 1);
-    }, 1000);
-
-    return () => clearInterval(timer);
-
-  }, []);
-
-  // Analytics Use Effect
-  useEffect(() => {
-    let query = new URLSearchParams(window.location.search);
-    setWindowWidth(window? window.innerWidth : 0);
-    // sendPageViewEvent("UPSELL"); // send page view event to google analytics
-  
-
-    let price = 0;
-
-    // push 3rd party analytics
-    // gtag.twitterEvent(email, price);
-    // gtag.event('conversion', {
-    //   'send_to': 'AW-10793712364/Knd8CNuBkpIYEOz165oo',
-    //   'value': price,
-    //   'currency': 'USD',
-    //   'transaction_id': "txt_" + crypto.randomBytes(10).toString("hex").substring(0,10)
-    // });
-  }, []);
 
   // When the Collect.js callback is triggered -> POST
   const finishSubmit = (response: any) => {
@@ -213,6 +152,69 @@ const CheckOut = () => {
     }
   };
 
+  // Analytics Use Effect
+  useEffect(() => {
+    let query = new URLSearchParams(window.location.search);
+    setWindowWidth(window? window.innerWidth : 0);
+    // sendPageViewEvent("UPSELL"); // send page view event to google analytics
+  
+
+    let price = 0;
+
+    // push 3rd party analytics
+    // gtag.twitterEvent(email, price);
+    // gtag.event('conversion', {
+    //   'send_to': 'AW-10793712364/Knd8CNuBkpIYEOz165oo',
+    //   'value': price,
+    //   'currency': 'USD',
+    //   'transaction_id': "txt_" + crypto.randomBytes(10).toString("hex").substring(0,10)
+    // });
+  }, [formData]);
+  
+  // On Load Effect -> Collect.js
+  useEffect(() => {
+
+    const CollectJS = window ? (window as any).CollectJS : null;
+    console.log('CollectJS:', CollectJS);
+
+    if (CollectJS) {
+      console.log('CollectJS is available!');
+      CollectJS.configure({
+        variant: 'inline',
+        'theme': 'bootstrap',
+        'buttonText': 'SUBMIT ME!',
+        callback: (token: string) => {
+          console.log(token);
+          finishSubmit(token);
+        },
+        fields: {
+          ccnumber: {
+            placeholder: 'CC Number',
+            selector: '#ccnumber',
+          },
+          ccexp: {
+            placeholder: 'CC Expiration',
+            selector: '#ccexp',
+          },
+          cvv: {
+            placeholder: 'CVV',
+            selector: '#cvv',
+          },
+        },
+      });
+    } else {
+      console.log('CollectJS is not available!');
+    }
+
+    const timer = setInterval(() => {
+      setCountdown((prevCountdown) => prevCountdown - 1);
+    }, 1000);
+
+    return () => clearInterval(timer);
+
+  }, []);
+
+
   return (
     <div>
       <Head>
@@ -232,6 +234,7 @@ const CheckOut = () => {
         <meta property="og:url" content={canonicalUrl} />
         <meta property="og:title" content={title} />
         <script 
+          async
           src="https://secure.safewebservices.com/token/Collect.js"
           data-tokenization-key="6wJ393-XNxZRT-2MgyE5-9732R4"
           data-custom-css='{
