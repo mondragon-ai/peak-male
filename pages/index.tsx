@@ -12,6 +12,7 @@ import { LineItem } from "@/components/Form/OrderForm";
 import Head from "next/head";
 import StaticButton from "@/components/Button/StaticBtn";
 import Marquee from "react-fast-marquee";
+import Router from "next/router";
 
 declare namespace JSX {
   interface IntrinsicElements {
@@ -150,6 +151,16 @@ export default function Home() {
     }
   };
 
+  const navigateToCheckout = async () => {
+    Router.push(`/checkout`);
+  };
+
+  const handleScroll = (scrollToElement: string) => {
+    const targetElement = document.getElementById(scrollToElement);
+    if (targetElement) {
+      targetElement.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
   return (
     <>
       <Head>
@@ -413,7 +424,7 @@ export default function Home() {
                     </div>
                   </div>
 
-                  <p className={`${styles.chooosePackage}`} id="order">Choose Your Package</p>
+                  <p id="SELECT_PRODUCT" className={`${styles.chooosePackage}`} >Choose Your Package</p>
 
                   <div className={`${styles.row}`} style={{width: "95%", justifyContent: "center", margin: "0 auto"}}>
                     <div onClick={() => setSub(false)} className={`${styles.subBtn}`} style={{color: !isSubbed ? "white" : "",background: !isSubbed ? "#17378a url('https://hitsdesignclients.com/Peak-Male-new/images/selected.png') 15px center no-repeat" : "#fff", border: !isSubbed ? "1px solid #17378a" : ""}}>
@@ -447,7 +458,7 @@ export default function Home() {
                           </div>
                         </div>
                       </div>
-                      <div  className={`${styles.row}`} style={{margin: "0px auto",width: "100%"}}>
+                      <div  onClick={() => navigateToCheckout()} className={`${styles.row}`} style={{margin: "0px auto",width: "100%"}}>
                         <button style={{
                           display: "block",
                           margin: "10px auto 0",
@@ -464,7 +475,6 @@ export default function Home() {
                           fontWeight: "600"}}> Add To Cart</button>
                       </div>
                     </div>
-
 
                     <div onClick={() => setProduct("THREE")} className={`${styles.col} ${styles.productItem}`} style={{background: productSelected == "THREE" ? "#e5ecfe" : "#fff", border: productSelected == "THREE" ? "2px solid #17378a" : ""}} >
                       <p className={styles.pkgTophd}>MOST POPULAR</p>
@@ -492,7 +502,7 @@ export default function Home() {
                           </div>
                         </div>
                       </div>
-                      <div  className={`${styles.row}`} style={{margin: "0px auto",width: "100%"}}>
+                      <div onClick={() => navigateToCheckout()} className={`${styles.row}`} style={{margin: "0px auto",width: "100%"}}>
                         <button style={{
                           display: "block",
                           margin: "10px auto 0",
@@ -509,7 +519,6 @@ export default function Home() {
                           fontWeight: "600"}}> Add To Cart</button>
                       </div>
                     </div>
-
 
                     <div onClick={() => setProduct("SIX")} className={`${styles.col} ${styles.productItem}`} style={{background: productSelected == "SIX" ? "#e5ecfe" : "#fff", border: productSelected == "SIX" ? "2px solid #17378a" : ""}} >
                       <p className={styles.pkgTophd}>BEST VALUE</p>
@@ -540,7 +549,7 @@ export default function Home() {
                           </div>
                         </div>
                       </div>
-                      <div  className={`${styles.row}`} style={{margin: "0px auto",width: "100%"}}>
+                      <div onClick={() => navigateToCheckout()} className={`${styles.row}`} style={{margin: "0px auto",width: "100%"}}>
                         <button style={{
                           display: "block",
                           margin: "10px auto 0",
@@ -754,6 +763,21 @@ export default function Home() {
                 <h4 className={styles.s2lhding}>Muscle Loss</h4>
                 <p className={styles.s2ltxt}>Low libido, or a diminished sex drive, can impact your overall quality of life, confidence, and intimate relationships. It's a common issue often associated with low testosterone levels, stress, and various lifestyle factors.</p>
               </li> : null}
+
+              <div className={styles.row} style={{width: "100%", justifyContent: "center", marginTop: "1rem"}}>
+                  <div onClick={() => setIssue(1)} className={styles.col} style={{margin: "0 0.5rem", background: "white", border: "1px solid black", height: "15px", width: "15px", borderRadius: "100%"}}>
+                    <div style={{background: issueNum == 1 ? "black" : "white", height: "10px", width: "10px", borderRadius: "100%"}}></div>
+                  </div>
+                  <div onClick={() => setIssue(2)} className={styles.col} style={{margin: "0 0.5rem", background: "white", border: "1px solid black", height: "15px", width: "15px", borderRadius: "100%"}}>
+                    <div style={{background: issueNum == 2 ? "black" : "white", height: "10px", width: "10px", borderRadius: "100%"}}></div>
+                  </div>
+                  <div onClick={() => setIssue(3)} className={styles.col} style={{margin: "0 0.5rem", background: "white", border: "1px solid black", height: "15px", width: "15px", borderRadius: "100%"}}>
+                    <div style={{background: issueNum == 3 ? "black" : "white", height: "10px", width: "10px", borderRadius: "100%"}}></div>
+                  </div>
+                  <div onClick={() => setIssue(4)} className={styles.col} style={{margin: "0 0.5rem", background: "white", border: "1px solid black", height: "15px", width: "15px", borderRadius: "100%"}}>
+                    <div style={{background: issueNum == 4 ? "black" : "white", height: "10px", width: "10px", borderRadius: "100%"}}></div>
+                  </div>
+              </div>
               <button onClick={() => changeIssue(-1)} className={styles.issuePrev}></button>
               <button onClick={() => changeIssue(1)}  className={styles.issueNext}></button>
             </div> }
@@ -802,8 +826,8 @@ export default function Home() {
                 Ready to take control and unleash your full potential?
                 </p>
                 <div className={styles.col} style={{width: "100%", alignItems: "flex-start"}}>
-                  <div className={styles.s3btn} style={{width: windowWidth < 720 ? "100%" : "70%", marginLeft: "0"}}>
-                  Order Now
+                  <div onClick={() => handleScroll("SELECT_PRODUCT")} className={styles.s3btn} style={{width: windowWidth < 720 ? "100%" : "70%", marginLeft: "0"}}>
+                    Order Now
                   </div>
                   <div className={`${styles.row} ${styles.btnTxt}`}  style={{width: windowWidth < 720 ? "100%" : "70%"}}>
                     <p className={styles.btnTxt1}>Ships: Within 24 Hours</p> 
@@ -821,7 +845,7 @@ export default function Home() {
                   bottom: 0,
                   top: 0,
                   left: "100px",
-                  width: "400px",
+                  width: "500px",
                   height: "auto"
                 }}  />
               </div> : null}
@@ -917,7 +941,7 @@ export default function Home() {
                   height: "auto"
                 }}  /> : null}
               {windowWidth > 720 ? <>
-                <div className={styles.s3btn} style={{width: windowWidth <720 ? "100%" : "50%"}}>
+                <div onClick={() => handleScroll("SELECT_PRODUCT")} className={styles.s3btn} style={{width: windowWidth <720 ? "100%" : "50%"}}>
                 Order Now
                 </div>
                 <div className={`${styles.row} ${styles.btnTxt}`} style={{width:  windowWidth <720 ? "100%" : "50%", color: "white"}}>
@@ -956,7 +980,7 @@ export default function Home() {
                     width: "100%",
                     paddingBottom: "2rem"
                   }}>Fenugreek</h5> : null}
-                <div className={styles.col} style={{width: windowWidth < 720 ? "95%" : "40%", height: windowWidth < 720 ? "200px" : "400px"}}>
+                <div className={styles.col} style={{width: windowWidth < 720 ? "95%" : "40%", height: windowWidth < 720 ? "200px" : "", margin: "auto"}}>
                   <Image src={"https://hitsdesignclients.com/Peak-Male-new/images/s5img1.png"} height={5000}  width={5000} alt="" style={{
                       position: "relative",
                       bottom: 0,
@@ -1001,8 +1025,8 @@ export default function Home() {
                     width: "100%",
                     paddingBottom: "2rem"
                   }}>Maca Powder</h5> : null}
-                  <div className={styles.col} style={{width: windowWidth < 720 ? "95%" : "40%", height:  windowWidth < 720 ? "200px" :"400px"}}>
-                    <Image src={"https://hitsdesignclients.com/Peak-Male-new/images/s5img1.png"} height={5000}  width={5000} alt="" style={{
+                  <div className={styles.col} style={{width: windowWidth < 720 ? "95%" : "40%",height: windowWidth < 720 ? "200px" : "", margin: "auto"}}>
+                    <Image src={"https://hitsdesignclients.com/Peak-Male-new/images/s5img2.png"} height={5000}  width={5000} alt="" style={{
                         position: "relative",
                         bottom: 0,
                         top: 0,
@@ -1022,11 +1046,11 @@ export default function Home() {
                   <ul className={`${styles.s5bxlist} ${styles.bdfont}`} style={{padding: "1rem 0 0 0"}}>
                     <li>Maca has been shown to reduce cortisol levels in men who are experiencing chronic stress, resulting in improved testosterone levels and overall well being.</li>
                       
-                      <li>Promotes the production of luteinizing hormone (LH), which is responsible for stimulating the testes to produce testosterone in males.</li>
-                      
-                      <li>Supports overall hormonal balance, prostate health, hair loss, and skin health in&nbsp;men.</li>
-                      
-                      <li>Maca powder contains compounds that can help reduce the activity of the enzyme aromatase, which is responsible for converting testosterone into estrogen. One study found that Maca supplementation led to a significant reduction in aromatase activity in men.</li>
+                    <li>Promotes the production of luteinizing hormone (LH), which is responsible for stimulating the testes to produce testosterone in males.</li>
+                    
+                    <li>Supports overall hormonal balance, prostate health, hair loss, and skin health in&nbsp;men.</li>
+                    
+                    <li>Maca powder contains compounds that can help reduce the activity of the enzyme aromatase, which is responsible for converting testosterone into estrogen. One study found that Maca supplementation led to a significant reduction in aromatase activity in men.</li>
                   </ul>
                 </div>
               </div>
@@ -1040,9 +1064,9 @@ export default function Home() {
                     textAlign: windowWidth < 720 ? "center" : "left",
                     width: "100%",
                     paddingBottom: "2rem"
-                  }}>Fenugreek</h5> : null}
-                <div className={styles.col} style={{width: windowWidth < 720 ? "95%" : "40%", height: windowWidth < 720 ? "200px" : "400px"}}>
-                  <Image src={"https://hitsdesignclients.com/Peak-Male-new/images/s5img1.png"} height={5000}  width={5000} alt="" style={{
+                  }}>Tongkat Ali</h5> : null}
+                <div className={styles.col} style={{width: windowWidth < 720 ? "95%" : "40%", height: windowWidth < 720 ? "200px" : "", margin: "auto"}}>
+                  <Image src={"https://hitsdesignclients.com/Peak-Male-new/images/s5img3.png"} height={5000}  width={5000} alt="" style={{
                       position: "relative",
                       bottom: 0,
                       top: 0,
@@ -1058,20 +1082,13 @@ export default function Home() {
                     color: "#17378a",
                     textAlign: windowWidth < 720 ? "center" : "left",
                     width: "100%"
-                  }}>Fenugreek</h5> : null}
+                  }}>Tongkat Ali</h5> : null}
                   <ul className={`${styles.s5bxlist} ${styles.bdfont}`} style={{padding: "1rem 0 0 0"}}>
-                    <li>Regulates the conversion of testosterone to DHT, providing a natural solution for excessive 
-                      DHT levels in men, resulting in an increase in testosterone levels.</li>
+                    <li>Tongkat Ali has been shown to reduce the production of cortisol, which is a stress hormone that can negatively impact testosterone production.</li>
                       
-                      <li>Contains a compounds called fenusides, which have been found to stimulate the production of 
-                      luteinizing hormone (LH), which is responsible for signaling the testes to produce testosterone.</li>
-                      
-                      <li>Supports overall hormonal balance, prostate health, hair loss, and skin health in&nbsp;men.</li>
-                      
-                      <li>Also contains compounds called saponins, which have been shown to inhibit the activity of 
-                      the enzyme aromatase. Aromatase is responsible for converting testosterone into estrogen, so by 
-                      inhibiting its activity, Fenugreek can help reduce the conversion of testosterone to estrogen and 
-                      increase the amount of free testosterone in the&nbsp;body.</li>
+                    <li>Contains a compound called eurycomanone, that helps to stimulate the production of luteinizing hormone (LH), which is responsible for signaling the testes to produce testosterone in males.</li>
+                    
+                    <li>Tongkat Ali has also been shown to reduce levels of sex hormone binding globulin (SHBG), which is a protein that binds to testosterone and prevents it from being used by the body. By reducing SHBG levels, Tongkat Ali can increase the amount of free testosterone in the body, leading to improved muscle mass, athletic performance, and sexual function.</li>
                   </ul>
                 </div>
               </div>
@@ -1085,9 +1102,9 @@ export default function Home() {
                     textAlign: windowWidth < 720 ? "center" : "left",
                     width: "100%",
                     paddingBottom: "2rem"
-                  }}>Maca Powder</h5> : null}
-                  <div className={styles.col} style={{width: windowWidth < 720 ? "95%" : "40%", height: windowWidth < 720 ? "200px" :  "400px"}}>
-                    <Image src={"https://hitsdesignclients.com/Peak-Male-new/images/s5img1.png"} height={5000}  width={5000} alt="" style={{
+                  }}>Panax Ginseng</h5> : null}
+                  <div className={styles.col} style={{width: windowWidth < 720 ? "95%" : "40%", height: windowWidth < 720 ? "200px" : "", margin: "auto"}}>
+                    <Image src={"https://hitsdesignclients.com/Peak-Male-new/images/s5img4.png"} height={5000}  width={5000} alt="" style={{
                         position: "relative",
                         bottom: 0,
                         top: 0,
@@ -1103,15 +1120,13 @@ export default function Home() {
                     color: "#17378a",
                     textAlign: windowWidth < 720 ? "center" : "left",
                     width: "100%"
-                  }}>Maca Powder</h5> : null}
+                  }}>Panax Ginseng</h5> : null}
                   <ul className={`${styles.s5bxlist} ${styles.bdfont}`} style={{padding: "1rem 0 0 0"}}>
-                    <li>Maca has been shown to reduce cortisol levels in men who are experiencing chronic stress, resulting in improved testosterone levels and overall well being.</li>
-                      
-                      <li>Promotes the production of luteinizing hormone (LH), which is responsible for stimulating the testes to produce testosterone in males.</li>
-                      
-                      <li>Supports overall hormonal balance, prostate health, hair loss, and skin health in&nbsp;men.</li>
-                      
-                      <li>Maca powder contains compounds that can help reduce the activity of the enzyme aromatase, which is responsible for converting testosterone into estrogen. One study found that Maca supplementation led to a significant reduction in aromatase activity in men.</li>
+                    <li>Contains a compound called ginsenoside, which has been found to stimulate the production of luteinizing hormone (LH), which is responsible for signaling the testes to produce testosterone.</li>
+                    
+                    <li>Panax Ginseng has been shown to have adaptogenic properties, meaning it can help the body adapt to and cope with stress.</li>
+                    
+                    <li>Has been shown to have anti-inflammatory and antioxidant properties, which can help protect the body against oxidative stress and reduce inflammation throughout the body.</li>
                   </ul>
                 </div>
               </div>
@@ -1125,9 +1140,9 @@ export default function Home() {
                     textAlign: windowWidth < 720 ? "center" : "left",
                     width: "100%",
                     paddingBottom: "2rem"
-                  }}>Fenugreek</h5> : null}
-                <div className={styles.col} style={{width: windowWidth < 720 ? "95%" : "40%", height: windowWidth < 720 ? "200px" : "400px"}}>
-                  <Image src={"https://hitsdesignclients.com/Peak-Male-new/images/s5img1.png"} height={5000}  width={5000} alt="" style={{
+                  }}>Horny Goat Weed</h5> : null}
+                <div className={styles.col} style={{width: windowWidth < 720 ? "95%" : "40%", height: windowWidth < 720 ? "200px" : "", margin: "auto"}}>
+                  <Image src={"https://hitsdesignclients.com/Peak-Male-new/images/s5img5.png"} height={5000}  width={5000} alt="" style={{
                       position: "relative",
                       bottom: 0,
                       top: 0,
@@ -1143,20 +1158,11 @@ export default function Home() {
                     color: "#17378a",
                     textAlign: windowWidth < 720 ? "center" : "left",
                     width: "100%"
-                  }}>Fenugreek</h5> : null}
+                  }}>Horny Goat Weed</h5> : null}
                   <ul className={`${styles.s5bxlist} ${styles.bdfont}`} style={{padding: "1rem 0 0 0"}}>
-                    <li>Regulates the conversion of testosterone to DHT, providing a natural solution for excessive 
-                      DHT levels in men, resulting in an increase in testosterone levels.</li>
-                      
-                      <li>Contains a compounds called fenusides, which have been found to stimulate the production of 
-                      luteinizing hormone (LH), which is responsible for signaling the testes to produce testosterone.</li>
-                      
-                      <li>Supports overall hormonal balance, prostate health, hair loss, and skin health in&nbsp;men.</li>
-                      
-                      <li>Also contains compounds called saponins, which have been shown to inhibit the activity of 
-                      the enzyme aromatase. Aromatase is responsible for converting testosterone into estrogen, so by 
-                      inhibiting its activity, Fenugreek can help reduce the conversion of testosterone to estrogen and 
-                      increase the amount of free testosterone in the&nbsp;body.</li>
+                    <li>Contains a compound called icariin, has been found to inhibit the activity of the enzyme that converts testosterone into estrogen, leading to higher levels of free testosterone in the body.</li>
+                    
+                    <li>Horny Goat Weed has been shown to have vasodilatory effects, meaning it can help improve blood flow throughout the body. This can have a positive impact on athletic performance and sexual function, as it can increase the amount of oxygen and nutrients that reach the muscles and sexual organs.</li>
                   </ul>
                 </div>
               </div>
@@ -1170,9 +1176,9 @@ export default function Home() {
                     textAlign: windowWidth < 720 ? "center" : "left",
                     width: "100%",
                     paddingBottom: "2rem"
-                  }}>Maca Powder</h5> : null}
-                  <div className={styles.col} style={{width: windowWidth < 720 ? "95%" : "40%", height: windowWidth < 720 ? "200px" : "400px"}}>
-                    <Image src={"https://hitsdesignclients.com/Peak-Male-new/images/s5img1.png"} height={5000}  width={5000} alt="" style={{
+                  }}>Tribulus Terrestris</h5> : null}
+                  <div className={styles.col} style={{width: windowWidth < 720 ? "95%" : "40%", height: windowWidth < 720 ? "200px" : "", margin: "auto"}}>
+                    <Image src={"https://hitsdesignclients.com/Peak-Male-new/images/s5img6.png"} height={5000}  width={5000} alt="" style={{
                         position: "relative",
                         bottom: 0,
                         top: 0,
@@ -1188,15 +1194,11 @@ export default function Home() {
                     color: "#17378a",
                     textAlign: windowWidth < 720 ? "center" : "left",
                     width: "100%"
-                  }}>Maca Powder</h5> : null}
+                  }}>Tribulus Terrestris</h5> : null}
                   <ul className={`${styles.s5bxlist} ${styles.bdfont}`} style={{padding: "1rem 0"}}>
-                    <li>Maca has been shown to reduce cortisol levels in men who are experiencing chronic stress, resulting in improved testosterone levels and overall well being.</li>
+                    <li>Contains a compound called protodioscin, that helps to stimulate the production of luteinizing hormone (LH), which is responsible for signaling the testes to produce testosterone in males.</li>
                       
-                      <li>Promotes the production of luteinizing hormone (LH), which is responsible for stimulating the testes to produce testosterone in males.</li>
-                      
-                      <li>Supports overall hormonal balance, prostate health, hair loss, and skin health in&nbsp;men.</li>
-                      
-                      <li>Maca powder contains compounds that can help reduce the activity of the enzyme aromatase, which is responsible for converting testosterone into estrogen. One study found that Maca supplementation led to a significant reduction in aromatase activity in men.</li>
+                    <li>Has been shown to reduce SHBG levels, Tribulus Terrestris can increase the amount of free testosterone in the body, leading to improved muscle mass, athletic performance, and sexual function.</li>
                   </ul>
                 </div>
               </div>
@@ -1228,7 +1230,7 @@ export default function Home() {
               </ul>
 
               {windowWidth > 720 ? <>
-                <div className={styles.s3btn} style={{width: windowWidth <720 ? "100%" : "50%"}}>
+                <div onClick={() => handleScroll("SELECT_PRODUCT")} className={styles.s3btn} style={{width: windowWidth <720 ? "100%" : "50%"}}>
                 Order Now
                 </div>
                 <div className={`${styles.row} ${styles.btnTxt}`} style={{width:  windowWidth <720 ? "100%" : "50%", color: "black"}}>
@@ -1253,9 +1255,9 @@ export default function Home() {
             </h1>
             <div className={`${styles.row} ${styles.testimonial} ${styles.mobileCol} `} >
               <div className={`${styles.col}`} style={{width: windowWidth < 720 ? "100%" : "30%",}}>
-                {testimonial == 1 ? <Image src="https://hitsdesignclients.com/Peak-Male-new/images/t1.png" height={5000}  width={5000} alt="" style={{width: "23vw", height: "auto"}} /> : testimonial == 2 ?
-                  <Image src="https://hitsdesignclients.com/Peak-Male-new/images/t2.png" height={5000}  width={5000} alt="" style={{width: "23vw", height: "auto"}} />  : testimonial == 3 ? 
-                  <Image src="https://hitsdesignclients.com/Peak-Male-new/images/t3.png" height={5000}  width={5000} alt="" style={{width: "23vw", height: "auto"}} /> : null} 
+                {testimonial == 1 ? <Image src="https://hitsdesignclients.com/Peak-Male-new/images/t1.png" height={5000}  width={5000} alt="" style={{width: windowWidth > 720 ? "23vw" : "100%", height: "auto"}} /> : testimonial == 2 ?
+                  <Image src="https://hitsdesignclients.com/Peak-Male-new/images/t2.png" height={5000}  width={5000} alt="" style={{width: windowWidth > 720 ?"23vw" : "100%", height: "auto"}} />  : testimonial == 3 ? 
+                  <Image src="https://hitsdesignclients.com/Peak-Male-new/images/t3.png" height={5000}  width={5000} alt="" style={{width: windowWidth > 720 ? "23vw" : "100%", height: "auto"}} /> : null} 
               </div>
               <div className={`${styles.col}`}  style={{width: windowWidth < 720 ? "100%" : "70%", padding: "1rem", alignItems: "flex-start", minHeight: windowWidth < 720 ? "200px" : ""}}>
                 <Image src="https://hitsdesignclients.com/Peak-Male-new/images/sldrstars.png" height={500}  width={500} alt="" style={{width: "150px", height: "auto"}} /> 
@@ -1297,7 +1299,7 @@ export default function Home() {
           </div>
         </div>
 
-        <StaticButton scroll={scrollToElement} />
+        <StaticButton scrollToElement={"SELECT_PRODUCT"} />
 
         {/* FAQ SECTION */}
         <div className={`${styles.col}`} style={{background: "#eef5fc",padding: "2rem 0rem 2rem 0"}}>
@@ -1314,7 +1316,7 @@ export default function Home() {
           <Accordion defaultOpen={false} title={"How can I contact customer support?"} detail={"Our dedicated customer support team is here to assist you. You can reach us by email at info@holdtheline.com or by phone at 877-462-4459 during our business hours, which are Monday-Friday from 9am-4pm CST. We value your feedback and strive to provide excellent customer service."} />
         
           {windowWidth > 720 ? <>
-            <div className={styles.s3btn} style={{width: windowWidth <720 ? "100%" : "50%"}}>
+            <div onClick={() => handleScroll("SELECT_PRODUCT")} className={styles.s3btn} style={{width: windowWidth <720 ? "100%" : "50%"}}>
             Order Now
             </div>
             <div className={`${styles.row} ${styles.btnTxt}`} style={{width:  windowWidth <720 ? "100%" : "50%", color: "black"}}>

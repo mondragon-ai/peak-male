@@ -1,7 +1,7 @@
 import React, { Dispatch, SetStateAction, useEffect, useState } from "react";
 import { imPoweredRequest } from "../lib/request";
 import styles from "../../styles/Home.module.css";
-import { useRouter } from 'next/router';
+import Router, { useRouter } from 'next/router';
 import AddressInput from "./CustomerInputs";
 import Head from "next/head";
 import CustomImage from "../global/Image";
@@ -82,7 +82,13 @@ function OrderForm({
     setWindowWidth(window.innerWidth);
   }, []);
 
-  const router = useRouter(); 
+  const navigateToCheckout = async () => {
+    if (window) {
+      window.location.href = "/checkout"
+    }
+    // Router.push(`/checkout`);
+  };
+
   return (
     <div className={`${styles.formCard}`}>
       <div className={`${styles.col} ${styles.formContainer}`}>
@@ -228,7 +234,7 @@ function OrderForm({
           </div>
         </div>
 
-        <p className={`${styles.chooosePackage}`} id="order">Choose Your Package</p>
+        <p className={`${styles.chooosePackage}`} id="SELECT_PRODUCT">Choose Your Package</p>
 
         <div className={`${styles.row}`} style={{width: "100%", justifyContent: "center", marginTop: "15px"}}>
           <div onClick={() => setSub(false)} className={`${styles.subBtn}`} style={{color: !isSubbed ? "white" : "", background: !isSubbed ? "#17378a url('https://hitsdesignclients.com/Peak-Male-new/images/selected.png') 15px center no-repeat" : "#fff", border: !isSubbed ? "1px solid #17378a" : ""}}>
@@ -300,7 +306,7 @@ function OrderForm({
 
         <p className={styles.riskFreeTxt}>Try Risk-Free 30 Day Money Back Guarantee</p>
 
-        <div className={styles.s1btn}>
+        <div onClick={navigateToCheckout} className={styles.s1btn}>
           Add to Cart & Save 45%
         </div>
 

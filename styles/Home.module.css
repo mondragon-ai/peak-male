@@ -1821,7 +1821,8 @@
     margin-top: 15px;
     left: 4vw;
     bottom: 1vh;
-    padding-left:"2rem"
+    width: 100%;
+    padding-left: 0;
   }
 
   .slickPrev {

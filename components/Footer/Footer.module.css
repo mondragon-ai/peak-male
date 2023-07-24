@@ -27,7 +27,7 @@
   width: 100%;
   display: flex;
   flex-direction: row;
-  justify-content: space-evenly;
+  justify-content: center;
   align-items: center;
 }
 
@@ -36,6 +36,7 @@
   color: gray;
   text-decoration: none;
   cursor: pointer;
+  margin: 0 0.5rem 0.5rem 0.5rem;
 }
 @media only screen and (max-width: 980px) {
 }
