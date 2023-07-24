@@ -53,10 +53,8 @@ export default function Home() {
   const [testimonial, setTestimonial] = useState(1);
   const [issueNum, setIssue] = useState(1);
   const [productSelected, setProduct] = useState("SIX");
-  const [isSubbed, setSub] = useState(false);
-  const [clientSecret, setSecret] = useState("");
+  const [isSubbed, setSub] = useState(true);
   const [windowWidth, setWindowWidth] = useState(0);
-  const targetRef = useRef<HTMLDivElement>(null);
 
   const initialValues = {
     line_items: [product],
@@ -83,35 +81,6 @@ export default function Home() {
 
   const [state, setState] = useState(initialValues);
 
-  // Scroll to Top Effect
-  const scrollToElement = () => {
-    if (targetRef.current) {
-      targetRef.current.scrollIntoView({
-        behavior: 'smooth',
-      });
-    }
-  };
-
-  // fetch product data and cache it
-  const fetchData = async () => {
-    try {
-      const response = await imPoweredRequest(
-        "https://us-central1-impowered-production.cloudfunctions.net/funnels/payments/secret",
-        "POST",
-        {}
-      );
-
-      if (response.data) {
-        setState({...state, stripe_uuid: response.data.data.stripe_uuuid})
-        setSecret(response.data.data.secret);
-        saveItem("secret", response.data.data.secret);
-        saveItem("stripe_uuid", response.data.data.stripe_uuid );
-      };
-    } catch (error) {
-      console.error(error);
-    };
-  };
-
   // Page Effect -> Analytics
   useEffect(() => {
     if (!window) {};
@@ -120,7 +89,6 @@ export default function Home() {
     //Send Analytics to imPowered
     sendPageViewEvent("OPT_IN");
   }, []);
-
 
   // Select Main Image
   const selectImage = (img: string) => {
@@ -152,7 +120,11 @@ export default function Home() {
   };
 
   const navigateToCheckout = async () => {
-    Router.push(`/checkout`);
+    if (window) {
+      localStorage.setItem("subscribed", String(isSubbed));
+      localStorage.setItem("product", String(productSelected));
+      window.location.href = "/checkout";
+    }
   };
 
   const handleScroll = (scrollToElement: string) => {
@@ -448,7 +420,7 @@ export default function Home() {
                         <div className={`${styles.col}`} style={{width: "50%"}}>
                           <h6 className={styles.supplyText}>30 Day Supply</h6>
                           <p className={styles.pkgprc2}>
-                            <span className={styles.BigPrice}>$59</span>
+                            <span className={styles.BigPrice}>{isSubbed ? "$59" : "$69"}</span>
                             <span className={styles.PriceUnit}>/per bottle</span>
                           </p>
                           
@@ -488,7 +460,7 @@ export default function Home() {
                           <h6 className={styles.supplyText}>60 Day Supply</h6>
 
                           <p className={styles.pkgprc2}>
-                            <span className={styles.BigPrice}>$49</span>
+                            <span className={styles.BigPrice}>{isSubbed ? "$59" : "$49"}</span>
                             <span className={styles.PriceUnit}>/per bottle</span>
                           </p>
 
@@ -532,7 +504,7 @@ export default function Home() {
                           <h6 className={styles.supplyText}>180 Day Supply</h6>
 
                           <p className={styles.pkgprc2}>
-                            <span className={styles.BigPrice}>$39</span>
+                            <span className={styles.BigPrice}>{isSubbed ? "$49" : "$39"}</span>
                             <span className={styles.PriceUnit}>/per bottle</span>
                           </p>
 
@@ -639,7 +611,7 @@ export default function Home() {
           </div>
 
           <div className={`${styles.col} ${styles.mobileFull}`} style={{width:  windowWidth < 720 ? "100%" : "55%", flexWrap: "wrap", alignContent: "flex-start"}}> 
-            {windowWidth > 720 ? <OrderFormContainer state={state} setState={setState} isSubbed={isSubbed} setSub={setSub} setProduct={setProduct} productSelected={productSelected} /> : null}
+            {windowWidth > 720 ? <OrderFormContainer isSubbed={isSubbed} setSub={setSub} setProduct={setProduct} productSelected={productSelected} /> : null}
           </div>
 
         </div>
@@ -1268,19 +1240,15 @@ export default function Home() {
                   </p>
                 </> : testimonial == 2 ?
                 <>
-                  <h2 className={styles.sldrTxt1}>The Kickstart I Needed</h2>
+                  <h2 className={styles.sldrTxt1}>Game Changer</h2>
                   <p className={styles.sldrTxt2}>
-                    I'm at that stage in life where testosterone seems to take a back seat, and I knew it was time to intervene. I wasn't ready for the big leap into injections, so I sought out a natural route. Peak Male popped up on my Instagram, and I figured, why not give it a try?
-                    <br/><br/>
-                    I've been through an entire bottle, taking two caps a day for the past four weeks. The first week went by without much change. But come week two, I started noticing a shift. I know what testosterone feels like, and this was it - not as intense, but a similar vibe.
+                    Peak Male has been a game-changer for me! As a 43 year old MALE, I was struggling with low energy, decreased muscle mass, and a lack of motivation. However, since incorporating Peak Male into my daily routine, I've experienced a remarkable boost in my overall vitality, stamina, and mental focus. Not only has it enhanced my physical performance, but it has also positively impacted my confidence and overall well-being. I highly recommend Peak Male to any man looking to optimize their health and reclaim their peak performance.
                   </p>
                 </> : testimonial == 3 ?
                 <>
-                  <h2 className={styles.sldrTxt1}>Why not Give it a Try?</h2>
+                  <h2 className={styles.sldrTxt1}>The Kickstart I Needed</h2>
                   <p className={styles.sldrTxt2}>
-                    I'm at that stage in life where testosterone seems to take a back seat, and I knew it was time to intervene. I wasn't ready for the big leap into injections, so I sought out a natural route. Peak Male popped up on my Instagram, and I figured, why not give it a try?
-                    <br/><br/>
-                    I've been through an entire bottle, taking two caps a day for the past four weeks. The first week went by without much change. But come week two, I started noticing a shift. I know what testosterone feels like, and this was it - not as intense, but a similar vibe.
+                    I just turned 33, and I wasn't expecting to feel as drained as I did. I was in a workout slump, and none of the supplements I tried gave me that boost I needed. Then came Peak Male. It kicked in fast, and suddenly, I was breezing through workdays and crushing it at the gym. The big surprise was the mental uplift - I felt unstoppable. If you're feeling stuck, give Peak Male a try - it's been a total game-changer for me.
                   </p>
                 </> : null}
                 <div className={`${styles.col}`} style={{width: "100%", justifyContent: "flex-start", alignItems: "flex-start"}}>
@@ -1289,7 +1257,7 @@ export default function Home() {
                       <Image src="https://hitsdesignclients.com/Peak-Male-new/images/sldrqt.png" height={500}  width={500} alt="" style={{width: "70px", height: "auto"}} /> 
                       <Image src="https://hitsdesignclients.com/Peak-Male-new/images/sldrbtl.png" height={500}  width={500} alt="" style={{width: "70px", height: "auto", position: "absolute", right: "40px", bottom: "-30px"}} />
                     </div>
-                    <p className={styles.sldrnm}>{testimonial == 1 ? "Terrance B." : testimonial == 2 ? "Marting H." : testimonial == 3 ? "Jimmy B" : ""}</p>
+                    <p className={styles.sldrnm}>{testimonial == 1 ? "Jordan L." : testimonial == 2 ? "Martin H." : testimonial == 3 ? "Jimmy B" : ""}</p>
                   </div>
                 </div>
               </div>
@@ -1309,11 +1277,14 @@ export default function Home() {
                 <span style={{color: "#17378a"}}>We've Got All The Answers</span>
               </h1>
           </div>
-          <Accordion defaultOpen={true} title={"How long will it take to receive my order?"} detail={"Our shipping typically takes between 4 to 9 days depending on your location. We ship our coins from Fayetteville, AR via USPS Shipping with Tracking. Rest assured that we strive to deliver your order promptly and securely."} />
-          <Accordion defaultOpen={false} title={"Is there a warranty for these coins?"} detail={"Yes, all coins come with a lifetime warranty with 100% money back guarantee. We stand behind the quality and craftsmanship of our products."} />
-          <Accordion defaultOpen={false} title={"Do you offer bulk discounts for large orders?"} detail={"Our coins come in 5, 10, and 20 packs. We are able to offer 30% Off on our 20-pack coins. If you're interested in larger quantities, please reach out to our sales team directly for inquiries regarding bulk orders and potential discounts. We will be more than happy to assist you with your request."} />
-          <Accordion defaultOpen={false} title={"What is your return and refund policy?"} detail={"We want you to be completely satisfied with your purchase. If, for any reason, you are not happy with your order, please contact our customer service team at info@holdtheline.com. We aim to provide a hassle-free return process and resolve any issues promptly."} />
-          <Accordion defaultOpen={false} title={"How can I contact customer support?"} detail={"Our dedicated customer support team is here to assist you. You can reach us by email at info@holdtheline.com or by phone at 877-462-4459 during our business hours, which are Monday-Friday from 9am-4pm CST. We value your feedback and strive to provide excellent customer service."} />
+          <Accordion defaultOpen={true} title={"What is Peak Male?"} detail={"Peak Male is a natural testosterone booster supplement formulated with six powerful herbs that work together to help men achieve their peak physical and mental performance."} />
+          <Accordion defaultOpen={false} title={"What does Peak Male do?"} detail={"Peak Male is designed to aid the body in producing testosterone naturally and support balanced hormonal health. It does not contain actual testosterone; instead, it utilizes a power combination of herbs that have been shown to support testosterone production, maintain hormonal balance, and encourage a healthy response to stress."} />
+          <Accordion defaultOpen={false} title={"Is Peak Male safe?"} detail={"Yes, Peak Male is made with all-natural ingredients and is safe for most men to use. However, as with any supplement, it is important to follow the recommended dosage instructions and consult with a healthcare professional if you have any underlying medical conditions or are taking any medications."} />
+          <Accordion defaultOpen={false} title={"How long does it take to see results with Peak Male?"} detail={"Results may vary from person to person, but most men should start to notice some benefits within a few weeks of starting to use Peak Male. However, it is important to use the supplement consistently and as directed in order to achieve optimal results."} />
+          <Accordion defaultOpen={false} title={"Are there any side effects from using Peak Male?"} detail={"Peak Male is made with all-natural ingredients and is generally well-tolerated. If you experience any adverse effects, discontinue use and consult with a healthcare professional."} />
+          <Accordion defaultOpen={false} title={"Can I take Peak Male with other supplements or medications?"} detail={"It is always important to consult with a healthcare professional before starting any new supplement or medication. Some ingredients in Peak Male may interact with certain medications or supplements, so it is important to discuss any potential interactions with your healthcare provider."} />
+          <Accordion defaultOpen={false} title={"Is Peak Male suitable for vegetarians or vegans?"} detail={"Yes, Peak Male is made with all-natural, plant-based ingredients and is suitable for vegetarians and vegans."} />
+          <Accordion defaultOpen={false} title={"How do I take Peak Male?"} detail={"For optimal results, it is recommended to take 1 capsule of Peak Male 1-2 times per day, preferably with food or as directed by a healthcare professional."} />
         
           {windowWidth > 720 ? <>
             <div onClick={() => handleScroll("SELECT_PRODUCT")} className={styles.s3btn} style={{width: windowWidth <720 ? "100%" : "50%"}}>

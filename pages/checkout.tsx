@@ -53,10 +53,28 @@ const CheckOut = () => {
   // Customer & Product Data
   const [state, setState] = useState({
     line_items: [] as LineItem[],
+    product: "",
+    isSubbed: false,
     customer: {
       email: "",
       first_name: "",
       cus_uuid: ""
+    },
+    shipping: {
+      line1: "",
+      line2: "",
+      city: "",
+      state: "",
+      zip: "",
+      country: "US"
+    },
+    billing: {
+      line1: "",
+      line2: "",
+      city: "",
+      state: "",
+      zip: "",
+      country: "US"
     },
     external_type: "SHOPIFY",
   });
@@ -71,6 +89,7 @@ const CheckOut = () => {
     token: '',
   });
 
+  console.log(state);
 
   // When the Collect.js callback is triggered -> POST
   const finishSubmit = (response: any) => {
@@ -82,12 +101,14 @@ const CheckOut = () => {
       isSubmitting: false,
       alertMessage: 'The form was submitted. Check the console to see the output data.',
     });
+
   };
 
   // Handle CC Form Submit
   const handleSubmit = (event: React.FormEvent) => {
     const CollectJS = window ? (window as any).CollectJS : null;
     event.preventDefault();
+    console.log(state);
     setFormData((prevFormData) => ({ ...prevFormData, isSubmitting: true }));
     CollectJS.startPaymentRequest();
   };
@@ -173,6 +194,10 @@ const CheckOut = () => {
   
   // On Load Effect -> Collect.js
   useEffect(() => {
+    const isSubbed = localStorage.getItem("subscribed");
+    const product = localStorage.getItem("product");
+
+    setState({...state, product: product || "", isSubbed: Boolean(isSubbed || false)});
 
     const CollectJS = window ? (window as any).CollectJS : null;
     console.log('CollectJS:', CollectJS);
@@ -213,7 +238,6 @@ const CheckOut = () => {
     return () => clearInterval(timer);
 
   }, []);
-
 
   return (
     <div>
@@ -256,7 +280,7 @@ const CheckOut = () => {
       </Head>
       <main className={`${styles.row}  ${styles.mobileCol} ${checkout_styles.container}`}>
         <div className={`${styles.col} ${checkout_styles.left}`}>
-          <header className={`${checkout_styles.header} ${styles.row}`} >
+          <header className={`${checkout_styles.header} ${styles.row}`} style={{justifyContent: "space-between"}}>
             <div>
               <Image src={"https://hitsdesignclients.com/Peak-Male-new/images/logo.png"} alt={""} width={500} height={500} style={{height: "auto", width: "100px"}} />
             </div>
@@ -277,14 +301,22 @@ const CheckOut = () => {
                   <div className={checkout_styles.ordLft}>
                     <div className={checkout_styles.prodImg}>
                       <Image src={"https://hitsdesignclients.com/Peak-Male-new/images/chk-prod.png"} alt={""} width={500} height={500} style={{height: "auto", width: "55px"}} />
-                      <p className={checkout_styles.prodCount}>6</p>
+                      {
+                        state.product == "ONE"  ? <p className={checkout_styles.prodCount}>1</p> : 
+                        state.product == "THREE"  ? <p className={checkout_styles.prodCount}>3</p> :
+                        state.product == "SIX"  ? <p className={checkout_styles.prodCount}>6</p> : null
+                      }
                     </div>
                     <div className={checkout_styles.odrRgt}>
                         <p className={checkout_styles.ordTitle}><strong>Peak Male</strong><br />Xtreme Test Booster</p>
                     </div>
                   </div>
                   <div className={checkout_styles.ordRight}>
-                      <p><span>$249.00</span><br />$179.99</p>
+                      {
+                        state.product == "ONE"  ? <p><span>$49.00</span><br />$59.99</p> : 
+                        state.product == "THREE"  ? <p><span>$269.00</span><br />$149.99</p> :
+                        state.product == "SIX"  ? <p><span>$534.00</span><br />$234.99</p> : null
+                      }
                   </div>
                 </div>
 
@@ -294,7 +326,11 @@ const CheckOut = () => {
                   <tbody>
                     <tr>
                       <td align="left">Subtotal</td>
-                      <td align="right"><span>$199.98</span></td>
+                      {
+                        state.product == "ONE"  ? <td align="right"><span>$69.98</span></td> : 
+                        state.product == "THREE"  ? <td align="right"><span>$159.98</span></td> :
+                        state.product == "SIX"  ? <td align="right"><span>$244.98</span></td> : null
+                      }
                     </tr>
                   </tbody>
                 </table>
@@ -316,7 +352,11 @@ const CheckOut = () => {
                   <tbody>
                     <tr>
                       <td align="left" className={checkout_styles.totTxtL}>Total</td>
-                      <td align="right" className={checkout_styles.totTxtL}><span>$212.93</span></td>
+                      {
+                        state.product == "ONE"  ? <td align="right" className={checkout_styles.totTxtL}><span>$69.98</span></td> : 
+                        state.product == "THREE"  ? <td align="right" className={checkout_styles.totTxtL}><span>$159.98</span></td> :
+                        state.product == "SIX"  ? <td align="right" className={checkout_styles.totTxtL}><span>$244.98</span></td> : null
+                      }
                     </tr>
                   </tbody>
                 </table>
@@ -354,7 +394,7 @@ const CheckOut = () => {
                   <div className={`${checkout_styles.frmFlds}`}>
                     <div className={``}>
                       <label htmlFor="email" className="fl-label">Email</label>
-                      <input type="email" className={`${checkout_styles.inputFlds}`} placeholder="Email" id="email" data-placeholder="Email" />
+                      <input onChange={(e) => setState((prevState) => { return {...prevState, customer: {...prevState.customer, email: e.target.value}}})} type="email" className={`${checkout_styles.inputFlds}`} placeholder="Email" id="email" data-placeholder="Email" />
                     </div>
                   </div>
               </div>
@@ -368,13 +408,13 @@ const CheckOut = () => {
                     <div className={`${checkout_styles.frmFlds} ${checkout_styles.fl}`}>
                       <div className={``}>
                         <label htmlFor="first_name" className="fl-label">First Name</label>
-                        <input type="first_name" className={`${checkout_styles.inputFlds}`} placeholder="First Name" id="first_name" data-placeholder="First Name" />
+                        <input onChange={(e) => setState((prevState) => { return {...prevState, customer: {...prevState.customer, first_name: e.target.value}}})} type="first_name" className={`${checkout_styles.inputFlds}`} placeholder="First Name" id="first_name" data-placeholder="First Name" />
                       </div>
                     </div>
                     <div className={`${checkout_styles.frmFlds} ${checkout_styles.fl}`}>
                       <div className={``}>
                         <label htmlFor="last_name" className="fl-label">Last Name</label>
-                        <input type="last_name" className={`${checkout_styles.inputFlds}`} placeholder="Last Name" id="last_name" data-placeholder="Last Name" />
+                        <input onChange={(e) => setState((prevState) => { return {...prevState, customer: {...prevState.customer, last_name: e.target.value}}})} type="last_name" className={`${checkout_styles.inputFlds}`} placeholder="Last Name" id="last_name" data-placeholder="Last Name" />
                       </div>
                     </div>
                   </div>
@@ -382,7 +422,7 @@ const CheckOut = () => {
                   <div className={`${checkout_styles.frmFlds}`}>
                     <div className={``}>
                       <label htmlFor="line1" className="fl-label">Street Address</label>
-                      <input type="line1" className={`${checkout_styles.inputFlds}`} placeholder="Street Address" id="line1" data-placeholder="Street Address" />
+                      <input onChange={(e) => setState((prevState) => { return {...prevState, shipping: {...prevState.shipping, line1: e.target.value}}})} type="line1" className={`${checkout_styles.inputFlds}`} placeholder="Street Address" id="line1" data-placeholder="Street Address" />
                     </div>
                   </div>
 
@@ -390,12 +430,12 @@ const CheckOut = () => {
                     <div className={`${checkout_styles.frmFlds} ${checkout_styles.fl}`}>
                       <div className={``}>
                         <label htmlFor="city" className="fl-label">City</label>
-                        <input type="city" className={`${checkout_styles.inputFlds}`} placeholder="City" id="city" data-placeholder="City" />
+                        <input onChange={(e) => setState((prevState) => { return {...prevState, shipping: {...prevState.shipping, city: e.target.value}}})} type="city" className={`${checkout_styles.inputFlds}`} placeholder="City" id="city" data-placeholder="City" />
                       </div>
                     </div>
                     <div className={`${checkout_styles.frmFlds} ${checkout_styles.fl}`}>
                       <div className={``}>
-                        <select name="state" className={checkout_styles.selcetFld} id="state">
+                        <select onChange={(e) => setState((prevState) => { return {...prevState, shipping: {...prevState.shipping, state: e.target.value}}})}  name="state" className={checkout_styles.selcetFld} id="state">
                           <option value="1" selected>- Select State -</option>
                           <option value="AL">Alabama</option>
                           <option value="AK">Alaska</option>
@@ -457,13 +497,13 @@ const CheckOut = () => {
                     <div className={`${checkout_styles.frmFlds} ${checkout_styles.fl}`}>
                       <div className={``}>
                         <label htmlFor="zip" className="fl-label">Zip Code</label>
-                        <input type="zip" className={`${checkout_styles.inputFlds}`} placeholder="Zip Code" id="zip" data-placeholder="Zip Code" />
+                        <input onChange={(e) => setState((prevState) => { return {...prevState, shipping: {...prevState.shipping, zip: e.target.value}}})}  type="zip" className={`${checkout_styles.inputFlds}`} placeholder="Zip Code" id="zip" data-placeholder="Zip Code" />
                       </div>
                     </div>
                     <div className={`${checkout_styles.frmFlds} ${checkout_styles.fl}`}>
                       <div className={``}>
                         <label htmlFor="country" className="fl-label">Country</label>
-                        <input type="country" className={`${checkout_styles.inputFlds}`} placeholder="US" id="country" data-placeholder="US" disabled />
+                        <input onChange={(e) => setState((prevState) => { return {...prevState, shipping: {...prevState.shipping, country: e.target.value}}})}  type="country" className={`${checkout_styles.inputFlds}`} placeholder="US" id="country" data-placeholder="US" disabled />
                       </div>
                     </div>
                   </div>
@@ -491,25 +531,25 @@ const CheckOut = () => {
               {differentBilling ? <div className={checkout_styles.paymentFldsBox}>
                   <div className={checkout_styles.cpContact} style={{marginTop: "0"}}>
 
-                      <div className={`${styles.row}`} style={{width: "100%", justifyContent: "space-between"}}>
+                      {/* <div className={`${styles.row}`} style={{width: "100%", justifyContent: "space-between"}}>
                         <div className={`${checkout_styles.frmFlds} ${checkout_styles.fl}`}>
                           <div className={``}>
                             <label htmlFor="first_name" className="fl-label">First Name</label>
-                            <input type="first_name" className={`${checkout_styles.inputFlds}`} placeholder="First Name" id="first_name" data-placeholder="First Name" />
+                            <input onChange={(e) => setState((prevState) => { return {...prevState, customer: {...prevState.customer, first_name: e.target.value}}})} type="first_name" className={`${checkout_styles.inputFlds}`} placeholder="First Name" id="first_name" data-placeholder="First Name" />
                           </div>
                         </div>
                         <div className={`${checkout_styles.frmFlds} ${checkout_styles.fl}`}>
                           <div className={``}>
                             <label htmlFor="last_name" className="fl-label">Last Name</label>
-                            <input type="last_name" className={`${checkout_styles.inputFlds}`} placeholder="Last Name" id="last_name" data-placeholder="Last Name" />
+                            <input onChange={(e) => setState((prevState) => { return {...prevState, customer: {...prevState.customer, last_name: e.target.value}}})} type="last_name" className={`${checkout_styles.inputFlds}`} placeholder="Last Name" id="last_name" data-placeholder="Last Name" />
                           </div>
                         </div>
-                      </div>
+                      </div> */}
 
                       <div className={`${checkout_styles.frmFlds}`}>
                         <div className={``}>
                           <label htmlFor="line1" className="fl-label">Street Address</label>
-                          <input type="line1" className={`${checkout_styles.inputFlds}`} placeholder="Street Address" id="line1" data-placeholder="Street Address" />
+                          <input onChange={(e) => setState((prevState) => { return {...prevState, billing: {...prevState.billing, line1: e.target.value}}})} type="line1" className={`${checkout_styles.inputFlds}`} placeholder="Street Address" id="line1" data-placeholder="Street Address" />
                         </div>
                       </div>
 
@@ -517,12 +557,12 @@ const CheckOut = () => {
                         <div className={`${checkout_styles.frmFlds} ${checkout_styles.fl}`}>
                           <div className={``}>
                             <label htmlFor="city" className="fl-label">City</label>
-                            <input type="city" className={`${checkout_styles.inputFlds}`} placeholder="City" id="city" data-placeholder="City" />
+                            <input onChange={(e) => setState((prevState) => { return {...prevState, billing: {...prevState.billing, city: e.target.value}}})} type="city" className={`${checkout_styles.inputFlds}`} placeholder="City" id="city" data-placeholder="City" />
                           </div>
                         </div>
                         <div className={`${checkout_styles.frmFlds} ${checkout_styles.fl}`}>
                           <div className={``}>
-                            <select name="state" className={checkout_styles.selcetFld} id="state">
+                            <select onChange={(e) => setState((prevState) => { return {...prevState, billing: {...prevState.billing, state: e.target.value}}})} name="state" className={checkout_styles.selcetFld} id="state">
                               <option value="1" selected>- Select State -</option>
                               <option value="AL">Alabama</option>
                               <option value="AK">Alaska</option>
@@ -584,13 +624,13 @@ const CheckOut = () => {
                         <div className={`${checkout_styles.frmFlds} ${checkout_styles.fl}`}>
                           <div className={``}>
                             <label htmlFor="zip" className="fl-label">Zip Code</label>
-                            <input type="zip" className={`${checkout_styles.inputFlds}`} placeholder="Zip Code" id="zip" data-placeholder="Zip Code" />
+                            <input  onChange={(e) => setState((prevState) => { return {...prevState, billing: {...prevState.billing, zip: e.target.value}}})} type="zip" className={`${checkout_styles.inputFlds}`} placeholder="Zip Code" id="zip" data-placeholder="Zip Code" />
                           </div>
                         </div>
                         <div className={`${checkout_styles.frmFlds} ${checkout_styles.fl}`}>
                           <div className={``}>
                             <label htmlFor="country" className="fl-label">Country</label>
-                            <input type="country" className={`${checkout_styles.inputFlds}`} placeholder="US" id="country" data-placeholder="US" disabled />
+                            <input  onChange={(e) => setState((prevState) => { return {...prevState, billing: {...prevState.billing, country: e.target.value}}})} type="country" className={`${checkout_styles.inputFlds}`} placeholder="US" id="country" data-placeholder="US" disabled />
                           </div>
                         </div>
                       </div>
@@ -665,14 +705,22 @@ const CheckOut = () => {
                   <div className={checkout_styles.ordLft}>
                     <div className={checkout_styles.prodImg}>
                       <Image src={"https://hitsdesignclients.com/Peak-Male-new/images/chk-prod.png"} alt={""} width={500} height={500} style={{height: "auto", width: "55px"}} />
-                      <p className={checkout_styles.prodCount}>6</p>
+                      {
+                        state.product == "ONE"  ? <p className={checkout_styles.prodCount}>1</p> : 
+                        state.product == "THREE"  ? <p className={checkout_styles.prodCount}>3</p> :
+                        state.product == "SIX"  ? <p className={checkout_styles.prodCount}>6</p> : null
+                      }
                     </div>
                     <div className={checkout_styles.odrRgt}>
                         <p className={checkout_styles.ordTitle}><strong>Peak Male</strong><br />Xtreme Test Booster</p>
                     </div>
                   </div>
                   <div className={checkout_styles.ordRight}>
-                      <p><span>$249.00</span><br />$179.99</p>
+                      {
+                        state.product == "ONE"  ? <p><span>$49.00</span><br />$59.99</p> : 
+                        state.product == "THREE"  ? <p><span>$269.00</span><br />$149.99</p> :
+                        state.product == "SIX"  ? <p><span>$534.00</span><br />$234.99</p> : null
+                      }
                   </div>
                 </div>
 
@@ -682,7 +730,11 @@ const CheckOut = () => {
                   <tbody>
                     <tr>
                       <td align="left">Subtotal</td>
-                      <td align="right"><span>$199.98</span></td>
+                      {
+                        state.product == "ONE"  ? <td align="right"><span>$69.98</span></td> : 
+                        state.product == "THREE"  ? <td align="right"><span>$159.98</span></td> :
+                        state.product == "SIX"  ? <td align="right"><span>$244.98</span></td> : null
+                      }
                     </tr>
                   </tbody>
                 </table>
@@ -704,7 +756,11 @@ const CheckOut = () => {
                   <tbody>
                     <tr>
                       <td align="left" className={checkout_styles.totTxtL}>Total</td>
-                      <td align="right" className={checkout_styles.totTxtL}><span>$212.93</span></td>
+                      {
+                        state.product == "ONE"  ? <td align="right" className={checkout_styles.totTxtL}><span>$69.98</span></td> : 
+                        state.product == "THREE"  ? <td align="right" className={checkout_styles.totTxtL}><span>$159.98</span></td> :
+                        state.product == "SIX"  ? <td align="right" className={checkout_styles.totTxtL}><span>$244.98</span></td> : null
+                      }
                     </tr>
                   </tbody>
                 </table>

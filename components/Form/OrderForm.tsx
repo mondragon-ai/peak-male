@@ -31,12 +31,9 @@ export type LineItem = {
 }
 export type OrderProps = {
     [key: string]: any,
-    handleSubmit: any
     status: any
     isLoading: any
     message: any,
-    state: InitialValuesType,
-    setState: Dispatch<SetStateAction<any>>,
     isSubbed: boolean,
     setSub: Dispatch<SetStateAction<boolean>>,
     setProduct: Dispatch<SetStateAction<string>>,
@@ -63,12 +60,9 @@ const cardOptions = {
 };
 
 function OrderForm({
-  handleSubmit,
   status,
   isLoading,
   message,
-  setState, 
-  state,
   isSubbed,
   setSub,
   setProduct,
@@ -84,6 +78,8 @@ function OrderForm({
 
   const navigateToCheckout = async () => {
     if (window) {
+      localStorage.setItem("subscribed", String(isSubbed));
+      localStorage.setItem("product", String(productSelected));
       window.location.href = "/checkout"
     }
     // Router.push(`/checkout`);
@@ -254,7 +250,7 @@ function OrderForm({
             </div>
             <div className={`${styles.col}`}  style={{width: "100%"}}>
               <p className={styles.pkgprc2}>
-                <span className={styles.BigPrice}>$59</span>
+                <span className={styles.BigPrice}>{isSubbed ? "$59" : "$69"}</span>
                 <span className={styles.PriceUnit}>/per bottle</span>
               </p>
               <p className={styles.pkgtxt1}>You Save $30</p>
@@ -271,7 +267,7 @@ function OrderForm({
             </div>
             <div className={`${styles.col}`}  style={{width: "100%"}}>
               <p className={styles.pkgprc2}>
-                <span className={styles.BigPrice}>$39</span>
+                <span className={styles.BigPrice}>{isSubbed ? "$49" : "$39"}</span>
                 <span className={styles.PriceUnit}>/per bottle</span>
               </p>
               <p className={styles.freeship}><span>
@@ -292,7 +288,7 @@ function OrderForm({
             </div>
             <div className={`${styles.col}`}  style={{width: "100%"}}>
               <p className={styles.pkgprc2}>
-                <span className={styles.BigPrice}>$49</span>
+                <span className={styles.BigPrice}>{isSubbed ? "$59" : "$49"}</span>
                 <span className={styles.PriceUnit}>/per bottle</span>
               </p>
               <p className={styles.freeship}><span>
