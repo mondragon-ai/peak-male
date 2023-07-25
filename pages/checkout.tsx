@@ -1,155 +1,119 @@
 import checkout_styles from "../styles/Checkout.module.css";
-import { useState, useEffect, useContext } from "react";
-import Router from "next/router";
+import { useState, useEffect, useCallback} from "react";
 import Head from "next/head";
-import { Context } from "@/context/context";
 import styles from "../styles/Home.module.css";
 import { imPoweredRequest } from "@/components/lib/request";
 import Image from "next/image";
 import { formatTime } from "@/components/lib/formatter";
 import CollectJSSection from "@/components/Payments/COollectionJSSection";
-import { LineItem } from "@/components/Form/OrderForm";
 
+// Checkout Form Type
 interface FormData {
-  firstName: string;
-  lastName: string;
+  product: string,
+  isSubbed: boolean,
+  customer: {
+    email: string,
+    first_name: string,
+    last_name: string,
+    cus_uuid: string
+  },
+  shipping: {
+    line1: string,
+    line2: string,
+    city: string,
+    state: string,
+    zip: string,
+    country: string | "US"
+  },
+  billing: {
+    line1: string,
+    line2: string,
+    city: string,
+    state: string,
+    zip: string,
+    country: string | "US"
+  },
+  external_type: "SHOPIFY",
   amount: string;
   isSubmitting: boolean;
   alertMessage: string;
   token: string;
 }
 
-const sub_product = {
-  high_risk: false,
-  title: "Hold The Line Club - Free HTL Coin",
-  sku: "VIP-CLUB",
-  price: 997,
-  compare_at_price: 0,
-  handle: "",
-  options1: "",
-  options2: "",
-  options3: "",
-  weight: 1,
-  variant_id: 42555420573868,
-  quantity: 1,
-  product_id: "",
-  is_recurring: true
-}
+// Form Data
+const formDataInitialState: FormData = {
+  product: "",
+  isSubbed: false,
+  customer: {
+    email: "",
+    first_name: "",
+    last_name: "",
+    cus_uuid: ""
+  },
+  shipping: {
+    line1: "",
+    line2: "",
+    city: "",
+    state: "",
+    zip: "",
+    country: "US"
+  },
+  billing: {
+    line1: "",
+    line2: "",
+    city: "",
+    state: "",
+    zip: "",
+    country: "US"
+  },
+  external_type: "SHOPIFY",
+  amount: "",
+  isSubmitting: true,
+  alertMessage: "",
+  token: "",
+};
 
 const description = `Rivigerate your manhood with Peak Male`;
 const ogImgUrl =  "";
 const canonicalUrl = "https://hitsdesignclients.com/Peak-Male-new/images/logo.png";
 const title = "Peak Male | Optimal Human" 
 
-
-const CheckOut = () => {
-  const [countdown, setCountdown] = useState(300);
-  const [globalState, setGlobalState] = useContext(Context);
+const CheckOut = () => { const [countdown, setCountdown] = useState(300);
   const [isLoading, setIsLoading] = useState(true);
   const [differentBilling, setBilling] = useState(true);
-  const [clientOrigin, setClientOrigin] = useState("");
   const [windowWidth, setWindowWidth] = useState(0);
+  const [formData, setFormData] = useState<FormData>(formDataInitialState);
 
-  // Customer & Product Data
-  const [state, setState] = useState({
-    line_items: [] as LineItem[],
-    product: "",
-    isSubbed: false,
-    customer: {
-      email: "",
-      first_name: "",
-      cus_uuid: ""
-    },
-    shipping: {
-      line1: "",
-      line2: "",
-      city: "",
-      state: "",
-      zip: "",
-      country: "US"
-    },
-    billing: {
-      line1: "",
-      line2: "",
-      city: "",
-      state: "",
-      zip: "",
-      country: "US"
-    },
-    external_type: "SHOPIFY",
-  });
-
-  // CC Form Data
-  const [formData, setFormData] = useState<FormData>({
-    firstName: '',
-    lastName: '',
-    amount: '',
-    isSubmitting: false,
-    alertMessage: '',
-    token: '',
-  });
-
-  console.log(state);
-
-  // When the Collect.js callback is triggered -> POST
-  const finishSubmit = (response: any) => {
-    const { isSubmitting, alertMessage, ...formDataWithoutSubmissionProps } = formData;
-    formDataWithoutSubmissionProps.token = response.token;
-    console.log(formDataWithoutSubmissionProps.token);
-    setFormData({
-      ...formDataWithoutSubmissionProps,
-      isSubmitting: false,
-      alertMessage: 'The form was submitted. Check the console to see the output data.',
-    });
-
-  };
-
-  // Handle CC Form Submit
-  const handleSubmit = (event: React.FormEvent) => {
-    const CollectJS = window ? (window as any).CollectJS : null;
-    event.preventDefault();
-    console.log(state);
-    setFormData((prevFormData) => ({ ...prevFormData, isSubmitting: true }));
-    CollectJS.startPaymentRequest();
-  };
-
-  // Render Countdown
+  // Render Timer JSX
   const renderCountdown = () => {
-
-    for (let i = countdown; i > 0; i--) {
-        return (<span key={i} style={{color: "red"}} id={`second-${i}`}>
-          {formatTime(i)}
-        </span>)
-    }
+    return (
+      <span style={{ color: "red" }} id={`second-${countdown}`}>
+        {formatTime(countdown)}
+      </span>
+    );
   };
 
-  // Fn to Handle POST to imPowered API
-  const handlePurchase = async () => {
+  // Handle POST -> imPowered API
+  const handlePurchase = async (token: string) => {
     try {
       setIsLoading(true);
-      const payload = createPayloadFromOrder();
-
-      const response = await imPoweredRequest(
-        "https://us-central1-impowered-production.cloudfunctions.net/funnels/payments/charge/subscription",
-        "POST",
-        payload
-      );
-
-      if (response.status < 300) {
-
-        const prev_li = globalState.line_items ? globalState.line_items as LineItem[] : []
-      
-        setGlobalState({
-          ...globalState,
-          line_items: [...prev_li, sub_product],
-        });
-
-        Router.push(`${clientOrigin}/confirmation`);
-        setIsLoading(false);
-        return;
-      }
-
-      throw new Error(`We're sorry, you couldn't sign up. Please try refreshing the page and try again.`);
+      console.log("[formData]");
+      console.log(formData);
+      console.log("[token]");
+      console.log(token);
+      console.log("[payload]");
+      const payload = createPayloadFromOrder(token);
+      console.log(payload);
+      // Uncomment and modify the payload creation logic when using imPoweredRequest
+      // const payload = createPayloadFromOrder();
+      // const response = await imPoweredRequest("URL", "POST", payload);
+      // if (response.status < 300) {
+      //   // Handle success response
+      //   Router.push(`${clientOrigin}/confirmation`);
+      //   setIsLoading(false);
+      //   return;
+      // }
+      // throw new Error("Error message");
     } catch (e) {
       setIsLoading(false);
     } finally {
@@ -157,87 +121,174 @@ const CheckOut = () => {
     }
   };
 
-  // Create Payload for imPowered POST
-  const createPayloadFromOrder = () => {
+  // Create POST Payload
+  const createPayloadFromOrder = (token: string) => {
     try {
-      const {customer} = state;
+      const { customer, shipping, billing, product: P, isSubbed } = formData;
 
+      let product = {
+        high_risk: true,
+        title: "",
+        sku: "",
+        price: isSubbed ? 0 : 0,
+        compare_at_price: 0,
+        handle: "",
+        options1: "",
+        options2: "",
+        options3: "",
+        weight: 1,
+        variant_id: 0,
+        quantity: 1,
+        product_id: "",
+        is_recurring: isSubbed
+      };
+      switch (P) {
+        case "ONE": {
+          product = {
+            high_risk: true,
+            title: "1 Bottle",
+            sku: "PM-1-B",
+            price: isSubbed ? 39 : 49,
+            compare_at_price: 0,
+            handle: "1-bottle",
+            options1: "1 Bottle",
+            options2: "",
+            options3: "",
+            weight: 0.15,
+            variant_id: 0,
+            quantity: 1,
+            product_id: "",
+            is_recurring: isSubbed
+          };
+          break;
+        }      
+        case "THREE": {
+          product = {
+            high_risk: true,
+            title: "3 Bottles",
+            sku: "PM-3-B",
+            price: isSubbed ? 49 : 59,
+            compare_at_price: 0,
+            handle: "3-bottles",
+            options1: "3 Bottles",
+            options2: "",
+            options3: "",
+            weight: 0.35,
+            variant_id: 0,
+            quantity: 1,
+            product_id: "",
+            is_recurring: isSubbed
+          };
+          break;
+        }      
+        case "SIX": {
+          product = {
+            high_risk: true,
+            title: "6 Bottles",
+            sku: "PM-6-B",
+            price: isSubbed ? 59 : 69,
+            compare_at_price: 0,
+            handle: "6-bottls",
+            options1: "6 Bottles",
+            options2: "",
+            options3: "",
+            weight: 0.75,
+            variant_id: 0,
+            quantity: 1,
+            product_id: "",
+            is_recurring: true
+          };
+          break;
+        }      
+        default:
+          break;
+      }
       return {
-        cus_uuid: customer.cus_uuid ?? "",
-        product: sub_product,
+        customer: {...customer, token},
+        shipping: shipping,
+        billing: differentBilling ? billing : shipping,
         high_risk: false,
+        product: product,
         fun_uid: process.env.NEXT_PUBLIC_IMPOWERED_FUNNEL,
+        external_type: "SHOPIFY",
       };
     } catch (error) {
       console.log(error);
     }
   };
 
-  // Analytics Use Effect
-  useEffect(() => {
-    let query = new URLSearchParams(window.location.search);
-    setWindowWidth(window? window.innerWidth : 0);
-    // sendPageViewEvent("UPSELL"); // send page view event to google analytics
-  
+  // Handle Submit
+  const handleSubmit = (event: React.FormEvent) => {
+    console.log("[HANDLE SUBMIT]");
+    console.log(formData);
+    const CollectJS = window ? (window as any).CollectJS : null;
+    event.preventDefault();
+    setFormData((prevFormData) => ({ ...prevFormData, isSubmitting: true }));
+    CollectJS.startPaymentRequest();
+  };
 
-    let price = 0;
-
-    // push 3rd party analytics
-    // gtag.twitterEvent(email, price);
-    // gtag.event('conversion', {
-    //   'send_to': 'AW-10793712364/Knd8CNuBkpIYEOz165oo',
-    //   'value': price,
-    //   'currency': 'USD',
-    //   'transaction_id': "txt_" + crypto.randomBytes(10).toString("hex").substring(0,10)
-    // });
-  }, [formData]);
-  
-  // On Load Effect -> Collect.js
+  // Use Effect for 
   useEffect(() => {
+    // Fetch data from local storage and update formData accordingly
     const isSubbed = localStorage.getItem("subscribed");
     const product = localStorage.getItem("product");
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      product: product || "",
+      isSubbed: Boolean(isSubbed || false),
+      isSubmitting: false
+    }));
+  }, []);
 
-    setState({...state, product: product || "", isSubbed: Boolean(isSubbed || false)});
-
-    const CollectJS = window ? (window as any).CollectJS : null;
-    console.log('CollectJS:', CollectJS);
-
-    if (CollectJS) {
-      console.log('CollectJS is available!');
-      CollectJS.configure({
-        variant: 'inline',
-        'theme': 'bootstrap',
-        'buttonText': 'SUBMIT ME!',
-        callback: (token: string) => {
-          console.log(token);
-          finishSubmit(token);
-        },
-        fields: {
-          ccnumber: {
-            placeholder: 'CC Number',
-            selector: '#ccnumber',
-          },
-          ccexp: {
-            placeholder: 'CC Expiration',
-            selector: '#ccexp',
-          },
-          cvv: {
-            placeholder: 'CVV',
-            selector: '#cvv',
-          },
-        },
-      });
-    } else {
-      console.log('CollectJS is not available!');
-    }
-
+  // Countdown Timer 
+  useEffect(() => {
     const timer = setInterval(() => {
       setCountdown((prevCountdown) => prevCountdown - 1);
     }, 1000);
+    setWindowWidth(window.innerWidth);
 
     return () => clearInterval(timer);
-
   }, []);
+
+  // Configure CollectJS 
+  useEffect(() => {
+    console.log("STARTED");
+    const CollectJS = window ? (window as any).CollectJS : null;
+    if (CollectJS && !formData.isSubmitting) {
+      CollectJS.configure({
+        variant: "inline",
+        theme: "bootstrap",
+        buttonText: "SUBMIT ME!",
+        callback: finishSubmit,
+        fields: {
+          ccnumber: {
+            placeholder: "CC Number",
+            selector: "#ccnumber",
+          },
+          ccexp: {
+            placeholder: "CC Expiration",
+            selector: "#ccexp",
+          },
+          cvv: {
+            placeholder: "CVV",
+            selector: "#cvv",
+          },
+        },
+      });
+    }
+  }, [formData]);
+
+  // Finish Submit call back 
+  const finishSubmit = useCallback(async (response: any) => {
+    const { isSubmitting, alertMessage, ...formDataWithoutSubmissionProps } = formData;
+    formDataWithoutSubmissionProps.token = response.token;
+    await handlePurchase(response.token);
+    setFormData({
+      ...formDataWithoutSubmissionProps,
+      isSubmitting: false,
+      alertMessage: "",
+    });
+  }, [formData]);
 
   return (
     <div>
@@ -302,9 +353,9 @@ const CheckOut = () => {
                     <div className={checkout_styles.prodImg}>
                       <Image src={"https://hitsdesignclients.com/Peak-Male-new/images/chk-prod.png"} alt={""} width={500} height={500} style={{height: "auto", width: "55px"}} />
                       {
-                        state.product == "ONE"  ? <p className={checkout_styles.prodCount}>1</p> : 
-                        state.product == "THREE"  ? <p className={checkout_styles.prodCount}>3</p> :
-                        state.product == "SIX"  ? <p className={checkout_styles.prodCount}>6</p> : null
+                        formData.product == "ONE"  ? <p className={checkout_styles.prodCount}>1</p> : 
+                        formData.product == "THREE"  ? <p className={checkout_styles.prodCount}>3</p> :
+                        formData.product == "SIX"  ? <p className={checkout_styles.prodCount}>6</p> : null
                       }
                     </div>
                     <div className={checkout_styles.odrRgt}>
@@ -313,9 +364,9 @@ const CheckOut = () => {
                   </div>
                   <div className={checkout_styles.ordRight}>
                       {
-                        state.product == "ONE"  ? <p><span>$49.00</span><br />$59.99</p> : 
-                        state.product == "THREE"  ? <p><span>$269.00</span><br />$149.99</p> :
-                        state.product == "SIX"  ? <p><span>$534.00</span><br />$234.99</p> : null
+                        formData.product == "ONE"  ? <p><span>$49.00</span><br />$59.99</p> : 
+                        formData.product == "THREE"  ? <p><span>$269.00</span><br />$149.99</p> :
+                        formData.product == "SIX"  ? <p><span>$534.00</span><br />$234.99</p> : null
                       }
                   </div>
                 </div>
@@ -327,9 +378,9 @@ const CheckOut = () => {
                     <tr>
                       <td align="left">Subtotal</td>
                       {
-                        state.product == "ONE"  ? <td align="right"><span>$69.98</span></td> : 
-                        state.product == "THREE"  ? <td align="right"><span>$159.98</span></td> :
-                        state.product == "SIX"  ? <td align="right"><span>$244.98</span></td> : null
+                        formData.product == "ONE"  ? <td align="right"><span>$69.98</span></td> : 
+                        formData.product == "THREE"  ? <td align="right"><span>$159.98</span></td> :
+                        formData.product == "SIX"  ? <td align="right"><span>$244.98</span></td> : null
                       }
                     </tr>
                   </tbody>
@@ -353,9 +404,9 @@ const CheckOut = () => {
                     <tr>
                       <td align="left" className={checkout_styles.totTxtL}>Total</td>
                       {
-                        state.product == "ONE"  ? <td align="right" className={checkout_styles.totTxtL}><span>$69.98</span></td> : 
-                        state.product == "THREE"  ? <td align="right" className={checkout_styles.totTxtL}><span>$159.98</span></td> :
-                        state.product == "SIX"  ? <td align="right" className={checkout_styles.totTxtL}><span>$244.98</span></td> : null
+                        formData.product == "ONE"  ? <td align="right" className={checkout_styles.totTxtL}><span>$69.98</span></td> : 
+                        formData.product == "THREE"  ? <td align="right" className={checkout_styles.totTxtL}><span>$159.98</span></td> :
+                        formData.product == "SIX"  ? <td align="right" className={checkout_styles.totTxtL}><span>$244.98</span></td> : null
                       }
                     </tr>
                   </tbody>
@@ -394,7 +445,7 @@ const CheckOut = () => {
                   <div className={`${checkout_styles.frmFlds}`}>
                     <div className={``}>
                       <label htmlFor="email" className="fl-label">Email</label>
-                      <input onChange={(e) => setState((prevState) => { return {...prevState, customer: {...prevState.customer, email: e.target.value}}})} type="email" className={`${checkout_styles.inputFlds}`} placeholder="Email" id="email" data-placeholder="Email" />
+                      <input onChange={(e) => setFormData({...formData, customer: {...formData.customer, email: e.target.value}})} type="email" className={`${checkout_styles.inputFlds}`} placeholder="Email" id="email" data-placeholder="Email" />
                     </div>
                   </div>
               </div>
@@ -408,13 +459,13 @@ const CheckOut = () => {
                     <div className={`${checkout_styles.frmFlds} ${checkout_styles.fl}`}>
                       <div className={``}>
                         <label htmlFor="first_name" className="fl-label">First Name</label>
-                        <input onChange={(e) => setState((prevState) => { return {...prevState, customer: {...prevState.customer, first_name: e.target.value}}})} type="first_name" className={`${checkout_styles.inputFlds}`} placeholder="First Name" id="first_name" data-placeholder="First Name" />
+                        <input onChange={(e) => setFormData({...formData, customer: {...formData.customer, first_name: e.target.value}})} type="first_name" className={`${checkout_styles.inputFlds}`} placeholder="First Name" id="first_name" data-placeholder="First Name" />
                       </div>
                     </div>
                     <div className={`${checkout_styles.frmFlds} ${checkout_styles.fl}`}>
                       <div className={``}>
                         <label htmlFor="last_name" className="fl-label">Last Name</label>
-                        <input onChange={(e) => setState((prevState) => { return {...prevState, customer: {...prevState.customer, last_name: e.target.value}}})} type="last_name" className={`${checkout_styles.inputFlds}`} placeholder="Last Name" id="last_name" data-placeholder="Last Name" />
+                        <input onChange={(e) => setFormData({...formData, customer: {...formData.customer, last_name: e.target.value}})} type="last_name" className={`${checkout_styles.inputFlds}`} placeholder="Last Name" id="last_name" data-placeholder="Last Name" />
                       </div>
                     </div>
                   </div>
@@ -422,7 +473,7 @@ const CheckOut = () => {
                   <div className={`${checkout_styles.frmFlds}`}>
                     <div className={``}>
                       <label htmlFor="line1" className="fl-label">Street Address</label>
-                      <input onChange={(e) => setState((prevState) => { return {...prevState, shipping: {...prevState.shipping, line1: e.target.value}}})} type="line1" className={`${checkout_styles.inputFlds}`} placeholder="Street Address" id="line1" data-placeholder="Street Address" />
+                      <input onChange={(e) => setFormData({...formData, shipping: {...formData.shipping, line1: e.target.value}})} type="line1" className={`${checkout_styles.inputFlds}`} placeholder="Street Address" id="line1" data-placeholder="Street Address" />
                     </div>
                   </div>
 
@@ -430,12 +481,12 @@ const CheckOut = () => {
                     <div className={`${checkout_styles.frmFlds} ${checkout_styles.fl}`}>
                       <div className={``}>
                         <label htmlFor="city" className="fl-label">City</label>
-                        <input onChange={(e) => setState((prevState) => { return {...prevState, shipping: {...prevState.shipping, city: e.target.value}}})} type="city" className={`${checkout_styles.inputFlds}`} placeholder="City" id="city" data-placeholder="City" />
+                        <input onChange={(e) => setFormData({...formData, shipping: {...formData.shipping, city: e.target.value}})} type="city" className={`${checkout_styles.inputFlds}`} placeholder="City" id="city" data-placeholder="City" />
                       </div>
                     </div>
                     <div className={`${checkout_styles.frmFlds} ${checkout_styles.fl}`}>
                       <div className={``}>
-                        <select onChange={(e) => setState((prevState) => { return {...prevState, shipping: {...prevState.shipping, state: e.target.value}}})}  name="state" className={checkout_styles.selcetFld} id="state">
+                        <select onChange={(e) => setFormData({...formData, shipping: {...formData.shipping, state: e.target.value}})}  name="state" className={checkout_styles.selcetFld} id="state">
                           <option value="1" selected>- Select State -</option>
                           <option value="AL">Alabama</option>
                           <option value="AK">Alaska</option>
@@ -497,13 +548,13 @@ const CheckOut = () => {
                     <div className={`${checkout_styles.frmFlds} ${checkout_styles.fl}`}>
                       <div className={``}>
                         <label htmlFor="zip" className="fl-label">Zip Code</label>
-                        <input onChange={(e) => setState((prevState) => { return {...prevState, shipping: {...prevState.shipping, zip: e.target.value}}})}  type="zip" className={`${checkout_styles.inputFlds}`} placeholder="Zip Code" id="zip" data-placeholder="Zip Code" />
+                        <input onChange={(e) => setFormData({...formData, shipping: {...formData.shipping, zip: e.target.value}})}  type="zip" className={`${checkout_styles.inputFlds}`} placeholder="Zip Code" id="zip" data-placeholder="Zip Code" />
                       </div>
                     </div>
                     <div className={`${checkout_styles.frmFlds} ${checkout_styles.fl}`}>
                       <div className={``}>
                         <label htmlFor="country" className="fl-label">Country</label>
-                        <input onChange={(e) => setState((prevState) => { return {...prevState, shipping: {...prevState.shipping, country: e.target.value}}})}  type="country" className={`${checkout_styles.inputFlds}`} placeholder="US" id="country" data-placeholder="US" disabled />
+                        <input onChange={(e) => setFormData({...formData, shipping: {...formData.shipping, country: e.target.value}})}  type="country" className={`${checkout_styles.inputFlds}`} placeholder="US" id="country" data-placeholder="US" disabled />
                       </div>
                     </div>
                   </div>
@@ -549,7 +600,7 @@ const CheckOut = () => {
                       <div className={`${checkout_styles.frmFlds}`}>
                         <div className={``}>
                           <label htmlFor="line1" className="fl-label">Street Address</label>
-                          <input onChange={(e) => setState((prevState) => { return {...prevState, billing: {...prevState.billing, line1: e.target.value}}})} type="line1" className={`${checkout_styles.inputFlds}`} placeholder="Street Address" id="line1" data-placeholder="Street Address" />
+                          <input onChange={(e) => setFormData({...formData, billing: {...formData.billing, line1: e.target.value}})} type="line1" className={`${checkout_styles.inputFlds}`} placeholder="Street Address" id="line1" data-placeholder="Street Address" />
                         </div>
                       </div>
 
@@ -557,12 +608,12 @@ const CheckOut = () => {
                         <div className={`${checkout_styles.frmFlds} ${checkout_styles.fl}`}>
                           <div className={``}>
                             <label htmlFor="city" className="fl-label">City</label>
-                            <input onChange={(e) => setState((prevState) => { return {...prevState, billing: {...prevState.billing, city: e.target.value}}})} type="city" className={`${checkout_styles.inputFlds}`} placeholder="City" id="city" data-placeholder="City" />
+                            <input onChange={(e) => setFormData({...formData, billing: {...formData.billing, city: e.target.value}})} type="city" className={`${checkout_styles.inputFlds}`} placeholder="City" id="city" data-placeholder="City" />
                           </div>
                         </div>
                         <div className={`${checkout_styles.frmFlds} ${checkout_styles.fl}`}>
                           <div className={``}>
-                            <select onChange={(e) => setState((prevState) => { return {...prevState, billing: {...prevState.billing, state: e.target.value}}})} name="state" className={checkout_styles.selcetFld} id="state">
+                            <select onChange={(e) => setFormData({...formData, billing: {...formData.billing, state: e.target.value}})} name="state" className={checkout_styles.selcetFld} id="state">
                               <option value="1" selected>- Select State -</option>
                               <option value="AL">Alabama</option>
                               <option value="AK">Alaska</option>
@@ -624,13 +675,13 @@ const CheckOut = () => {
                         <div className={`${checkout_styles.frmFlds} ${checkout_styles.fl}`}>
                           <div className={``}>
                             <label htmlFor="zip" className="fl-label">Zip Code</label>
-                            <input  onChange={(e) => setState((prevState) => { return {...prevState, billing: {...prevState.billing, zip: e.target.value}}})} type="zip" className={`${checkout_styles.inputFlds}`} placeholder="Zip Code" id="zip" data-placeholder="Zip Code" />
+                            <input  onChange={(e) => setFormData({...formData, billing: {...formData.billing, zip: e.target.value}})} type="zip" className={`${checkout_styles.inputFlds}`} placeholder="Zip Code" id="zip" data-placeholder="Zip Code" />
                           </div>
                         </div>
                         <div className={`${checkout_styles.frmFlds} ${checkout_styles.fl}`}>
                           <div className={``}>
                             <label htmlFor="country" className="fl-label">Country</label>
-                            <input  onChange={(e) => setState((prevState) => { return {...prevState, billing: {...prevState.billing, country: e.target.value}}})} type="country" className={`${checkout_styles.inputFlds}`} placeholder="US" id="country" data-placeholder="US" disabled />
+                            <input  onChange={(e) => setFormData({...formData, billing: {...formData.billing, country: e.target.value}})} type="country" className={`${checkout_styles.inputFlds}`} placeholder="US" id="country" data-placeholder="US" disabled />
                           </div>
                         </div>
                       </div>
@@ -706,9 +757,9 @@ const CheckOut = () => {
                     <div className={checkout_styles.prodImg}>
                       <Image src={"https://hitsdesignclients.com/Peak-Male-new/images/chk-prod.png"} alt={""} width={500} height={500} style={{height: "auto", width: "55px"}} />
                       {
-                        state.product == "ONE"  ? <p className={checkout_styles.prodCount}>1</p> : 
-                        state.product == "THREE"  ? <p className={checkout_styles.prodCount}>3</p> :
-                        state.product == "SIX"  ? <p className={checkout_styles.prodCount}>6</p> : null
+                        formData.product == "ONE"  ? <p className={checkout_styles.prodCount}>1</p> : 
+                        formData.product == "THREE"  ? <p className={checkout_styles.prodCount}>3</p> :
+                        formData.product == "SIX"  ? <p className={checkout_styles.prodCount}>6</p> : null
                       }
                     </div>
                     <div className={checkout_styles.odrRgt}>
@@ -717,9 +768,9 @@ const CheckOut = () => {
                   </div>
                   <div className={checkout_styles.ordRight}>
                       {
-                        state.product == "ONE"  ? <p><span>$49.00</span><br />$59.99</p> : 
-                        state.product == "THREE"  ? <p><span>$269.00</span><br />$149.99</p> :
-                        state.product == "SIX"  ? <p><span>$534.00</span><br />$234.99</p> : null
+                        formData.product == "ONE"  ? <p><span>$49.00</span><br />$59.99</p> : 
+                        formData.product == "THREE"  ? <p><span>$269.00</span><br />$149.99</p> :
+                        formData.product == "SIX"  ? <p><span>$534.00</span><br />$234.99</p> : null
                       }
                   </div>
                 </div>
@@ -731,9 +782,9 @@ const CheckOut = () => {
                     <tr>
                       <td align="left">Subtotal</td>
                       {
-                        state.product == "ONE"  ? <td align="right"><span>$69.98</span></td> : 
-                        state.product == "THREE"  ? <td align="right"><span>$159.98</span></td> :
-                        state.product == "SIX"  ? <td align="right"><span>$244.98</span></td> : null
+                        formData.product == "ONE"  ? <td align="right"><span>$69.98</span></td> : 
+                        formData.product == "THREE"  ? <td align="right"><span>$159.98</span></td> :
+                        formData.product == "SIX"  ? <td align="right"><span>$244.98</span></td> : null
                       }
                     </tr>
                   </tbody>
@@ -757,9 +808,9 @@ const CheckOut = () => {
                     <tr>
                       <td align="left" className={checkout_styles.totTxtL}>Total</td>
                       {
-                        state.product == "ONE"  ? <td align="right" className={checkout_styles.totTxtL}><span>$69.98</span></td> : 
-                        state.product == "THREE"  ? <td align="right" className={checkout_styles.totTxtL}><span>$159.98</span></td> :
-                        state.product == "SIX"  ? <td align="right" className={checkout_styles.totTxtL}><span>$244.98</span></td> : null
+                        formData.product == "ONE"  ? <td align="right" className={checkout_styles.totTxtL}><span>$69.98</span></td> : 
+                        formData.product == "THREE"  ? <td align="right" className={checkout_styles.totTxtL}><span>$159.98</span></td> :
+                        formData.product == "SIX"  ? <td align="right" className={checkout_styles.totTxtL}><span>$244.98</span></td> : null
                       }
                     </tr>
                   </tbody>
