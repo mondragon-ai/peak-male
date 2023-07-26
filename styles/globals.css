@@ -73,6 +73,15 @@
   }
 }
 
+@font-face {
+  font-family: 'ApercuPro';
+  src: url('../public/fonts/ApercuPro-Regular.woff2') format('woff2'),
+       url('../public/fonts/ApercuPro-Regular.woff') format('woff');
+  /* Add more formats if necessary */
+  font-weight: normal;
+  font-style: normal;
+}
+
 * {
   box-sizing: border-box;
   padding: 0;
@@ -101,7 +110,7 @@ button,
 div,
 strong,
 a {
-  font-family: 'sans-serif', sans-serif !important;
+  font-family: 'ApercuPro', sans-serif !important;
 }
 /* body {
   color: rgb(var(--foreground-rgb));

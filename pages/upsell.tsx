@@ -1,19 +1,18 @@
 import { useState, useEffect, useContext } from "react";
-import Footer from "../components/Footer";
 import { sendPageViewEvent } from "../components/lib/analytics"; 
 import Router from "next/router";
 import Head from "next/head";
 import { Context } from "@/context/context";
 import styles from "../styles/Home.module.css";
 import upsell_styles from "../styles/Upsell.module.css";
-import * as crypto from "crypto";
-import Image from "next/image";
-import UpsellAccordion from "@/components/global/UpsellAccordion";
+import { formatTime } from "@/components/lib/formatter";
 import { imPoweredRequest } from "@/components/lib/request";
 import { LineItem } from "@stripe/stripe-js";
-import * as gtag from "../components/lib/analytics"
+// import * as gtag from "../components/lib/analytics"
 
 const Upsell = () => {
+  const [countdown, setCountdown] = useState(600);
+  const [selectedImg, selectImage] = useState("https://hitsdesignclients.com/Peak-Male-new/images/up-slide1.png")
   const [globalState, setGlobalState] = useContext(Context);
   const [isLoading, setIsLoading] = useState(true);
   const [state, setState] = useState({
@@ -29,10 +28,29 @@ const Upsell = () => {
   const [windowWidth, setWindowWidth] = useState(0);
 
 
+  // Render Timer JSX
+  const renderCountdown = () => {
+    return (
+      <span style={{ color: "red" }} id={`second-${countdown}`}>
+        {formatTime(countdown)}
+      </span>
+    );
+  };
+
+  // Countdown Timer 
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCountdown((prevCountdown) => prevCountdown - 1);
+    }, 1000);
+    setWindowWidth(window.innerWidth);
+
+    return () => clearInterval(timer);
+  }, []);
+
   useEffect(() => {
     let query = new URLSearchParams(window.location.search);
     setWindowWidth(window? window.innerWidth : 0);
-    sendPageViewEvent("UPSELL"); // send page view event to google analytics
+    // sendPageViewEvent("UPSELL"); // send page view event to google analytics
 
     // extract vars
     const products: LineItem[] = query.get("line_items") ? JSON.parse(query.get("line_items") ?? "") : [];
@@ -76,7 +94,7 @@ const Upsell = () => {
 
 
     // push 3rd party analytics
-    gtag.twitterEvent(email, price);
+    // gtag.twitterEvent(email, price);
     // gtag.event('conversion', {
     //   'send_to': 'AW-10793712364/Knd8CNuBkpIYEOz165oo',
     //   'value': price,
@@ -100,8 +118,7 @@ const Upsell = () => {
     quantity: 1,
     product_id: "",
     is_recurring: true
-  }
-
+  };
 
   const signUpForFreeDecals = async () => {
     try {
@@ -136,9 +153,9 @@ const Upsell = () => {
     }
   };
 
-  const declineFreeDecals = async () => {
+  const declineOffer = async () => {
     setIsLoading(true);
-    Router.push(`${clientOrigin}/confirmation`);
+    Router.push(`/confirmation`);
     setIsLoading(false);
   };
 
@@ -156,7 +173,6 @@ const Upsell = () => {
       console.log(error);
     }
   };
-
 
   const description = `Own a piece of American pride with the Hold The Line Coin. Handcrafted from steel, this symbol of patriotism embodies strength, resilience, and the spirit of our great nation. Perfect for gifting and displaying, order your Hold The Line Coin today!!`;
   const ogImgUrl =  "https://images.clickfunnels.com/05/3daf9073c744e19ac910592c7eab5e/hold-the-line-coins-both_clipped_rev_1-cropped.png";
@@ -220,7 +236,7 @@ const Upsell = () => {
                       <div className={upsell_styles.slickList}>
                         <div className={upsell_styles.slickTrack}>
                           <div className={`${upsell_styles.slickSlide} ${upsell_styles.slickActive}`} data-slick-index="0" style={{width: windowWidth < 720 ? "" : "381px"}}>
-                            <img src="https://hitsdesignclients.com/Peak-Male-new/images/up-slide1.png" className={`${upsell_styles.upSlideImg}`} alt="img" />
+                            <img src={selectedImg} className={`${upsell_styles.upSlideImg}`} alt="img" />
                           </div>
                         </div>
                       </div>
@@ -231,13 +247,13 @@ const Upsell = () => {
                       
                     <div className={upsell_styles.slickList} >
                       <div className={upsell_styles.slickTrack} style={{opacity: 1, width: windowWidth < 720 ? "" : "441px", transform: "translate3d(0px, 0px, 0px)"}}>
-                        <div className={`${upsell_styles.slickSlide}`} data-slick-index="0" style={{width: "139px"}}>
+                        <div onClick={() => selectImage("https://hitsdesignclients.com/Peak-Male-new/images/up-slide1.png")} className={`${upsell_styles.slickSlide}`} data-slick-index="0" style={{width: "139px"}}>
                           <img src="https://hitsdesignclients.com/Peak-Male-new/images/up-slide1.png" className="up-nav" alt="img"/>
                         </div>
-                        <div className={`${upsell_styles.slickSlide}`} data-slick-index="1" style={{width: "139px"}}>
+                        <div onClick={() => selectImage("https://hitsdesignclients.com/Peak-Male-new/images/up-slide2.png")}  className={`${upsell_styles.slickSlide}`} data-slick-index="1" style={{width: "139px"}}>
                           <img src="https://hitsdesignclients.com/Peak-Male-new/images/up-slide2.png" className="up-nav" alt="img" />
                         </div>
-                        <div className={`${upsell_styles.slickSlide}`} data-slick-index="2" style={{width: "139px"}}>
+                        <div onClick={() => selectImage("https://hitsdesignclients.com/Peak-Male-new/images/up-slide3.png")}  className={`${upsell_styles.slickSlide}`} data-slick-index="2" style={{width: "139px"}}>
                           <img src="https://hitsdesignclients.com/Peak-Male-new/images/up-slide3.png" className="up-nav" alt="img" />
                         </div>
                       </div>
@@ -262,13 +278,13 @@ const Upsell = () => {
                   </ul>
                   <div className={upsell_styles.upPrcRow}>
                     <p className={upsell_styles.upPrc}><span>$24.99</span> <small>(SAVE 45%)</small></p>
-                    <p className={upsell_styles.dealReserve}>Deal reserved for: <strong><span style={{}}>00:00</span> min</strong></p>
+                    <p className={upsell_styles.dealReserve}>Deal reserved for: <strong><span style={{color: "red"}}>{renderCountdown()}</span> min</strong></p>
                   </div>
                   <a href="#" className={upsell_styles.upBtn}>Yes, Upgrade my Order with 1-Click-Buy! </a>
                   <p className={upsell_styles.moneyBkText}>
                     <img src="https://hitsdesignclients.com/Peak-Male-new/images/money-bk-seal.png" /> 30 Day Money Back Guarantee&nbsp;</p>
                   <div className={upsell_styles.deviderCp}></div>
-                  <a href="#" className={upsell_styles.noThnx}>No thanks! I don't want to save with this one time offer.</a>
+                  <a onClick={declineOffer} className={upsell_styles.noThnx}>No thanks! I don't want to save with this one time offer.</a>
                 </div>
                 
               </div>

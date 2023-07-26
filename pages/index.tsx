@@ -432,6 +432,7 @@ export default function Home() {
                       </div>
                       <div  onClick={() => navigateToCheckout()} className={`${styles.row}`} style={{margin: "0px auto",width: "100%"}}>
                         <button style={{
+                          cursor: "pointer",
                           display: "block",
                           margin: "10px auto 0",
                           background: "#ff7200",
@@ -477,6 +478,7 @@ export default function Home() {
                       <div onClick={() => navigateToCheckout()} className={`${styles.row}`} style={{margin: "0px auto",width: "100%"}}>
                         <button style={{
                           display: "block",
+                          cursor: "pointer",
                           margin: "10px auto 0",
                           background: "#ff7200",
                           height: "45px",
@@ -525,6 +527,7 @@ export default function Home() {
                         <button style={{
                           display: "block",
                           margin: "10px auto 0",
+                          cursor: "pointer",
                           background: "#ff7200",
                           height: "45px",
                           width: "80%",

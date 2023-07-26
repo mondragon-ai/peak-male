@@ -79,7 +79,8 @@ const ogImgUrl =  "";
 const canonicalUrl = "https://hitsdesignclients.com/Peak-Male-new/images/logo.png";
 const title = "Peak Male | Optimal Human" 
 
-const CheckOut = () => { const [countdown, setCountdown] = useState(300);
+const CheckOut = () => { 
+  const [countdown, setCountdown] = useState(300);
   const [isLoading, setIsLoading] = useState(true);
   const [differentBilling, setBilling] = useState(true);
   const [windowWidth, setWindowWidth] = useState(0);
@@ -98,10 +99,6 @@ const CheckOut = () => { const [countdown, setCountdown] = useState(300);
   const handlePurchase = async (token: string) => {
     try {
       setIsLoading(true);
-      console.log("[formData]");
-      console.log(formData);
-      console.log("[token]");
-      console.log(token);
       console.log("[payload]");
       const payload = createPayloadFromOrder(token);
       console.log(payload);
@@ -148,14 +145,14 @@ const CheckOut = () => { const [countdown, setCountdown] = useState(300);
             high_risk: true,
             title: "1 Bottle",
             sku: "PM-1-B",
-            price: isSubbed ? 39 : 49,
+            price: isSubbed ? 3900 : 4900,
             compare_at_price: 0,
             handle: "1-bottle",
             options1: "1 Bottle",
             options2: "",
             options3: "",
             weight: 0.15,
-            variant_id: 0,
+            variant_id: 45361885970728,
             quantity: 1,
             product_id: "",
             is_recurring: isSubbed
@@ -167,14 +164,14 @@ const CheckOut = () => { const [countdown, setCountdown] = useState(300);
             high_risk: true,
             title: "3 Bottles",
             sku: "PM-3-B",
-            price: isSubbed ? 49 : 59,
+            price: isSubbed ? 4900 : 5900,
             compare_at_price: 0,
             handle: "3-bottles",
             options1: "3 Bottles",
             options2: "",
             options3: "",
             weight: 0.35,
-            variant_id: 0,
+            variant_id: 45361886003496,
             quantity: 1,
             product_id: "",
             is_recurring: isSubbed
@@ -186,14 +183,14 @@ const CheckOut = () => { const [countdown, setCountdown] = useState(300);
             high_risk: true,
             title: "6 Bottles",
             sku: "PM-6-B",
-            price: isSubbed ? 59 : 69,
+            price: isSubbed ? 5900 : 6900,
             compare_at_price: 0,
             handle: "6-bottls",
             options1: "6 Bottles",
             options2: "",
             options3: "",
             weight: 0.75,
-            variant_id: 0,
+            variant_id: 45361886036264,
             quantity: 1,
             product_id: "",
             is_recurring: true

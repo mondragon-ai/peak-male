@@ -238,6 +238,7 @@
 }
 
 .slickSlide {
+    cursor: pointer;
     display: block;
 }
 

@@ -1,0 +1,580 @@
+.header {
+    background: #fff;
+    float: left;
+    width: 100%;
+    height: 80px;
+}
+.container {
+    width: 1170px;
+    margin: 0 auto;
+    padding: 0;
+    position: relative;
+}
+.logo {
+    float: left;
+    margin: 15px 0 0 0;
+    width: 120px;
+}
+.stpList {
+    float: right;
+    width: 100%;
+    max-width: 381px;
+    margin: 32px 0 0 0;
+}
+.stpList li {
+    display: inline-block;
+    vertical-align: middle;
+    font-size: 16px;
+    line-height: 20px;
+    color: #000;
+    position: relative;
+}
+
+.stpList li:after {
+    background: url('https://hitsdesignclients.com/Peak-Male-new/images/ship-arw.png') no-repeat center center;
+    background-size: 100%;
+    width: 7px;
+    height: 16px;
+    content: "";
+    display: inline-block;
+    vertical-align: middle;
+    margin: -1px 11px 0px 19px;
+}
+
+.stpList li:last-child {
+    color: #555555;
+}
+
+/* =================================================================================================================================================================================================== */
+/* ! HEADER */
+/* =================================================================================================================================================================================================== */
+.tyTopHdng {
+    float: left;
+    width: 100%;
+    background: #17378a;
+    padding: 22px 0 130px;
+    text-align: center;
+}
+.tyHdngTxt1 {
+    float: left;
+    width: 100%;
+    font-size: 34px;
+    color: #fff000;
+    font-weight: 700;
+    line-height: 34px;
+    position: relative;
+    letter-spacing: 0.6px;
+}
+
+.tyHdngTxt2 {
+    float: left;
+    width: 100%;
+    font-size: 22px;
+    color: #ffffff;
+    line-height: 24px;
+    margin-top: 10px;
+    letter-spacing: 0.7px;
+}
+
+/* =================================================================================================================================================================================================== */
+/* ! ORDER SUMMARY SECTION */
+/* =================================================================================================================================================================================================== */
+.thankSec {
+    float: left;
+    width: 100%;
+    margin-top: -125px;
+    padding-bottom: 50px;
+}
+.thankBox {
+    display: block;
+    vertical-align: top;
+    width: 100%;
+    max-width: 870px;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px 1px rgb(0 0 0 / 10%);
+    background: #fff;
+    padding: 15px;
+    margin: 20px auto 0;
+    position: relative;
+    overflow: hidden;
+}
+.tyCoupnInner {
+    float: left;
+    width: 100%;
+    padding: 10px;
+}
+.thnkTopTxt {
+    float: left;
+    width: 100%;
+    font-size: 19px;
+    line-height: 24px;
+    color: #000;
+    padding: 0 50px;
+    margin: 0 0 20px;
+    text-align: center;
+}
+.tySecHeading {
+    float: left;
+    width: 100%;
+    text-align: center;
+}
+.tySecHeading span {
+    display: inline-block;
+    vertical-align: middle;
+    padding: 14px 10px 10px 10px;
+    color: #191919;
+    font-size: 22px;
+    line-height: 22px;
+    text-transform: uppercase;
+    position: relative;
+    text-align: center;
+}
+
+.tySecHeading span:before, .tySecHeading span:after {
+    content: '';
+    position: absolute;
+    left: -100px;
+    width: 100px;
+    height: 1px;
+    background: #e1e1e1;
+    top: 50%;
+}
+.tySecHeading span:after {
+    right: -100px;
+    left: auto;
+}
+.summryContainer {
+    display: inline-block;
+    vertical-align: top;
+    border: 1px solid #d2d2d2;
+    width: 830px;
+    max-width: 100%;
+    margin-top: 22px;
+}
+.thnkOdrnmbr {
+    float: left;
+    width: 100%;
+    background: #f5f5f5;
+    padding: 2px 0;
+    font-size: 19px;
+    line-height: 22px;
+    color: #191919;
+    letter-spacing: 0.5px;
+    border-bottom: 1px solid #d2d2d2;
+}
+.showMob, .showTab {
+    display: none;
+}
+.thnkOdrtxt1 {
+    float: left;
+    width: 50%;
+    padding: 14px;
+    text-align: left;
+}
+.thnkOdrnmbr span {
+    font-weight: 500;
+}
+.thnkOdrtxt2 {
+    float: right;
+    width: 50%;
+    padding: 14px;
+    text-align: right;
+}
+.tyOdrSmryBox {
+    float: left;
+    width: 100%;
+}
+.tyHeadingRow {
+    float: left;
+    width: 100%;
+    font-size: 17px;
+    line-height: 20px;
+    padding: 7px 0 5px;
+    color: #191919;
+    font-weight: 500;
+    border-bottom: 1px solid #e1e1e1;
+    letter-spacing: 0.5px;
+}
+.tyCol1 {
+    float: left;
+    width: 50%;
+    text-align: left;
+    padding: 10px 15px;
+}
+.tyCol3 {
+    float: left;
+    width: 20%;
+    text-align: center;
+    padding: 10px 5px;
+}
+.tyCol4 {
+    float: left;
+    width: 30%;
+    text-align: right;
+    padding: 10px 25px 10px 0;
+}
+
+.tyProdRow {
+    float: left;
+    width: 100%;
+    border-bottom: 1px solid #e1e1e1;
+    font-size: 19px;
+    letter-spacing: 0.5px;
+    line-height: 20px;
+    color: #191919;
+    padding: 5px 0;
+}
+.tyProdbx {
+    display: inline-block;
+    vertical-align: middle;
+    width: 72px;
+    height: 72px;
+    padding: 3px;
+    text-align: center;
+}
+.tyProdRow .tyCol3, .tyProdRow .tyCol4 {
+    padding-top: 35px;
+}
+.tyProdbx img {
+    max-width: 100%;
+    max-height: 100%;
+}
+.tyPrdName {
+    display: inline-block;
+    vertical-align: middle;
+    width: calc(100% - 90px);
+    padding-left: 16px;
+    font-weight: 500;
+}
+.priceFlds {
+    float: right;
+    width: 400px;
+    padding: 0 15px;
+    margin: 15px 0;
+    max-width: 100%;
+}
+.prcRow {
+    float: left;
+    width: 100%;
+    padding: 7px 5px;
+    text-align: left;
+    color: #191919;
+    font-size: 17px;
+    letter-spacing: 0.5px;
+}
+.prcRow p {
+    float: left;
+    width: 60%;
+}
+.prcRow span {
+    float: right;
+    width: 15%;
+    text-align: right;
+}
+.total {
+    border: none;
+    font-weight: 500;
+    font-size: 19px;
+    border-top: 1px solid #e1e1e1;
+    margin-top: 5px;
+}
+.clearall {
+    clear: both;
+    font-size: 1px;
+    line-height: 1px;
+    height: 1px;
+}
+
+/* =================================================================================================================================================================================================== */
+/* ! SHIPPING SECTION */
+/* =================================================================================================================================================================================================== */
+.thnkAddressinfo {
+    display: inline-block;
+    vertical-align: middle;
+    max-width: 830px;
+    width: 100%;
+    margin-top: 30px;
+}
+.tyLftAddress, .tyRgtAddress {
+    float: left;
+    width: 45%;
+    text-align: left;
+}
+.tyRgtAddress {
+    float: right;
+}
+.shHeading {
+    float: left;
+    width: 100%;
+    color: #101010;
+    font-size: 20px;
+    line-height: 30px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #dadada;
+}
+.userInfo {
+    float: left;
+    width: 100%;
+    margin-top: 10px;
+}
+.userInfo li {
+    float: left;
+    width: 100%;
+    position: relative;
+    padding-left: 110px;
+    margin: 5px 0;
+    color: #393733;
+    font-size: 15px;
+    line-height: 21px;
+    word-break: break-all;
+    letter-spacing: 0.5px;
+    list-style: none;
+}
+.userInfo li span {
+    position: absolute;
+    left: 0;
+    color: #2b2b2b;
+    font-weight: 900;
+}
+.custmrServiceList {
+    float: left;
+    width: 100%;
+    margin-top: 30px;
+    padding: 0 50px;
+}
+.custmrServiceList li {
+    float: left;
+    width: 25%;
+    text-align: center;
+    position: relative;
+}
+.custmrServiceList  li img {
+    display: block;
+    margin: 0 auto 5px;
+}
+.custmrServiceList li p {
+    font-size: 16px;
+    line-height: 20px;
+    letter-spacing: 0.5px;
+    color: #666666;
+}
+.custmrServiceList li:after {
+    position: absolute;
+    right: 0;
+    top: 20px;
+    bottom: 10px;
+    width: 1px;
+    background: #ddd;
+    content: "";
+}
+.helpBox {
+    display: inline-block;
+    vertical-align: middle;
+    max-width: 830px;
+    width: 100%;
+    background: #17378a;
+    margin-top: 30px;
+    padding: 0 0 15px;
+}
+.helpTxt1 {
+    display: block;
+    margin: -20px auto 5px;
+    width: 35px;
+    height: 35px;
+    background: #fff;
+    border-radius: 50%;
+    text-align: center;
+    padding: 12px 0 0;
+}
+.helpTxt2 {
+    float: left;
+    width: 100%;
+    font-size: 20px;
+    letter-spacing: 0.5px;
+    line-height: 22px;
+    color: #ffffff;
+    margin-top: 5px;
+    font-weight: 500;
+    text-align: center;
+}
+.helpBox ul {
+    float: left;
+    width: 100%;
+}
+.helpBox ul li {
+    float: left;
+    width: 50%;
+    text-align: center;
+    margin-top: 20px;
+    border-right: 1px solid #fff;
+    list-style: none;
+}
+.helpBox ul li img {
+    display: block;
+    margin: 0 auto 5px;
+}
+.helpBox ul li p {
+    font-size: 17px;
+    line-height: 23px;
+    color: #ebebeb;
+    letter-spacing: 0.5px;
+}
+
+/* =================================================================================================================================================================================================== */
+/* ! FOOTER SECTION */
+/* =================================================================================================================================================================================================== */
+.footer {
+    float: left;
+    width: 100%;
+    padding: 35px 0 40px;
+    border-top: 1px solid #eaeaea;
+}
+.upLogo {
+    display: block;
+    margin: 0 auto 25px;
+    max-width: 100%;
+    width: 120px;
+}
+.ftrTxt {
+    font-size: 16px;
+    line-height: 22px;
+    color: #000;
+    letter-spacing: 0.5px;
+    margin: 10px 0 0;
+    text-align: center;
+}
+.ftrTxt a {
+    color: #000;
+    margin: 0 5px;
+}
+
+@media only screen and (max-width: 767px){
+    .header {
+        padding: 10px 0;
+        height: auto;
+    }
+    .container {
+        width: 100%;
+        padding: 0 10px;
+        max-width: 600px;
+        box-sizing: border-box;
+    }
+    .logo {
+        float: none;
+        display: block;
+        margin: 0 auto;
+        vertical-align: middle;
+        width: 85px;
+    }
+    .stpList {
+        display: block;
+        max-width: 350px;
+        margin: 10px auto 0 auto;
+    }
+    .stpList li {
+        font-size: 13px;
+    }
+    .tyTopHdng {
+        padding: 18px 0 80px;
+    }
+    .tyHdngTxt1 {
+        font-size: 26px;
+        line-height: 30px;
+    }
+    .tyHdngTxt2 {
+        font-size: 16px;
+        line-height: 20px;
+        letter-spacing: 0;
+        margin-top: 5px;
+    }
+    .thankSec {
+        padding-bottom: 25px;
+        margin-top: -88px;
+    }
+    .thankBox {
+        max-width: 100%;
+        padding: 0;
+    }
+    .tyCoupnInner {
+        padding: 10px 10px 20px;
+    }
+    .thnkTopTxt {
+        padding: 0;
+        font-size: 16px;
+        line-height: 24px;
+        margin: 10px 0;
+    }
+    .tySecHeading {
+        margin-top: 0;
+    }
+    .tySecHeading span {
+        font-size: 20px;
+        padding: 10px 15px 8px 15px;
+    }
+    .summryContainer {
+        width: 100%;
+        margin-top: 10px;
+    }
+    .thnkOdrnmbr {
+        font-size: 16px;
+        line-height: 20px;
+    }
+    .thnkOdrtxt1, .thnkOdrtxt2 {
+        text-align: center;
+    }
+    .showMob {
+        display: block;
+    }
+    .tyHeadingRow {
+        font-size: 15px;
+    }
+    .tyCol1 {
+        padding: 10px;
+        width: 60%;
+    }
+    .tyCol4 {
+        padding: 10px 15px 10px 0;
+        width: 20%;
+    }
+    .tyProdRow {
+        font-size: 16px;
+    }
+    .tyProdbx {
+        width: 45px;
+        height: 45px;
+        padding: 0;
+    }
+    .thnkAddressinfo {
+        margin-top: 0;
+    }
+    .tyLftAddress, .tyRgtAddress {
+        width: 100%;
+        margin-top: 30px;
+    }
+    .custmrServiceList {
+        margin: 10px 0 0;
+        padding: 0;
+    }
+    .custmrServiceList li {
+        width: 50%;
+        margin-top: 20px;
+    }
+    .helpTxt2 {
+        font-size: 18px;
+    }
+    .helpBox ul li {
+        width: 100%;
+        border: none;
+    }
+    .footer {
+        padding: 22px 0;
+    }
+    .upLogo {
+        width: 80px;
+        margin: 0 auto 20px;
+    }
+    .ftrTxt {
+        font-size: 13px;
+        line-height: 16px;
+    }
+}

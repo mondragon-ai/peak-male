@@ -321,6 +321,7 @@
   margin-top: 25px;
 }
 .s1btn {
+  cursor: pointer;
   height: 78px;
   width: 100%;
   margin: 15px auto 0 auto;
@@ -533,6 +534,7 @@
   line-height: 74px;
   color: #fff;
   text-align: center;
+  cursor: pointer;
 }
 
 /* ============================================================================================================================================================

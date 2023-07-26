@@ -1,15 +1,14 @@
 import { useState, useEffect, useContext } from "react";
-import Footer from "../components/Footer";
-import { sendPageViewEvent } from "../components/lib/analytics"; 
-import Router from "next/router";
 import Head from "next/head";
 import { Context } from "@/context/context";
 import styles from "../styles/Home.module.css";
-import * as crypto from "crypto";
-import Image from "next/image";
-import Accordion from "@/components/global/Accordian";
-import UpsellAccordion from "@/components/global/UpsellAccordion";
-import { LineItem } from "@/components/Form/OrderForm";
+import confirmation_styles from "../styles/Confirmation.module.css";
+
+
+const description = `Rivigerate your manhood with Peak Male`;
+const ogImgUrl =  "";
+const canonicalUrl = "https://hitsdesignclients.com/Peak-Male-new/images/logo.png";
+const title = "Peak Male | Optimal Human" 
 
 const Confirmation = () => {
   const [globalState, setGlobalState] = useContext(Context);
@@ -18,7 +17,7 @@ const Confirmation = () => {
 
   useEffect(() => {
     setWindowWidth(window? window.innerWidth : 0);
-    sendPageViewEvent("CONFIRMATION"); // send page view event to google analytics
+    // sendPageViewEvent("CONFIRMATION"); // send page view event to google analytics
 
     // push 3rd party analytics
     // gtags.twitterEvent(email, price);
@@ -33,18 +32,12 @@ const Confirmation = () => {
   const line_items: [] = globalState.line_items ? globalState.line_items : []
   const bump: boolean = globalState.bump ? globalState.bump : false
 
-
-  const description = `Own a piece of American pride with the Hold The Line Coin. Handcrafted from steel, this symbol of patriotism embodies strength, resilience, and the spirit of our great nation. Perfect for gifting and displaying, order your Hold The Line Coin today!!`;
-  const ogImgUrl =  "https://images.clickfunnels.com/05/3daf9073c744e19ac910592c7eab5e/hold-the-line-coins-both_clipped_rev_1-cropped.png";
-  const canonicalUrl = "https://hodgetwins.holdtheline.com/";
-  const t = "Hold The Line - Fight For Freedom Challenge Coin" 
-
   return (
     <div style={{background: "grey", minHeight: "100vh"}}>
       <Head>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-        <title>{t}</title>
+        <title>{title}</title>
         <meta name="description" content={description} />
         <link rel="canonical" href={canonicalUrl} />
 
@@ -56,59 +49,222 @@ const Confirmation = () => {
         <meta property="og:description" content={description} />
         <meta property="og:image" content={ogImgUrl} />
         <meta property="og:url" content={canonicalUrl} />
-        <meta property="og:title" content={t} />
+        <meta property="og:title" content={title} />
         
       </Head>
-      <main className={`${styles.col} ${styles.confirmation}`}>
-
-        <div className={`${styles.col}`}>
-          <Image src={"/images/htl_black.png"} alt={""} width={300} height={300} style={{width: "350px", height: "auto"}} />
-          {/* <h3 style={{color: "black"}}>Your Order Is Currently Being Processed</h3> */}
-        </div>
-
-        <div className={`${styles.col} ${styles.confHeader}`} style={{textAlign: "center"}}>
-          <h3>Your Order Is Currently Being Processed</h3>
-        </div>
-
-        <div className={`${styles.col}`} style={{justifyContent: "space-between", width: "90%", margin: "1rem 0"}}>
-          <div className={`${styles.row}`} style={{justifyContent: "space-between", width: "90%"}}>
-            <h5 style={{color: "black"}}>Product</h5>
-            <h5 style={{color: "black"}}>Price</h5>
+      <main className={`${styles.col}`} style={{width: "100%", background: "white"}}>
+        <div className={confirmation_styles.header}>
+          <div className={confirmation_styles.container}>
+            <img src="https://hitsdesignclients.com/Peak-Male-new/images/logo.png" alt="" className={confirmation_styles.logo} />
+            <ul className={confirmation_styles.stpList}>
+              <li>Checkout</li>
+              <li>Upgrades</li>
+              <li>Order Receipt</li>
+            </ul>
           </div>
-          <div className={`${styles.row}`} style={{width: "100%", padding: "1rem", justifyContent: "center"}} ><hr style={{width: "100%"}} /></div>
-          {line_items && line_items.map((li: LineItem) => {
-            return (
-              <div key={li.variant_id} className={`${styles.row}`} style={{justifyContent: "space-between", width: "90%", padding: "0.5rem 0"}}>
-                <h5 style={{color: "black"}}>{li.title}</h5>
-                <h5 style={{color: "black"}}>{li.piece ? li.piece : "$" + (Number(li.price)/100).toFixed(2)}</h5>
+        </div>
+
+        <div className={confirmation_styles.tyTopHdng}>
+          <div className={confirmation_styles.container}>
+            <p className={confirmation_styles.tyHdngTxt1}>
+              <span>Thank You For Your Order!</span>
+            </p>
+            <p className={confirmation_styles.tyHdngTxt2}>Your Order Will Be Processed & Shipped Shortly!</p>
+          </div>
+        </div>
+
+        <div className={confirmation_styles.thankSec}>
+          <div className={confirmation_styles.container}>
+            <div className={confirmation_styles.thankBox}>
+              <div className={confirmation_styles.tyCoupnInner}>
+
+                <p className={confirmation_styles.thnkTopTxt}>We'll send you an email as soon as your order is shipped out. If you have any questions, please get in touch with our customer service team.</p>
+                
+                <div className={confirmation_styles.tySecHeading}>
+                  <span>Order Summary</span>
+                </div>
+
+                <div className={confirmation_styles.summryContainer}>
+
+                  <div className={confirmation_styles.thnkOdrnmbr}>
+                    <p className={confirmation_styles.thnkOdrtxt1}>Order Number: <br className={confirmation_styles.showMob} /><span>0016578</span></p>
+                    <p className={confirmation_styles.thnkOdrtxt2}>Order Date: <br className={confirmation_styles.showMob} /><span>July 31, 2023</span></p>
+                  </div>
+
+                  <div className={confirmation_styles.tyOdrSmryBox}>
+                    <div className={confirmation_styles.tyHeadingRow}>
+                      <div className={confirmation_styles.tyCol1}>Product</div>
+                      <div className={confirmation_styles.tyCol3}>Qty.</div>
+                      <div className={confirmation_styles.tyCol4}>Price</div>
+                    </div>
+                    <div className={confirmation_styles.tyProdRow}>
+                      <div className={confirmation_styles.tyCol1}>
+                        <span className={confirmation_styles.tyProdbx}>
+                          <img src="https://hitsdesignclients.com/Peak-Male-new/images/sldr1.png" alt="" />
+                        </span>
+                        <p className={confirmation_styles.tyPrdName}>Peak Male</p>
+                      </div>
+                      <div className={confirmation_styles.tyCol3}>1</div>
+                      <div className={confirmation_styles.tyCol4}>$19.00</div>
+                    </div>
+                    <div className={confirmation_styles.tyProdRow}>
+                      <div className={confirmation_styles.tyCol1}>
+                        <span className={confirmation_styles.tyProdbx}>
+                          <img src="https://hitsdesignclients.com/Peak-Male-new/images/sldr1.png" alt="" />
+                        </span>
+                        <p className={confirmation_styles.tyPrdName}>Peak Male</p>
+                      </div>
+                      <div className={confirmation_styles.tyCol3}>1</div>
+                      <div className={confirmation_styles.tyCol4}>$19.00</div>
+                    </div>
+                  </div>
+
+                  <div className={confirmation_styles.priceFlds}>
+                    <div className={confirmation_styles.prcRow}>
+                      <p>Sub Total:</p>
+                      <span>$29.00</span>
+                    </div>
+                    <div className={confirmation_styles.prcRow}>
+                      <p>Shipping & Handling:</p>
+                      <span>$0.00</span>
+                    </div>
+                    <div className={`${confirmation_styles.prcRow}  ${confirmation_styles.total}`} style={{fontSize: "19px", fontWeight: 500}}>
+                      <p>Total:</p>
+                      <span>$29.00</span>
+                    </div>
+                  </div>
+                </div>
+
+                <div className={confirmation_styles.clearall}></div>
+
+                <div className={confirmation_styles.thnkAddressinfo}>
+                  <div className={confirmation_styles.tyLftAddress}>
+                    <div className={confirmation_styles.shHeading}>Shipping Info:</div>
+                    <ul className={confirmation_styles.userInfo}>
+                      <li>
+                        <span>First Name</span>
+                        Angel
+                      </li>
+                      <li>
+                        <span>Last Name</span>
+                        Mondragon
+                      </li>
+                      <li>
+                        <span>Address</span>
+                        420 Bigly Ln
+                      </li>
+                      <li>
+                        <span>City</span>
+                        South Park
+                      </li>
+                      <li>
+                        <span>State</span>
+                        NY
+                      </li>
+                      <li>
+                        <span>State</span>
+                        72704
+                      </li>
+                      <li>
+                        <span>Email</span>
+                        angel@gobigly.com
+                      </li>
+                    </ul>
+                  </div>
+                  <div className={confirmation_styles.tyRgtAddress}>
+                    <div className={confirmation_styles.shHeading}>Billing Info:</div>
+                    <ul className={confirmation_styles.userInfo}>
+                      <li>
+                        <span>First Name</span>
+                        Angel
+                      </li>
+                      <li>
+                        <span>Last Name</span>
+                        Mondragon
+                      </li>
+                      <li>
+                        <span>Address</span>
+                        420 Bigly Ln
+                      </li>
+                      <li>
+                        <span>City</span>
+                        South Park
+                      </li>
+                      <li>
+                        <span>State</span>
+                        NY
+                      </li>
+                      <li>
+                        <span>State</span>
+                        72704
+                      </li>
+                      <li>
+                        <span>Email</span>
+                        angel@gobigly.com
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+
+                <ul className={confirmation_styles.custmrServiceList}>
+                  <li>
+                    <img src="https://hitsdesignclients.com/Peak-Male-new/images/custmr-srvc-ico1.png" alt="" />
+                    <p>Customer <br /> Service</p>
+                  </li>
+                  <li>
+                    <img src="https://hitsdesignclients.com/Peak-Male-new/images/custmr-srvc-ico2.png" alt="" />
+                    <p>Free <br /> Shipping</p>
+                  </li>
+                  <li>
+                    <img src="https://hitsdesignclients.com/Peak-Male-new/images/custmr-srvc-ico3.png" alt="" />
+                    <p>Satisfaction <br /> Guranteed</p>
+                  </li>
+                  <li>
+                    <img src="https://hitsdesignclients.com/Peak-Male-new/images/custmr-srvc-ico4.png" alt="" />
+                    <p>Hassle-Free <br /> Returns</p>
+                  </li>
+                </ul>
+
+                <div className={confirmation_styles.clearall}></div>
+
+
+                <div className={confirmation_styles.helpBox}>
+                  <p className={confirmation_styles.helpTxt1}>
+                    <img src="https://hitsdesignclients.com/Peak-Male-new/images/ty-hlp-ic.png" alt="" />
+                  </p>
+                  <p className={confirmation_styles.helpTxt2}>Questions? We're Here To Help</p>
+                  <ul>
+                    <li>
+                      <img src="https://hitsdesignclients.com/Peak-Male-new/images/ty-msg-ic.png" alt="" />
+                      <p>Email Us <br />support@optimalhuman.com</p>
+                    </li>
+                    <li>
+                      <img src="https://hitsdesignclients.com/Peak-Male-new/images/ty-call-ic.png" alt="" />
+                      <p>Call Us <br />877-462-4459</p>
+                    </li>
+                  </ul>
+                </div>
+
               </div>
-            )
-          })}
-          {
-            bump && <div className={`${styles.row}`} style={{justifyContent: "space-between", width: "90%", padding: "0.5rem 0"}}>
-              <h5 style={{color: "black"}}>Rush & Insure</h5>
-              <h5 style={{color: "black"}}>$3.99</h5>
             </div>
-          }
-        </div>
-
-        <div className={`${styles.col} ${styles.confHeader}`} style={{alignItems: "center"}}>
-          <h3>🇺🇸 THANK YOU FOR SUPPORTING A U.S. VETERAN OWNED & OPERATED BUSINESS!</h3>
-        </div>
-
-        <div className={`${styles.col} ${styles.confHeader}`}>
-          <h3>🔒 Your Satisfaction is Guaranteed</h3>
-        </div>
-
-        <div className={`${styles.row}`} style={{width: "90%", margin: "1rem 0"}}>
-          <Image src={"/images/seal1.webp"} alt={""} width={100} height={100} style={{height: "auto"}}/>
-          <div className={`${styles.col}`} style={{alignItems: "flex-start", padding: "0 2rem"}}>
-            <h3 style={{color: "black"}}>No Questions Asked Guarantee</h3>
-            <p style={{color: "black"}}>Questions or concerns about your order? Reach out to our team at info@holdtheline.com and we'll make sure you're taken care of</p>
           </div>
         </div>
 
-        <Footer />
+        <div className={confirmation_styles.footer}>
+          <div className={confirmation_styles.container}>
+            <img src="https://hitsdesignclients.com/Peak-Male-new/images/logo.png"  className={confirmation_styles.upLogo} alt="" />
+            <p className={confirmation_styles.ftrTxt}>
+              <a href="">Terms & Condition</a>
+              |
+              <a href="">Privacy Policy</a>
+              |
+              <a href="">Contact Us</a>
+            </p>
+            <p className={`${confirmation_styles.ftrTxt}`}>
+              © 2023 Optimal Human, All rights reserved.
+            </p>
+          </div>
+        </div>
       </main>
     </div>
   );
@@ -117,6 +273,6 @@ const Confirmation = () => {
 export default Confirmation;
 
 export async function getServerSideProps({  }) {
-  sendPageViewEvent("CONFIRMATION");
+  // sendPageViewEvent("CONFIRMATION");
   return { props: {} };
 }
