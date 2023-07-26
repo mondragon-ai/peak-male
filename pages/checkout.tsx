@@ -6,6 +6,7 @@ import { imPoweredRequest } from "@/components/lib/request";
 import Image from "next/image";
 import { formatTime } from "@/components/lib/formatter";
 import CollectJSSection from "@/components/Payments/COollectionJSSection";
+import Router from "next/router";
 
 // Checkout Form Type
 interface FormData {
@@ -105,14 +106,13 @@ const CheckOut = () => { const [countdown, setCountdown] = useState(300);
       const payload = createPayloadFromOrder(token);
       console.log(payload);
       // Uncomment and modify the payload creation logic when using imPoweredRequest
-      // const payload = createPayloadFromOrder();
-      // const response = await imPoweredRequest("URL", "POST", payload);
-      // if (response.status < 300) {
-      //   // Handle success response
-      //   Router.push(`${clientOrigin}/confirmation`);
-      //   setIsLoading(false);
-      //   return;
-      // }
+      const response = await imPoweredRequest("http://127.0.0.1:5001/impowered-production/us-central1/funnels/payments/checkout/fast", "POST", payload);
+      if (response.status < 300) {
+        // Handle success response
+        Router.push(`/upsell`);
+        setIsLoading(false);
+        return;
+      }
       // throw new Error("Error message");
     } catch (e) {
       setIsLoading(false);
@@ -204,13 +204,19 @@ const CheckOut = () => { const [countdown, setCountdown] = useState(300);
           break;
       }
       return {
+        payment_method: "",
+        fun_uuid: "fun_b04eadf7550bbffcbf4d",
+        high_risk: true,
+        billing_address: differentBilling ? billing : shipping,
+        bump: false,
+        payment_token: token,
+        security_key: "2hNZ5C543yfQH59e9zcEd33QDZw5JcvV",  
         customer: {...customer, token},
         shipping: shipping,
-        billing: differentBilling ? billing : shipping,
-        high_risk: false,
-        product: product,
+        line_items: [product],
         fun_uid: process.env.NEXT_PUBLIC_IMPOWERED_FUNNEL,
         external_type: "SHOPIFY",
+        shopify_shop: "optimalhuman"
       };
     } catch (error) {
       console.log(error);
