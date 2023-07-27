@@ -553,6 +553,9 @@
 .benefitItem p {
   margin-top: 10px;
   font-weight: 100;
+  font-family: 'ApercuPro-light', sans-serif;
+  letter-spacing: 0.5px;
+  color: #d7d4ff;
 }
 
 .benefitItem h6,

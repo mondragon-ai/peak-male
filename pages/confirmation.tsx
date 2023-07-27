@@ -3,6 +3,8 @@ import Head from "next/head";
 import { Context } from "@/context/context";
 import styles from "../styles/Home.module.css";
 import confirmation_styles from "../styles/Confirmation.module.css";
+import { BillingAddress, Customer, getBillingAddressFromLocalStorage, getCustomerFromLocalStorage } from "@/components/lib/storage";
+import { getFormattedDate } from "@/components/lib/formatter";
 
 
 const description = `Rivigerate your manhood with Peak Male`;
@@ -13,10 +15,58 @@ const title = "Peak Male | Optimal Human"
 const Confirmation = () => {
   const [globalState, setGlobalState] = useContext(Context);
   const [windowWidth, setWindowWidth] = useState(0);
+  const [order, setOrder] = useState({
+    product: "",
+    isSubbed: false,
+    upsell: false,
+    customer: {
+      email: "",
+      first_name: "",
+      last_name: "",
+      cus_uuid: ""
+    },
+    shipping: {
+      line1: "",
+      line2: "",
+      city: "",
+      state: "",
+      zip: "",
+      country: "US"
+    },
+    billing: {
+      line1: "",
+      line2: "",
+      city: "",
+      state: "",
+      zip: "",
+      country: "US"
+    },
+    orderID: ""
+  });
 
 
   useEffect(() => {
     setWindowWidth(window? window.innerWidth : 0);
+    // Fetch data from local storage and update formData accordingly
+    const isSubbed = localStorage.getItem("subscribed");
+    const product = localStorage.getItem("product");
+    const upsell = localStorage.getItem("upsell");
+    const billing = getBillingAddressFromLocalStorage("billing_address");
+    const shipping = getBillingAddressFromLocalStorage("shipping");
+    const customer = getCustomerFromLocalStorage("customer");
+    const orderID = localStorage.getItem("draft_order");
+
+    setOrder((prevFormData) => ({
+      ...prevFormData,
+      product: product || "",
+      isSubbed: Boolean(isSubbed || false),
+      upsell: Boolean(upsell || false),
+      customer: customer ? customer : {} as Customer,
+      shipping: shipping ? shipping : {} as BillingAddress,
+      billing: billing ? billing : {} as BillingAddress,
+      orderID: orderID ? orderID.substring(4,orderID.length) : ""
+    }));
+
     // sendPageViewEvent("CONFIRMATION"); // send page view event to google analytics
 
     // push 3rd party analytics
@@ -29,8 +79,11 @@ const Confirmation = () => {
     // });    
   }, []);
 
-  const line_items: [] = globalState.line_items ? globalState.line_items : []
-  const bump: boolean = globalState.bump ? globalState.bump : false
+  const ONE = order.isSubbed ? 59.00 : 69.00;
+  const THREE = order.isSubbed ? (49.00*3) : (59.00*3);
+  const SIX = order.isSubbed ? (39.00*6): (49.00*6);
+  const TOTAL = order.upsell ? 24.00 : 0.00;
+  const formattedDate = getFormattedDate();   
 
   return (
     <div style={{background: "grey", minHeight: "100vh"}}>
@@ -87,8 +140,8 @@ const Confirmation = () => {
                 <div className={confirmation_styles.summryContainer}>
 
                   <div className={confirmation_styles.thnkOdrnmbr}>
-                    <p className={confirmation_styles.thnkOdrtxt1}>Order Number: <br className={confirmation_styles.showMob} /><span>0016578</span></p>
-                    <p className={confirmation_styles.thnkOdrtxt2}>Order Date: <br className={confirmation_styles.showMob} /><span>July 31, 2023</span></p>
+                    <p className={confirmation_styles.thnkOdrtxt1}>Order Number: <br className={confirmation_styles.showMob} /><span>{order.orderID}</span></p>
+                    <p className={confirmation_styles.thnkOdrtxt2}>Order Date: <br className={confirmation_styles.showMob} /><span>{formattedDate}</span></p>
                   </div>
 
                   <div className={confirmation_styles.tyOdrSmryBox}>
@@ -104,25 +157,25 @@ const Confirmation = () => {
                         </span>
                         <p className={confirmation_styles.tyPrdName}>Peak Male</p>
                       </div>
-                      <div className={confirmation_styles.tyCol3}>1</div>
-                      <div className={confirmation_styles.tyCol4}>$19.00</div>
+                      <div className={confirmation_styles.tyCol3}>{order.product == "ONE" ? "1" : order.product == "THREE" ? "3" : order.product == "SIX" ? "6" : "0"}</div>
+                      <div className={confirmation_styles.tyCol4}>{order.product == "ONE" ? "$"+ONE.toFixed(2) : order.product == "THREE" ? "$"+THREE.toFixed(2) : order.product == "SIX" ? "$"+SIX.toFixed(2) : "$0.00"}</div>
                     </div>
-                    <div className={confirmation_styles.tyProdRow}>
+                    {order.upsell ? <div className={confirmation_styles.tyProdRow}>
                       <div className={confirmation_styles.tyCol1}>
                         <span className={confirmation_styles.tyProdbx}>
-                          <img src="https://hitsdesignclients.com/Peak-Male-new/images/sldr1.png" alt="" />
+                          <img src="https://hitsdesignclients.com/Peak-Male-new/images/up-slide1.png" alt="" />
                         </span>
-                        <p className={confirmation_styles.tyPrdName}>Peak Male</p>
+                        <p className={confirmation_styles.tyPrdName}>Extreme Fat Burner </p>
                       </div>
                       <div className={confirmation_styles.tyCol3}>1</div>
-                      <div className={confirmation_styles.tyCol4}>$19.00</div>
-                    </div>
+                      <div className={confirmation_styles.tyCol4}>$24.99</div>
+                    </div> : null}
                   </div>
 
                   <div className={confirmation_styles.priceFlds}>
                     <div className={confirmation_styles.prcRow}>
                       <p>Sub Total:</p>
-                      <span>$29.00</span>
+                      <span>{order.product == "ONE" ? "$"+(ONE+TOTAL).toFixed(2) : order.product == "THREE" ? "$"+(THREE+TOTAL).toFixed(2) : order.product == "SIX" ? "$"+(SIX+TOTAL).toFixed(2) : "$0.00"}</span>
                     </div>
                     <div className={confirmation_styles.prcRow}>
                       <p>Shipping & Handling:</p>
@@ -130,7 +183,7 @@ const Confirmation = () => {
                     </div>
                     <div className={`${confirmation_styles.prcRow}  ${confirmation_styles.total}`} style={{fontSize: "19px", fontWeight: 500}}>
                       <p>Total:</p>
-                      <span>$29.00</span>
+                      <span>{order.product == "ONE" ? "$"+(ONE+TOTAL).toFixed(2) : order.product == "THREE" ? "$"+(THREE+TOTAL).toFixed(2) : order.product == "SIX" ? "$"+(SIX+TOTAL).toFixed(2) : "$0.00"}</span>
                     </div>
                   </div>
                 </div>
@@ -143,31 +196,31 @@ const Confirmation = () => {
                     <ul className={confirmation_styles.userInfo}>
                       <li>
                         <span>First Name</span>
-                        Angel
+                        {order.customer.first_name ? order.customer.first_name : "-"}
                       </li>
                       <li>
                         <span>Last Name</span>
-                        Mondragon
+                        {order.customer.last_name ? order.customer.last_name : "-"}
                       </li>
                       <li>
                         <span>Address</span>
-                        420 Bigly Ln
+                        {order.shipping.line1 ? order.shipping.line1  : "-"}
                       </li>
                       <li>
                         <span>City</span>
-                        South Park
+                        {order.shipping.city ? order.shipping.city  : "-"}
                       </li>
                       <li>
                         <span>State</span>
-                        NY
+                        {order.shipping.state ? order.shipping.state  : "-"}
                       </li>
                       <li>
-                        <span>State</span>
-                        72704
+                        <span>Country</span>
+                        {order.shipping.country ? order.shipping.country  : "-"}
                       </li>
                       <li>
                         <span>Email</span>
-                        angel@gobigly.com
+                        {order.customer.email ? order.customer.email : "-"}
                       </li>
                     </ul>
                   </div>
@@ -176,31 +229,31 @@ const Confirmation = () => {
                     <ul className={confirmation_styles.userInfo}>
                       <li>
                         <span>First Name</span>
-                        Angel
+                        {order.customer.first_name ? order.customer.first_name : "-"}
                       </li>
                       <li>
                         <span>Last Name</span>
-                        Mondragon
+                        {order.customer.last_name ? order.customer.last_name : "-"}
                       </li>
                       <li>
                         <span>Address</span>
-                        420 Bigly Ln
+                        {order.billing.line1 ? order.billing.line1  :  "-"}
                       </li>
                       <li>
                         <span>City</span>
-                        South Park
+                        {order.billing.city ? order.billing.city  :  "-"}
                       </li>
                       <li>
                         <span>State</span>
-                        NY
+                        {order.billing.state ? order.billing.state  :  "-"}
                       </li>
                       <li>
-                        <span>State</span>
-                        72704
+                        <span>Country</span>
+                        {order.billing.country ? order.billing.country  : "-"}
                       </li>
                       <li>
                         <span>Email</span>
-                        angel@gobigly.com
+                        {order.customer.email ? order.customer.email : "-"}
                       </li>
                     </ul>
                   </div>

@@ -10,6 +10,30 @@ import { imPoweredRequest } from "@/components/lib/request";
 import { LineItem } from "@stripe/stripe-js";
 // import * as gtag from "../components/lib/analytics"
 
+// Meta Data
+const description = `Rivigerate your manhood with Peak Male`;
+const ogImgUrl =  "";
+const canonicalUrl = "https://hitsdesignclients.com/Peak-Male-new/images/logo.png";
+const title = "Peak Male | Optimal Human" 
+
+// Upsell Product
+const upsell_product = {
+  high_risk: true,
+  title: "Xtreme Fat Burner",
+  sku: "XFB-1-bottle",
+  price: 2400,
+  compare_at_price: 0,
+  handle: "xtreme-fat-brner",
+  options1: "1 Bottle",
+  options2: "",
+  options3: "",
+  weight: 0.15,
+  variant_id: 45756357181736,
+  quantity: 1,
+  product_id: "",
+  is_recurring: false
+};
+
 const Upsell = () => {
   const [countdown, setCountdown] = useState(600);
   const [selectedImg, selectImage] = useState("https://hitsdesignclients.com/Peak-Male-new/images/up-slide1.png")
@@ -24,9 +48,9 @@ const Upsell = () => {
     },
     external_type: "SHOPIFY",
   });
-  const [clientOrigin, setClientOrigin] = useState("https://hodgetwins.holdtheline.com");
-  const [windowWidth, setWindowWidth] = useState(0);
 
+  // const [clientOrigin, setClientOrigin] = useState("https://hodgetwins.holdtheline.com");
+  const [windowWidth, setWindowWidth] = useState(0);
 
   // Render Timer JSX
   const renderCountdown = () => {
@@ -47,18 +71,19 @@ const Upsell = () => {
     return () => clearInterval(timer);
   }, []);
 
+  // Set/Extract State
   useEffect(() => {
-    let query = new URLSearchParams(window.location.search);
     setWindowWidth(window? window.innerWidth : 0);
     // sendPageViewEvent("UPSELL"); // send page view event to google analytics
 
     // extract vars
-    const products: LineItem[] = query.get("line_items") ? JSON.parse(query.get("line_items") ?? "") : [];
-    const email = query.get("email") ? query.get("email") ?? "" : "";
-    const first_name = query.get("first_name") ? query.get("first_name") ?? "": "";
-    const cus_uuid = query.get("cus_uuid") ? query.get("cus_uuid") ?? "" : "";
-    const external_type = query.get("external_type") ? query.get("external_type") ?? "" : "";
+    const products: LineItem[] = [];
+    const email = "";
+    const first_name = "";
+    const cus_uuid =  "";
+    const external_type =  "";
 
+    // Set Local State
     setState({
       line_items: products,
       customer: {
@@ -69,6 +94,7 @@ const Upsell = () => {
       external_type: external_type,
     });
 
+    // Set Global State
     setGlobalState({
       ...globalState,
       external_type: external_type,
@@ -78,20 +104,20 @@ const Upsell = () => {
         cus_uuid
       },
       line_items: products,
-      bump: query.get("bump") || false,
+      bump: false,
       high_risk: false,
     });
   
+    // Set Loading
     setTimeout(() => {
       setIsLoading(false);
     }, 3000);
 
-    let price = 0;
+    // let price = 0;
 
-    products.length > 0 ? products.forEach(li => {
-      price = price + li.amount
-    }) : [];
-
+    // products.length > 0 ? products.forEach(li => {
+    //   price = price + li.amount
+    // }) : [];
 
     // push 3rd party analytics
     // gtag.twitterEvent(email, price);
@@ -103,49 +129,36 @@ const Upsell = () => {
     // });
   }, []);
 
-  const sub_product = {
-    high_risk: false,
-    title: "Hold The Line Club - Free HTL Coin",
-    sku: "VIP-CLUB",
-    price: 997,
-    compare_at_price: 0,
-    handle: "",
-    options1: "",
-    options2: "",
-    options3: "",
-    weight: 1,
-    variant_id: 42555420573868,
-    quantity: 1,
-    product_id: "",
-    is_recurring: true
-  };
-
-  const signUpForFreeDecals = async () => {
+  // Purchase Upsell
+  const purchaseUpsell = async () => {
     try {
       setIsLoading(true);
       const payload = createPayloadFromOrder();
+      console.log(payload);
+      const URL = true ? "https://us-central1-impowered-production.cloudfunctions.net/funnels" : "http://127.0.0.1:5001/impowered-production/us-central1/funnels";
 
       const response = await imPoweredRequest(
-        "https://us-central1-impowered-production.cloudfunctions.net/funnels/payments/charge/subscription",
+        URL+"/payments/charge/subscription",
         "POST",
         payload
       );
 
       if (response.status < 300) {
+        localStorage.setItem("upsell", "true");
 
         const prev_li = globalState.line_items ? globalState.line_items as LineItem[] : []
       
         setGlobalState({
           ...globalState,
-          line_items: [...prev_li, sub_product],
+          line_items: [...prev_li, upsell_product],
         });
 
-        Router.push(`${clientOrigin}/confirmation`);
+        Router.push(`/confirmation`);
         setIsLoading(false);
         return;
       }
 
-      throw new Error(`We're sorry, you couldn't sign up. Please try refreshing the page and try again.`);
+      // throw new Error(`We're sorry, you couldn't sign up. Please try refreshing the page and try again.`);
     } catch (e) {
       setIsLoading(false);
     } finally {
@@ -153,38 +166,51 @@ const Upsell = () => {
     }
   };
 
+  // Decline Offer
   const declineOffer = async () => {
+    localStorage.setItem("upsell", "false");
     setIsLoading(true);
     Router.push(`/confirmation`);
     setIsLoading(false);
   };
 
+  // Create Payload to Order
   const createPayloadFromOrder = () => {
     try {
       const {customer} = state;
 
       return {
         cus_uuid: customer.cus_uuid ?? "",
-        product: sub_product,
-        high_risk: false,
+        product: upsell_product,
+        high_risk: true,
         fun_uid: process.env.NEXT_PUBLIC_IMPOWERED_FUNNEL,
+        security_key: "2hNZ5C543yfQH59e9zcEd33QDZw5JcvV",  
       };
     } catch (error) {
       console.log(error);
     }
   };
 
-  const description = `Own a piece of American pride with the Hold The Line Coin. Handcrafted from steel, this symbol of patriotism embodies strength, resilience, and the spirit of our great nation. Perfect for gifting and displaying, order your Hold The Line Coin today!!`;
-  const ogImgUrl =  "https://images.clickfunnels.com/05/3daf9073c744e19ac910592c7eab5e/hold-the-line-coins-both_clipped_rev_1-cropped.png";
-  const canonicalUrl = "https://hodgetwins.holdtheline.com/";
-  const t = "Hold The Line - Fight For Freedom Challenge Coin" 
+  // Use Effect for 
+  useEffect(() => {
+    // Fetch data from local storage and update formData accordingly
+    const cus_uuid = localStorage.getItem("cus_uuid");
+    setState((prevState) => ({
+      ...prevState,
+      customer: {
+        ...prevState.customer,
+        cus_uuid: cus_uuid as string
+      }
+    }));
+  }, []);
+
 
   return (
     <div>
       <Head>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-        <title>{t}</title>
+        <title>{title}</title>
         <meta name="description" content={description} />
         <link rel="canonical" href={canonicalUrl} />
 
@@ -196,7 +222,7 @@ const Upsell = () => {
         <meta property="og:description" content={description} />
         <meta property="og:image" content={ogImgUrl} />
         <meta property="og:url" content={canonicalUrl} />
-        <meta property="og:title" content={t} />
+        <meta property="og:title" content={title} />
         
       </Head>
       <main className={styles.col} style={{width: "100%", background: "rgb(252, 249, 245)"}}>
@@ -280,7 +306,7 @@ const Upsell = () => {
                     <p className={upsell_styles.upPrc}><span>$24.99</span> <small>(SAVE 45%)</small></p>
                     <p className={upsell_styles.dealReserve}>Deal reserved for: <strong><span style={{color: "red"}}>{renderCountdown()}</span> min</strong></p>
                   </div>
-                  <a href="#" className={upsell_styles.upBtn}>Yes, Upgrade my Order with 1-Click-Buy! </a>
+                  <a onClick={() => purchaseUpsell()} className={upsell_styles.upBtn}>Yes, Upgrade my Order with 1-Click-Buy! </a>
                   <p className={upsell_styles.moneyBkText}>
                     <img src="https://hitsdesignclients.com/Peak-Male-new/images/money-bk-seal.png" /> 30 Day Money Back Guarantee&nbsp;</p>
                   <div className={upsell_styles.deviderCp}></div>

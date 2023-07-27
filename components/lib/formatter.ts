@@ -8,3 +8,8 @@ export const formatTime = (time: number): string => {
 
     return `${formattedMinutes}:${formattedSeconds}`;
   };
+
+export function getFormattedDate() {
+  const currentDate = new Date();
+  return currentDate.toLocaleString('en-US', {month: "long", day: "2-digit", year: "numeric"});
+}

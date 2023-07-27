@@ -75,11 +75,39 @@
 
 @font-face {
   font-family: 'ApercuPro';
-  src: url('../public/fonts/ApercuPro-Regular.woff2') format('woff2'),
-       url('../public/fonts/ApercuPro-Regular.woff') format('woff');
+  src: 
+    url('../public/fonts/ApercuPro-Regular.woff2') format('woff2'),
+    url('../public/fonts/ApercuPro-Regular.woff') format('woff'),
+    url('../public/fonts/ApercuPro-Medium.woff2') format('woff2'),
+    url('../public/fonts/ApercuPro-Medium.woff') format('woff'),
+    url('../public/fonts/ApercuPro-Bold.woff2') format('woff2'),
+    url('../public/fonts/ApercuPro-Bold.woff') format('woff'),
+    url('../public/fonts/ApercuPro-Black.woff2') format('woff2'),
+    url('../public/fonts/ApercuPro-Black.woff') format('woff'),
+    url('../public/fonts/ApercuPro-Light.woff2') format('woff2'),
+    url('../public/fonts/ApercuPro-Light.woff') format('woff');
   /* Add more formats if necessary */
-  font-weight: normal;
-  font-style: normal;
+    font-style:normal;
+}
+
+@font-face {
+  font-family: 'ApercuPro-Black';
+  src: 
+    url('../public/fonts/ApercuPro-Black.woff2') format('woff2'),
+    url('../public/fonts/ApercuPro-Black.woff') format('woff');
+  /* Add more formats if necessary */
+    font-style:normal;
+    font-weight: 800;
+}
+
+@font-face {
+  font-family: 'ApercuPro-Light';
+  src: 
+    url('../public/fonts/ApercuPro-Light.woff2') format('woff2'),
+    url('../public/fonts/ApercuPro-Light.woff') format('woff');
+  /* Add more formats if necessary */
+    font-style:normal;
+    font-weight: 100;
 }
 
 * {
@@ -110,7 +138,7 @@ button,
 div,
 strong,
 a {
-  font-family: 'ApercuPro', sans-serif !important;
+  font-family: 'ApercuPro', sans-serif;
 }
 /* body {
   color: rgb(var(--foreground-rgb));
@@ -121,6 +149,11 @@ a {
     )
     rgb(var(--background-start-rgb));
 } */
+
+p span {
+  font-family: 'ApercuPro-Black', sans-serif !important;
+  font-weight: 800;
+}
 
 a {
   color: inherit;

@@ -1,18 +1,18 @@
 import Image from "next/image";
 import styles from "../styles/Home.module.css";
 import Header from "@/components/Header";
-import { useContext, useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import Footer from "@/components/Footer";
 import OrderFormContainer, { InitialValuesType }  from "@/components/Form/FormSection";
 import Accordion from "@/components/global/Accordian";
-import { sendPageViewEvent } from "@/components/lib/analytics";
-import { saveItem } from "@/context/storage";
-import { imPoweredRequest } from "@/components/lib/request";
+// import { sendPageViewEvent } from "@/components/lib/analytics";
+// import { saveItem } from "@/context/storage";
+// import { imPoweredRequest } from "@/components/lib/request";
 import { LineItem } from "@/components/Form/OrderForm";
 import Head from "next/head";
 import StaticButton from "@/components/Button/StaticBtn";
 import Marquee from "react-fast-marquee";
-import Router from "next/router";
+// import Router from "next/router";
 
 declare namespace JSX {
   interface IntrinsicElements {
@@ -56,38 +56,15 @@ export default function Home() {
   const [isSubbed, setSub] = useState(true);
   const [windowWidth, setWindowWidth] = useState(0);
 
-  const initialValues = {
-    line_items: [product],
-    shipping: {
-        line1: "",
-        state: "",
-        city: "",
-        zip: "",
-        type: "",
-        country: "",
-        name: "",
-        title: ""
-    },
-    bump: true,
-    external_type: "",
-    customer: {
-        email: "",
-        first_name: ""
-    },
-    stripe_uuid: "",
-    fun_uuid: process.env.NEXT_PUBLIC_IMPOWERED_FUNNEL ?? "",
-    high_risk: false,
-  } as InitialValuesType;
-
-  const [state, setState] = useState(initialValues);
-
   // Page Effect -> Analytics
   useEffect(() => {
     if (!window) {};
     setWindowWidth(window.innerWidth);
+    localStorage.setItem("upsell", "false");
+    localStorage.setItem("cus_uuid", "");
     // fetchData();
     //Send Analytics to imPowered
-    sendPageViewEvent("OPT_IN");
+    // sendPageViewEvent("OPT_IN");
   }, []);
 
   // Select Main Image
@@ -133,6 +110,7 @@ export default function Home() {
       targetElement.scrollIntoView({ behavior: 'smooth' });
     }
   };
+
   return (
     <>
       <Head>
@@ -402,7 +380,7 @@ export default function Home() {
                     <div onClick={() => setSub(false)} className={`${styles.subBtn}`} style={{color: !isSubbed ? "white" : "",background: !isSubbed ? "#17378a url('https://hitsdesignclients.com/Peak-Male-new/images/selected.png') 15px center no-repeat" : "#fff", border: !isSubbed ? "1px solid #17378a" : ""}}>
                       One Time Purchase
                     </div>
-                    <div onClick={() => setSub(true)} className={`${styles.subBtn}`} style={{color: isSubbed ? "white" : "",margin: 0, background: isSubbed ? "#17378a url('https://hitsdesignclients.com/Peak-Male-new/images/selected.png') 15px center no-repeat" : "#fff", border: isSubbed ? "1px solid #17378a" : ""}}>
+                    <div onClick={() => setSub(true)} className={`${styles.subBtn}`} style={{color: isSubbed ? "white" : "", margin: 0, background: isSubbed ? "#17378a url('https://hitsdesignclients.com/Peak-Male-new/images/selected.png') 15px center no-repeat" : "#fff", border: isSubbed ? "1px solid #17378a" : ""}}>
                       Subscribe & <br /><span>Save 20%</span>
                     </div>
                   </div>
@@ -461,7 +439,7 @@ export default function Home() {
                           <h6 className={styles.supplyText}>60 Day Supply</h6>
 
                           <p className={styles.pkgprc2}>
-                            <span className={styles.BigPrice}>{isSubbed ? "$59" : "$49"}</span>
+                            <span className={styles.BigPrice}>{isSubbed ? "$49" : "$59"}</span>
                             <span className={styles.PriceUnit}>/per bottle</span>
                           </p>
 
@@ -506,7 +484,7 @@ export default function Home() {
                           <h6 className={styles.supplyText}>180 Day Supply</h6>
 
                           <p className={styles.pkgprc2}>
-                            <span className={styles.BigPrice}>{isSubbed ? "$49" : "$39"}</span>
+                            <span className={styles.BigPrice}>{isSubbed ? "$39" : "$49"}</span>
                             <span className={styles.PriceUnit}>/per bottle</span>
                           </p>
 
@@ -631,6 +609,7 @@ export default function Home() {
               textAlign: "center",
               fontWeight: "100",
               position: "relative",
+              fontFamily: "'ApercuPro-light', sans-serif",
               letterSpacing: "0.5px"}}>Safe & Secure Checkout</p> 
             <p style={{ 
               float: "left",
@@ -641,6 +620,7 @@ export default function Home() {
               fontWeight: "100",
               textAlign: "center",
               position: "relative",
+              fontFamily: "'ApercuPro-light', sans-serif",
               letterSpacing: "0.5px"}}>|</p>
             <p style={{ 
               float: "left",
@@ -651,6 +631,7 @@ export default function Home() {
               fontWeight: "100",
               textAlign: "center",
               position: "relative",
+              fontFamily: "'ApercuPro-light', sans-serif",
               letterSpacing: "0.5px"}}>30 Day Money Back Guarantee</p> 
             <p style={{ 
               float: "left",
@@ -661,6 +642,7 @@ export default function Home() {
               fontWeight: "100",
               textAlign: "center",
               position: "relative",
+              fontFamily: "'ApercuPro-light', sans-serif",
               letterSpacing: "0.5px"}}>|</p>
             <p style={{ 
               float: "left",
@@ -671,6 +653,7 @@ export default function Home() {
               fontWeight: "100",
               textAlign: "center",
               position: "relative",
+              fontFamily: "'ApercuPro-light', sans-serif",
               letterSpacing: "0.5px"}}>Fast Shipping Across U.S.A.</p>
             <p style={{ 
               float: "left",
@@ -681,6 +664,7 @@ export default function Home() {
               fontWeight: "100",
               textAlign: "center",
               position: "relative",
+              fontFamily: "'ApercuPro-light', sans-serif",
               letterSpacing: "0.5px"}}>|</p>
           </Marquee>
         </div>
@@ -940,7 +924,7 @@ export default function Home() {
               <span style={{color: "#17378a"}}>Xtreme Test Booster</span>
             </h1>
             <p style={{color: "black", marginTop: "19px", textAlign: "center", fontSize: "18px", lineHeight: "26px"}}>
-              Our unique blend of 6 powerful herbs work together to support healthy testosterone levels, improve muscle mass <br /> 
+              Our unique blend of 6 powerful herbs work together to support healthy testosterone levels, improve muscle mass 
               and athletic performance, and promote overall male health and vitality
             </p>
 

@@ -268,7 +268,7 @@
 }
 .prcRow span {
     float: right;
-    width: 15%;
+    /* width: 15%; */
     text-align: right;
 }
 .total {

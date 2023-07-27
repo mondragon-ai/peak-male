@@ -7,6 +7,7 @@ import Image from "next/image";
 import { formatTime } from "@/components/lib/formatter";
 import CollectJSSection from "@/components/Payments/COollectionJSSection";
 import Router from "next/router";
+import { BillingAddress, storeBillingAddressInLocalStorage } from "@/components/lib/storage";
 
 // Checkout Form Type
 interface FormData {
@@ -82,7 +83,8 @@ const title = "Peak Male | Optimal Human"
 const CheckOut = () => { 
   const [countdown, setCountdown] = useState(300);
   const [isLoading, setIsLoading] = useState(true);
-  const [differentBilling, setBilling] = useState(true);
+  const [differentBilling, setBilling] = useState(false);
+  const [setForm, formLoaded] = useState(false);
   const [windowWidth, setWindowWidth] = useState(0);
   const [formData, setFormData] = useState<FormData>(formDataInitialState);
 
@@ -102,9 +104,15 @@ const CheckOut = () => {
       console.log("[payload]");
       const payload = createPayloadFromOrder(token);
       console.log(payload);
+      const URL = true ? "https://us-central1-impowered-production.cloudfunctions.net/funnels" : "http://127.0.0.1:5001/impowered-production/us-central1/funnels";
       // Uncomment and modify the payload creation logic when using imPoweredRequest
-      const response = await imPoweredRequest("http://127.0.0.1:5001/impowered-production/us-central1/funnels/payments/checkout/fast", "POST", payload);
+      const response = await imPoweredRequest(URL+"/payments/checkout/fast", "POST", payload);
       if (response.status < 300) {
+        storeBillingAddressInLocalStorage("billing_address", payload?.billing_address as BillingAddress);
+        storeBillingAddressInLocalStorage("shipping", payload?.shipping as BillingAddress);
+        storeBillingAddressInLocalStorage("customer", payload?.customer as any);
+        localStorage.setItem("cus_uuid", response.data.data.cus_uuid);
+        localStorage.setItem("draft_order", response.data.data.draft_order);
         // Handle success response
         Router.push(`/upsell`);
         setIsLoading(false);
@@ -137,7 +145,7 @@ const CheckOut = () => {
         variant_id: 0,
         quantity: 1,
         product_id: "",
-        is_recurring: isSubbed
+        external_id: 0 as number | null 
       };
       switch (P) {
         case "ONE": {
@@ -145,17 +153,17 @@ const CheckOut = () => {
             high_risk: true,
             title: "1 Bottle",
             sku: "PM-1-B",
-            price: isSubbed ? 3900 : 4900,
+            price: isSubbed ? 4900 : 5900,
             compare_at_price: 0,
             handle: "1-bottle",
             options1: "1 Bottle",
             options2: "",
             options3: "",
             weight: 0.15,
-            variant_id: 45361885970728,
+            variant_id: isSubbed ? 45756263104808 : 45361885970728,
             quantity: 1,
             product_id: "",
-            is_recurring: isSubbed
+            external_id: isSubbed ? 1234 : null
           };
           break;
         }      
@@ -164,17 +172,17 @@ const CheckOut = () => {
             high_risk: true,
             title: "3 Bottles",
             sku: "PM-3-B",
-            price: isSubbed ? 4900 : 5900,
+            price: isSubbed ? (4900*3) : (5900*3),
             compare_at_price: 0,
             handle: "3-bottles",
             options1: "3 Bottles",
             options2: "",
             options3: "",
             weight: 0.35,
-            variant_id: 45361886003496,
+            variant_id:  isSubbed ? 45756263170344 : 45361886003496,
             quantity: 1,
             product_id: "",
-            is_recurring: isSubbed
+            external_id: isSubbed ? 1235 : null
           };
           break;
         }      
@@ -183,17 +191,17 @@ const CheckOut = () => {
             high_risk: true,
             title: "6 Bottles",
             sku: "PM-6-B",
-            price: isSubbed ? 5900 : 6900,
+            price: isSubbed ? (3900*6) : (4900*6),
             compare_at_price: 0,
             handle: "6-bottls",
             options1: "6 Bottles",
             options2: "",
             options3: "",
             weight: 0.75,
-            variant_id: 45361886036264,
+            variant_id:  isSubbed ? 45756263235880 : 45361886036264,
             quantity: 1,
             product_id: "",
-            is_recurring: true
+            external_id: isSubbed ? 1236 : null
           };
           break;
         }      
@@ -202,18 +210,18 @@ const CheckOut = () => {
       }
       return {
         payment_method: "",
-        fun_uuid: "fun_b04eadf7550bbffcbf4d",
+        fun_uuid: process.env.NEXT_PUBLIC_IMPOWERED_FUNNEL,
         high_risk: true,
-        billing_address: differentBilling ? billing : shipping,
+        billing_address: differentBilling ? {...billing, type: "BILLING"} : {...shipping, type: "BOTH"},
         bump: false,
         payment_token: token,
         security_key: "2hNZ5C543yfQH59e9zcEd33QDZw5JcvV",  
         customer: {...customer, token},
-        shipping: shipping,
+        shipping:  differentBilling ? {...shipping, type: "SHIPPING"} : {...shipping, type: "BOTH"},
         line_items: [product],
         fun_uid: process.env.NEXT_PUBLIC_IMPOWERED_FUNNEL,
         external_type: "SHOPIFY",
-        shopify_shop: "optimalhuman"
+        shopify_shop: "optimalhuman",
       };
     } catch (error) {
       console.log(error);
@@ -222,10 +230,10 @@ const CheckOut = () => {
 
   // Handle Submit
   const handleSubmit = (event: React.FormEvent) => {
-    console.log("[HANDLE SUBMIT]");
-    console.log(formData);
     const CollectJS = window ? (window as any).CollectJS : null;
     event.preventDefault();
+    console.log("[HANDLE SUBMIT]");
+    console.log(formData);
     setFormData((prevFormData) => ({ ...prevFormData, isSubmitting: true }));
     CollectJS.startPaymentRequest();
   };
@@ -262,7 +270,7 @@ const CheckOut = () => {
         variant: "inline",
         theme: "bootstrap",
         buttonText: "SUBMIT ME!",
-        callback: finishSubmit,
+        callback:  finishSubmit,
         fields: {
           ccnumber: {
             placeholder: "CC Number",
