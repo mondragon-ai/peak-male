@@ -8,8 +8,8 @@ import { getFormattedDate } from "@/components/lib/formatter";
 
 
 const description = `Rivigerate your manhood with Peak Male`;
-const ogImgUrl =  "";
-const canonicalUrl = "https://cdn.shopify.com/s/files/1/0727/2805/2008/files/card.png?v=1690477687";
+const ogImgUrl =  "https://cdn.shopify.com/s/files/1/0727/2805/2008/files/card.png?v=1690477687";
+const canonicalUrl = "";
 const title = "Peak Male | Optimal Human" 
 
 const Confirmation = () => {
