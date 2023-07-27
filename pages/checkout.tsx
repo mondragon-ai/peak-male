@@ -77,7 +77,7 @@ const formDataInitialState: FormData = {
 
 const description = `Rivigerate your manhood with Peak Male`;
 const ogImgUrl =  "";
-const canonicalUrl = "https://hitsdesignclients.com/Peak-Male-new/images/logo.png";
+const canonicalUrl = "https://cdn.shopify.com/s/files/1/0727/2805/2008/files/card.png?v=1690477687";
 const title = "Peak Male | Optimal Human" 
 
 const CheckOut = () => { 
