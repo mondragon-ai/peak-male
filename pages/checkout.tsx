@@ -731,7 +731,13 @@ const CheckOut = () => {
             </div>
 
             <div className={checkout_styles.allSubmit}>
-              <button className={checkout_styles.frmSubmit} id='payButton' type="submit" disabled={formData.isSubmitting}>
+              <button style={{
+                  cursor: isLoading || formData.isSubmitting ? "pointer" : "progress"
+                }}
+                className={checkout_styles.frmSubmit}
+                id='payButton'
+                type="submit"
+                disabled={isLoading || formData.isSubmitting ? true : false}>
                 <span>
                   <Image src="https://hitsdesignclients.com/Peak-Male-new/images/lock2.png" alt="" width={500} height={500} style={{height: "auto", width: "18px"}}/>complete purchase
                 </span>

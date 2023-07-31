@@ -137,26 +137,28 @@ const Upsell = () => {
       console.log(payload);
       const URL = true ? "https://us-central1-impowered-production.cloudfunctions.net/funnels" : "http://127.0.0.1:5001/impowered-production/us-central1/funnels";
 
-      const response = await imPoweredRequest(
-        URL+"/payments/charge/subscription",
-        "POST",
-        payload
-      );
-
-      if (response.status < 300) {
-        localStorage.setItem("upsell", "true");
-
-        const prev_li = globalState.line_items ? globalState.line_items as LineItem[] : []
-      
-        setGlobalState({
-          ...globalState,
-          line_items: [...prev_li, upsell_product],
-        });
-
-        Router.push(`/confirmation`);
+      if (!isLoading) {
+        const response = await imPoweredRequest(
+          URL+"/payments/charge/subscription",
+          "POST",
+          payload
+        );
+  
+        if (response.status < 300) {
+          localStorage.setItem("upsell", "true");
+  
+          const prev_li = globalState.line_items ? globalState.line_items as LineItem[] : []
+        
+          setGlobalState({
+            ...globalState,
+            line_items: [...prev_li, upsell_product],
+          });
+  
+          Router.push(`/confirmation`);
+          return;
+        }
         setIsLoading(false);
-        return;
-      }
+      };
 
       // throw new Error(`We're sorry, you couldn't sign up. Please try refreshing the page and try again.`);
     } catch (e) {
@@ -306,7 +308,7 @@ const Upsell = () => {
                     <p className={upsell_styles.upPrc}><span>$24.99</span> <small>(SAVE 45%)</small></p>
                     <p className={upsell_styles.dealReserve}>Deal reserved for: <strong><span style={{color: "red"}}>{renderCountdown()}</span> min</strong></p>
                   </div>
-                  <a onClick={() => purchaseUpsell()} className={upsell_styles.upBtn}>Yes, Upgrade my Order with 1-Click-Buy! </a>
+                  <a onClick={() => purchaseUpsell()} className={upsell_styles.upBtn}>{isLoading ? "Loading..." : "Yes, Upgrade my Order with 1-Click-Buy! "}</a>
                   <p className={upsell_styles.moneyBkText}>
                     <img src="https://hitsdesignclients.com/Peak-Male-new/images/money-bk-seal.png" /> 30 Day Money Back Guarantee&nbsp;</p>
                   <div className={upsell_styles.deviderCp}></div>
