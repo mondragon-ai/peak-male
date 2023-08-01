@@ -62,6 +62,7 @@ const cardOptions = {
 function OrderForm({
   status,
   isLoading,
+  setIsLoading,
   message,
   isSubbed,
   setSub,
@@ -77,10 +78,12 @@ function OrderForm({
   }, []);
 
   const navigateToCheckout = async () => {
-    if (window) {
+    if (window && !isLoading) {
+      setIsLoading(true)
       localStorage.setItem("subscribed", String(isSubbed));
       localStorage.setItem("product", String(productSelected));
       window.location.href = "/checkout"
+      setIsLoading(false)
     }
     // Router.push(`/checkout`);
   };
@@ -302,7 +305,7 @@ function OrderForm({
 
         <p className={styles.riskFreeTxt}>Try Risk-Free 30 Day Money Back Guarantee</p>
 
-        <div onClick={navigateToCheckout} className={styles.s1btn}>
+        <div onClick={navigateToCheckout} className={styles.s1btn} style={{cursor: isLoading ? "progress" : "pointer"}}>
           Add to Cart & Save 45%
         </div>
 

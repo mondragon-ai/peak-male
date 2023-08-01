@@ -26,26 +26,28 @@ export interface InitialValuesType {
     clientSecret: string;
   }
 
-const OrderFormContainer = ({isSubbed, setSub, setProduct, productSelected }: {
+const OrderFormContainer = ({isSubbed, setSub, setProduct, productSelected, setIsLoading, isLoading }: {
     isSubbed: boolean,
     setSub: any,
     setProduct: any,
-    productSelected: string
+    productSelected: string,
+    setIsLoading: React.Dispatch<React.SetStateAction<boolean>>,
+    isLoading: boolean
 }) => {
-    const [isLoading, setIsLoading] = useState(false);
     const [status, setStatus] = useState("");
     const [message, setMessage] = useState("");
     
   return (
     <>
         <OrderForm
-            isLoading={isLoading}
-            message={message}
-            status={status}
-            isSubbed={isSubbed}
-            setSub={setSub}
-            setProduct={setProduct}
-            productSelected={productSelected}
+          setIsLoading={setIsLoading}
+          isLoading={isLoading}
+          message={message}
+          status={status}
+          isSubbed={isSubbed}
+          setSub={setSub}
+          setProduct={setProduct}
+          productSelected={productSelected}
         />
     </>
   );

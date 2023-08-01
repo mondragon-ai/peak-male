@@ -55,6 +55,7 @@ export default function Home() {
   const [productSelected, setProduct] = useState("SIX");
   const [isSubbed, setSub] = useState(true);
   const [windowWidth, setWindowWidth] = useState(0);
+  const [isLoading, setIsLoading] = useState(true);
 
   // Page Effect -> Analytics
   useEffect(() => {
@@ -103,11 +104,13 @@ export default function Home() {
   };
 
   const navigateToCheckout = async () => {
+    setIsLoading(true);
     if (window) {
       localStorage.setItem("subscribed", String(isSubbed));
       localStorage.setItem("product", String(productSelected));
       window.location.href = "/checkout";
     }
+    setIsLoading(false);
   };
 
   const handleScroll = (scrollToElement: string) => {
@@ -415,8 +418,10 @@ export default function Home() {
                         </div>
                       </div>
                       <div  onClick={() => navigateToCheckout()} className={`${styles.row}`} style={{margin: "0px auto",width: "100%"}}>
-                        <button style={{
-                          cursor: "pointer",
+                        <button 
+                          disabled={isLoading}
+                          style={{
+                          cursor: isLoading ? "progress" : "pointer",
                           display: "block",
                           margin: "10px auto 0",
                           background: "#ff7200",
@@ -460,9 +465,11 @@ export default function Home() {
                         </div>
                       </div>
                       <div onClick={() => navigateToCheckout()} className={`${styles.row}`} style={{margin: "0px auto",width: "100%"}}>
-                        <button style={{
+                        <button 
+                          disabled={isLoading}
+                          style={{
                           display: "block",
-                          cursor: "pointer",
+                          cursor: isLoading ? "progress" : "pointer",
                           margin: "10px auto 0",
                           background: "#ff7200",
                           height: "45px",
@@ -508,10 +515,12 @@ export default function Home() {
                         </div>
                       </div>
                       <div onClick={() => navigateToCheckout()} className={`${styles.row}`} style={{margin: "0px auto",width: "100%"}}>
-                        <button style={{
+                        <button 
+                          disabled={isLoading}
+                          style={{
                           display: "block",
                           margin: "10px auto 0",
-                          cursor: "pointer",
+                          cursor: isLoading ? "progress" : "pointer",
                           background: "#ff7200",
                           height: "45px",
                           width: "80%",
@@ -598,7 +607,7 @@ export default function Home() {
           </div>
 
           <div className={`${styles.col} ${styles.mobileFull}`} style={{width:  windowWidth < 720 ? "100%" : "55%", flexWrap: "wrap", alignContent: "flex-start"}}> 
-            {windowWidth > 720 ? <OrderFormContainer isSubbed={isSubbed} setSub={setSub} setProduct={setProduct} productSelected={productSelected} /> : null}
+            {windowWidth > 720 ? <OrderFormContainer isSubbed={isSubbed} setSub={setSub} setProduct={setProduct} productSelected={productSelected} isLoading={isLoading} setIsLoading={setIsLoading} /> : null}
           </div>
 
         </div>
