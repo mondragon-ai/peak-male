@@ -31,7 +31,8 @@ const upsell_product = {
   variant_id: 45756357181736,
   quantity: 1,
   product_id: "",
-  is_recurring: false
+  is_recurring: false,
+  funnel_step: "UPSELL"
 };
 
 const Upsell = () => {

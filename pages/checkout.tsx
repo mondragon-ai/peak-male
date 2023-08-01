@@ -148,7 +148,8 @@ const CheckOut = () => {
         variant_id: 0,
         quantity: 1,
         product_id: "",
-        external_id: 0 as number | null 
+        external_id: 0 as number | null ,
+        funnel_step: "OPT_IN"
       };
       switch (P) {
         case "ONE": {
@@ -166,7 +167,8 @@ const CheckOut = () => {
             variant_id: isSubbed ? 45756263104808 : 45361885970728,
             quantity: 1,
             product_id: "",
-            external_id: isSubbed ? 1234 : null
+            external_id: isSubbed ? 1234 : null,
+            funnel_step: "OPT_IN"
           };
           break;
         }      
@@ -185,7 +187,8 @@ const CheckOut = () => {
             variant_id:  isSubbed ? 45756263170344 : 45361886003496,
             quantity: 1,
             product_id: "",
-            external_id: isSubbed ? 1235 : null
+            external_id: isSubbed ? 1235 : null,
+            funnel_step: "OPT_IN"
           };
           break;
         }      
@@ -204,7 +207,8 @@ const CheckOut = () => {
             variant_id:  isSubbed ? 45756263235880 : 45361886036264,
             quantity: 1,
             product_id: "",
-            external_id: isSubbed ? 1236 : null
+            external_id: isSubbed ? 1236 : null,
+            funnel_step: "OPT_IN"
           };
           break;
         }      
