@@ -55,7 +55,7 @@ export default function Home() {
   const [productSelected, setProduct] = useState("SIX");
   const [isSubbed, setSub] = useState(true);
   const [windowWidth, setWindowWidth] = useState(0);
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
 
   // Page Effect -> Analytics
   useEffect(() => {
