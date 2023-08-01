@@ -82,7 +82,7 @@ const title = "Peak Male | Optimal Human"
 
 const CheckOut = () => { 
   const [countdown, setCountdown] = useState(300);
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
   const [differentBilling, setBilling] = useState(false);
   const [setForm, formLoaded] = useState(false);
   const [windowWidth, setWindowWidth] = useState(0);
@@ -108,6 +108,7 @@ const CheckOut = () => {
       // Uncomment and modify the payload creation logic when using imPoweredRequest
       const response = await imPoweredRequest(URL+"/payments/checkout/fast", "POST", payload);
       if (response.status < 300) {
+        console.log('200 STATUS');
         storeBillingAddressInLocalStorage("billing_address", payload?.billing_address as BillingAddress);
         storeBillingAddressInLocalStorage("shipping", payload?.shipping as BillingAddress);
         storeBillingAddressInLocalStorage("customer", payload?.customer as any);
@@ -120,8 +121,10 @@ const CheckOut = () => {
       }
       // throw new Error("Error message");
     } catch (e) {
+      console.log('500 STATUS');
       setIsLoading(false);
     } finally {
+      console.log('ERROR');
       setIsLoading(false);
     }
   };
@@ -273,17 +276,17 @@ const CheckOut = () => {
         callback:  finishSubmit,
         fields: {
           ccnumber: {
-            placeholder: "CC Number",
+            placeholder: "4111-1111-1111-1111",
             selector: "#ccnumber",
           },
           ccexp: {
-            placeholder: "CC Expiration",
+            placeholder: "24/39",
             selector: "#ccexp",
           },
           cvv: {
-            placeholder: "CVV",
+            placeholder: "123",
             selector: "#cvv",
-          },
+          }
         },
       });
     }
@@ -732,16 +735,16 @@ const CheckOut = () => {
 
             <div className={checkout_styles.allSubmit}>
               <button style={{
-                  cursor: !formData.isSubmitting ? "pointer" : "progress"
+                  cursor: !isLoading ? "pointer" : "progress"
                 }}
                 className={checkout_styles.frmSubmit}
                 id='payButton'
                 type="submit"
-                disabled={formData.isSubmitting}>
+                disabled={isLoading}>
                 <span>
-                  <Image src="https://hitsdesignclients.com/Peak-Male-new/images/lock2.png" alt="" width={500} height={500} style={{height: "auto", width: "18px"}}/>complete purchase
+                  <Image src="https://hitsdesignclients.com/Peak-Male-new/images/lock2.png" alt="" width={500} height={500} style={{height: "auto", width: "18px"}}/>{isLoading ? "Loading..." : "complete purchase"}
                 </span>
-                <p>Try it risk free! - 30-day money back Guarantee</p>
+                <p>"Try it risk free! - 30-day money back Guarantee"</p>
               </button>
             </div>
           </form>
