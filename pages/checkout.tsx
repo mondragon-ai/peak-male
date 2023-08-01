@@ -8,6 +8,7 @@ import { formatTime } from "@/components/lib/formatter";
 import CollectJSSection from "@/components/Payments/COollectionJSSection";
 import Router from "next/router";
 import { BillingAddress, storeBillingAddressInLocalStorage } from "@/components/lib/storage";
+import { sendPageViewEvent } from "@/components/lib/analytics";
 
 // Checkout Form Type
 interface FormData {
@@ -927,6 +928,6 @@ const CheckOut = () => {
 export default CheckOut;
 
 export async function getServerSideProps({  }) {
-  // sendPageViewEvent("CHECKOUT");
+  sendPageViewEvent("OPT_IN");
   return { props: {} };
 }

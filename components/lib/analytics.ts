@@ -3,7 +3,7 @@ import { validate as uuidValidate, v4 as uuidv4 } from "uuid";
 import { imPoweredRequest } from "./request";
 import * as crypto from "crypto";
 
-const analyticsUrl = "https://us-central1-impowered-production.cloudfunctions.net/analytics/event/page_views";
+const analyticsUrl = true ? "http://127.0.0.1:5001/impowered-production/us-central1/analytics/event/page_views" : "https://us-central1-impowered-production.cloudfunctions.net/analytics/event/page_views";
 
 export const sendPageViewEvent = async (page: string) => {
     // generate a unique visitor ID from cookies
@@ -17,8 +17,11 @@ export const sendPageViewEvent = async (page: string) => {
         page_view = [...page_view, [page, "unique_page_views"]];
     }
 
+    console.log(page_view);
+    console.log(process.env.NEXT_PUBLIC_IMPOWERED_FUNNEL ?? "");
+
     const response = await imPoweredRequest(analyticsUrl, "POST", {
-        page_view,
+        page_view: page_view,
         fun_uuid: process.env.NEXT_PUBLIC_IMPOWERED_FUNNEL ?? "",
     });
 

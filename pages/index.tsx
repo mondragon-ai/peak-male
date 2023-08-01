@@ -12,6 +12,7 @@ import { LineItem } from "@/components/Form/OrderForm";
 import Head from "next/head";
 import StaticButton from "@/components/Button/StaticBtn";
 import Marquee from "react-fast-marquee";
+import { sendPageViewEvent } from "@/components/lib/analytics";
 // import Router from "next/router";
 
 declare namespace JSX {
@@ -1308,4 +1309,10 @@ export default function Home() {
       <Footer />
     </>
   );
+}
+
+
+export async function getServerSideProps({  }) {
+  sendPageViewEvent("LANDING");
+  return { props: {} };
 }

@@ -112,7 +112,7 @@ const Upsell = () => {
     // Set Loading
     setTimeout(() => {
       setIsLoading(false);
-    }, 3000);
+    }, 20000);
 
     // let price = 0;
 

@@ -5,6 +5,7 @@ import styles from "../styles/Home.module.css";
 import confirmation_styles from "../styles/Confirmation.module.css";
 import { BillingAddress, Customer, getBillingAddressFromLocalStorage, getCustomerFromLocalStorage } from "@/components/lib/storage";
 import { getFormattedDate } from "@/components/lib/formatter";
+import { sendPageViewEvent } from "@/components/lib/analytics";
 
 
 const description = `Rivigerate your manhood with Peak Male`;
@@ -326,6 +327,6 @@ const Confirmation = () => {
 export default Confirmation;
 
 export async function getServerSideProps({  }) {
-  // sendPageViewEvent("CONFIRMATION");
+  sendPageViewEvent("CONFIRMATION");
   return { props: {} };
 }
