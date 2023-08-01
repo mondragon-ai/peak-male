@@ -149,7 +149,8 @@ const CheckOut = () => {
         quantity: 1,
         product_id: "",
         external_id: 0 as number | null ,
-        funnel_step: "OPT_IN"
+        funnel_step: "OPT_IN",
+        is_recurring: isSubbed
       };
       switch (P) {
         case "ONE": {
@@ -168,7 +169,8 @@ const CheckOut = () => {
             quantity: 1,
             product_id: "",
             external_id: isSubbed ? 1234 : null,
-            funnel_step: "OPT_IN"
+            funnel_step: "OPT_IN",
+            is_recurring: isSubbed
           };
           break;
         }      
@@ -188,7 +190,8 @@ const CheckOut = () => {
             quantity: 1,
             product_id: "",
             external_id: isSubbed ? 1235 : null,
-            funnel_step: "OPT_IN"
+            funnel_step: "OPT_IN",
+            is_recurring: isSubbed
           };
           break;
         }      
@@ -208,7 +211,8 @@ const CheckOut = () => {
             quantity: 1,
             product_id: "",
             external_id: isSubbed ? 1236 : null,
-            funnel_step: "OPT_IN"
+            funnel_step: "OPT_IN",
+            is_recurring: isSubbed
           };
           break;
         }      
@@ -240,6 +244,7 @@ const CheckOut = () => {
     const CollectJS = window ? (window as any).CollectJS : null;
     event.preventDefault();
     console.log("[HANDLE SUBMIT]");
+    setIsLoading(true);
     console.log(formData);
     setFormData((prevFormData) => ({ ...prevFormData, isSubmitting: true }));
     CollectJS.startPaymentRequest();
