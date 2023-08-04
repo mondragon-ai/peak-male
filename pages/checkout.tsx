@@ -274,7 +274,7 @@ const CheckOut = () => {
   // Countdown Timer 
   useEffect(() => {
     const timer = setInterval(() => {
-      setCountdown((prevCountdown) => prevCountdown - 1);
+      setCountdown((prevCountdown) => { if (prevCountdown > 0) { return (prevCountdown - 1)} else {return 0}});
     }, 1000);
     setWindowWidth(window.innerWidth);
 
@@ -320,6 +320,8 @@ const CheckOut = () => {
       alertMessage: "",
     });
   }, [formData]);
+
+  const [summary, toggleSummary] = useState(false);
 
   const ONE = formData.product == "ONE" && formData.isSubbed ? "$59.00" : formData.product == "ONE" && !formData.isSubbed ? "$69.00" : "";
   const THREE = formData.product == "THREE" && formData.isSubbed ? "$147.00" : formData.product == "THREE" && !formData.isSubbed ? "$177.00" : "";
@@ -376,10 +378,24 @@ const CheckOut = () => {
             </p>
           </header>
 
-          {windowWidth < 720 ? 
+          {windowWidth < 720  ? 
           <>
-            <h2 className={checkout_styles.sumryHdng}>Order Summary</h2>
-            <div style={{width: "100%", padding: "0 0 15px"}} >
+            <div onClick={() => toggleSummary(!summary)}  className={checkout_styles.summryToggleMob}>
+              <div className={checkout_styles.container}>
+                <p className={checkout_styles.summryToggle}>
+                  {summary ? <span>Hide Order Summary  <svg width="11" height="7" xmlns="http://www.w3.org/2000/svg" className={checkout_styles.orderSummaryToggleDropdown} fill="#000"><path d="M6.138.876L5.642.438l-.496.438L.504 4.972l.992 1.124L6.138 2l-.496.436 3.862 3.408.992-1.122L6.138.876z"></path></svg></span> : 
+                   <span>Open Order Summary  <svg width="11" height="6" xmlns="http://www.w3.org/2000/svg" className={checkout_styles.orderSummaryToggleDropdown} fill="#000"><path d="M.504 1.813l4.358 3.845.496.438.496-.438 4.642-4.096L9.504.438 4.862 4.534h.992L1.496.69.504 1.812z"></path></svg></span> }
+                </p>
+                <p className={checkout_styles.toglePrice}>
+                  {
+                    formData.product == "ONE"  ? <strong>{ONE}</strong> : 
+                    formData.product == "THREE"  ? <strong>{THREE}</strong> :
+                    formData.product == "SIX"  ? <strong>{SIX}</strong> : ""
+                  }
+                </p>
+              </div>
+            </div>
+            {summary ? <div style={{width: "100%", padding: "0 0 15px"}} >
               <div style={{width: "100%", padding: "0 0 15px"}}> 
                 <div className={checkout_styles.deviderCp}></div>
 
@@ -447,7 +463,7 @@ const CheckOut = () => {
                   </tbody>
                 </table>
               </div>
-            </div>
+            </div> : null}
           </>: null}
 
 
@@ -509,6 +525,13 @@ const CheckOut = () => {
                     <div className={``}>
                       <label htmlFor="line1" className="fl-label">Street Address</label>
                       <input onChange={(e) => setFormData({...formData, shipping: {...formData.shipping, line1: e.target.value}})} type="line1" className={`${checkout_styles.inputFlds}`} placeholder="Street Address" id="line1" data-placeholder="Street Address" />
+                    </div>
+                  </div>
+
+                  <div className={`${checkout_styles.frmFlds}`}>
+                    <div className={``}>
+                      <label htmlFor="line1" className="fl-label">Apartment, suite, etc. (optional)</label>
+                      <input onChange={(e) => setFormData({...formData, shipping: {...formData.shipping, line2: e.target.value}})} type="line1" className={`${checkout_styles.inputFlds}`} placeholder="Apartment, suite, etc. (optional)" id="line2" data-placeholder="Apartment, suite, etc. (optional)" />
                     </div>
                   </div>
 
@@ -849,9 +872,9 @@ const CheckOut = () => {
                     <tr>
                       <td align="left" className={checkout_styles.totTxtL}>Total</td>
                       {
-                        formData.product == "ONE"  ? <td align="right" className={checkout_styles.totTxtL}><span>$69.98</span></td> : 
-                        formData.product == "THREE"  ? <td align="right" className={checkout_styles.totTxtL}><span>$159.98</span></td> :
-                        formData.product == "SIX"  ? <td align="right" className={checkout_styles.totTxtL}><span>$244.98</span></td> : null
+                        formData.product == "ONE"  ? <td align="right" className={checkout_styles.totTxtL}><span>{ONE}</span></td> : 
+                        formData.product == "THREE"  ? <td align="right" className={checkout_styles.totTxtL}><span>{THREE}</span></td> :
+                        formData.product == "SIX"  ? <td align="right" className={checkout_styles.totTxtL}><span>{SIX}</span></td> : null
                       }
                     </tr>
                   </tbody>
@@ -917,6 +940,11 @@ const CheckOut = () => {
               <Image src="https://hitsdesignclients.com/Peak-Male-new/images/choose-ic2.png" alt="" width={500} height={500} style={{height: "auto", width: "50px"}} className={checkout_styles.s6TestiStar}/>
               <span>Over 7582+ successfully shipped orders</span>
               <p>Happy customers, end to end tracking and reliable customer service.</p>
+            </div>
+            <div className={checkout_styles.chooseCol}>
+              <Image src="https://hitsdesignclients.com/Peak-Male-new/images/choose-ic3.png" alt="" width={500} height={500} style={{height: "auto", width: "50px"}} className={checkout_styles.s6TestiStar}/>
+              <span>Your Privacy Is Important</span>
+              <p>All information is encrypted and transmitted without risk using a Secure Socket Layer (SSL) protocol.</p>
             </div>
           </div>
 

@@ -16,6 +16,7 @@
 .right {
     text-align: left;
     padding-left: 7%;
+    border-left: 1px solid #e4e4e4;
 }
 
 .header {
@@ -92,7 +93,7 @@
 
 .viewBoxTxt {
     width: calc(100% - 45px);
-    padding-left: 10px;
+    padding-left: 3px;
     font-size: 15px;
     line-height: 22px;
     letter-spacing: 0.1px;
@@ -153,6 +154,10 @@
 
 .frmFlds.fl {
     width: 48% !important;
+}
+
+.frmFlds input {
+    font-family: "ApercuPro";
 }
 
 .frmFlds {
@@ -365,6 +370,15 @@
     text-align: center;
 }
 
+.footer p a {
+    margin-right: 10px;
+}
+
+.footer p a:hover {
+    color: #31a42c;
+}
+
+
 
 /* ============================================================================================================================================ */
 /* !  ORDER SUMMARY                                                                                                                             */
@@ -478,6 +492,44 @@
     font-size: 18px;
     color: #000000;
     font-weight: bold;
+}
+
+
+@media only screen and (max-width: 999px) {
+    .summryToggleMob {
+        border-top: 1px solid #e6e6e6;
+        padding: 1.2em 0;
+        text-align: left;
+        width: 100%;
+        cursor: pointer;
+    }
+    .summryToggle {
+        float: left;
+        width: 65%;
+        color: #000;
+        font-size: 19px;
+        font-weight: 100;
+        font-family: 'ApercuPro';
+    }
+    .summryToggle span{
+        font-weight: 100;
+        font-family: 'ApercuPro';
+    }
+    .orderSummaryToggleDropdown {
+        vertical-align: middle;
+        -webkit-transition: fill 0.2s ease-in-out;
+        transition: fill 0.2s ease-in-out;
+        fill: #3c1a3f;
+    }
+    .toglePrice {
+        float: right;
+        width: 35%;
+        font-size: 15px;
+        line-height: 20px;
+        color: #333333;
+        text-align: right;
+        margin-top: 3px;
+    }
 }
 
 /* ============================================================================================================================================ */
@@ -667,6 +719,7 @@
     .right {
         text-align: left;
         padding-left: 0%;
+        border-left: 0px solid #e4e4e4;
     }
     
     .header {
@@ -705,7 +758,7 @@
     .checkoutForm .sale {
         /* float: left; */
         width: 100%;
-        margin-top: 40px;
+        margin-top: 0px;
         background: #feefa6;
         border-radius: 5px;
         padding: 5px 5px;
@@ -719,10 +772,8 @@
         align-items: center;
     }
     .viewBoxImg {
-        width: 20px;
-        height: 20px;
-        position: relative;
-        text-align: center;
+        width: 30px;
+        height: 30px;
     }
     .viewBoxImg img {
         position: absolute;
@@ -742,11 +793,9 @@
     }
     
     .viewBoxTxt {
-        width: calc(100% - 20px);
-        padding-left: 8px;
-        font-size: 10px;
-        line-height: 15px;
         letter-spacing: 0.2px;
+        font-size: 12px;
+        width: auto;
     }
     
     .viewBoxTxt strong, 
