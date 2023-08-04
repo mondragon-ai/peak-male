@@ -77,18 +77,32 @@
   font-family: 'ApercuPro';
   src: 
     url('../public/fonts/ApercuPro-Regular.woff2') format('woff2'),
-    url('../public/fonts/ApercuPro-Regular.woff') format('woff'),
-    url('../public/fonts/ApercuPro-Medium.woff2') format('woff2'),
-    url('../public/fonts/ApercuPro-Medium.woff') format('woff'),
-    url('../public/fonts/ApercuPro-Bold.woff2') format('woff2'),
-    url('../public/fonts/ApercuPro-Bold.woff') format('woff'),
-    url('../public/fonts/ApercuPro-Black.woff2') format('woff2'),
-    url('../public/fonts/ApercuPro-Black.woff') format('woff'),
-    url('../public/fonts/ApercuPro-Light.woff2') format('woff2'),
-    url('../public/fonts/ApercuPro-Light.woff') format('woff');
+    url('../public/fonts/ApercuPro-Regular.woff') format('woff');
   /* Add more formats if necessary */
     font-style:normal;
+    font-weight: 200;
 }
+
+@font-face {
+  font-family: 'ApercuPro-Medium';
+  src: 
+  url('../public/fonts/ApercuPro-Medium.woff2') format('woff2'),
+  url('../public/fonts/ApercuPro-Medium.woff') format('woff');
+  /* Add more formats if necessary */
+    font-style:normal;
+    font-weight: 400;
+}
+
+@font-face {
+  font-family: 'ApercuPro-Bold';
+  src: 
+    url('../public/fonts/ApercuPro-Bold.woff2') format('woff2'),
+    url('../public/fonts/ApercuPro-Bold.woff') format('woff');
+  /* Add more formats if necessary */
+    font-style:normal;
+    font-weight: 600;
+}
+
 
 @font-face {
   font-family: 'ApercuPro-Black';
@@ -151,7 +165,7 @@ a {
 } */
 
 p span {
-  font-family: 'ApercuPro-Black', sans-serif !important;
+  font-family: 'ApercuPro-Black', sans-serif;
   font-weight: 800;
 }
 

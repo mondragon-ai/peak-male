@@ -30,6 +30,7 @@
     line-height: 20px;
     color: #000;
     text-align: left;
+    font-family: 'ApercuPro';
     letter-spacing: 0.5px;
 }
 .secureLock img {
@@ -41,6 +42,7 @@
 .secureLock span {
     display: inline-block;
     vertical-align: middle;
+    font-family: 'ApercuPro';
 }
 
 /* ============================================================================================================================================ */
@@ -612,6 +614,11 @@
     text-align: left;
     position: relative;
     padding-left: 30px;
+    font-family: 'ApercuPro';
+}
+
+.securityText span {
+    font-family: 'ApercuPro-Light';
 }
 .paymentCardsBox {
     float: left;

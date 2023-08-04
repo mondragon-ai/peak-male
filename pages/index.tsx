@@ -163,6 +163,8 @@ export default function Home() {
                         <span className={styles.span1} style={{
                           background: "#ff7200",
                           color: "#fff",
+                          fontWeight: "100",
+                          fontFamily: 'ApercuPro-Light',
                           display: "inline-block",
                           padding: "1px 10px 2px 5px",
                           fontSize: "15px",
@@ -211,7 +213,8 @@ export default function Home() {
                             letterSpacing: "3px",
                             fontSize: "40px",
                             color: "white",
-                            fontWeight: "bold"}}>Peak Male</span>
+                            fontWeight: "200",
+                            fontFamily: 'ApercuPro-Medium'}}>Peak Male</span>
                           <br />
                           <span style={{fontSize: "20px",}}>Xtreme Test Booster </span>
                         </div>
@@ -320,16 +323,16 @@ export default function Home() {
                   <div className={`${styles.row}`} style={{width: "100%", justifyContent: "flex-start", marginTop: "15px", padding: "0 1rem"}}>
                     <ul className={`${styles.helpsWith}`}>
                       <li>
-                        <Image src={"https://hitsdesignclients.com/Peak-Male-new/images/help-icon1.png"} alt={""} width={50} height={50} style={{height: "20px", width: "auto", verticalAlign: "middle", margin: "-2px 6px 0 0"}}/>Libido
+                        <img src={"https://hitsdesignclients.com/Peak-Male-new/images/help-icon1.png"} alt={""} style={{height: "20px", width: "auto", verticalAlign: "middle", margin: "-2px 6px 0 0"}}/>Libido
                       </li>
                       <li>
-                        <Image src={"https://hitsdesignclients.com/Peak-Male-new/images/help-icon2.png"} alt={""} width={50} height={50} style={{height: "20px", width: "auto", verticalAlign: "middle", margin: "-2px 6px 0 0"}}/>Energy
+                        <img src={"https://hitsdesignclients.com/Peak-Male-new/images/help-icon2.png"} alt={""} style={{height: "20px", width: "auto", verticalAlign: "middle", margin: "-2px 6px 0 0"}}/>Energy
                       </li>
                       <li>
-                        <Image src={"https://hitsdesignclients.com/Peak-Male-new/images/help-icon3.png"} alt={""} width={50} height={50} style={{height: "20px", width: "auto", verticalAlign: "middle", margin: "-2px 6px 0 0"}}/>T-Boost
+                        <img src={"https://hitsdesignclients.com/Peak-Male-new/images/help-icon3.png"} alt={""} style={{height: "20px", width: "auto", verticalAlign: "middle", margin: "-2px 6px 0 0"}}/>T-Boost
                       </li>
                       <li>
-                        <Image src={"https://hitsdesignclients.com/Peak-Male-new/images/help-icon4.png"} alt={""} width={50} height={50} style={{height: "20px", width: "auto", verticalAlign: "middle", margin: "-2px 6px 0 0"}}/>Cognition
+                        <img src={"https://hitsdesignclients.com/Peak-Male-new/images/help-icon4.png"} alt={""} style={{height: "20px", width: "auto", verticalAlign: "middle", margin: "-2px 6px 0 0"}}/>Cognition
                       </li>
                     </ul>
                   </div>
@@ -591,14 +594,14 @@ export default function Home() {
                   <div className={`${styles.col}`} style={{padding: "0 0 0 1rem"}}>
                     <p>I ordered the 3 month supply and I just finished my 1st month (1 bottle), so I’m not sure if that’s long enough to truly notice any differences, but it seems like I'm starting to "feel" results!! I feel less tired most of the time, and I've been feeling better during/after my workouts. Plus, my sex drive seems to be improving too!</p>
                     <div className={`${styles.row}`} style={{width: "100%", marginTop: "12px", fontWeight: "bold", alignItems: "center"}}>
-                      <p style={{fontWeight: "bold"}}>Alexander L.</p>
+                      <p style={{fontFamily: 'ApercuPro-Bold'}}>Alexander L.</p>
 
-                      <span className={`${styles.row}`} style={{alignItems: "center"}} >  
+                      <span className={`${styles.row}`} style={{alignItems: "center", fontFamily: 'ApercuPro-Light'}} >  
                           <Image src={"https://hitsdesignclients.com/Peak-Male-new/images/rvtick.png"} 
                             alt={""}
                             width={60}
                             height={60}
-                            style={{width: "10px", height: "auto", margin: "0 0.5rem 0 1rem"}} />Verified Customer
+                            style={{width: "15px", height: "auto", margin: "2px 0.2rem 0 1rem"}} />Verified Customer
                         </span>
                     </div>
                   </div>
@@ -688,7 +691,7 @@ export default function Home() {
         {/* DECLINE SECTION */}
         <div className={`${styles.col}`} style={{width: "100%", padding: "4rem 0 4rem 0", background: "url('https://hitsdesignclients.com/Peak-Male-new/images/sec2.jpg') center bottom no-repeat"}}>
           <div className={styles.delcinedTestWrapper}>
-            <h1 style={{color: "red", fontWeight: "900", textAlign: "center", fontSize: windowWidth < 720 ? "25px" : "50px", lineHeight:  windowWidth < 720 ? "30px" : "56px"}}> Decline In T-Levels In Men <br /> Is The Harsh Reality</h1>
+            <h1 style={{color: "red", fontFamily: 'ApercuPro-Bold', textAlign: "center", fontSize: windowWidth < 720 ? "25px" : "50px", lineHeight:  windowWidth < 720 ? "30px" : "56px"}}> Decline In T-Levels In Men <br /> Is The Harsh Reality</h1>
             <p style={{color: "black", marginTop: "19px", textAlign: "center", fontSize: windowWidth < 720 ? "14px" : "18px", lineHeight: windowWidth < 720 ? "18px" : "26px"}}>
               Studies show that male testosterone levels have been steadily declining since the 1980's, <br className={styles.none} />
               impacting an entire generation of men around the world.
@@ -714,7 +717,7 @@ export default function Home() {
               <li>
                 <Image src={"https://hitsdesignclients.com/Peak-Male-new/images/s2img4.png"} height={1000} width={1000} alt="" />
                 <h4 className={styles.s2lhding}>Muscle Loss</h4>
-                <p className={styles.s2ltxt}>Low libido, or a diminished sex drive, can impact your overall quality of life, confidence, and intimate relationships. It's a common issue often associated with low testosterone levels, stress, and various lifestyle factors.</p>
+                <p className={styles.s2ltxt}>Muscle loss can compromise your strength, athletic performance, and body composition, often occurring due to low testosterone levels, aging, and inadequate nutrition.</p>
               </li>
             </ul> : 
             <div className={styles.s2list}>
@@ -835,7 +838,7 @@ export default function Home() {
             Benefits Of Peak Male <br />
               <span>Xtreme Test Booster</span>
             </h3>
-            <p className={styles.bdfont} style={{color: "white", textAlign: "center",border: "none"}}>
+            <p className={styles.bdfont} style={{color: "white", textAlign: "center",border: "none", fontFamily: 'ApercuPro-Light'}}>
               Awaken your inner Alpha with our supercharged blend of 6 powerful herbs
             </p>
             <div className={`${styles.col}`} style={{position: "relative"}}>
@@ -936,7 +939,7 @@ export default function Home() {
         <div id="INGREDIENTS" className={`${styles.col} ${styles.sec3}`} style={{width: "100%", padding: "4rem 0 4rem 0"}}>
           <div className={styles.delcinedTestWrapper} style={{width: windowWidth < 720 ? "90%" :"60%"}}>
             <h1 style={{color: "black", fontWeight: "900", textAlign: "center", fontSize:  windowWidth < 720 ? "30px" : "50px", lineHeight: windowWidth < 720 ? "36px" : "56px"}}>
-              The Science behind <br /> Peak Male <br />
+              The Science behind Peak Male <br />
               <span style={{color: "#17378a"}}>Xtreme Test Booster</span>
             </h1>
             <p style={{color: "black", marginTop: "19px", textAlign: "center", fontSize: "18px", lineHeight: "26px"}}>
@@ -960,7 +963,7 @@ export default function Home() {
                       position: "relative",
                       bottom: 0,
                       top: 0,
-                      width: windowWidth < 720 ? "300px" : "300px",
+                      width: windowWidth < 720 ? "300px" : "400px",
                       height: "auto"
                     }}  />
                 </div>
@@ -1005,7 +1008,7 @@ export default function Home() {
                         position: "relative",
                         bottom: 0,
                         top: 0,
-                        width: windowWidth < 720 ? "300px" : "300px",
+                        width: windowWidth < 720 ? "300px" : "400px",
                         height: "auto"
                       }}  />
                   </div>
@@ -1022,8 +1025,6 @@ export default function Home() {
                     <li>Maca has been shown to reduce cortisol levels in men who are experiencing chronic stress, resulting in improved testosterone levels and overall well being.</li>
                       
                     <li>Promotes the production of luteinizing hormone (LH), which is responsible for stimulating the testes to produce testosterone in males.</li>
-                    
-                    <li>Supports overall hormonal balance, prostate health, hair loss, and skin health in&nbsp;men.</li>
                     
                     <li>Maca powder contains compounds that can help reduce the activity of the enzyme aromatase, which is responsible for converting testosterone into estrogen. One study found that Maca supplementation led to a significant reduction in aromatase activity in men.</li>
                   </ul>
@@ -1045,7 +1046,7 @@ export default function Home() {
                       position: "relative",
                       bottom: 0,
                       top: 0,
-                      width: windowWidth < 720 ? "300px" : "300px",
+                      width: windowWidth < 720 ? "300px" : "400px",
                       height: "auto"
                     }}  />
                 </div>
@@ -1083,7 +1084,7 @@ export default function Home() {
                         position: "relative",
                         bottom: 0,
                         top: 0,
-                        width: windowWidth < 720 ? "300px" : "300px",
+                        width: windowWidth < 720 ? "300px" : "400px",
                         height: "auto"
                       }}  />
                   </div>
@@ -1121,7 +1122,7 @@ export default function Home() {
                       position: "relative",
                       bottom: 0,
                       top: 0,
-                      width: windowWidth < 720 ? "300px" : "300px",
+                      width: windowWidth < 720 ? "300px" : "400px",
                       height: "auto"
                     }}  />
                 </div>
@@ -1157,7 +1158,7 @@ export default function Home() {
                         position: "relative",
                         bottom: 0,
                         top: 0,
-                        width: windowWidth < 720 ? "300px" : "300px",
+                        width: windowWidth < 720 ? "300px" : "400px",
                         height: "auto"
                       }}  />
                   </div>
@@ -1178,8 +1179,8 @@ export default function Home() {
                 </div>
               </div>
 
-              {windowWidth > 720 ? <p className={styles.promise}>Peak Male Promise</p> :
-              <p className={`${styles.chooosePackage}`} id="order">Peak Male Promise</p>}
+              {windowWidth > 720 ? <p className={styles.promise} style={{color: "#002560"}}>Peak Male Promise</p> :
+              <p className={`${styles.chooosePackage}`} id="order" style={{color: "#002560"}}>Peak Male Promise</p>}
               
               <ul className={styles.s5list} >
                 <li>
@@ -1226,7 +1227,7 @@ export default function Home() {
           <div className={styles.delcinedTestWrapper}>
             <h1 style={{padding: windowWidth < 720 ? "3rem 0 0 0" : 0, color: "black", fontWeight: "900", textAlign: "center", fontSize: windowWidth < 720 ? "25px" : "50px", lineHeight:windowWidth < 720 ? "28px" :  "56px"}}>
               Customer Testimonials <br />
-              <span style={{color: "#17378a"}}>Real People. Real Results</span>
+              <span style={{color: "#17378a"}}>Real People. Real Results.</span>
             </h1>
             <div className={`${styles.row} ${styles.testimonial} ${styles.mobileCol} `} >
               <div className={`${styles.col}`} style={{width: windowWidth < 720 ? "100%" : "30%",}}>
@@ -1260,7 +1261,7 @@ export default function Home() {
                       <Image src="https://hitsdesignclients.com/Peak-Male-new/images/sldrqt.png" height={500}  width={500} alt="" style={{width: "70px", height: "auto"}} /> 
                       <Image src="https://hitsdesignclients.com/Peak-Male-new/images/sldrbtl.png" height={500}  width={500} alt="" style={{width: "70px", height: "auto", position: "absolute", right: "40px", bottom: "-30px"}} />
                     </div>
-                    <p className={styles.sldrnm}>{testimonial == 1 ? "Jordan L." : testimonial == 2 ? "Martin H." : testimonial == 3 ? "Jimmy B" : ""}</p>
+                    <p className={styles.sldrnm}>{testimonial == 1 ? "Jordan L." : testimonial == 2 ? "Martin H." : testimonial == 3 ? "Jimmy B." : ""}</p>
                   </div>
                 </div>
               </div>
@@ -1273,7 +1274,7 @@ export default function Home() {
         <StaticButton scrollToElement={"SELECT_PRODUCT"} />
 
         {/* FAQ SECTION */}
-        <div className={`${styles.col}`} style={{background: "#eef5fc",padding: "2rem 0rem 2rem 0"}}>
+        <div id="FAQ"  className={`${styles.col}`} style={{background: "#eef5fc",padding: "2rem 0rem 2rem 0"}}>
           <div className={`${styles.col}`} style={{justifyContent: "center", padding: "2rem 0rem 2rem 0", textAlign: "center"}}>
               <h1 style={{color: "black", fontSize: windowWidth < 720 ? "22px" :"50px"}}>
                 Frequently Asked Questions <br />
@@ -1282,6 +1283,7 @@ export default function Home() {
           </div>
           <Accordion defaultOpen={true} title={"What is Peak Male?"} detail={"Peak Male is a natural testosterone booster supplement formulated with six powerful herbs that work together to help men achieve their peak physical and mental performance."} />
           <Accordion defaultOpen={false} title={"What does Peak Male do?"} detail={"Peak Male is designed to aid the body in producing testosterone naturally and support balanced hormonal health. It does not contain actual testosterone; instead, it utilizes a power combination of herbs that have been shown to support testosterone production, maintain hormonal balance, and encourage a healthy response to stress."} />
+          <Accordion defaultOpen={false} title={"What are the benefits of using Peak Male?"} detail={"Peak Male can help support healthy testosterone levels in men, which can lead to increased muscle mass, improved athletic performance, enhanced sexual function, improved mood and energy levels, and overall improved health and wellness."} />
           <Accordion defaultOpen={false} title={"Is Peak Male safe?"} detail={"Yes, Peak Male is made with all-natural ingredients and is safe for most men to use. However, as with any supplement, it is important to follow the recommended dosage instructions and consult with a healthcare professional if you have any underlying medical conditions or are taking any medications."} />
           <Accordion defaultOpen={false} title={"How long does it take to see results with Peak Male?"} detail={"Results may vary from person to person, but most men should start to notice some benefits within a few weeks of starting to use Peak Male. However, it is important to use the supplement consistently and as directed in order to achieve optimal results."} />
           <Accordion defaultOpen={false} title={"Are there any side effects from using Peak Male?"} detail={"Peak Male is made with all-natural ingredients and is generally well-tolerated. If you experience any adverse effects, discontinue use and consult with a healthcare professional."} />

@@ -133,7 +133,13 @@ const CheckOut = () => {
   // Create POST Payload
   const createPayloadFromOrder = (token: string) => {
     try {
-      const { customer, shipping, billing, product: P, isSubbed } = formData;
+      const { customer, shipping, billing } = formData;
+      const isSubb_text = localStorage.getItem("subscribed");
+      const p = localStorage.getItem("product");
+      console.log("Form Data Is Subbed: "+isSubb_text)
+      const isSubbed = isSubb_text == "true" ? true : isSubb_text == "false" ? false : false;
+      console.log("Form Data Is Subbed: "+isSubbed)
+
 
       let product = {
         high_risk: true,
@@ -153,7 +159,7 @@ const CheckOut = () => {
         funnel_step: "OPT_IN",
         is_recurring: isSubbed
       };
-      switch (P) {
+      switch (p) {
         case "ONE": {
           product = {
             high_risk: true,
@@ -253,14 +259,15 @@ const CheckOut = () => {
 
   // Use Effect for 
   useEffect(() => {
+    const isSubb_text = localStorage.getItem("subscribed");
+    const p = localStorage.getItem("product");
+    const isSubbed = isSubb_text == "true" ? true : isSubb_text == "false" ? false : false;
     // Fetch data from local storage and update formData accordingly
-    const isSubbed = localStorage.getItem("subscribed");
-    const product = localStorage.getItem("product");
     setFormData((prevFormData) => ({
       ...prevFormData,
-      product: product || "",
-      isSubbed: Boolean(isSubbed || false),
-      isSubmitting: false
+      isSubmitting: false,
+      isSubbed: isSubbed || false,
+      product: p || ""
     }));
   }, []);
 
@@ -286,15 +293,15 @@ const CheckOut = () => {
         callback:  finishSubmit,
         fields: {
           ccnumber: {
-            placeholder: "4111-1111-1111-1111",
+            placeholder: "Card Number",
             selector: "#ccnumber",
           },
           ccexp: {
-            placeholder: "24/39",
+            placeholder: "Experation Date MM/YY",
             selector: "#ccexp",
           },
           cvv: {
-            placeholder: "123",
+            placeholder: "Security Code 123",
             selector: "#cvv",
           }
         },
@@ -313,6 +320,10 @@ const CheckOut = () => {
       alertMessage: "",
     });
   }, [formData]);
+
+  const ONE = formData.product == "ONE" && formData.isSubbed ? "$59.00" : formData.product == "ONE" && !formData.isSubbed ? "$69.00" : "";
+  const THREE = formData.product == "THREE" && formData.isSubbed ? "$147.00" : formData.product == "THREE" && !formData.isSubbed ? "$177.00" : "";
+  const SIX = formData.product == "SIX" && formData.isSubbed ? "$234.00" : formData.product == "SIX" && !formData.isSubbed ? "$294.00" : "";
 
   return (
     <div>
@@ -388,9 +399,9 @@ const CheckOut = () => {
                   </div>
                   <div className={checkout_styles.ordRight}>
                       {
-                        formData.product == "ONE"  ? <p><span>$49.00</span><br />$59.99</p> : 
-                        formData.product == "THREE"  ? <p><span>$269.00</span><br />$149.99</p> :
-                        formData.product == "SIX"  ? <p><span>$534.00</span><br />$234.99</p> : null
+                        formData.product == "ONE"  ? <p><span>$89.00</span><br />{ONE}</p> : 
+                        formData.product == "THREE"  ? <p><span>$267.00</span><br />{THREE}</p> :
+                        formData.product == "SIX"  ? <p><span>$534.00</span><br />{SIX}</p> : null
                       }
                   </div>
                 </div>
@@ -402,9 +413,9 @@ const CheckOut = () => {
                     <tr>
                       <td align="left">Subtotal</td>
                       {
-                        formData.product == "ONE"  ? <td align="right"><span>$69.98</span></td> : 
-                        formData.product == "THREE"  ? <td align="right"><span>$159.98</span></td> :
-                        formData.product == "SIX"  ? <td align="right"><span>$244.98</span></td> : null
+                        formData.product == "ONE"  ? <td align="right"><span>{ONE}</span></td> : 
+                        formData.product == "THREE"  ? <td align="right"><span>{SIX}</span></td> :
+                        formData.product == "SIX"  ? <td align="right"><span>{THREE}</span></td> : null
                       }
                     </tr>
                   </tbody>
@@ -416,7 +427,7 @@ const CheckOut = () => {
                   <tbody>
                     <tr>
                       <td align="left">Shipping</td>
-                      <td align="right"><span>$0.00</span></td>
+                      <td align="right"><span>$0.00 FREE</span></td>
                     </tr>
                   </tbody>
                 </table>
@@ -798,9 +809,9 @@ const CheckOut = () => {
                   </div>
                   <div className={checkout_styles.ordRight}>
                       {
-                        formData.product == "ONE"  ? <p><span>$49.00</span><br />$59.99</p> : 
-                        formData.product == "THREE"  ? <p><span>$269.00</span><br />$149.99</p> :
-                        formData.product == "SIX"  ? <p><span>$534.00</span><br />$234.99</p> : null
+                        formData.product == "ONE"  ? <p><span>$89.00</span><br />{ONE}</p> : 
+                        formData.product == "THREE"  ? <p><span>$267.00</span><br />{THREE}</p> :
+                        formData.product == "SIX"  ? <p><span>$534.00</span><br />{SIX}</p> : null
                       }
                   </div>
                 </div>
@@ -812,9 +823,9 @@ const CheckOut = () => {
                     <tr>
                       <td align="left">Subtotal</td>
                       {
-                        formData.product == "ONE"  ? <td align="right"><span>$69.98</span></td> : 
-                        formData.product == "THREE"  ? <td align="right"><span>$159.98</span></td> :
-                        formData.product == "SIX"  ? <td align="right"><span>$244.98</span></td> : null
+                        formData.product == "ONE"  ? <td align="right"><span>{ONE}</span></td> : 
+                        formData.product == "THREE"  ? <td align="right"><span>{SIX}</span></td> :
+                        formData.product == "SIX"  ? <td align="right"><span>{THREE}</span></td> : null
                       }
                     </tr>
                   </tbody>
@@ -826,7 +837,7 @@ const CheckOut = () => {
                   <tbody>
                     <tr>
                       <td align="left">Shipping</td>
-                      <td align="right"><span>$0.00</span></td>
+                      <td align="right"><span style={{textDecoration: "line-through"}}>{formData.product == "ONE" ? "" : "$5.99"}</span><strong> {formData.product == "ONE" ? "$5.99" : "FREE"}</strong></td>
                     </tr>
                   </tbody>
                 </table>

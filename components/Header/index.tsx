@@ -82,16 +82,16 @@ const Header = () => {
           </div> */}
           <p className={styles.customerService}>
             <img src={"https://hitsdesignclients.com/Peak-Male-new/images/phone.png"} alt="" />
-            <span>Customer Service</span>
+            <span style={{fontFamily: 'ApercuPro-Medium'}}>Customer Service</span>
             <br />
             877-462-4459
           </p>
           <ul id={"MENU_ITEMS"} className={styles.menuItems}>
             <li><a href="#INTRODUCTION">Overview</a></li>
-            <li><a href="#BENEFITS">Benefit</a></li>
+            <li><a href="#BENEFITS">Benefits</a></li>
             <li><a href="#INGREDIENTS">Science</a></li>
             <li><a href="#REVIEWS">Reviews</a></li>
-            <li><a href="">FAQ</a></li>
+            <li><a href="#FAQ">FAQ</a></li>
           </ul>
           <div onClick={() => toggleMenu(!menu)} className={styles.hamburger}>
             {!menu ?

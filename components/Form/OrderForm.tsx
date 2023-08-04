@@ -106,6 +106,8 @@ function OrderForm({
                 display: "inline-block",
                 padding: "1px 10px 2px 5px",
                 fontSize: "19px",
+                fontFamily: 'ApercuPro-Light',
+                fontWeight: "100",
                 position: "relative",
                 letterSpacing: 0}}>#1 Best Seller - Male Performance </span>
           </p>
@@ -140,7 +142,8 @@ function OrderForm({
               <span style={{
                 fontSize: "57px",
                 color: "#17378a",
-                fontWeight: "bold"}}>Peak Male</span>
+                fontWeight: "200",
+                fontFamily: 'ApercuPro-Medium'}}>Peak Male</span>
               <br />
               Xtreme Test Booster 
             </p>
@@ -173,16 +176,16 @@ function OrderForm({
         <div className={`${styles.row}`} style={{width: "100%", justifyContent: "flex-start", marginTop: "15px"}}>
           <ul className={`${styles.helpsWith}`}>
             <li>
-              <Image src={"https://hitsdesignclients.com/Peak-Male-new/images/help-icon1.png"} alt={""} width={50} height={50} style={{height: "20px", width: "auto", verticalAlign: "middle", margin: "-2px 6px 0 0"}}/>Libido
+              <Image src={"https://hitsdesignclients.com/Peak-Male-new/images/help-icon1.png"} alt={""} width={500} height={500} style={{height: "30px", width: "auto", verticalAlign: "middle", margin: "0px 6px 0 0"}}/>Libido
             </li>
             <li>
-              <Image src={"https://hitsdesignclients.com/Peak-Male-new/images/help-icon2.png"} alt={""} width={50} height={50} style={{height: "20px", width: "auto", verticalAlign: "middle", margin: "-2px 6px 0 0"}}/>Energy
+              <Image src={"https://hitsdesignclients.com/Peak-Male-new/images/help-icon2.png"} alt={""} width={500} height={500} style={{height: "30px", width: "auto", verticalAlign: "middle", margin: "0px 6px 0 0"}}/>Energy
             </li>
             <li>
-              <Image src={"https://hitsdesignclients.com/Peak-Male-new/images/help-icon3.png"} alt={""} width={50} height={50} style={{height: "20px", width: "auto", verticalAlign: "middle", margin: "-2px 6px 0 0"}}/>T-Booster
+              <Image src={"https://hitsdesignclients.com/Peak-Male-new/images/help-icon3.png"} alt={""} width={500} height={500} style={{height: "30px", width: "auto", verticalAlign: "middle", margin: "0px 6px 0 0"}}/>T-Booster
             </li>
             <li>
-              <Image src={"https://hitsdesignclients.com/Peak-Male-new/images/help-icon4.png"} alt={""} width={50} height={50} style={{height: "20px", width: "auto", verticalAlign: "middle", margin: "-2px 6px 0 0"}}/>Cognition
+              <Image src={"https://hitsdesignclients.com/Peak-Male-new/images/help-icon4.png"} alt={""} width={500} height={500} style={{height: "30px", width: "auto", verticalAlign: "middle", margin: "0px 6px 0 0"}}/>Cognition
             </li>
           </ul>
         </div>
@@ -236,20 +239,20 @@ function OrderForm({
         <p className={`${styles.chooosePackage}`} id="SELECT_PRODUCT">Choose Your Package</p>
 
         <div className={`${styles.row}`} style={{width: "100%", justifyContent: "center", marginTop: "15px"}}>
-          <div onClick={() => setSub(false)} className={`${styles.subBtn}`} style={{color: !isSubbed ? "white" : "", background: !isSubbed ? "#17378a url('https://hitsdesignclients.com/Peak-Male-new/images/selected.png') 15px center no-repeat" : "#fff", border: !isSubbed ? "1px solid #17378a" : ""}}>
+          <div onClick={() => setSub(false)} className={`${styles.subBtn}`} style={{color: !isSubbed ? "white" : "", background: !isSubbed ? "#17378a url('https://hitsdesignclients.com/Peak-Male-new/images/selected.png') 15px center no-repeat" : "#fff url('https://hitsdesignclients.com/Peak-Male-new/images/select.png') 15px center no-repeat", border: !isSubbed ? "1px solid #17378a" : ""}}>
             One Time Purchase
           </div>
-          <div onClick={() => setSub(true)} className={`${styles.subBtn}`} style={{color: isSubbed ? "white" : "", margin: 0, background: isSubbed ? "#17378a url('https://hitsdesignclients.com/Peak-Male-new/images/selected.png') 15px center no-repeat" : "#fff", border: isSubbed ? "1px solid #17378a" : ""}}>
-            Subscribe & <span>Save 20%</span>
+          <div onClick={() => setSub(true)} className={`${styles.subBtn}`} style={{color: isSubbed ? "white" : "", margin: 0, background: isSubbed ? "#17378a url('https://hitsdesignclients.com/Peak-Male-new/images/selected.png') 15px center no-repeat" : "#fff url('https://hitsdesignclients.com/Peak-Male-new/images/select.png') 15px center no-repeat", border: isSubbed ? "1px solid #17378a" : ""}}>
+            Subscribe & <span>Save</span>
           </div>
         </div>
 
-        <div className={`${styles.row}`} style={{width: "100%", justifyContent: "space-between", alignItems: "center", margin: '2rem 0'}}>
+        <div className={`${styles.row}`} style={{width: "100%", justifyContent: "space-between", alignItems: "center", margin: '2rem 0 1rem 0'}}>
           <div onClick={() => setProduct("ONE")} className={`${styles.col} ${styles.productItem}`} style={{background: productSelected == "ONE" ? "#e5ecfe" : "#fff", border: productSelected == "ONE" ? "2px solid #17378a" : ""}} >
             <h5 className={styles.pkghding}>1 Bottle</h5>
             <h6 className={styles.supplyText}>30 Day Supply</h6>
             <div  className={`${styles.row}`} style={{width: "100%", justifyContent: "center", alignItems: "center", marginTop: "10px"}}>
-              <Image src={"https://hitsdesignclients.com/Peak-Male-new/images/pkg3.png"} alt={""} width={100} height={50} style={{height: "auto", width: "100%"}}  />
+              <img src={"https://hitsdesignclients.com/Peak-Male-new/images/pkg3.png"} alt={""}  style={{height: "auto", width: "100%"}}  />
             </div>
             <div className={`${styles.col}`}  style={{width: "100%"}}>
               <p className={styles.pkgprc2}>
@@ -266,11 +269,11 @@ function OrderForm({
             <h5 className={styles.pkghding}>6 Bottles</h5>
             <h6 className={styles.supplyText}>180 Day Supply</h6>
             <div  className={`${styles.row}`} style={{width: "100%", justifyContent: "center", alignItems: "center", marginTop: "10px"}}>
-              <Image src={"https://hitsdesignclients.com/Peak-Male-new/images/pkg1.png"} alt={""} width={1000} height={1000} style={{height: "auto", width: "100%"}}  />
+              <img src={"https://hitsdesignclients.com/Peak-Male-new/images/pkg1.png"} alt={""} style={{height: "auto", width: "100%"}}  />
             </div>
             <div className={`${styles.col}`}  style={{width: "100%"}}>
               <p className={styles.pkgprc2}>
-                <span className={styles.BigPrice}>{isSubbed ? "$49" : "$39"}</span>
+                <span className={styles.BigPrice}>{isSubbed ? "$39" : "$49"}</span>
                 <span className={styles.PriceUnit}>/per bottle</span>
               </p>
               <p className={styles.freeship}><span>
@@ -285,13 +288,13 @@ function OrderForm({
           <div onClick={() => setProduct("THREE")} className={`${styles.col} ${styles.productItem}`} style={{background: productSelected == "THREE" ? "#e5ecfe" : "#fff", border: productSelected == "THREE" ? "2px solid #17378a" : ""}} >
             <p className={styles.pkgTophd}>MOST POPULAR</p>
             <h5 className={styles.pkghding}>3 Bottles</h5>
-            <h6 className={styles.supplyText}>60 Day Supply</h6>
+            <h6 className={styles.supplyText}>90 Day Supply</h6>
             <div  className={`${styles.row}`} style={{width: "100%", justifyContent: "center", alignItems: "center",marginTop: "10px"}}>
-              <Image src={"https://hitsdesignclients.com/Peak-Male-new/images/pkg2.png"} alt={""} width={100} height={50} style={{height: "auto", width: "100%"}}  />
+              <img src={"https://hitsdesignclients.com/Peak-Male-new/images/pkg2.png"} alt={""} style={{height: "auto", width: "100%"}}  />
             </div>
             <div className={`${styles.col}`}  style={{width: "100%"}}>
               <p className={styles.pkgprc2}>
-                <span className={styles.BigPrice}>{isSubbed ? "$59" : "$49"}</span>
+                <span className={styles.BigPrice}>{isSubbed ? "$49" : "$59"}</span>
                 <span className={styles.PriceUnit}>/per bottle</span>
               </p>
               <p className={styles.freeship}><span>
@@ -306,7 +309,7 @@ function OrderForm({
         <p className={styles.riskFreeTxt}>Try Risk-Free 30 Day Money Back Guarantee</p>
 
         <div onClick={navigateToCheckout} className={styles.s1btn} style={{cursor: isLoading ? "progress" : "pointer"}}>
-          Add to Cart & Save 45%
+          Add to Cart & Save
         </div>
 
         <div className={`${styles.row} ${styles.btnTxt}`}>
