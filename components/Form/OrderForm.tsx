@@ -138,6 +138,7 @@ function OrderForm({
             textAlign: "left",
             marginTop: "5px",
             color: "rgb(37, 37, 37)",
+            fontFamily: 'ApercuPro',
             padding: "0 0 11px 0"}}>
               <span style={{
                 fontSize: "57px",

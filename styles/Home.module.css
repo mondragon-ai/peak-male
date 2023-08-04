@@ -1319,6 +1319,10 @@
     padding: 20px 0;
   }
 
+  .keyIngredients {
+    width: 100%;
+  }
+
   .imgSliders {
     padding: 1rem 0rem;
     justify-content: center;

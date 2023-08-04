@@ -216,7 +216,7 @@ export default function Home() {
                             fontWeight: "200",
                             fontFamily: 'ApercuPro-Medium'}}>Peak Male</span>
                           <br />
-                          <span style={{fontSize: "20px",}}>Xtreme Test Booster </span>
+                          <span style={{fontSize: "20px", fontFamily: 'ApercuPro-light'}}>Xtreme Test Booster </span>
                         </div>
                         <Image src={"https://hitsdesignclients.com/Peak-Male-new/images/capsule.png"} alt={""} width={100} height={100} style={{height: "auto", width: "80px", margin: "0"}}  />
                       </p>
@@ -390,10 +390,10 @@ export default function Home() {
                   <p id="SELECT_PRODUCT" className={`${styles.chooosePackage}`} >Choose Your Package</p>
 
                   <div className={`${styles.row}`} style={{width: "95%", justifyContent: "center", margin: "0 auto"}}>
-                    <div onClick={() => setSub(false)} className={`${styles.subBtn}`} style={{color: !isSubbed ? "white" : "",background: !isSubbed ? "#17378a url('https://hitsdesignclients.com/Peak-Male-new/images/selected.png') 15px center no-repeat" : "#fff", border: !isSubbed ? "1px solid #17378a" : ""}}>
-                      One Time Purchase
+                    <div onClick={() => setSub(false)} className={`${styles.subBtn}`} style={{color: !isSubbed ? "white" : "",background: !isSubbed ? "#17378a url('https://hitsdesignclients.com/Peak-Male-new/images/selected.png') 15px center no-repeat" : "#fff url('https://hitsdesignclients.com/Peak-Male-new/images/select.png') 15px center no-repeat", border: !isSubbed ? "1px solid #17378a" : ""}}>
+                      One Time <br />Purchase
                     </div>
-                    <div onClick={() => setSub(true)} className={`${styles.subBtn}`} style={{color: isSubbed ? "white" : "", margin: 0, background: isSubbed ? "#17378a url('https://hitsdesignclients.com/Peak-Male-new/images/selected.png') 15px center no-repeat" : "#fff", border: isSubbed ? "1px solid #17378a" : ""}}>
+                    <div onClick={() => setSub(true)} className={`${styles.subBtn}`} style={{color: isSubbed ? "white" : "", margin: 0, background: isSubbed ? "#17378a url('https://hitsdesignclients.com/Peak-Male-new/images/selected.png') 15px center no-repeat" : "#fff url('https://hitsdesignclients.com/Peak-Male-new/images/select.png') 15px center no-repeat", border: isSubbed ? "1px solid #17378a" : ""}}>
                       Subscribe & <br /><span>Save 20%</span>
                     </div>
                   </div>

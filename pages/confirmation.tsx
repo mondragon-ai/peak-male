@@ -112,7 +112,7 @@ const Confirmation = () => {
             <img src="https://hitsdesignclients.com/Peak-Male-new/images/logo.png" alt="" className={confirmation_styles.logo} />
             <ul className={confirmation_styles.stpList}>
               <li>Checkout</li>
-              <li>Upgrades</li>
+              <li>Special Offer</li>
               <li>Order Receipt</li>
             </ul>
           </div>
@@ -166,7 +166,7 @@ const Confirmation = () => {
                         <span className={confirmation_styles.tyProdbx}>
                           <img src="https://hitsdesignclients.com/Peak-Male-new/images/up-slide1.png" alt="" />
                         </span>
-                        <p className={confirmation_styles.tyPrdName}>Extreme Fat Burner </p>
+                        <p className={confirmation_styles.tyPrdName}>Thermogenic Fat Burner </p>
                       </div>
                       <div className={confirmation_styles.tyCol3}>1</div>
                       <div className={confirmation_styles.tyCol4}>$24.99</div>
