@@ -1,5 +1,5 @@
 import checkout_styles from "../styles/Checkout.module.css";
-import { useState, useEffect, useCallback} from "react";
+import { useState, useEffect, useCallback, SetStateAction} from "react";
 import Head from "next/head";
 import styles from "../styles/Home.module.css";
 import { imPoweredRequest } from "@/components/lib/request";
@@ -9,10 +9,42 @@ import CollectJSSection from "@/components/Payments/COollectionJSSection";
 import Router from "next/router";
 import { BillingAddress, storeBillingAddressInLocalStorage } from "@/components/lib/storage";
 import { sendPageViewEvent } from "@/components/lib/analytics";
+import ShippingAddressForm from "@/components/Form/ShippingAddress";
+import BillingAddressForm from "@/components/Form/BillingAddress";
+import CountdownTimer from "@/components/lib/CountDown";
+import OrderSummary from "@/components/Form/CartSummary";
+import CustomerReviews from "@/components/TestimonialItem/CheckoutReviews";
+import CreditCardForm from "@/components/Form/CreditCardForm";
+
+import CryptoJS from 'crypto-js';
+
+const algorithm = "aes-256-cbc";
+const key = CryptoJS.enc.Hex.parse("739cee5373d844885b8ba15815dc2899314d2a8bf836c5124b321c818b175d58");
+const iv = CryptoJS.enc.Hex.parse("01ec86cf7ac60bcc0ef84f70be4ed6c5");
+
+/**
+ * Encrypts the given plaintext using the AES-256-CBC algorithm.
+ * 
+ * @param text The plaintext to encrypt.
+ * @returns The encrypted ciphertext if encryption is successful, otherwise an empty string.
+ */
+export const encryptMsg = (text: string) => {
+
+    if (text !== "19uq99myrxd6jmp19k5mygo5d461l0" && text !== "") {
+        try {
+            const cipherText = CryptoJS.AES.encrypt(text, key, { iv, mode: CryptoJS.mode.CBC, padding: CryptoJS.pad.Pkcs7 });
+            return cipherText.toString();
+        } catch (error) {
+            return "";
+        }
+    } else {
+        return "";
+    }
+}
 
 // Checkout Form Type
-interface FormData {
-  product: string,
+export interface FormData {
+  product:  'ONE' | 'THREE' | 'SIX',
   isSubbed: boolean,
   customer: {
     email: string,
@@ -41,11 +73,18 @@ interface FormData {
   isSubmitting: boolean;
   alertMessage: string;
   token: string;
+  loading: boolean,
+  cc_info: {
+    cc_number: number,
+    exp_month: number,
+    exp_year: number,
+    ccv: number,
+  }
 }
 
 // Form Data
 const formDataInitialState: FormData = {
-  product: "",
+  product: "THREE",
   isSubbed: false,
   customer: {
     email: "",
@@ -74,6 +113,13 @@ const formDataInitialState: FormData = {
   isSubmitting: true,
   alertMessage: "",
   token: "",
+  loading: false,
+  cc_info: {
+    cc_number: 0,
+    exp_month: 0,
+    exp_year: 0,
+    ccv: 0,
+  }
 };
 
 const description = `Rivigerate your manhood with Peak Male`;
@@ -81,31 +127,25 @@ const ogImgUrl =  "https://cdn.shopify.com/s/files/1/0727/2805/2008/files/card.p
 const canonicalUrl = "";
 const title = "Peak Male | Optimal Human" 
 
-const CheckOut = () => { 
-  const [countdown, setCountdown] = useState(300);
-  const [isLoading, setIsLoading] = useState(false);
+const CheckOut = () => {
   const [differentBilling, setBilling] = useState(false);
-  const [setForm, formLoaded] = useState(false);
+  const [isLoading, setLoading] = useState(false);
   const [windowWidth, setWindowWidth] = useState(0);
   const [formData, setFormData] = useState<FormData>(formDataInitialState);
 
-  // Render Timer JSX
-  const renderCountdown = () => {
-    return (
-      <span style={{ color: "red" }} id={`second-${countdown}`}>
-        {formatTime(countdown)}
-      </span>
-    );
-  };
 
   // Handle POST -> imPowered API
   const handlePurchase = async (token: string) => {
     try {
-      setIsLoading(true);
+      setLoading(true);
+      setFormData((prevFormData) => ({ ...prevFormData, isSubmitting: true, loading: true }));
       console.log("[payload]");
       const payload = createPayloadFromOrder(token);
       console.log(payload);
-      const URL = true ? "https://us-central1-impowered-production.cloudfunctions.net/funnels" : "http://127.0.0.1:5001/impowered-production/us-central1/funnels";
+      await new Promise(() => {setTimeout(() => {
+        
+      }, 5000)})
+      const URL = false ? "https://us-central1-impowered-production.cloudfunctions.net/funnels" : "http://127.0.0.1:5001/impowered-production/us-central1/funnels";
       // Uncomment and modify the payload creation logic when using imPoweredRequest
       const response = await imPoweredRequest(URL+"/payments/checkout/fast", "POST", payload);
       if (response.status < 300) {
@@ -117,30 +157,26 @@ const CheckOut = () => {
         localStorage.setItem("draft_order", response.data.data.draft_order);
         // Handle success response
         Router.push(`/upsell`);
-        setIsLoading(false);
         return;
       }
       // throw new Error("Error message");
     } catch (e) {
       console.log('500 STATUS');
-      setIsLoading(false);
-    } finally {
-      console.log('ERROR');
-      setIsLoading(false);
-    }
+      setFormData((prevFormData) => ({ ...prevFormData, isSubmitting: false, loading: false }));
+    };
   };
 
   // Create POST Payload
   const createPayloadFromOrder = (token: string) => {
     try {
-      const { customer, shipping, billing } = formData;
+      const { customer, shipping, billing, cc_info} = formData;
       const isSubb_text = localStorage.getItem("subscribed");
       const p = localStorage.getItem("product");
-      console.log("Form Data Is Subbed: "+isSubb_text)
       const isSubbed = isSubb_text == "true" ? true : isSubb_text == "false" ? false : false;
-      console.log("Form Data Is Subbed: "+isSubbed)
 
-
+       // Encrypt the card information using AES encryption with a secret key (replace 'SECRET_KEY' with your actual key)
+      const encryptedData = encryptMsg(JSON.stringify(cc_info));
+      
       let product = {
         high_risk: true,
         title: "",
@@ -240,6 +276,7 @@ const CheckOut = () => {
         fun_uid: process.env.NEXT_PUBLIC_IMPOWERED_FUNNEL,
         external_type: "SHOPIFY",
         shopify_shop: "optimalhuman",
+        cc_info: encryptedData
       };
     } catch (error) {
       console.log(error);
@@ -247,79 +284,70 @@ const CheckOut = () => {
   };
 
   // Handle Submit
-  const handleSubmit = (event: React.FormEvent) => {
-    const CollectJS = window ? (window as any).CollectJS : null;
+  const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
-    console.log("[HANDLE SUBMIT]");
-    setIsLoading(true);
-    console.log(formData);
-    setFormData((prevFormData) => ({ ...prevFormData, isSubmitting: true }));
-    CollectJS.startPaymentRequest();
+    setLoading(true);
+    setFormData((prevFormData) => ({ ...prevFormData, isSubmitting: true, loading: true }));
+    await handlePurchase("")
+    // const CollectJS = window ? (window as any).CollectJS : null;
+    // CollectJS.startPaymentRequest();
   };
 
   // Use Effect for 
   useEffect(() => {
     const isSubb_text = localStorage.getItem("subscribed");
-    const p = localStorage.getItem("product");
+    const p:  'ONE' | 'THREE' | 'SIX' = localStorage.getItem("product") as unknown as  'ONE' | 'THREE' | 'SIX' ;
     const isSubbed = isSubb_text == "true" ? true : isSubb_text == "false" ? false : false;
+    setWindowWidth(window.innerWidth);
     // Fetch data from local storage and update formData accordingly
     setFormData((prevFormData) => ({
       ...prevFormData,
       isSubmitting: false,
       isSubbed: isSubbed || false,
-      product: p || ""
+      product: p || 'THREE'
     }));
   }, []);
 
-  // Countdown Timer 
-  useEffect(() => {
-    const timer = setInterval(() => {
-      setCountdown((prevCountdown) => { if (prevCountdown > 0) { return (prevCountdown - 1)} else {return 0}});
-    }, 1000);
-    setWindowWidth(window.innerWidth);
-
-    return () => clearInterval(timer);
-  }, []);
 
   // Configure CollectJS 
-  useEffect(() => {
-    console.log("STARTED");
-    const CollectJS = window ? (window as any).CollectJS : null;
-    if (CollectJS && !formData.isSubmitting) {
-      CollectJS.configure({
-        variant: "inline",
-        theme: "bootstrap",
-        buttonText: "SUBMIT ME!",
-        callback:  finishSubmit,
-        fields: {
-          ccnumber: {
-            placeholder: "Card Number",
-            selector: "#ccnumber",
-          },
-          ccexp: {
-            placeholder: "Experation Date MM/YY",
-            selector: "#ccexp",
-          },
-          cvv: {
-            placeholder: "Security Code 123",
-            selector: "#cvv",
-          }
-        },
-      });
-    }
-  }, [formData]);
+  // useEffect(() => {
+  //   console.log("STARTED");
+  //   const CollectJS = window ? (window as any).CollectJS : null;
+  //   if (CollectJS && !formData.isSubmitting) {
+  //     CollectJS.configure({
+  //       variant: "inline",
+  //       theme: "bootstrap",
+  //       buttonText: "SUBMIT ME!",
+  //       callback:  finishSubmit,
+  //       fields: {
+  //         ccnumber: {
+  //           placeholder: "Card Number",
+  //           selector: "#ccnumber",
+  //         },
+  //         ccexp: {
+  //           placeholder: "Experation Date MM/YY",
+  //           selector: "#ccexp",
+  //         },
+  //         cvv: {
+  //           placeholder: "Security Code 123",
+  //           selector: "#cvv",
+  //         }
+  //       },
+  //     });
+  //   }
+  // }, [formData]);
 
   // Finish Submit call back 
-  const finishSubmit = useCallback(async (response: any) => {
-    const { isSubmitting, alertMessage, ...formDataWithoutSubmissionProps } = formData;
-    formDataWithoutSubmissionProps.token = response.token;
-    await handlePurchase(response.token);
-    setFormData({
-      ...formDataWithoutSubmissionProps,
-      isSubmitting: false,
-      alertMessage: "",
-    });
-  }, [formData]);
+  // const finishSubmit = useCallback(async (response: any) => {
+  //   const { isSubmitting, alertMessage, ...formDataWithoutSubmissionProps } = formData;
+  //   formDataWithoutSubmissionProps.token = response.token;
+  //   setFormData({
+  //     ...formDataWithoutSubmissionProps,
+  //     isSubmitting: false,
+  //     alertMessage: "",
+  //     loading: false
+  //   });
+  // }, [formData]);
 
   const [summary, toggleSummary] = useState(false);
 
@@ -379,95 +407,26 @@ const CheckOut = () => {
           </header>
 
           {windowWidth < 720  ? 
-          <>
-            <div onClick={() => toggleSummary(!summary)}  className={checkout_styles.summryToggleMob}>
-              <div className={checkout_styles.container}>
-                <p className={checkout_styles.summryToggle}>
-                  {summary ? <span>Hide Order Summary  <svg width="11" height="7" xmlns="http://www.w3.org/2000/svg" className={checkout_styles.orderSummaryToggleDropdown} fill="#000"><path d="M6.138.876L5.642.438l-.496.438L.504 4.972l.992 1.124L6.138 2l-.496.436 3.862 3.408.992-1.122L6.138.876z"></path></svg></span> : 
-                   <span>Open Order Summary  <svg width="11" height="6" xmlns="http://www.w3.org/2000/svg" className={checkout_styles.orderSummaryToggleDropdown} fill="#000"><path d="M.504 1.813l4.358 3.845.496.438.496-.438 4.642-4.096L9.504.438 4.862 4.534h.992L1.496.69.504 1.812z"></path></svg></span> }
-                </p>
-                <p className={checkout_styles.toglePrice}>
-                  {
-                    formData.product == "ONE"  ? <strong>{ONE}</strong> : 
-                    formData.product == "THREE"  ? <strong>{THREE}</strong> :
-                    formData.product == "SIX"  ? <strong>{SIX}</strong> : ""
-                  }
-                </p>
-              </div>
-            </div>
-            {summary ? <div style={{width: "100%", padding: "0 0 15px"}} >
-              <div style={{width: "100%", padding: "0 0 15px"}}> 
-                <div className={checkout_styles.deviderCp}></div>
-
-                <div className={checkout_styles.prodBox}>
-                  <div className={checkout_styles.ordLft}>
-                    <div className={checkout_styles.prodImg}>
-                      <Image src={"https://hitsdesignclients.com/Peak-Male-new/images/chk-prod.png"} alt={""} width={500} height={500} style={{height: "auto", width: "55px"}} />
-                      {
-                        formData.product == "ONE"  ? <p className={checkout_styles.prodCount}>1</p> : 
-                        formData.product == "THREE"  ? <p className={checkout_styles.prodCount}>3</p> :
-                        formData.product == "SIX"  ? <p className={checkout_styles.prodCount}>6</p> : null
-                      }
-                    </div>
-                    <div className={checkout_styles.odrRgt}>
-                        <p className={checkout_styles.ordTitle}><strong>Peak Male</strong><br />Xtreme Test Booster</p>
-                    </div>
-                  </div>
-                  <div className={checkout_styles.ordRight}>
-                      {
-                        formData.product == "ONE"  ? <p><span>$89.00</span><br />{ONE}</p> : 
-                        formData.product == "THREE"  ? <p><span>$267.00</span><br />{THREE}</p> :
-                        formData.product == "SIX"  ? <p><span>$534.00</span><br />{SIX}</p> : null
-                      }
-                  </div>
+            <>
+              <div onClick={() => toggleSummary(!summary)}  className={checkout_styles.summryToggleMob}>
+                <div className={checkout_styles.container}>
+                  <p className={checkout_styles.summryToggle}>
+                    {summary ? <span>Hide Order Summary  <svg width="11" height="7" xmlns="http://www.w3.org/2000/svg" className={checkout_styles.orderSummaryToggleDropdown} fill="#000"><path d="M6.138.876L5.642.438l-.496.438L.504 4.972l.992 1.124L6.138 2l-.496.436 3.862 3.408.992-1.122L6.138.876z"></path></svg></span> : 
+                    <span>Open Order Summary  <svg width="11" height="6" xmlns="http://www.w3.org/2000/svg" className={checkout_styles.orderSummaryToggleDropdown} fill="#000"><path d="M.504 1.813l4.358 3.845.496.438.496-.438 4.642-4.096L9.504.438 4.862 4.534h.992L1.496.69.504 1.812z"></path></svg></span> }
+                  </p>
+                  <p className={checkout_styles.toglePrice}>
+                    {
+                      formData.product == "ONE"  ? <strong>{ONE}</strong> : 
+                      formData.product == "THREE"  ? <strong>{THREE}</strong> :
+                      formData.product == "SIX"  ? <strong>{SIX}</strong> : ""
+                    }
+                  </p>
                 </div>
-
-                <div className={checkout_styles.deviderCp}></div>
-                  
-                <table className={checkout_styles.cartTable}>
-                  <tbody>
-                    <tr>
-                      <td align="left">Subtotal</td>
-                      {
-                        formData.product == "ONE"  ? <td align="right"><span>{ONE}</span></td> : 
-                        formData.product == "THREE"  ? <td align="right"><span>{SIX}</span></td> :
-                        formData.product == "SIX"  ? <td align="right"><span>{THREE}</span></td> : null
-                      }
-                    </tr>
-                  </tbody>
-                </table>
-
-                <div className={checkout_styles.deviderCp}></div>
-                  
-                <table className={checkout_styles.cartTable}>
-                  <tbody>
-                    <tr>
-                      <td align="left">Shipping</td>
-                      <td align="right"><span>$0.00 FREE</span></td>
-                    </tr>
-                  </tbody>
-                </table>
-
-                <div className={checkout_styles.deviderCp}></div>
-                  
-                <table className={checkout_styles.cartTable}>
-                  <tbody>
-                    <tr>
-                      <td align="left" className={checkout_styles.totTxtL}>Total</td>
-                      {
-                        formData.product == "ONE"  ? <td align="right" className={checkout_styles.totTxtL}><span>$69.98</span></td> : 
-                        formData.product == "THREE"  ? <td align="right" className={checkout_styles.totTxtL}><span>$159.98</span></td> :
-                        formData.product == "SIX"  ? <td align="right" className={checkout_styles.totTxtL}><span>$244.98</span></td> : null
-                      }
-                    </tr>
-                  </tbody>
-                </table>
               </div>
-            </div> : null}
-          </>: null}
+              {summary ? <OrderSummary formData={formData} ONE={ONE} THREE={THREE} SIX={SIX} summary={summary} /> : null}
+            </>: null}
 
-
-          <form onSubmit={handleSubmit}>
+          <form>
             <div className={`${checkout_styles.checkoutForm} ${styles.col}`}>
               <div className={`${checkout_styles.sale} ${styles.row}`}>
                 <div className={`${checkout_styles.viewBoxImg}`}>
@@ -475,9 +434,8 @@ const CheckOut = () => {
                   <span>%</span>
                 </div>
                 <div className={`${checkout_styles.viewBoxTxt}`}>
-                  <strong>Sale ends soon!</strong> Your cart is reserved for: &nbsp;  
-                  {/* <span id="stopwatch2">00:00</span> */}
-                  {renderCountdown()}
+                  <strong>Sale ends soon!</strong> Your cart is reserved for: &nbsp;
+                  <CountdownTimer initialCountdown={300} />
                 </div>
               </div>
 
@@ -501,252 +459,9 @@ const CheckOut = () => {
                   </div>
               </div>
 
-              <div className={checkout_styles.cpContact}>
-                  <div className={checkout_styles.headingBox}>
-                      <p className={checkout_styles.chkHead}>Shipping Address</p>
-                  </div>
+              <ShippingAddressForm formData={formData} setFormData={setFormData}  />
 
-                  <div className={`${styles.row}`} style={{width: "100%", justifyContent: "space-between"}}>
-                    <div className={`${checkout_styles.frmFlds} ${checkout_styles.fl}`}>
-                      <div className={``}>
-                        <label htmlFor="first_name" className="fl-label">First Name</label>
-                        <input onChange={(e) => setFormData({...formData, customer: {...formData.customer, first_name: e.target.value}})} type="first_name" className={`${checkout_styles.inputFlds}`} placeholder="First Name" id="first_name" data-placeholder="First Name" />
-                      </div>
-                    </div>
-                    <div className={`${checkout_styles.frmFlds} ${checkout_styles.fl}`}>
-                      <div className={``}>
-                        <label htmlFor="last_name" className="fl-label">Last Name</label>
-                        <input onChange={(e) => setFormData({...formData, customer: {...formData.customer, last_name: e.target.value}})} type="last_name" className={`${checkout_styles.inputFlds}`} placeholder="Last Name" id="last_name" data-placeholder="Last Name" />
-                      </div>
-                    </div>
-                  </div>
-
-                  <div className={`${checkout_styles.frmFlds}`}>
-                    <div className={``}>
-                      <label htmlFor="line1" className="fl-label">Street Address</label>
-                      <input onChange={(e) => setFormData({...formData, shipping: {...formData.shipping, line1: e.target.value}})} type="line1" className={`${checkout_styles.inputFlds}`} placeholder="Street Address" id="line1" data-placeholder="Street Address" />
-                    </div>
-                  </div>
-
-                  <div className={`${checkout_styles.frmFlds}`}>
-                    <div className={``}>
-                      <label htmlFor="line1" className="fl-label">Apartment, suite, etc. (optional)</label>
-                      <input onChange={(e) => setFormData({...formData, shipping: {...formData.shipping, line2: e.target.value}})} type="line1" className={`${checkout_styles.inputFlds}`} placeholder="Apartment, suite, etc. (optional)" id="line2" data-placeholder="Apartment, suite, etc. (optional)" />
-                    </div>
-                  </div>
-
-                  <div className={`${styles.row}`} style={{width: "100%", justifyContent: "space-between"}}>
-                    <div className={`${checkout_styles.frmFlds} ${checkout_styles.fl}`}>
-                      <div className={``}>
-                        <label htmlFor="city" className="fl-label">City</label>
-                        <input onChange={(e) => setFormData({...formData, shipping: {...formData.shipping, city: e.target.value}})} type="city" className={`${checkout_styles.inputFlds}`} placeholder="City" id="city" data-placeholder="City" />
-                      </div>
-                    </div>
-                    <div className={`${checkout_styles.frmFlds} ${checkout_styles.fl}`}>
-                      <div className={``}>
-                        <select onChange={(e) => setFormData({...formData, shipping: {...formData.shipping, state: e.target.value}})}  name="state" className={checkout_styles.selcetFld} id="state">
-                          <option value="1" selected>- Select State -</option>
-                          <option value="AL">Alabama</option>
-                          <option value="AK">Alaska</option>
-                          <option value="AZ">Arizona</option>
-                          <option value="AR">Arkansas</option>
-                          <option value="CA">California</option>
-                          <option value="CO">Colorado</option>
-                          <option value="CT">Connecticut</option>
-                          <option value="DE">Delaware</option>
-                          <option value="FL">Florida</option>
-                          <option value="GA">Georgia</option>
-                          <option value="HI">Hawaii</option>
-                          <option value="ID">Idaho</option>
-                          <option value="IL">Illinois</option>
-                          <option value="IN">Indiana</option>
-                          <option value="IA">Iowa</option>
-                          <option value="KS">Kansas</option>
-                          <option value="KY">Kentucky</option>
-                          <option value="LA">Louisiana</option>
-                          <option value="ME">Maine</option>
-                          <option value="MD">Maryland</option>
-                          <option value="MA">Massachusetts</option>
-                          <option value="MI">Michigan</option>
-                          <option value="MN">Minnesota</option>
-                          <option value="MS">Mississippi</option>
-                          <option value="MO">Missouri</option>
-                          <option value="MT">Montana</option>
-                          <option value="NE">Nebraska</option>
-                          <option value="NV">Nevada</option>
-                          <option value="NH">New Hampshire</option>
-                          <option value="NJ">New Jersey</option>
-                          <option value="NM">New Mexico</option>
-                          <option value="NY">New York</option>
-                          <option value="NC">North Carolina</option>
-                          <option value="ND">North Dakota</option>
-                          <option value="OH">Ohio</option>
-                          <option value="OK">Oklahoma</option>
-                          <option value="OR">Oregon</option>
-                          <option value="PA">Pennsylvania</option>
-                          <option value="RI">Rhode Island</option>
-                          <option value="SC">South Carolina</option>
-                          <option value="SD">South Dakota</option>
-                          <option value="TN">Tennessee</option>
-                          <option value="TX">Texas</option>
-                          <option value="UT">Utah</option>
-                          <option value="VT">Vermont</option>
-                          <option value="VA">Virginia</option>
-                          <option value="WA">Washington</option>
-                          <option value="WV">West Virginia</option>
-                          <option value="WI">Wisconsin</option>
-                          <option value="WY">Wyoming</option>
-                        </select>
-                      </div>
-                    </div>
-                  </div>
-
-
-                  <div className={`${styles.row}`} style={{width: "100%", justifyContent: "space-between"}}>
-                    <div className={`${checkout_styles.frmFlds} ${checkout_styles.fl}`}>
-                      <div className={``}>
-                        <label htmlFor="zip" className="fl-label">Zip Code</label>
-                        <input onChange={(e) => setFormData({...formData, shipping: {...formData.shipping, zip: e.target.value}})}  type="zip" className={`${checkout_styles.inputFlds}`} placeholder="Zip Code" id="zip" data-placeholder="Zip Code" />
-                      </div>
-                    </div>
-                    <div className={`${checkout_styles.frmFlds} ${checkout_styles.fl}`}>
-                      <div className={``}>
-                        <label htmlFor="country" className="fl-label">Country</label>
-                        <input onChange={(e) => setFormData({...formData, shipping: {...formData.shipping, country: e.target.value}})}  type="country" className={`${checkout_styles.inputFlds}`} placeholder="US" id="country" data-placeholder="US" disabled />
-                      </div>
-                    </div>
-                  </div>
-
-              </div>
-
-              <div className={checkout_styles.cpContact}>
-                  <div className={checkout_styles.headingBox}>
-                      <p className={checkout_styles.chkHead}>Billing Address</p>
-                      <p className={checkout_styles.chkSubheading}>Select the address that matches your card or payment method.</p>
-                  </div>
-              </div>
-
-              <div className={checkout_styles.payoptbox}>
-                <div className={checkout_styles.paymentCardsBox}>
-                  <label className={checkout_styles.billingtogglbtn}>
-                    <input onClick={() => setBilling(false)} type="radio" name="address" checked={!differentBilling}/>Same as shipping address
-                  </label>
-                </div>
-                <div className={checkout_styles.paymentCardsBox}>
-                  <label className={checkout_styles.billingtogglbtn}>
-                    <input onClick={() => setBilling(true)}  type="radio" name="address" checked={differentBilling} />Use a different billing address
-                  </label>
-                </div>
-              {differentBilling ? <div className={checkout_styles.paymentFldsBox}>
-                  <div className={checkout_styles.cpContact} style={{marginTop: "0"}}>
-
-                      {/* <div className={`${styles.row}`} style={{width: "100%", justifyContent: "space-between"}}>
-                        <div className={`${checkout_styles.frmFlds} ${checkout_styles.fl}`}>
-                          <div className={``}>
-                            <label htmlFor="first_name" className="fl-label">First Name</label>
-                            <input onChange={(e) => setState((prevState) => { return {...prevState, customer: {...prevState.customer, first_name: e.target.value}}})} type="first_name" className={`${checkout_styles.inputFlds}`} placeholder="First Name" id="first_name" data-placeholder="First Name" />
-                          </div>
-                        </div>
-                        <div className={`${checkout_styles.frmFlds} ${checkout_styles.fl}`}>
-                          <div className={``}>
-                            <label htmlFor="last_name" className="fl-label">Last Name</label>
-                            <input onChange={(e) => setState((prevState) => { return {...prevState, customer: {...prevState.customer, last_name: e.target.value}}})} type="last_name" className={`${checkout_styles.inputFlds}`} placeholder="Last Name" id="last_name" data-placeholder="Last Name" />
-                          </div>
-                        </div>
-                      </div> */}
-
-                      <div className={`${checkout_styles.frmFlds}`}>
-                        <div className={``}>
-                          <label htmlFor="line1" className="fl-label">Street Address</label>
-                          <input onChange={(e) => setFormData({...formData, billing: {...formData.billing, line1: e.target.value}})} type="line1" className={`${checkout_styles.inputFlds}`} placeholder="Street Address" id="line1" data-placeholder="Street Address" />
-                        </div>
-                      </div>
-
-                      <div className={`${styles.row}`} style={{width: "100%", justifyContent: "space-between"}}>
-                        <div className={`${checkout_styles.frmFlds} ${checkout_styles.fl}`}>
-                          <div className={``}>
-                            <label htmlFor="city" className="fl-label">City</label>
-                            <input onChange={(e) => setFormData({...formData, billing: {...formData.billing, city: e.target.value}})} type="city" className={`${checkout_styles.inputFlds}`} placeholder="City" id="city" data-placeholder="City" />
-                          </div>
-                        </div>
-                        <div className={`${checkout_styles.frmFlds} ${checkout_styles.fl}`}>
-                          <div className={``}>
-                            <select onChange={(e) => setFormData({...formData, billing: {...formData.billing, state: e.target.value}})} name="state" className={checkout_styles.selcetFld} id="state">
-                              <option value="1" selected>- Select State -</option>
-                              <option value="AL">Alabama</option>
-                              <option value="AK">Alaska</option>
-                              <option value="AZ">Arizona</option>
-                              <option value="AR">Arkansas</option>
-                              <option value="CA">California</option>
-                              <option value="CO">Colorado</option>
-                              <option value="CT">Connecticut</option>
-                              <option value="DE">Delaware</option>
-                              <option value="FL">Florida</option>
-                              <option value="GA">Georgia</option>
-                              <option value="HI">Hawaii</option>
-                              <option value="ID">Idaho</option>
-                              <option value="IL">Illinois</option>
-                              <option value="IN">Indiana</option>
-                              <option value="IA">Iowa</option>
-                              <option value="KS">Kansas</option>
-                              <option value="KY">Kentucky</option>
-                              <option value="LA">Louisiana</option>
-                              <option value="ME">Maine</option>
-                              <option value="MD">Maryland</option>
-                              <option value="MA">Massachusetts</option>
-                              <option value="MI">Michigan</option>
-                              <option value="MN">Minnesota</option>
-                              <option value="MS">Mississippi</option>
-                              <option value="MO">Missouri</option>
-                              <option value="MT">Montana</option>
-                              <option value="NE">Nebraska</option>
-                              <option value="NV">Nevada</option>
-                              <option value="NH">New Hampshire</option>
-                              <option value="NJ">New Jersey</option>
-                              <option value="NM">New Mexico</option>
-                              <option value="NY">New York</option>
-                              <option value="NC">North Carolina</option>
-                              <option value="ND">North Dakota</option>
-                              <option value="OH">Ohio</option>
-                              <option value="OK">Oklahoma</option>
-                              <option value="OR">Oregon</option>
-                              <option value="PA">Pennsylvania</option>
-                              <option value="RI">Rhode Island</option>
-                              <option value="SC">South Carolina</option>
-                              <option value="SD">South Dakota</option>
-                              <option value="TN">Tennessee</option>
-                              <option value="TX">Texas</option>
-                              <option value="UT">Utah</option>
-                              <option value="VT">Vermont</option>
-                              <option value="VA">Virginia</option>
-                              <option value="WA">Washington</option>
-                              <option value="WV">West Virginia</option>
-                              <option value="WI">Wisconsin</option>
-                              <option value="WY">Wyoming</option>
-                            </select>
-                          </div>
-                        </div>
-                      </div>
-
-
-                      <div className={`${styles.row}`} style={{width: "100%", justifyContent: "space-between"}}>
-                        <div className={`${checkout_styles.frmFlds} ${checkout_styles.fl}`}>
-                          <div className={``}>
-                            <label htmlFor="zip" className="fl-label">Zip Code</label>
-                            <input  onChange={(e) => setFormData({...formData, billing: {...formData.billing, zip: e.target.value}})} type="zip" className={`${checkout_styles.inputFlds}`} placeholder="Zip Code" id="zip" data-placeholder="Zip Code" />
-                          </div>
-                        </div>
-                        <div className={`${checkout_styles.frmFlds} ${checkout_styles.fl}`}>
-                          <div className={``}>
-                            <label htmlFor="country" className="fl-label">Country</label>
-                            <input  onChange={(e) => setFormData({...formData, billing: {...formData.billing, country: e.target.value}})} type="country" className={`${checkout_styles.inputFlds}`} placeholder="US" id="country" data-placeholder="US" disabled />
-                          </div>
-                        </div>
-                      </div>
-
-                  </div>
-                </div> : null}
-              </div>
+              <BillingAddressForm formData={formData} setFormData={setFormData} differentBilling={differentBilling} setBilling={setBilling} />
             </div>
 
             <div className={checkout_styles.cpContact}>
@@ -767,7 +482,9 @@ const CheckOut = () => {
                   <img src="https://hitsdesignclients.com/Peak-Male-new/images/payment-cards.png" alt=""/> 
                 </div>
                 <div style={{padding: "1rem"}}>
-                  <CollectJSSection />
+                  
+                  <CreditCardForm formData={formData} setFormData={setFormData} />
+
                   <p className={checkout_styles.securityText}>
                     <img src="https://hitsdesignclients.com/Peak-Male-new/images/lock.png" alt="" />
                     <span>We protect your payment information using encryption to provide bank-level security.</span>
@@ -778,17 +495,18 @@ const CheckOut = () => {
             </div>
 
             <div className={checkout_styles.allSubmit}>
+              {isLoading ? "TRUE" : "FALSE"}
               <button style={{
                   cursor: !isLoading ? "pointer" : "progress"
                 }}
+                onClick={handleSubmit}
                 className={checkout_styles.frmSubmit}
-                id='payButton'
-                type="submit"
+                type="button"
                 disabled={isLoading}>
                 <span>
                   <Image src="https://hitsdesignclients.com/Peak-Male-new/images/lock2.png" alt="" width={500} height={500} style={{height: "auto", width: "18px"}}/>{isLoading ? "Loading..." : "complete purchase"}
                 </span>
-                <p>"Try it risk free! - 30-day money back Guarantee"</p>
+                <p>Try it risk free! - 30-day money back Guarantee</p>
               </button>
             </div>
           </form>
@@ -806,148 +524,13 @@ const CheckOut = () => {
             </p>
             <p>Copyright © <script type="text/javascript">var year = new Date();document.write(year.getFullYear());</script>2023  Optimal Human. All Rights Reserved.</p>
           </div> : null}
+
         </div>
 
         <div className={`${styles.col} ${checkout_styles.right}`}>
-          {windowWidth > 720 ? 
-          <>
-            <h2 className={checkout_styles.sumryHdng}>Order Summary</h2>
-            <div style={{width: "100%", padding: "0 0 15px"}} >
-              <div style={{width: "100%", padding: "0 0 15px"}}> 
-                <div className={checkout_styles.deviderCp}></div>
+          {windowWidth > 720 ? <OrderSummary formData={formData} ONE={ONE} THREE={THREE} SIX={SIX} summary={summary} /> : null}
 
-                <div className={checkout_styles.prodBox}>
-                  <div className={checkout_styles.ordLft}>
-                    <div className={checkout_styles.prodImg}>
-                      <Image src={"https://hitsdesignclients.com/Peak-Male-new/images/chk-prod.png"} alt={""} width={500} height={500} style={{height: "auto", width: "55px"}} />
-                      {
-                        formData.product == "ONE"  ? <p className={checkout_styles.prodCount}>1</p> : 
-                        formData.product == "THREE"  ? <p className={checkout_styles.prodCount}>3</p> :
-                        formData.product == "SIX"  ? <p className={checkout_styles.prodCount}>6</p> : null
-                      }
-                    </div>
-                    <div className={checkout_styles.odrRgt}>
-                        <p className={checkout_styles.ordTitle}><strong>Peak Male</strong><br />Xtreme Test Booster</p>
-                    </div>
-                  </div>
-                  <div className={checkout_styles.ordRight}>
-                      {
-                        formData.product == "ONE"  ? <p><span>$89.00</span><br />{ONE}</p> : 
-                        formData.product == "THREE"  ? <p><span>$267.00</span><br />{THREE}</p> :
-                        formData.product == "SIX"  ? <p><span>$534.00</span><br />{SIX}</p> : null
-                      }
-                  </div>
-                </div>
-
-                <div className={checkout_styles.deviderCp}></div>
-                  
-                <table className={checkout_styles.cartTable}>
-                  <tbody>
-                    <tr>
-                      <td align="left">Subtotal</td>
-                      {
-                        formData.product == "ONE"  ? <td align="right"><span>{ONE}</span></td> : 
-                        formData.product == "THREE"  ? <td align="right"><span>{SIX}</span></td> :
-                        formData.product == "SIX"  ? <td align="right"><span>{THREE}</span></td> : null
-                      }
-                    </tr>
-                  </tbody>
-                </table>
-
-                <div className={checkout_styles.deviderCp}></div>
-                  
-                <table className={checkout_styles.cartTable}>
-                  <tbody>
-                    <tr>
-                      <td align="left">Shipping</td>
-                      <td align="right"><span style={{textDecoration: "line-through"}}>{formData.product == "ONE" ? "" : "$5.99"}</span><strong> {formData.product == "ONE" ? "$5.99" : "FREE"}</strong></td>
-                    </tr>
-                  </tbody>
-                </table>
-
-                <div className={checkout_styles.deviderCp}></div>
-                  
-                <table className={checkout_styles.cartTable}>
-                  <tbody>
-                    <tr>
-                      <td align="left" className={checkout_styles.totTxtL}>Total</td>
-                      {
-                        formData.product == "ONE"  ? <td align="right" className={checkout_styles.totTxtL}><span>{ONE}</span></td> : 
-                        formData.product == "THREE"  ? <td align="right" className={checkout_styles.totTxtL}><span>{THREE}</span></td> :
-                        formData.product == "SIX"  ? <td align="right" className={checkout_styles.totTxtL}><span>{SIX}</span></td> : null
-                      }
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-            </div>
-          </>: null}
-
-          <div className={`${checkout_styles.reviewBox}`}>
-            <div className={checkout_styles.rgtLabel}>
-              <span>trusted customer reviews</span>
-            </div>
-          </div>
-          
-          <div className={`${checkout_styles.chooseBox} ${styles.col}`} style={{width: "100%", marginTop: "10px"}}>
-            <div className={styles.col} style={{width: "100%"}}>
-              <div className={checkout_styles.s6MidCol}>
-                <p className={checkout_styles.s6TestiHead}>The Kickstart I Needed</p>
-                <Image src="https://hitsdesignclients.com/Peak-Male-new/images/s6-testi-star.png" alt="" width={500} height={500} style={{height: "auto", width: "100px"}} className={checkout_styles.s6TestiStar}/>
-                <p className={checkout_styles.s6Para}>
-                  I just turned 33, and I wasn't expecting to feel as drained as I did. I was in a workout slump, and none of the supplements I tried gave me that boost I needed. Then came Peak Male. It kicked in fast, and suddenly, I was breezing through workdays and crushing it at the gym. The big surprise was the mental uplift - I felt unstoppable. If you're feeling stuck, give Peak Male a try - it's been a total game-changer for me.
-                </p>
-                <p className={checkout_styles.s6TestiNm}>
-                  Jimmy B.
-                  <span>
-                    <Image src="https://hitsdesignclients.com/Peak-Male-new/images/t-tk.png" alt="" width={500} height={500} style={{height: "auto", width: "15px"}} className={checkout_styles.s6TestiStar}/>
-                    Verified Customer
-                  </span>
-                </p>
-              </div>
-            </div>
-          </div>
-
-          <div className={`${checkout_styles.chooseBox} ${styles.col}`} style={{width: "100%", marginTop: "10px"}}>
-            <div className={styles.col} style={{width: "100%"}}>
-              <div className={checkout_styles.s6MidCol}>
-                <p className={checkout_styles.s6TestiHead}>The Kickstart I Needed</p>
-                <Image src="https://hitsdesignclients.com/Peak-Male-new/images/s6-testi-star.png" alt="" width={500} height={500} style={{height: "auto", width: "100px"}} className={checkout_styles.s6TestiStar}/>
-                <p className={checkout_styles.s6Para}>
-                  I just turned 33, and I wasn't expecting to feel as drained as I did. I was in a workout slump, and none of the supplements I tried gave me that boost I needed. Then came Peak Male. It kicked in fast, and suddenly, I was breezing through workdays and crushing it at the gym. The big surprise was the mental uplift - I felt unstoppable. If you're feeling stuck, give Peak Male a try - it's been a total game-changer for me.
-                </p>
-                <p className={checkout_styles.s6TestiNm}>
-                  Jimmy B.
-                  <span>
-                    <Image src="https://hitsdesignclients.com/Peak-Male-new/images/t-tk.png" alt="" width={500} height={500} style={{height: "auto", width: "15px"}} className={checkout_styles.s6TestiStar}/>
-                    Verified Customer
-                  </span>
-                </p>
-              </div>
-            </div>
-          </div>
-          
-          <div className={`${checkout_styles.chooseBox} ${styles.col}`} style={{width: "100%", marginTop: "50px"}}>
-            <div className={checkout_styles.rgtLabel}>
-              <span>Why Choose Us</span>
-            </div>
-            <div className={checkout_styles.chooseCol}>
-              <Image src="https://hitsdesignclients.com/Peak-Male-new/images/choose-ic1.png" alt="" width={500} height={500} style={{height: "auto", width: "50px"}} className={checkout_styles.s6TestiStar}/>
-              <span>30-Day Satisfaction Guarantee</span>
-              <p>If you're not satisfied with your product(s), we'll make it right! We promise.</p>
-            </div>
-            <div className={checkout_styles.chooseCol}>
-              <Image src="https://hitsdesignclients.com/Peak-Male-new/images/choose-ic2.png" alt="" width={500} height={500} style={{height: "auto", width: "50px"}} className={checkout_styles.s6TestiStar}/>
-              <span>Over 7582+ successfully shipped orders</span>
-              <p>Happy customers, end to end tracking and reliable customer service.</p>
-            </div>
-            <div className={checkout_styles.chooseCol}>
-              <Image src="https://hitsdesignclients.com/Peak-Male-new/images/choose-ic3.png" alt="" width={500} height={500} style={{height: "auto", width: "50px"}} className={checkout_styles.s6TestiStar}/>
-              <span>Your Privacy Is Important</span>
-              <p>All information is encrypted and transmitted without risk using a Secure Socket Layer (SSL) protocol.</p>
-            </div>
-          </div>
-
+          <CustomerReviews />
 
           {windowWidth < 720 ? <div className={checkout_styles.footer}>
             <p>
@@ -957,6 +540,7 @@ const CheckOut = () => {
             </p>
             <p>Copyright © <script type="text/javascript">var year = new Date();document.write(year.getFullYear());</script>2023  Optimal Human. All Rights Reserved.</p>
           </div> : null}
+
         </div>
 
       </main>
