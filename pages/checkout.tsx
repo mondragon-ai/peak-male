@@ -29,17 +29,16 @@ const iv = CryptoJS.enc.Hex.parse("01ec86cf7ac60bcc0ef84f70be4ed6c5");
  * @returns The encrypted ciphertext if encryption is successful, otherwise an empty string.
  */
 export const encryptMsg = (text: string) => {
-
-    if (text !== "19uq99myrxd6jmp19k5mygo5d461l0" && text !== "") {
-        try {
-            const cipherText = CryptoJS.AES.encrypt(text, key, { iv, mode: CryptoJS.mode.CBC, padding: CryptoJS.pad.Pkcs7 });
-            return cipherText.toString();
-        } catch (error) {
-            return "";
-        }
-    } else {
-        return "";
+  if (text !== "") {
+    try {
+      const cipherText = CryptoJS.AES.encrypt(text, key, { iv, mode: CryptoJS.mode.CBC, padding: CryptoJS.pad.Pkcs7 });
+      return cipherText.toString();
+    } catch (error) {
+      return "";
     }
+  } else {
+    return "";
+  }
 }
 
 // Checkout Form Type
@@ -58,7 +57,8 @@ export interface FormData {
     city: string,
     state: string,
     zip: string,
-    country: string | "US"
+    country: string | "US",
+    phone: string
   },
   billing: {
     line1: string,
@@ -98,7 +98,8 @@ const formDataInitialState: FormData = {
     city: "",
     state: "",
     zip: "",
-    country: "US"
+    country: "US",
+    phone: ""
   },
   billing: {
     line1: "",
@@ -132,37 +133,38 @@ const CheckOut = () => {
   const [isLoading, setLoading] = useState(false);
   const [windowWidth, setWindowWidth] = useState(0);
   const [formData, setFormData] = useState<FormData>(formDataInitialState);
-
+  const [summary, toggleSummary] = useState(false);
 
   // Handle POST -> imPowered API
   const handlePurchase = async (token: string) => {
     try {
-      setLoading(true);
-      setFormData((prevFormData) => ({ ...prevFormData, isSubmitting: true, loading: true }));
-      console.log("[payload]");
       const payload = createPayloadFromOrder(token);
-      console.log(payload);
-      await new Promise(() => {setTimeout(() => {
-        
-      }, 5000)})
       const URL = false ? "https://us-central1-impowered-production.cloudfunctions.net/funnels" : "http://127.0.0.1:5001/impowered-production/us-central1/funnels";
+    
       // Uncomment and modify the payload creation logic when using imPoweredRequest
       const response = await imPoweredRequest(URL+"/payments/checkout/fast", "POST", payload);
+
+      // 
       if (response.status < 300) {
-        console.log('200 STATUS');
+        
+        // Store Data From Response for Order Summary
         storeBillingAddressInLocalStorage("billing_address", payload?.billing_address as BillingAddress);
         storeBillingAddressInLocalStorage("shipping", payload?.shipping as BillingAddress);
         storeBillingAddressInLocalStorage("customer", payload?.customer as any);
         localStorage.setItem("cus_uuid", response.data.data.cus_uuid);
         localStorage.setItem("draft_order", response.data.data.draft_order);
+
         // Handle success response
         Router.push(`/upsell`);
         return;
+      } else {
+        setLoading(false);
+        console.log("[Status]: "+ response.status);
+        console.log("[Data]: "+ response.data);
       }
-      // throw new Error("Error message");
     } catch (e) {
-      console.log('500 STATUS');
-      setFormData((prevFormData) => ({ ...prevFormData, isSubmitting: false, loading: false }));
+      setLoading(false);
+      setFormData((prevFormData) => ({ ...prevFormData, isSubmitting: false, loading: false, alertMessage: "Problem Processing Your Card. Try Again" }));
     };
   };
 
@@ -268,9 +270,9 @@ const CheckOut = () => {
         high_risk: true,
         billing_address: differentBilling ? {...billing, type: "BILLING"} : {...shipping, type: "BOTH"},
         bump: false,
-        payment_token: token,
+        payment_token: token || "",
         security_key: "2hNZ5C543yfQH59e9zcEd33QDZw5JcvV",  
-        customer: {...customer, token},
+        customer: {...customer, token: token || ""},
         shipping:  differentBilling ? {...shipping, type: "SHIPPING"} : {...shipping, type: "BOTH"},
         line_items: [product],
         fun_uid: process.env.NEXT_PUBLIC_IMPOWERED_FUNNEL,
@@ -288,18 +290,35 @@ const CheckOut = () => {
     event.preventDefault();
     setLoading(true);
     setFormData((prevFormData) => ({ ...prevFormData, isSubmitting: true, loading: true }));
-    await handlePurchase("")
-    // const CollectJS = window ? (window as any).CollectJS : null;
-    // CollectJS.startPaymentRequest();
+    if (formData.customer.email !== "" && 
+      formData.customer.first_name !== "" && 
+      formData.shipping.line1 !== "" && 
+      formData.shipping.city !== "" && 
+      formData.shipping.state !== "" &&
+      formData.shipping.zip !== "" &&
+      formData.cc_info.cc_number > 0 &&
+      formData.cc_info.exp_month > 0 &&
+      formData.cc_info.exp_year > 8 &&
+      formData.cc_info.ccv > 0 &&
+      formData.cc_info.exp_year > 22) {
+      await handlePurchase("");
+    } else {
+      setLoading(false);
+      setFormData((prevFormData) => ({ ...prevFormData, alertMessage: "All Forms Required"}));
+    }
   };
 
   // Use Effect for 
   useEffect(() => {
+    // Fetch data from local storage and update formData accordingly
     const isSubb_text = localStorage.getItem("subscribed");
     const p:  'ONE' | 'THREE' | 'SIX' = localStorage.getItem("product") as unknown as  'ONE' | 'THREE' | 'SIX' ;
     const isSubbed = isSubb_text == "true" ? true : isSubb_text == "false" ? false : false;
+
+    // reset window width
     setWindowWidth(window.innerWidth);
-    // Fetch data from local storage and update formData accordingly
+
+    // Set initial Form Data
     setFormData((prevFormData) => ({
       ...prevFormData,
       isSubmitting: false,
@@ -309,47 +328,15 @@ const CheckOut = () => {
   }, []);
 
 
-  // Configure CollectJS 
-  // useEffect(() => {
-  //   console.log("STARTED");
-  //   const CollectJS = window ? (window as any).CollectJS : null;
-  //   if (CollectJS && !formData.isSubmitting) {
-  //     CollectJS.configure({
-  //       variant: "inline",
-  //       theme: "bootstrap",
-  //       buttonText: "SUBMIT ME!",
-  //       callback:  finishSubmit,
-  //       fields: {
-  //         ccnumber: {
-  //           placeholder: "Card Number",
-  //           selector: "#ccnumber",
-  //         },
-  //         ccexp: {
-  //           placeholder: "Experation Date MM/YY",
-  //           selector: "#ccexp",
-  //         },
-  //         cvv: {
-  //           placeholder: "Security Code 123",
-  //           selector: "#cvv",
-  //         }
-  //       },
-  //     });
-  //   }
-  // }, [formData]);
-
-  // Finish Submit call back 
-  // const finishSubmit = useCallback(async (response: any) => {
-  //   const { isSubmitting, alertMessage, ...formDataWithoutSubmissionProps } = formData;
-  //   formDataWithoutSubmissionProps.token = response.token;
-  //   setFormData({
-  //     ...formDataWithoutSubmissionProps,
-  //     isSubmitting: false,
-  //     alertMessage: "",
-  //     loading: false
-  //   });
-  // }, [formData]);
-
-  const [summary, toggleSummary] = useState(false);
+  // Clear alert message after 5 seconds
+  useEffect(() => {
+    if (formData.alertMessage) {
+      const timer = setTimeout(() => {
+        setFormData((prevFormData) => ({ ...prevFormData, alertMessage: '' }));
+      }, 4000);
+      return () => clearTimeout(timer);
+    }
+  }, [formData.alertMessage]);
 
   const ONE = formData.product == "ONE" && formData.isSubbed ? "$59.00" : formData.product == "ONE" && !formData.isSubbed ? "$69.00" : "";
   const THREE = formData.product == "THREE" && formData.isSubbed ? "$147.00" : formData.product == "THREE" && !formData.isSubbed ? "$177.00" : "";
@@ -473,7 +460,6 @@ const CheckOut = () => {
                   </p>
               </div>
 
-              {formData.alertMessage && <div className="alert">{formData.alertMessage}</div>}
               <div className={checkout_styles.payoptbox}>
                 <div className={checkout_styles.paymentCardsBox}>
                   <label className={checkout_styles.paymybtn}>
@@ -495,7 +481,7 @@ const CheckOut = () => {
             </div>
 
             <div className={checkout_styles.allSubmit}>
-              {isLoading ? "TRUE" : "FALSE"}
+              {formData.alertMessage && <div className="alert" style={{color: "red", fontFamily: "ApercuPro-Bold", fontSize: "20px"}}>{formData.alertMessage}</div>}
               <button style={{
                   cursor: !isLoading ? "pointer" : "progress"
                 }}

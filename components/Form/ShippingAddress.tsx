@@ -196,6 +196,22 @@ const ShippingAddressForm: React.FC<props> = ({formData, setFormData}) => {
                     </div>
                 </div>
             </div>
+
+            <div className={`${checkout_styles.frmFlds}`}>
+                <div className={``}>
+                    <label htmlFor="last_name" className="fl-label">
+                    Phone
+                    </label>
+                    <input
+                    onChange={(e) => setFormData({ ...formData, shipping: { ...formData.shipping, phone: e.target.value } })}
+                    type="text"
+                    className={`${checkout_styles.inputFlds}`}
+                    placeholder="Phone"
+                    id="phone"
+                    data-placeholder="Phone"
+                    />
+                </div>
+                </div>
         </div>
     );
 };

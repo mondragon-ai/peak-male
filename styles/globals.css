@@ -139,6 +139,10 @@ body {
 iframe {
   border: none;
 }
+input {
+  font-family: "ApercuPro";
+  color: #333333;
+}
 
 h1,
 h2,
