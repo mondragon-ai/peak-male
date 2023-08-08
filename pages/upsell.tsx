@@ -309,7 +309,7 @@ const Upsell = () => {
                     <p className={upsell_styles.upPrc}><span>$24.99</span> <small>(SAVE 45%)</small></p>
                     <p className={upsell_styles.dealReserve}>Deal reserved for: <strong><span style={{color: "red"}}>{renderCountdown()}</span> min</strong></p>
                   </div>
-                  <a onClick={() => purchaseUpsell()} className={upsell_styles.upBtn}>{isLoading ? "Loading..." : "Yes, Upgrade my Order with 1-Click-Buy! "}</a>
+                  {!isLoading ? <a onClick={() => purchaseUpsell()} className={upsell_styles.upBtn}>Yes, Upgrade my Order with 1-Click-Buy! </a> : <a></a>}
                   <p className={upsell_styles.moneyBkText}>
                     <img src="https://hitsdesignclients.com/Peak-Male-new/images/money-bk-seal.png" /> 30 Day Money Back Guarantee&nbsp;</p>
                   <div className={upsell_styles.deviderCp}></div>

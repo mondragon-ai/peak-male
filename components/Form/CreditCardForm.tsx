@@ -78,7 +78,7 @@ const CreditCardForm = ({formData, setFormData}: props) => {
             </div>
 
             <div className={`${styles.row}`} style={{ width: '100%', justifyContent: 'space-between' }}>
-                <div className={`${checkout_styles.frmFlds}`} style={{ width: "30%" }}>
+                <div className={`${checkout_styles.frmFlds}`} style={{ width: "32%" }}>
                     <label htmlFor="zip" className="fl-label">
                         MM
                     </label>
@@ -93,7 +93,7 @@ const CreditCardForm = ({formData, setFormData}: props) => {
                         data-placeholder="MM"
                     />
                 </div>
-                <div className={`${checkout_styles.frmFlds}`} style={{ width: "30%" }}>
+                <div className={`${checkout_styles.frmFlds}`} style={{ width: "32%" }}>
                     <label htmlFor="zip" className="fl-label">
                         YY
                     </label>
@@ -109,7 +109,7 @@ const CreditCardForm = ({formData, setFormData}: props) => {
                     />
                 </div>
 
-                <div className={`${checkout_styles.frmFlds}`} style={{ width: "30%" }}>
+                <div className={`${checkout_styles.frmFlds}`} style={{ width: "32%" }}>
                     <label htmlFor="zip" className="fl-label">
                         CCV
                     </label>
