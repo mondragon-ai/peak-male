@@ -438,7 +438,6 @@ export default function Home() {
   );
 }
 
-
 export async function getServerSideProps({  }) {
   sendPageViewEvent("LANDING");
   return { props: {} };
