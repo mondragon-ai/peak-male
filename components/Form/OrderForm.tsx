@@ -261,7 +261,7 @@ function OrderForm({
                 <span className={styles.PriceUnit}>/per bottle</span>
               </p>
               <p className={styles.pkgtxt1}>You Save $30</p>
-              <p className={styles.pkgprc1}><span className={styles.strikeout}>$89</span> <strong>$59</strong></p>
+              <p className={styles.pkgprc1}><span className={styles.strikeout}>$89</span> <strong>{isSubbed ? "$59" : "$69"}</strong></p>
             </div>
           </div>
 
@@ -281,7 +281,7 @@ function OrderForm({
                 <Image src="https://hitsdesignclients.com/Peak-Male-new/images/chk.png" alt="" height={50} width={50} style={{height: "auto", width: "20px"}}/> Free Usa Shipping</span>
               </p>
               <p className={styles.pkgtxt1}><span style={{fontWeight: "800"}}>55% OFF</span> - You Save $300</p>
-              <p className={styles.pkgprc1}><span className={styles.strikeout}>$534</span> <strong>$234</strong></p>
+              <p className={styles.pkgprc1}><span className={styles.strikeout}>$534</span> <strong>{isSubbed ? "$234" : "$294"}</strong></p>
             </div>
           </div>
 
@@ -302,7 +302,7 @@ function OrderForm({
                 <Image src="https://hitsdesignclients.com/Peak-Male-new/images/chk.png" alt="" height={50} width={50} style={{height: "auto", width: "20px"}}/> Free Usa Shipping</span>
               </p>
               <p className={styles.pkgtxt1}><span style={{fontWeight: "800"}}>45% OFF</span> - You Save $120</p>
-              <p className={styles.pkgprc1}><span className={styles.strikeout}>$267</span> <strong>$147</strong></p>
+              <p className={styles.pkgprc1}><span className={styles.strikeout}>$267</span> <strong>{isSubbed ? "$147" : "$177"}</strong></p>
             </div>
           </div>
         </div>

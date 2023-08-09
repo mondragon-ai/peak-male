@@ -188,24 +188,18 @@ export default function Home() {
                 {/* GUARANTEE || TEXT */}
                 {windowWidth > 720 ? <div className={`${styles.row} ${styles.badges}`}>
                   <div>
-                    <Image src={"https://hitsdesignclients.com/Peak-Male-new/images/s1seal3.png"} 
+                    <img src={"https://hitsdesignclients.com/Peak-Male-new/images/s1seal3.png"} 
                       alt={""}
-                      width={60}
-                      height={60}
                       style={{width: "100%", height: "auto"}} />
                   </div>
                   <div>
-                    <Image src={"https://hitsdesignclients.com/Peak-Male-new/images/s1seal2.png"} 
+                    <img src={"https://hitsdesignclients.com/Peak-Male-new/images/s1seal2.png"} 
                       alt={""}
-                      width={60}
-                      height={60}
                       style={{width: "100%", height: "auto"}} />
                   </div>
                   <div>
-                    <Image src={"https://hitsdesignclients.com/Peak-Male-new/images/s1seal1.png"} 
+                    <img src={"https://hitsdesignclients.com/Peak-Male-new/images/s1seal1.png"} 
                       alt={""}
-                      width={60}
-                      height={60}
                       style={{width: "100%", height: "auto"}} />
                   </div>
                   <div>

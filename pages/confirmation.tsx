@@ -60,8 +60,8 @@ const Confirmation = () => {
     setOrder((prevFormData) => ({
       ...prevFormData,
       product: product || "",
-      isSubbed: Boolean(isSubbed || false),
-      upsell: Boolean(upsell || false),
+      isSubbed: isSubbed == "true",
+      upsell: upsell == "true",
       customer: customer ? customer : {} as Customer,
       shipping: shipping ? shipping : {} as BillingAddress,
       billing: billing ? billing : {} as BillingAddress,
@@ -180,11 +180,11 @@ const Confirmation = () => {
                     </div>
                     <div className={confirmation_styles.prcRow}>
                       <p>Shipping & Handling:</p>
-                      <span>$0.00</span>
+                      <span>{order.product == "ONE" ? "$5.99" : "$0.00"}</span>
                     </div>
                     <div className={`${confirmation_styles.prcRow}  ${confirmation_styles.total}`} style={{fontSize: "19px", fontWeight: 500}}>
                       <p>Total:</p>
-                      <span>{order.product == "ONE" ? "$"+(ONE+TOTAL).toFixed(2) : order.product == "THREE" ? "$"+(THREE+TOTAL).toFixed(2) : order.product == "SIX" ? "$"+(SIX+TOTAL).toFixed(2) : "$0.00"}</span>
+                      <span>{order.product == "ONE" ? "$"+(ONE+TOTAL+5.99).toFixed(2) : order.product == "THREE" ? "$"+(THREE+TOTAL).toFixed(2) : order.product == "SIX" ? "$"+(SIX+TOTAL).toFixed(2) : "$0.00"}</span>
                     </div>
                   </div>
                 </div>

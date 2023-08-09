@@ -62,9 +62,9 @@ const CreditCardForm = ({formData, setFormData}: props) => {
     return (
         <div>
             <div className={``}>
-                <label htmlFor="zip" className="fl-label">
+                {/* <label htmlFor="zip" className="fl-label">
                     Card Number
-                </label>
+                </label> */}
                 <input
                     onChange={(e) => handleCardNumberChange(e)}
                     type="text"
@@ -79,9 +79,9 @@ const CreditCardForm = ({formData, setFormData}: props) => {
 
             <div className={`${styles.row}`} style={{ width: '100%', justifyContent: 'space-between' }}>
                 <div className={`${checkout_styles.frmFlds}`} style={{ width: "32%" }}>
-                    <label htmlFor="zip" className="fl-label">
+                    {/* <label htmlFor="zip" className="fl-label">
                         MM
-                    </label>
+                    </label> */}
                     <input
                         onChange={handleMonthChange}
                         type="text"
@@ -94,9 +94,9 @@ const CreditCardForm = ({formData, setFormData}: props) => {
                     />
                 </div>
                 <div className={`${checkout_styles.frmFlds}`} style={{ width: "32%" }}>
-                    <label htmlFor="zip" className="fl-label">
+                    {/* <label htmlFor="zip" className="fl-label">
                         YY
-                    </label>
+                    </label> */}
                     <input
                         onChange={handleYearChange}
                         type="text"
@@ -110,9 +110,9 @@ const CreditCardForm = ({formData, setFormData}: props) => {
                 </div>
 
                 <div className={`${checkout_styles.frmFlds}`} style={{ width: "32%" }}>
-                    <label htmlFor="zip" className="fl-label">
+                    {/* <label htmlFor="zip" className="fl-label">
                         CCV
-                    </label>
+                    </label> */}
                     <input
                         onChange={handleCcvChange}
                         type="text"

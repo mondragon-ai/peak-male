@@ -156,7 +156,9 @@
     width: 48% !important;
 }
 
-.frmFlds input {
+.frmFlds input, 
+.frmFlds option, 
+.frmFlds select {
     font-family: "ApercuPro";
     color: #333333;
 }
@@ -196,8 +198,8 @@
     padding: 10px 15px;
     border-radius: 5px;
     color: #000;
-    font-family: 'Roboto', sans-serif;
-    font-weight: normal;
+    font-family: 'ApercuPro', sans-serif;
+    font-weight: 200;
     -webkit-transition: all 0.2s ease-out;
     transition: all 0.2s ease-out;
     box-sizing: border-box;
@@ -556,7 +558,7 @@
     background: #fff;
     display: inline-block;
     vertical-align: middle;
-    margin-top: -18px;
+    margin-top: -30px;
     color: #000000;
     font-size: 16px;
     line-height: 18px;

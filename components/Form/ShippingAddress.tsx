@@ -188,9 +188,9 @@ const ShippingAddressForm: React.FC<props> = ({formData, setFormData}) => {
                             onChange={(e) => setFormData({ ...formData, shipping: { ...formData.shipping, country: e.target.value } })}
                             type="text"
                             className={`${checkout_styles.inputFlds}`}
-                            placeholder="US"
+                            placeholder="USA"
                             id="country"
-                            data-placeholder="US"
+                            data-placeholder="USA"
                             disabled
                             />
                     </div>

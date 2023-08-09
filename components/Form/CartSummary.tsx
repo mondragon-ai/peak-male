@@ -6,6 +6,7 @@ import checkout_styles from '../../styles/Checkout.module.css';
 interface OrderSummaryProps {
   formData: {
     product: 'ONE' | 'THREE' | 'SIX';
+    isSubbed: boolean,
   };
   ONE: string;
   THREE: string; 
@@ -111,7 +112,7 @@ const CartSummary: React.FC<OrderSummaryProps> = ({
                             {formData.product === 'ONE' ? '' : '$5.99'}
                         </span>
                         <strong>
-                            {formData.product === 'ONE' ? '$5.99' : 'FREE'}
+                            &nbsp;{formData.product === 'ONE' ? '$5.99' : ' FREE'}
                         </strong>
                         </td>
                     </tr>
@@ -128,7 +129,7 @@ const CartSummary: React.FC<OrderSummaryProps> = ({
                         </td>
                         {formData.product === 'ONE' ? (
                         <td align="right" className={checkout_styles.totTxtL}>
-                            <span>{ONE}</span>
+                            <span>{!formData.isSubbed ? "$74.99" : "$64.99"}</span>
                         </td>
                         ) : formData.product === 'THREE' ? (
                         <td align="right" className={checkout_styles.totTxtL}>
