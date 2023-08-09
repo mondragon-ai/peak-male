@@ -40,6 +40,7 @@ const Upsell = () => {
   const [selectedImg, selectImage] = useState("https://hitsdesignclients.com/Peak-Male-new/images/up-slide1.png")
   const [globalState, setGlobalState] = useContext(Context);
   const [isLoading, setIsLoading] = useState(true);
+  const [btnLoading, setBtn] = useState(true);
   const [state, setState] = useState({
     line_items: [] as LineItem[],
     customer: {
@@ -111,7 +112,7 @@ const Upsell = () => {
   
     // Set Loading
     setTimeout(() => {
-      setIsLoading(false);
+      setBtn(false);
     }, 20000);
 
     // let price = 0;
@@ -207,6 +208,9 @@ const Upsell = () => {
     }));
   }, []);
 
+  setTimeout(() => {
+    
+  }, 20000);
 
   return (
     <div>
@@ -249,7 +253,7 @@ const Upsell = () => {
             <div className={upsell_styles.upsellBox}>
               <div className={upsell_styles.upsellTopStrip}>
                 <p className={upsell_styles.upText1}>Hold Up! Exclusive Offer To Compliment Your Order!</p>
-                <p className={upsell_styles.upText2}>Add Thermogenic Weight Loss Support at 45% Off</p>
+                <p className={upsell_styles.upText2}>Add Thermogenic Weight Loss Support at 50% Off</p>
                 <p className={upsell_styles.upText3}>Lorem quis bibendum auctor, <br className={upsell_styles.forMob} />nisi elit consequat ipsum!</p>
               </div>
 
@@ -259,7 +263,7 @@ const Upsell = () => {
                     <div className={upsell_styles.petBrushColHdr}>
                       <p>CLAIM ANOTHER DEAL</p>
                       <h3>Xtreme Fat Burner</h3>
-                      <span>45% <br /> Off</span>
+                      <span>50% <br /> Off</span>
                     </div>
                     <div className={`${upsell_styles.upSlideDiv} ${upsell_styles.slickSlider}`}>
                       <div className={upsell_styles.slickList}>
@@ -306,10 +310,10 @@ const Upsell = () => {
                     <li>Duis sed odio sit amet nibh nec</li>
                   </ul>
                   <div className={upsell_styles.upPrcRow}>
-                    <p className={upsell_styles.upPrc}><span>$24.99</span> <small>(SAVE 45%)</small></p>
+                    <p className={upsell_styles.upPrc}><span>$34.50</span> <small>(SAVE 50%)</small></p>
                     <p className={upsell_styles.dealReserve}>Deal reserved for: <strong><span style={{color: "red"}}>{renderCountdown()}</span> min</strong></p>
                   </div>
-                  {!isLoading ? <a onClick={() => purchaseUpsell()} className={upsell_styles.upBtn}>Yes, Upgrade my Order with 1-Click-Buy! </a> : <a></a>}
+                  {!btnLoading ? <a onClick={() => purchaseUpsell()} className={upsell_styles.upBtn}>{isLoading ? "loading..." : "Yes, Upgrade my Order with 1-Click-Buy!"} </a> : <a className={upsell_styles.upBtn}>Checking Availability... </a>}
                   <p className={upsell_styles.moneyBkText}>
                     <img src="https://hitsdesignclients.com/Peak-Male-new/images/money-bk-seal.png" /> 30 Day Money Back Guarantee&nbsp;</p>
                   <div className={upsell_styles.deviderCp}></div>

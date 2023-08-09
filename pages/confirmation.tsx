@@ -83,7 +83,7 @@ const Confirmation = () => {
   const ONE = order.isSubbed ? 59.00 : 69.00;
   const THREE = order.isSubbed ? (49.00*3) : (59.00*3);
   const SIX = order.isSubbed ? (39.00*6): (49.00*6);
-  const TOTAL = order.upsell ? 24.00 : 0.00;
+  const TOTAL = order.upsell ? 34.50 : 0.00;
   const formattedDate = getFormattedDate();   
 
   return (
