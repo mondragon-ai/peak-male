@@ -27,7 +27,7 @@ const upsell_product = {
   options1: "1 Bottle",
   options2: "",
   options3: "",
-  weight: 0.15,
+  weight: 5.0,
   variant_id: 45756357181736,
   quantity: 1,
   product_id: "",
