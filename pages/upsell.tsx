@@ -21,7 +21,7 @@ const upsell_product = {
   high_risk: true,
   title: "Xtreme Fat Burner",
   sku: "XFB-1-bottle",
-  price: 2400,
+  price: 3450,
   compare_at_price: 0,
   handle: "xtreme-fat-brner",
   options1: "1 Bottle",
