@@ -169,7 +169,7 @@ const Confirmation = () => {
                         <p className={confirmation_styles.tyPrdName}>Thermogenic Fat Burner </p>
                       </div>
                       <div className={confirmation_styles.tyCol3}>1</div>
-                      <div className={confirmation_styles.tyCol4}>$24.99</div>
+                      <div className={confirmation_styles.tyCol4}>$34.50</div>
                     </div> : null}
                   </div>
 

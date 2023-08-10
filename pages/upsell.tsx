@@ -39,7 +39,7 @@ const Upsell = () => {
   const [countdown, setCountdown] = useState(600);
   const [selectedImg, selectImage] = useState("https://hitsdesignclients.com/Peak-Male-new/images/up-slide1.png")
   const [globalState, setGlobalState] = useContext(Context);
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
   const [btnLoading, setBtn] = useState(true);
   const [state, setState] = useState({
     line_items: [] as LineItem[],
@@ -137,6 +137,7 @@ const Upsell = () => {
       setIsLoading(true);
       const payload = createPayloadFromOrder();
       console.log(payload);
+      console.log(isLoading);
       const URL = true ? "https://us-central1-impowered-production.cloudfunctions.net/funnels" : "http://127.0.0.1:5001/impowered-production/us-central1/funnels";
 
       if (!isLoading) {
@@ -157,9 +158,11 @@ const Upsell = () => {
           });
   
           Router.push(`/confirmation`);
+          setIsLoading(false);
           return;
+        } else {
+          setIsLoading(false);
         }
-        setIsLoading(false);
       };
 
       // throw new Error(`We're sorry, you couldn't sign up. Please try refreshing the page and try again.`);
@@ -313,7 +316,7 @@ const Upsell = () => {
                     <p className={upsell_styles.upPrc}><span>$34.50</span> <small>(SAVE 50%)</small></p>
                     <p className={upsell_styles.dealReserve}>Deal reserved for: <strong><span style={{color: "red"}}>{renderCountdown()}</span> min</strong></p>
                   </div>
-                  {!btnLoading ? <a onClick={() => purchaseUpsell()} className={upsell_styles.upBtn}>{isLoading ? "loading..." : "Yes, Upgrade my Order with 1-Click-Buy!"} </a> : <a className={upsell_styles.upBtn}>Checking Availability... </a>}
+                  {!btnLoading ? <a onClick={() => purchaseUpsell()} className={upsell_styles.upBtn}>{isLoading ? "loading..." : "Yes, Upgrade my Order with 1-Click-Buy!"} </a> : <a className={upsell_styles.upBtn} style={{opacity: "0.8", cursor: "not-allowed"}}>Checking Availability... </a>}
                   <p className={upsell_styles.moneyBkText}>
                     <img src="https://hitsdesignclients.com/Peak-Male-new/images/money-bk-seal.png" /> 30 Day Money Back Guarantee&nbsp;</p>
                   <div className={upsell_styles.deviderCp}></div>
