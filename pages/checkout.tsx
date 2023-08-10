@@ -203,7 +203,7 @@ const CheckOut = () => {
             high_risk: true,
             title: "1 Bottle",
             sku: "PM-1-B",
-            price: isSubbed ? 4900 : 5900,
+            price: isSubbed ? 5900 : 6900,
             compare_at_price: 0,
             handle: "1-bottle",
             options1: "1 Bottle",
