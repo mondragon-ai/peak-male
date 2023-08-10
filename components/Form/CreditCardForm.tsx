@@ -37,16 +37,34 @@ const CreditCardForm = ({formData, setFormData}: props) => {
     const handleCcvChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const inputVal = event.target.value.replace(/\D/g, ''); 
         setFormData({ ...formData, cc_info: { ...formData.cc_info, ccv: Number(inputVal) } });
-        const formattedCcv = inputVal.slice(0, 3);
+        const formattedCcv = inputVal.slice(0, 4);
         setCcv(formattedCcv);
     };
 
+    // const formatCardNumber = (inputVal: string) => {
+    //     const formatted = inputVal
+    //     .slice(0, 16) // Limit input to 16 digits for credit card number
+    //     .replace(/(\d{4})/g, '$1-') // Add hyphens after every 4 digits
+    //     .slice(0, 19); // Limit the total length to 19 characters (XXXX-XXXX-XXXX-XXXX)
+    //     return formatted;
+    // };
+
+
     const formatCardNumber = (inputVal: string) => {
-        const formatted = inputVal
-        .slice(0, 16) // Limit input to 16 digits for credit card number
-        .replace(/(\d{4})/g, '$1-') // Add hyphens after every 4 digits
-        .slice(0, 19); // Limit the total length to 19 characters (XXXX-XXXX-XXXX-XXXX)
-        return formatted;
+        const isAmex = /^(3[47]|34|37)\d*$/.test(inputVal);
+    
+        console.log(isAmex);
+        if (isAmex) {
+            const formatted = inputVal
+                .slice(0, 15) // Limit input to 15 digits for Amex card number
+                .replace(/(\d{4})(\d{6})(\d{5})/g, '$1-$2-$3'); // Separate after first 4, then 6, and last 5 digits
+            return formatted;
+        } else {
+            const formatted = inputVal
+                .slice(0, 16) // Limit input to 16 digits for other card numbers
+                .replace(/(\d{4})(?!$)/g, '$1-'); // Add separator after every 4 digits
+            return formatted;
+        }
     };
 
     const formatMonth = (inputVal: string) => {
