@@ -278,7 +278,8 @@ const CheckOut = () => {
         fun_uid: process.env.NEXT_PUBLIC_IMPOWERED_FUNNEL,
         external_type: "SHOPIFY",
         shopify_shop: "optimalhuman",
-        cc_info: encryptedData
+        cc_info: encryptedData,
+        single_form: true
       };
     } catch (error) {
       console.log(error);
