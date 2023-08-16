@@ -257,7 +257,7 @@ const Upsell = () => {
               <div className={upsell_styles.upsellTopStrip}>
                 <p className={upsell_styles.upText1}>Hold Up! Exclusive Offer To Compliment Your Order!</p>
                 <p className={upsell_styles.upText2}>Add Thermogenic Weight Loss Support at 50% Off</p>
-                <p className={upsell_styles.upText3}>Lorem quis bibendum auctor, <br className={upsell_styles.forMob} />nisi elit consequat ipsum!</p>
+                <p className={upsell_styles.upText3}>Enhance your reuslts, <br className={upsell_styles.forMob} />get the shredded body you want!</p>
               </div>
 
               <div className={upsell_styles.upsellContent}>
@@ -305,12 +305,12 @@ const Upsell = () => {
                       <img src="https://hitsdesignclients.com/Peak-Male-new/images/hourglass.png" className={upsell_styles.hourglass} />
                       <p>One-time Offer - Only available with this current order. <span>You will never see this again.</span></p>
                   </div>
-                  <p className={upsell_styles.upRghtText1}>Lorem quis bibendum auctor, nisi elit consequat ipsum, nec sagittis sem nibh id elit. Duis sed odio sit amet nibh vulputate cursus a sit amet mauris. Nam nec tellus a odio tincidunt auctor a ornare odio.</p>
+                  <p className={upsell_styles.upRghtText1}>Elevate your weight loss journey with Optimal Human's all-natural Thermogenic Fat Burner. Designed to harness the power of nature, our Thermogenic is meticulously crafted to support your body's metabolism and enhance your fat-burning potential. Our formula combines the latest scientific research with the purity of natural ingredients, making it ideal for those striving to achieve their fitness goals.</p>
                   <ul className={upsell_styles.upRgtList}>
-                    <li>Lorem quis bibendum auctor nisi</li>
-                    <li>Nisi elit consequat ipsum nec</li>
-                    <li>Nec sagittis sem nibh id elit ipsum</li>
-                    <li>Duis sed odio sit amet nibh nec</li>
+                    <li>Ignites Metabolism</li>
+                    <li>Enhances Energy Levels</li>
+                    <li>Maintains Lean Muscle</li>
+                    <li>Promotes Focus and Mood</li>
                   </ul>
                   <div className={upsell_styles.upPrcRow}>
                     <p className={upsell_styles.upPrc}><span>$34.50</span> <small>(SAVE 50%)</small></p>

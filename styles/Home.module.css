@@ -368,6 +368,18 @@
   width: auto;
   margin: 0;
 }
+.btnTxt1:before {
+  display: inline-block;
+  vertical-align: middle;
+  margin: -1px 7px 0 0;
+  width: 9px;
+  height: 9px;
+  background: #11b142;
+  border-radius: 50%;
+  content: "";
+  animation: fade 1s ease-in-out infinite;
+}
+
 @keyframes fade {
   0% {
     opacity: 1;
@@ -379,6 +391,7 @@
     opacity: 1;
   }
 }
+
 
 @keyframes rotateP {
   0% {
@@ -392,17 +405,6 @@
   }
 }
 
-.btnTxt1:before {
-  display: inline-block;
-  vertical-align: middle;
-  margin: -1px 7px 0 0;
-  width: 9px;
-  height: 9px;
-  background: #11b142;
-  border-radius: 50%;
-  content: "";
-  animation: fade 1s ease-in-out infinite;
-}
 
 .hourglass {
   display: inline-block;
@@ -1240,6 +1242,7 @@
   justify-content: center;
   width: 100%;
 }
+
 .topContainerLeft {
   padding: 1rem;
   width: 45%;
