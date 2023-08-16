@@ -113,7 +113,7 @@ const Upsell = () => {
     // Set Loading
     setTimeout(() => {
       setBtn(false);
-    }, 20000);
+    }, 9000);
 
     // let price = 0;
 
@@ -211,10 +211,6 @@ const Upsell = () => {
     }));
   }, []);
 
-  setTimeout(() => {
-    
-  }, 20000);
-
   return (
     <div>
       <Head>
@@ -257,7 +253,7 @@ const Upsell = () => {
               <div className={upsell_styles.upsellTopStrip}>
                 <p className={upsell_styles.upText1}>Hold Up! Exclusive Offer To Compliment Your Order!</p>
                 <p className={upsell_styles.upText2}>Add Thermogenic Weight Loss Support at 50% Off</p>
-                <p className={upsell_styles.upText3}>Enhance your reuslts, <br className={upsell_styles.forMob} />get the shredded body you want!</p>
+                <p className={upsell_styles.upText3}>Boost your metabolism <br className={upsell_styles.forMob} />and feel the burn!</p>
               </div>
 
               <div className={upsell_styles.upsellContent}>
