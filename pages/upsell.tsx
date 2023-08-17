@@ -113,7 +113,7 @@ const Upsell = () => {
     // Set Loading
     setTimeout(() => {
       setBtn(false);
-    }, 9000);
+    }, 5000);
 
     // let price = 0;
 
