@@ -5,9 +5,6 @@ import { useEffect, useState } from "react";
 import Footer from "@/components/Footer";
 import OrderFormContainer, { InitialValuesType }  from "@/components/Form/FormSection";
 import Accordion from "@/components/global/Accordian";
-// import { sendPageViewEvent } from "@/components/lib/analytics";
-// import { saveItem } from "@/context/storage";
-// import { imPoweredRequest } from "@/components/lib/request";
 import { LineItem } from "@/components/Form/OrderForm";
 import Head from "next/head";
 import StaticButton from "@/components/Button/StaticBtn";
@@ -53,6 +50,7 @@ export default function Home() {
     localStorage.setItem("customer", "");
     localStorage.setItem("draft_order", "");
     // fetchData();
+    sendPageViewEvent("LANDING");
     //Send Analytics to imPowered
     // sendPageViewEvent("OPT_IN");
   }, []);
@@ -433,6 +431,6 @@ export default function Home() {
 }
 
 export async function getServerSideProps({  }) {
-  sendPageViewEvent("LANDING");
+  await sendPageViewEvent("LANDING");
   return { props: {} };
 }

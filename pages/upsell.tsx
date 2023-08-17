@@ -122,6 +122,7 @@ const Upsell = () => {
     // }) : [];
 
     // push 3rd party analytics
+    sendPageViewEvent("UPSELL");
     // gtag.twitterEvent(email, price);
     // gtag.event('conversion', {
     //   'send_to': 'AW-10793712364/Knd8CNuBkpIYEOz165oo',
@@ -344,6 +345,6 @@ const Upsell = () => {
 export default Upsell;
 
 export async function getServerSideProps({  }) {
-  sendPageViewEvent("UPSELL");
+  await sendPageViewEvent("UPSELL");
   return { props: {} };
 }

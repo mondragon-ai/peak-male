@@ -68,7 +68,7 @@ const Confirmation = () => {
       orderID: orderID ? orderID.substring(4,orderID.length) : ""
     }));
 
-    // sendPageViewEvent("CONFIRMATION"); // send page view event to google analytics
+    sendPageViewEvent("CONFIRMATION"); // send page view event to google analytics
 
     // push 3rd party analytics
     // gtags.twitterEvent(email, price);
@@ -327,6 +327,6 @@ const Confirmation = () => {
 export default Confirmation;
 
 export async function getServerSideProps({  }) {
-  sendPageViewEvent("CONFIRMATION");
+  await sendPageViewEvent("CONFIRMATION");
   return { props: {} };
 }

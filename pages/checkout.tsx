@@ -326,6 +326,7 @@ const CheckOut = () => {
       isSubbed: isSubbed || false,
       product: p || 'THREE'
     }));
+    sendPageViewEvent("OPT_IN");
   }, []);
 
 
@@ -538,6 +539,6 @@ const CheckOut = () => {
 export default CheckOut;
 
 export async function getServerSideProps({  }) {
-  sendPageViewEvent("OPT_IN");
+  await sendPageViewEvent("OPT_IN");
   return { props: {} };
 }
