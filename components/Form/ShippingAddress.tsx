@@ -199,7 +199,7 @@ const ShippingAddressForm: React.FC<props> = ({formData, setFormData}) => {
 
             <div className={`${checkout_styles.frmFlds}`}>
                 <div className={``}>
-                    <label htmlFor="last_name" className="fl-label">
+                    <label htmlFor="Phone" className="fl-label">
                     Phone
                     </label>
                     <input

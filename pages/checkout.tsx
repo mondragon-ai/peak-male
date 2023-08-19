@@ -58,7 +58,8 @@ export interface FormData {
     state: string,
     zip: string,
     country: string | "USA",
-    phone: string
+    phone: string,
+    name: string,
   },
   billing: {
     line1: string,
@@ -66,7 +67,9 @@ export interface FormData {
     city: string,
     state: string,
     zip: string,
-    country: string | "USA"
+    country: string | "USA",
+    phone: string,
+    name: string,
   },
   external_type: "SHOPIFY",
   amount: string;
@@ -99,7 +102,8 @@ const formDataInitialState: FormData = {
     state: "",
     zip: "",
     country: "USA",
-    phone: ""
+    phone: "",
+    name: "",
   },
   billing: {
     line1: "",
@@ -107,7 +111,9 @@ const formDataInitialState: FormData = {
     city: "",
     state: "",
     zip: "",
-    country: "USA"
+    country: "USA",
+    phone: "",
+    name: ""
   },
   external_type: "SHOPIFY",
   amount: "",
