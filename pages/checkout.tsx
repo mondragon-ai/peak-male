@@ -187,19 +187,19 @@ const CheckOut = () => {
       
       let product = {
         high_risk: true,
-        title: "",
-        sku: "",
-        price: isSubbed ? 0 : 0,
+        title: "3 Bottles",
+        sku: "PM-3-B",
+        price: isSubbed ? (4900*3) : (5900*3),
         compare_at_price: 0,
-        handle: "",
-        options1: "",
+        handle: "3-bottles",
+        options1: "3 Bottles",
         options2: "",
         options3: "",
-        weight: 5.0,
-        variant_id: 0,
+        weight: 15.0,
+        variant_id:  isSubbed ? 45756263170344 : 45361886003496,
         quantity: 1,
         product_id: "",
-        external_id: 0 as number | null ,
+        external_id: isSubbed ? 1235 : null,
         funnel_step: "OPT_IN",
         is_recurring: isSubbed
       };
