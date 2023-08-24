@@ -178,6 +178,8 @@ const CheckOut = () => {
   const createPayloadFromOrder = (token: string) => {
     try {
       const { customer, shipping, billing, cc_info} = formData;
+      const {first_name, last_name} = customer;
+      const name = (first_name !== "" ? first_name : "") + " " + (last_name !== "" ? last_name : "");
       const isSubb_text = localStorage.getItem("subscribed");
       const p = localStorage.getItem("product");
       const isSubbed = isSubb_text == "true" ? true : isSubb_text == "false" ? false : false;
@@ -274,12 +276,12 @@ const CheckOut = () => {
         payment_method: "",
         fun_uuid: process.env.NEXT_PUBLIC_IMPOWERED_FUNNEL,
         high_risk: true,
-        billing_address: differentBilling ? {...billing, type: "BILLING"} : {...shipping, type: "BOTH"},
+        billing_address: differentBilling ? {...billing, name: name, type: "BILLING"} : {...shipping, name: name, type: "BOTH"},
         bump: false,
         payment_token: token || "",
         security_key: "2hNZ5C543yfQH59e9zcEd33QDZw5JcvV",  
         customer: {...customer, token: token || ""},
-        shipping:  differentBilling ? {...shipping, type: "SHIPPING"} : {...shipping, type: "BOTH"},
+        shipping:  differentBilling ? {...shipping, name: name, type: "SHIPPING"} : {...shipping, name: name,  type: "BOTH"},
         line_items: [product],
         fun_uid: process.env.NEXT_PUBLIC_IMPOWERED_FUNNEL,
         external_type: "SHOPIFY",
