@@ -8,7 +8,7 @@ interface MobileOptinFormProps {
     isSubbed: any;
     productSelected: any;
     setProduct: any;
-    navigateToCheckout: () => void;
+    navigateToCheckout: (product: string) => void;
     isLoading: boolean
 }
 
@@ -143,7 +143,7 @@ const MobileOptinForm: React.FC<MobileOptinFormProps> = ({setSub, isSubbed, setP
             </div>
             </div>
         </div>
-        <div  onClick={() => navigateToCheckout()} className={`${styles.row}`} style={{margin: "0px auto",width: "100%"}}>
+        <div  onClick={() => navigateToCheckout("ONE")} className={`${styles.row}`} style={{margin: "0px auto",width: "100%"}}>
             <button 
             disabled={isLoading}
             style={{
@@ -190,7 +190,7 @@ const MobileOptinForm: React.FC<MobileOptinFormProps> = ({setSub, isSubbed, setP
             </div>
             </div>
         </div>
-        <div onClick={() => navigateToCheckout()} className={`${styles.row}`} style={{margin: "0px auto",width: "100%"}}>
+        <div onClick={() => navigateToCheckout("THREE")} className={`${styles.row}`} style={{margin: "0px auto",width: "100%"}}>
             <button 
             disabled={isLoading}
             style={{
@@ -240,7 +240,7 @@ const MobileOptinForm: React.FC<MobileOptinFormProps> = ({setSub, isSubbed, setP
             </div>
             </div>
         </div>
-        <div onClick={() => navigateToCheckout()} className={`${styles.row}`} style={{margin: "0px auto",width: "100%"}}>
+        <div onClick={() => navigateToCheckout("SIX")} className={`${styles.row}`} style={{margin: "0px auto",width: "100%"}}>
             <button 
             disabled={isLoading}
             style={{

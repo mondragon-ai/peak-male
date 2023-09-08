@@ -60,11 +60,12 @@ export default function Home() {
     setImage(img);
   };
 
-  const navigateToCheckout = async () => {
+  const navigateToCheckout = async (productSelect?: string) => {
+    const product = productSelect !== "" ? productSelect : productSelected;
     setIsLoading(true);
     if (window) {
       localStorage.setItem("subscribed", String(isSubbed));
-      localStorage.setItem("product", String(productSelected));
+      localStorage.setItem("product", String(product));
       window.location.href = "/checkout";
     }
     setIsLoading(false);
