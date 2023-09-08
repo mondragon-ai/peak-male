@@ -145,7 +145,7 @@ const CheckOut = () => {
   const handlePurchase = async (token: string) => {
     try {
       const payload = createPayloadFromOrder(token);
-      const URL = false ? "https://us-central1-impowered-production.cloudfunctions.net/funnels" : "http://127.0.0.1:5001/impowered-production/us-central1/funnels";
+      const URL = true ? "https://us-central1-impowered-production.cloudfunctions.net/funnels" : "http://127.0.0.1:5001/impowered-production/us-central1/funnels";
     
       // Uncomment and modify the payload creation logic when using imPoweredRequest
       const response = await imPoweredRequest(URL+"/payments/checkout/fast", "POST", payload);
