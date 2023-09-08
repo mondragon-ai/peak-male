@@ -116,7 +116,7 @@ const MobileOptinForm: React.FC<MobileOptinFormProps> = ({setSub, isSubbed, setP
         One Time <br />Purchase
         </div>
         <div onClick={() => setSub(true)} className={`${styles.subBtn}`} style={{color: isSubbed ? "white" : "", margin: 0, background: isSubbed ? "#17378a url('https://hitsdesignclients.com/Peak-Male-new/images/selected.png') 15px center no-repeat" : "#fff url('https://hitsdesignclients.com/Peak-Male-new/images/select.png') 15px center no-repeat", border: isSubbed ? "1px solid #17378a" : ""}}>
-        Subscribe & <br /><span>Save 20%</span>
+        Subscribe & <br /><span>Save</span>
         </div>
     </div>
 
